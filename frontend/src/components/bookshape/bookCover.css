@@ -1,0 +1,45 @@
+body {
+    background-image: url(/Users/gwangsoo/Desktop/G-Diary/frontend/public/images/background.png);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.coverControl {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+}
+
+.allControl {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -407px 0 0 -365px;
+}
+
+.left {
+    background-color: #535353;
+    float: left;
+    width: 55px;
+    height: 814px;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    box-shadow: 5px 5px 3px rgba(0, 0, 0, 0.38);
+}
+
+.right {
+    background-color: white;
+    float: left;
+    width: 675px;
+    height: 814px;
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
+    box-shadow: 5px 5px 3px rgba(0, 0, 0, 0.38);
+}
+
+.year {
+    border-bottom: solid 2px black;
+    font-size: 30px;
+    margin: 50px;
+}

@@ -1,0 +1,42 @@
+.title {
+    position: relative;
+    bottom: 256px;
+    right: 125px;
+    font-size: 100px;
+}
+
+.icon {
+    position: relative;
+    bottom: 420px;
+    right: 21px;
+}
+
+.signUpBtn {
+    position: relative;
+    bottom: 158px;
+    left: 77px;
+}
+
+.signInBtn {
+    position: relative;
+    bottom: 55px;
+    right: 65px;
+}
+
+.typeSignUp {
+    position: relative;
+    right: 296px;
+    bottom: 240px;
+}
+
+.typeSignIn {
+    position: relative;
+    bottom: 180px;
+    right: 200px;
+}
+
+.createAccountBtn {
+    position: relative;
+    bottom: 124px;
+    right: 150px;
+}
