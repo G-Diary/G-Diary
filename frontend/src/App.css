@@ -1,0 +1,86 @@
+/* 배경이미지 */
+body {
+    background-image: url(/Users/gwangsoo/Desktop/G-Diary/frontend/public/images/ss.png);
+    
+}
+
+/* 다이어리 표지 */
+.year {
+    position: relative;
+    width: 616px;
+    height: 30px;
+    border-bottom: black 2px solid;
+    left: 30px;
+    top: 30px;
+    font-size: 30px;
+} 
+
+.left {
+    width: 56px;
+    height: 814px;
+    background-color: black;
+    float: left;
+    margin-left: 354px;
+    margin-top: 96px;
+    border-bottom-left-radius: 15px;
+    border-top-left-radius: 15px;
+    box-shadow: 5px 5px 3px rgba(0, 0, 0, 0.38);
+    border: solid 5px black;
+}
+
+.right {
+    width: 676px;
+    height: 814px;
+    background-color: white;
+    float: left;
+    margin-top: 96px;
+    border-bottom-right-radius: 30px;
+    border-top-right-radius: 30px;
+    box-shadow: 5px 5px 3px rgba(0, 0, 0, 0.38);
+    border: solid 5px white;
+}
+
+/* LoggedOut 페이지에 사용된 링크 */
+.linkBox {
+    width: 45%;
+    margin: 10px auto;
+    display: flex;
+    text-align: center;
+}
+
+.link {
+    position: relative;
+    flex:1;
+    width:15%;
+    box-sizing: border-box;
+    font-size: 40px;
+    color: black;
+    text-decoration-line: none;
+    bottom: 160px;
+    left: 34px;
+}
+
+.title {
+    position: relative;
+    top: 204px;
+    right: 460px;
+    font-size: 100px;
+}
+
+.icon {
+    position: relative;
+    top: 100px;
+    right: 550px;
+}
+
+.signInBox, .signUpBtn, .signInBtn {
+    position: relative;
+    bottom: 480px;
+    left: 60px;
+}
+
+.signUpBtn {
+    position: relative;
+    left: 1000px;
+    
+}
