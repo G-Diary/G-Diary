@@ -1,0 +1,15 @@
+/*그림일기작성 페이지*/
+.writeContainer{
+    position: relative;
+}
+.book2Container{
+    height: 100vh;
+    display: flex;
+    position: absolute;
+    top: 0;
+    right: -200%;
+    bottom: 0;
+    left: -200%; 
+    justify-content: center;
+    align-items: center;
+}

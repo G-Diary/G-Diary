@@ -1,0 +1,11 @@
+/*화면 높이 100vh로 줄 때 생기는 스크롤 없애기*/
+html, body{
+    margin: 0;
+    height:100%;
+    width: 100%;
+    padding: 0;
+}
+body{
+    position: fixed;
+    overflow: hidden;
+}

@@ -1,7 +1,8 @@
 import React from 'react';
+import WriteGrim from './pages/WriteGrim';
 
 function App() {
-  return <div></div>;
+  return <div><WriteGrim /></div>;
 }
 
 export default App;

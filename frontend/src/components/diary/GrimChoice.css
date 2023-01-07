@@ -1,0 +1,47 @@
+.choiceContainer{
+    position: absolute;  
+    width: 600px;
+    height: 750px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 90;
+}
+
+.choicetitle{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 500px;
+    height: 80px;
+    font-size: 30px;
+}
+
+.choice{
+    width: 500px;   
+    height: 520px;
+    background:#B5B5B5;
+    border-radius: 10px;
+}
+
+.choiceButtonContainer{
+    width: 500px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+}
+
+.choicebutton{
+    width: 90px;
+    height: 35px;
+    background-color: transparent;
+    color: black;
+    border: 2px solid black;
+    border-radius: 20px;
+    text-align: center;
+    font-size: 17px;
+    padding-top: 0.3%;
+    margin-left: 1.5%;
+}
