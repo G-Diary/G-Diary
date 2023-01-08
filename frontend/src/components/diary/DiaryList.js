@@ -24,8 +24,8 @@ function DiaryList(){
         <Titlecontent></Titlecontent>
       </TitleContainer>
       <Canvas></Canvas>
-      <ChoiceButtonContainer style={{height: '20px' ,paddingTop:'1.5%', marginLeft:'2.2%'}}>
-        <Modebutton style={{width: '130px', height:'27px'}}>Post on SNS</Modebutton>
+      <ChoiceButtonContainer style={{height: '25px' ,marginTop:'2%', marginLeft:'2.2%'}}>
+        <Modebutton style={{width: '130px', height:'30px'}}>Post on SNS</Modebutton>
       </ChoiceButtonContainer>
       <Content><Manuscript /></Content>
     </DiviContainer>

@@ -11,21 +11,29 @@ function DiaryContent(){
           <Datetitle>DATE</Datetitle>
           <DateContent>23.01.07</DateContent>
           <Weathercontainer>
-            <BsBrightnessHighFill size="27" color='red' />
-            <BsFillCloudFill size="27" color="#4E5D79" />
-            <BsFillCloudRainFill size="26" color="#5A5A5A" style={{paddingTop: '1.5px'}} />
-            <BsFillCloudSnowFill size="25" color='#FFFAFA' style={{paddingTop: '2px'}}/>
+            <BsBrightnessHighFill size="27" color='red' 
+              onMouseOver={({target})=>target.style.color='#ff7e7e'}  
+              onMouseOut={({target})=>target.style.color='red'} />
+            <BsFillCloudFill size="27" color="#4E5D79" 
+              onMouseOver={({target})=>target.style.color='#7b869d'}  
+              onMouseOut={({target})=>target.style.color='#4E5D79'}/>
+            <BsFillCloudRainFill size="26" color="#5A5A5A" style={{paddingTop: '1.5px'}} 
+              onMouseOver={({target})=>target.style.color='#919191'}  
+              onMouseOut={({target})=>target.style.color='#5A5A5A'}/>
+            <BsFillCloudSnowFill size="25" color='#FFFAFA' style={{paddingTop: '2px'}}
+              onMouseOver={({target})=>target.style.color='#e2dfdf'}  
+              onMouseOut={({target})=>target.style.color='#FFFAFA'}/>
           </Weathercontainer>
         </Dateline>
       </DateContainer>
       <TitleContainer>
         <Title>Title: </Title>
-        <Titlecontent></Titlecontent>
+        <Titlecontent><input type="text" /></Titlecontent>
       </TitleContainer>
       <Canvas></Canvas>
       <ButtonContainer>
-        <Modebutton>그림모드</Modebutton>
-        <Modebutton>위치조정</Modebutton>
+        <Modebutton style={{width:'80px'}}>Drawing</Modebutton>
+        <Modebutton style={{width:'100px'}}>Reposition</Modebutton>
         <Savebutton>Save</Savebutton>
       </ButtonContainer>
       <Content><Manuscript /></Content>
@@ -59,7 +67,6 @@ export const Dateline=styled.div`
     width: 500px;
     height: 40px;
     background-color:#BCBCBC;
-    padding-top: 3px;
     display: flex;
     align-items: center;
     border-radius: 3px;
@@ -70,23 +77,23 @@ export const Datetitle=styled.p`
     width: 10%;
     font-size: 25px;
     text-align: center;
-    padding-top: 3px;
+    font-family:Comic Sans MS;
 `
 
 export const DateContent = styled.p`
     width: 25%;
-    font-size: 25px;
+    font-size: 23px;
     border: 2px solid transparent;
-    padding-top: 3px;
     border-radius: 30px;
     background: #D9D9D9;
-    margin-left: 3%;
+    margin-left: 6%;
     text-align: center;
     display: flex;
     align-items: center;
     justify-content: center;
     line-height: 90%;
     color: #959292;
+    font-family:Comic Sans MS;
 `
 
 export const Weathercontainer = styled.p`
@@ -108,6 +115,7 @@ export const TitleContainer = styled.div`
   align-items: center;
   border-top-left-radius: 3px;
   border-top=right-radius: 3px;
+  font-family:Comic Sans MS;
 `
 
 export const Title =styled.p`
@@ -115,14 +123,21 @@ export const Title =styled.p`
   width: 10%;
   text-align: left;
   font-size: 25px;
-  padding-top: 3px;
+  font-family:Comic Sans MS;
 `
 
 export const Titlecontent = styled.p`
   width: 77%;
-  font-size: 25px;
-  margin-left: 3%;
-  padding-top: 3px;
+  margin-left: 4%;
+  >input{
+    width: 100%;
+    margin-bottom:0.5%;
+    font-size: 24px;
+    border: 0;
+    outline: none;
+    background: transparent;
+    font-family:Comic Sans MS;
+  }
 `
 
 /*그림판 container*/
@@ -150,9 +165,10 @@ export const Modebutton = styled.button`
   text-align: center;
   background-color: transparent;
   margin-right: 1.5%;
-  padding-top: 0.7%;
   border: 2px solid black;
   transition: box-shadow 250ms ease-in-out, color 200ms ease-in-out;
+  font-family:Comic Sans MS;
+  padding-bottom:0.5%;
   &:hover{
     box-shadow: 0 0 40px 40px  #404040 inset;
     color: white;
@@ -171,10 +187,12 @@ export const Savebutton = styled.button`
   border: none;
   margin-left: auto;
   font-size: 15px;
+  padding-bottom:0.5%;
   z-index:2;
   position: relative;
   overflow: hidden;
   transition: box-shadow, color 300ms ease-in-out;
+  font-family:Comic Sans MS;
   &:hover{
     color: rgb(54, 54, 54);
     background-color: transparent;

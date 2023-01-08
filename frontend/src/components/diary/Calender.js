@@ -13,7 +13,7 @@ const RenderHeader = ({ currentMonth, prevMonth, nextMonth }) => {
       <div className="headercol col-start">
         <span className="text">
           <span className="text month">
-            {format(currentMonth, 'M')}월
+            {format(currentMonth, 'MMM')}
           </span>
           {format(currentMonth, 'yyyy')}
         </span>

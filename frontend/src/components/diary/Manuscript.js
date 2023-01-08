@@ -72,10 +72,10 @@ const GridContent =styled.textarea`
   width: 520px;
   height: 280px;
   background-color: rgba(0, 0, 0, 0);
-  font-size: 2rem;
-  letter-spacing: 31.5px;
-  padding-left: 21px;
-  line-height: 59px;
+  font-size: 1.8rem;
+  letter-spacing:33.2px;
+  padding-left: 27px;
+  line-height: 57px;
   z-index: 20;
   word-break: break-all;
   resize: none;
@@ -83,6 +83,7 @@ const GridContent =styled.textarea`
   outline: none;
   overflow: clip;
   caret-color: transparent;
+  font-family:Comic Sans MS;
 `
 const PaperTable =styled.table`
   margin: 0 auto;

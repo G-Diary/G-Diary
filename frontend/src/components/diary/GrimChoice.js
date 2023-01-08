@@ -5,12 +5,12 @@ function GrimChoice(){
   return(
     <ChoiceContainer>
       <Choicetitle>
-        그림 혹은 사진 선택
+        What would you draw?
       </Choicetitle>
       <Choice></Choice>
       <ChoiceButtonContainer>
-        <Choicebutton>그림</Choicebutton>
-        <Choicebutton>사진</Choicebutton>
+        <Choicebutton>Grim</Choicebutton>
+        <Choicebutton>Photo</Choicebutton>
       </ChoiceButtonContainer>
     </ChoiceContainer>)
 }
@@ -35,7 +35,8 @@ const Choicetitle =styled.div`
     justify-content: center;
     width: 500px;
     height: 80px;
-    font-size: 30px;
+    font-size: 33px;
+    font-family:Comic Sans MS;
 `
 
 const Choice = styled.div`
@@ -62,9 +63,9 @@ export const Choicebutton = styled.button`
     border-radius: 20px;
     text-align: center;
     font-size: 17px;
-    padding-top: 0.3%;
     margin-left: 1.5%;
     transition: box-shadow 250ms ease-in-out, color 200ms ease-in-out;
+    font-family:Comic Sans MS;
     &:hover{
         box-shadow: 0 0 40px 40px #404040 inset;
         color: white;

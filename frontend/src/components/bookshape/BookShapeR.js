@@ -11,12 +11,13 @@ const BookShape2Right = styled.div`
     justify-content: center;
     border-top-right-radius: 30px;
     border-bottom-right-radius: 30px;
-    border: 5px solid #535353;
+    border: 5px solid rgb(83,83,83,70%);
     background-color: white;
     background-size:cover;
     /*css파일에서 image불러올 때 public폴더에 있는 이미지는 못 불러옴(정확한 경로 작성해야함)*/
     background-image: url("images/paper2.jpeg");
     z-index: 10;
+    box-shadow: 7px 9px 10px 0px #676262;
 `
 
 function BookShape2R({children}){

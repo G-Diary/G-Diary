@@ -5,19 +5,20 @@
     display: flex;
     flex-direction: column;
     justify-content:flex-start;
-    align-items: center;
+    align-items:center;
     margin-top: 12%;
 }
 /*일기 리스트 이름*/
 .listname{
-    font-size: 2.5em;
+    font-size: 2.3em;
     font-weight: 800;
-
+    font-family: Comic Sans MS;
 }
 
 .calender{
     width: 85%;
     height: 70%;
+    font-family:Comic Sans MS;
 }
 
 /*월*/
@@ -42,7 +43,7 @@
     font-size: 1em;
 }
 .text.month{
-    margin-right: 5px;
+    margin-right: 10px;
     font-size: 1.8em;
     font-weight: 800;
 }
@@ -76,9 +77,9 @@
     justify-content: space-between;
     align-items: center;
     font-weight: 700;
-    font-size: 1em;
-    padding: 3px;
-    color: #686868;
+    font-size: 0.9em;
+    padding:3px;
+    color: #444343;
     margin-left: 2px;
 }
 .dayscol{
@@ -89,8 +90,9 @@
     justify-content: flex-end;
     align-items: flex-start;
     padding-left: 1%;
-    background:#ebcfc6;
+    background:#d0c7c4;
     border-radius: 10px;
+    padding-bottom: 3px;
 }
 
 /*날짜(바디부분)*/
@@ -121,7 +123,7 @@
     margin: 0px;
 }
 .bodycol>span{
-    margin: 5px 0 0 5px;
+    margin: 2px 0 0 5px;
 }
 .not-valid{
     color: #a5a5a5;
@@ -138,10 +140,10 @@
     background: #c4c4c4;
 }
 .bodycol.cell.selected{
-    box-shadow: 1.5px 1.5px 0px 0px #aa5b42;
+    box-shadow: 1.5px 1.5px 0px 0px #929292;
     transform: scale(1.02);
     border: none;
-    background: #f3c5b6;
-    color: #aa5b42;
+    background: #d0c7c4;
+    color: #d68747;
     font-weight: 600;
 }
