@@ -1,0 +1,147 @@
+/*일기 리스트 컨테이너*/
+.listcontainer{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content:flex-start;
+    align-items: center;
+    margin-top: 12%;
+}
+/*일기 리스트 이름*/
+.listname{
+    font-size: 2.5em;
+    font-weight: 800;
+
+}
+
+.calender{
+    width: 85%;
+    height: 70%;
+}
+
+/*월*/
+.header{
+    width: 100%;
+    height: 10%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-left: 6px;
+}
+.headercol.col-start{
+    width: 80%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+.text{
+    font-size: 1em;
+}
+.text.month{
+    margin-right: 5px;
+    font-size: 1.8em;
+    font-weight: 800;
+}
+.headercol.col-end{
+    width: 20%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: baseline;
+}
+.icons{
+    width: 25%;
+    height: fit-content;
+    margin-left: 10%;
+    color: rgba(gray, 0.3);
+}
+.icons:hover{
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+    transform: scale(1.15);
+    color: #686868;
+}
+
+/*요일*/
+.days{
+    width: 100%;
+    height: 4.3%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 700;
+    font-size: 1em;
+    padding: 3px;
+    color: #686868;
+    margin-left: 2px;
+}
+.dayscol{
+    width: 13%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-start;
+    padding-left: 1%;
+    background:#ebcfc6;
+    border-radius: 10px;
+}
+
+/*날짜(바디부분)*/
+.calenderbody{
+    width: 100%;
+    height: 89%;   
+    padding-left: 5px;
+}
+
+.bodyrow{
+    width: 100%;
+    height: 20%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.bodycol{
+    width: 13.5%;
+    height: 90%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+    border: 0.5px solid gray;
+    border-radius: 3px;
+    font-size: 1em;
+    margin: 0px;
+}
+.bodycol>span{
+    margin: 5px 0 0 5px;
+}
+.not-valid{
+    color: #a5a5a5;
+}
+.bodycol>img{
+    opacity: 0.1;
+}
+.bodycol.cell.valid:hover{
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+    box-shadow: 1.5px 1.5px  0px 0px #c4c4c4;
+    transform: scale(1.01);
+    border: none;
+    background: #c4c4c4;
+}
+.bodycol.cell.selected{
+    box-shadow: 1.5px 1.5px 0px 0px #aa5b42;
+    transform: scale(1.02);
+    border: none;
+    background: #f3c5b6;
+    color: #aa5b42;
+    font-weight: 600;
+}
