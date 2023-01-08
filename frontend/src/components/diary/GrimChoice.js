@@ -45,7 +45,7 @@ const Choice = styled.div`
     border-radius: 10px;
 `
 
-const ChoiceButtonContainer = styled.div`
+export const ChoiceButtonContainer = styled.div`
     width: 500px;
     height: 60px;
     display: flex;
@@ -53,7 +53,7 @@ const ChoiceButtonContainer = styled.div`
     justify-content: end;
 `
 
-const Choicebutton = styled.button`
+export const Choicebutton = styled.button`
     width: 90px;
     height: 35px;
     background-color: transparent;

@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import BookShape2R from '../components/bookshape/BookShapeR';
 import Bookmark from '../components/diary/Bookmark';
 
-function WriteGrim({props}){
+function WriteGrim(){
   return(
     <WriteContainer>
       <Book2Container> 
@@ -23,10 +23,10 @@ function WriteGrim({props}){
 
 export default WriteGrim;
 
-const WriteContainer = styled.div`
+export const WriteContainer = styled.div`
   position: relative;
 `
-const Book2Container = styled.div`
+export const Book2Container = styled.div`
   height: 100vh;
   display: flex;
   position: absolute;

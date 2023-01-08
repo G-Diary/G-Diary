@@ -9,7 +9,7 @@ function DiaryContent(){
       <DateContainer>
         <Dateline>
           <Datetitle>DATE</Datetitle>
-          <Date>23.01.07</Date>
+          <DateContent>23.01.07</DateContent>
           <Weathercontainer>
             <BsBrightnessHighFill size="27" color='red' />
             <BsFillCloudFill size="27" color="#4E5D79" />
@@ -36,7 +36,7 @@ function DiaryContent(){
 export default DiaryContent;
 
 /*두쪽 페이지 틀에서 한쪽 영역 컨테이너*/
-const DiviContainer = styled.div`
+export const DiviContainer = styled.div`
     position: absolute;  
     width: 600px;
     height: 750px;
@@ -47,7 +47,7 @@ const DiviContainer = styled.div`
     z-index: 90;
 `
 /*날짜&날씨 container*/
-const DateContainer=styled.div`
+export const DateContainer=styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
@@ -55,16 +55,17 @@ const DateContainer=styled.div`
     height: 60px;
 `
 
-const Dateline=styled.div`
+export const Dateline=styled.div`
     width: 500px;
     height: 40px;
     background-color:#BCBCBC;
     padding-top: 3px;
     display: flex;
     align-items: center;
+    border-radius: 3px;
 `
 
-const Datetitle=styled.p`
+export const Datetitle=styled.p`
     margin-left: 5%;
     width: 10%;
     font-size: 25px;
@@ -72,7 +73,7 @@ const Datetitle=styled.p`
     padding-top: 3px;
 `
 
-const Date = styled.p`
+export const DateContent = styled.p`
     width: 25%;
     font-size: 25px;
     border: 2px solid transparent;
@@ -88,7 +89,7 @@ const Date = styled.p`
     color: #959292;
 `
 
-const Weathercontainer = styled.p`
+export const Weathercontainer = styled.p`
     width: 32%;
     text-align: right;
     margin-left: auto;
@@ -99,15 +100,17 @@ const Weathercontainer = styled.p`
 `
 
 /*제목 container*/
-const TitleContainer = styled.div`
+export const TitleContainer = styled.div`
   width: 500px;
   height: 40px;
   background: #C7C7C7;
   display: flex;
   align-items: center;
+  border-top-left-radius: 3px;
+  border-top=right-radius: 3px;
 `
 
-const Title =styled.p`
+export const Title =styled.p`
   margin-left: 5%;
   width: 10%;
   text-align: left;
@@ -115,7 +118,7 @@ const Title =styled.p`
   padding-top: 3px;
 `
 
-const Titlecontent = styled.p`
+export const Titlecontent = styled.p`
   width: 77%;
   font-size: 25px;
   margin-left: 3%;
@@ -123,7 +126,7 @@ const Titlecontent = styled.p`
 `
 
 /*그림판 container*/
-const Canvas = styled.div`
+export const Canvas = styled.div`
   width: 500px;   
   height: 270px;
   background: white;
@@ -132,16 +135,16 @@ const Canvas = styled.div`
 `
 
 /*버튼 컨테이너(그림 편집)*/
-const ButtonContainer = styled.div`
+export const ButtonContainer = styled.div`
   width: 500px;
-  height: 35px;
+  height: 25px;
   display: flex;
   align-items: center;
   margin-top: 2%;
 `
-const Modebutton = styled.button`
+export const Modebutton = styled.button`
   width: 75px;
-  height: 33px;
+  height: 30px;
   border-radius: 20px;
   font-size: 15px;
   text-align: center;
@@ -157,7 +160,7 @@ const Modebutton = styled.button`
   }
 `
 
-const Savebutton = styled.button`
+export const Savebutton = styled.button`
   position: relative;
   width: 110px;
   height: 30px;
@@ -179,7 +182,7 @@ const Savebutton = styled.button`
   }
 `
 /*내용 container*/
-const Content = styled.div`
+export const Content = styled.div`
   width: 520px;
   height: 300px;
 `

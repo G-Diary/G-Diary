@@ -7,7 +7,7 @@ html, body{
 }
 body{
     /* position: fixed; */
-    overflow-x: hidden;
+    overflow: hidden;
     background-image: url("../public/images/background2.svg");
     background-repeat: no-repeat;
     background-size: cover;

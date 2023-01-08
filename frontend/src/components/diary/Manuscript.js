@@ -1,33 +1,33 @@
 import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
 
+/* 원고지 틀 컴포넌트 */
 function Manuscript() {
   const [content, setContent] = useState('');
   let tr = Array.apply(null, new Array(5)).map(Number.prototype.valueOf, 0);
   let td = Array.apply(null, new Array(10)).map(Number.prototype.valueOf, 0);
-  console.log(tr.length);
-  console.log(td.length);
   const handleContent = (e) => {
     setContent(e.target.value);
   };
-  const textlist = tr.map((index) => (
-    <tr className='tr'>
-      {td.map((index) => (
-        <TableTd></TableTd>
+  console.log()
+  const textlist = tr.map((tr,index) => (
+    <tr className='tr' key={index}>
+      {td.map((td,index) => (
+        <TableTd key={index}></TableTd>
       ))}
     </tr>
   ));
   return (
     <div>
       <PaperContainer>
+        <GridContent
+          type="text"
+          value={content}
+          maxlength="60"
+          onChange={handleContent}
+        ></GridContent>
         <PaperTable>
           <tbody>
-            <GridContent
-              type="text"
-              value={content}
-              maxlength="60"
-              onChange={handleContent}
-            ></GridContent>
             {textlist}
           </tbody>
         </PaperTable>
@@ -69,12 +69,12 @@ const PaperSpan = styled.div`
 
 const GridContent =styled.textarea`
   position: absolute;
-  width: 500px;
+  width: 520px;
   height: 280px;
   background-color: rgba(0, 0, 0, 0);
   font-size: 2rem;
-  letter-spacing: 30px;
-  padding-left: 18px;
+  letter-spacing: 31.5px;
+  padding-left: 21px;
   line-height: 59px;
   z-index: 20;
   word-break: break-all;

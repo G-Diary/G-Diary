@@ -1,9 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
-
+ 
 const BookShape2Left = styled.div`
+    display: flex;
+    align-items: center;
     width: 600px;
-    height: 750px;  
+    height: 750px; 
     justify-content: center;
     border-top-left-radius: 30px;
     border-bottom-left-radius: 30px;

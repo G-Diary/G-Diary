@@ -7,7 +7,7 @@ const BookShape2Right = styled.div`
     display: flex;
     /* position: relative; */
     width: 600px;
-    height: 750px;  
+    height: 750px; 
     justify-content: center;
     border-top-right-radius: 30px;
     border-bottom-right-radius: 30px;
