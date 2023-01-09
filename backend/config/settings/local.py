@@ -17,3 +17,6 @@ DATABASES = {
         }
     }
 }
+
+#생성자, local 서비스
+#python manage.py runserver --settings=config.settings.local
