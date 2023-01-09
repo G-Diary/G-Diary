@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import Bookmark from '../diary/Bookmark';
 
 const AllControl = styled.div`
   height: 100vh;
@@ -38,6 +39,7 @@ function BookCover({children}) {
         <Year>2023</Year>
         {children}
       </Right>
+      <Bookmark/>
     </AllControl>
   );
 }

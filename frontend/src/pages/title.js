@@ -4,7 +4,7 @@ import styled from 'styled-components';
 const Title = styled.div`
   position: relative;
   bottom: 256px;
-  right: 113px;
+  right: 180px;
   font-size: 100px;`
 
 function Titles({children}) {

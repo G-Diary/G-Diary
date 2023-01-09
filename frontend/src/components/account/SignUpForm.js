@@ -6,13 +6,13 @@ import { Person } from '@mui/icons-material';
 
 const TypeSignUp = styled.div`
   position: relative;
-  right: 295px;
+  right: 330px;
   bottom: 240px;`
 
 const CreateAccountBtn = styled.div`
   position: relative;
   bottom: 124px;
-  right: 150px;`
+  right: 185px;`
 
 function SignUpForm() {
   return(
@@ -73,7 +73,7 @@ function SignUpForm() {
           borderRadius: '30px', 
           fontSize: '30px'
         }}>
-          <Link to='signIn' style={{
+          <Link to='/SignIn' style={{
             color: 'white', 
             textDecorationLine: 'none', 
             fontWeight: 'bold'

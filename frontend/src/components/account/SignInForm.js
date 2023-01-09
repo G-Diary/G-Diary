@@ -7,17 +7,17 @@ import { LockOutlined } from '@mui/icons-material';
 const TypeSignIn = styled.div`
   position: relative;
   bottom: 180px;
-  right: 210px;`
+  right: 245px;`
 
 const SignInBtn = styled.div`
   position: relative;
   bottom: 55px;
-  right: 63px;`
+  right: 98px;`
 
 const SignUpBtn = styled.div`
   position: relative;
   bottom: 158px;
-  left: 67px;`
+  left: 32px;`
 
 function SignInForm() {
   const [id, setId] = useState('');
@@ -26,8 +26,12 @@ function SignInForm() {
     setId(e.target.value)
   }
 
-
-
+  function Validation() {
+    var check = /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+    console.log(check.test(id))
+    return check.test(id);
+  }
+  
   return(
     <Container>
       <div className='icon'>
@@ -48,6 +52,13 @@ function SignInForm() {
             name="ID"
             autoComplete="email"
             autoFocus
+            type='text'
+            value={id}
+            onChange={onChange}
+            error={id ? !Validation() : Validation()}
+            helperText={
+              id ? (!Validation() ? '이메일 형식으로 입력해주세요.' : '') : ''
+            }
           />
           <TextField
             margin='dense'
@@ -67,7 +78,7 @@ function SignInForm() {
           borderRadius: '30px', 
           fontSize: '20px'
         }}>
-          <Link to='signUp' style={{
+          <Link to='/SignUp' style={{
             color: 'black', 
             textDecorationLine: 'none'
           }}>Sign Up→</Link>
@@ -79,7 +90,7 @@ function SignInForm() {
           borderRadius: '30px', 
           fontSize: '30px'
         }}>
-          <Link to='/signUp' style={{
+          <Link to='/SignUp' style={{
             color: 'white', 
             textDecorationLine: 'none', 
             fontWeight: 'bold'
