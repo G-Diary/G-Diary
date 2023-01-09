@@ -1,8 +1,8 @@
 import React from 'react';
 import BookCover from '../components/bookshape/bookCover';
 import SignUpForm from './signUpForm';
-import CoverControled from './coverControl';
-import Titles from './title';
+import CoverControled from './CoverControl';
+import Titles from './Title';
 
 function SignUp() {
   return(

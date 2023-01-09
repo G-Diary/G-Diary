@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css'
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import GrimList from './pages/GrimList';
 import WriteGrim from './pages/WriteGrim';
 import Main from './pages/main';
@@ -12,9 +12,9 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<Main />} />
-      <Route path="/write" element={<SignIn />} />
-      <Route path="/write" element={<SignUp />} />
-      <Route path="/write" element={<Manual />} />
+      <Route path="/signin" element={<SignIn />} />
+      <Route path="/signup" element={<SignUp />} />
+      <Route path="/about" element={<Manual />} />
       <Route path="/write" element={<WriteGrim />} />
       <Route path="/list" element={<GrimList />} />
       {/* <Route path="/list/:userid" element={<GrimList />} /> */}

@@ -73,7 +73,7 @@ function SignUpForm() {
           borderRadius: '30px', 
           fontSize: '30px'
         }}>
-          <Link to='signIn' style={{
+          <Link to='/signIn' style={{
             color: 'white', 
             textDecorationLine: 'none', 
             fontWeight: 'bold'
