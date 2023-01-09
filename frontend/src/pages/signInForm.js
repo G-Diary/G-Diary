@@ -1,9 +1,33 @@
-import React from 'react';
+import React,{ useState }  from 'react';
+import styled from 'styled-components';
 import {Button, Container, TextField} from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import { LockOutlined } from '@mui/icons-material';
 
-export default function SignInForm() {
+const TypeSignIn = styled.div`
+  position: relative;
+  bottom: 180px;
+  right: 210px;`
+
+const SignInBtn = styled.div`
+  position: relative;
+  bottom: 55px;
+  right: 63px;`
+
+const SignUpBtn = styled.div`
+  position: relative;
+  bottom: 158px;
+  left: 67px;`
+
+function SignInForm() {
+  const [id, setId] = useState('');
+
+  function onChange(e) {
+    setId(e.target.value)
+  }
+
+
+
   return(
     <Container>
       <div className='icon'>
@@ -13,7 +37,7 @@ export default function SignInForm() {
           borderRadius: '50px'
         }}/>
       </div>
-      <div className='typeSignIn'>
+      <TypeSignIn>
         <Container maxWidth='sm'>
           <TextField
             margin='dense'
@@ -36,8 +60,8 @@ export default function SignInForm() {
             autoComplete="current-password"
           />
         </Container>
-      </div>
-      <div className='signUpBtn'>
+      </TypeSignIn>
+      <SignUpBtn>
         <Button style={{
           border: 'solid 2px lightgray', 
           borderRadius: '30px', 
@@ -48,20 +72,22 @@ export default function SignInForm() {
             textDecorationLine: 'none'
           }}>Sign Up→</Link>
         </Button>
-      </div>
-      <div className='signInBtn'>
+      </SignUpBtn>
+      <SignInBtn>
         <Button type='submit' style={{
           backgroundColor: '#535353', 
           borderRadius: '30px', 
           fontSize: '30px'
         }}>
-          <Link style={{
+          <Link to='/signUp' style={{
             color: 'white', 
             textDecorationLine: 'none', 
             fontWeight: 'bold'
           }}>Sign In</Link>
         </Button>
-      </div>
+      </SignInBtn>
     </Container>
   );
 }
+
+export default SignInForm;

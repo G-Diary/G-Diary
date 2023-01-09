@@ -1,15 +1,18 @@
 import React from 'react';
 import BookCover from '../components/bookshape/bookCover';
+import CoverControled from './coverControl';
 import SignInForm from './signInForm';
+import Titles from './title';
 
-export default function SignIn() {
+function SignIn() {
   return(
-    <div>
-      <BookCover />
-      <div className='coverControl'>
-        <div className='title'>Sign In</div>
+    <BookCover>
+      <CoverControled>
+        <Titles>Sign In</Titles>
         <SignInForm />
-      </div>
-    </div>
+      </CoverControled>
+    </BookCover>
   );
 }
+
+export default SignIn;

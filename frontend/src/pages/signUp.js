@@ -1,15 +1,19 @@
 import React from 'react';
 import BookCover from '../components/bookshape/bookCover';
 import SignUpForm from './signUpForm';
+import CoverControled from './coverControl';
+import Titles from './title';
 
-export default function SignUp() {
+function SignUp() {
   return(
-    <div>
-      <BookCover />
-      <div className='coverControl'>
-        <div className='title'>Sign Up</div>
+    <BookCover>
+      <CoverControled>
+        <Titles>Sign Up</Titles>
         <SignUpForm />
-      </div>
-    </div>
+      </CoverControled>
+    </BookCover>
+    
   );
 }
+
+export default SignUp;

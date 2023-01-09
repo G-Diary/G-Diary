@@ -1,20 +1,33 @@
 import React from 'react';
+import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import BookCover from '../components/bookshape/bookCover';
+import Titles from './title';
 
-export default function Main() {
+const CoverControl = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;`
+
+const LinkBox = styled.div`
+  width: 180%;
+  margin: 10px auto;
+  display: flex;
+  text-align: center;`
+
+function Main() {
   return(
-    <div>
-      <BookCover />
-      <div className='coverControl'>
-        <div className='title'>G.Diary</div>
-        <div className='linkBox'>
+    <BookCover>
+      <CoverControl>
+        <Titles>G.Diary</Titles>
+        <LinkBox>
           <Link to='signIn' className='link'>Sign In</Link>
           <Link to='signUp' className='link'>Sign Up</Link>
           <Link to='manual' className='link'>Manual</Link>
-        </div>
-      </div>
-    </div>
-    
+        </LinkBox>
+      </CoverControl>
+    </BookCover>
   );
 }
+
+export default Main;

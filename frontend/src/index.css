@@ -1,0 +1,13 @@
+html, body {
+    margin: 0;
+    height:100vh;
+    width: 100vw;
+    padding: 0;
+}
+
+body {
+    background-image: url("../public/images/background.png");
+    overflow: hidden;
+    background-repeat: no-repeat;
+    background-size: cover;
+}

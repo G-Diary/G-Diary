@@ -1,9 +1,20 @@
 import React from 'react';
+import styled from 'styled-components'
 import {Button, Container, TextField} from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import { Person } from '@mui/icons-material';
 
-export default function SignUpForm() {
+const TypeSignUp = styled.div`
+  position: relative;
+  right: 295px;
+  bottom: 240px;`
+
+const CreateAccountBtn = styled.div`
+  position: relative;
+  bottom: 124px;
+  right: 150px;`
+
+function SignUpForm() {
   return(
     <Container>
       <div className='icon'>
@@ -13,7 +24,7 @@ export default function SignUpForm() {
           borderRadius: '50px'
         }}/>
       </div>
-      <div className='typeSignUp'>
+      <TypeSignUp>
         <Container maxWidth='sm'>
           <TextField
             margin="dense"   
@@ -55,8 +66,8 @@ export default function SignUpForm() {
             autoComplete="current-password"
           />
         </Container>
-      </div>
-      <div className='createAccountBtn'>
+      </TypeSignUp>
+      <CreateAccountBtn>
         <Button type='submit' style={{
           backgroundColor: '#535353', 
           borderRadius: '30px', 
@@ -68,7 +79,9 @@ export default function SignUpForm() {
             fontWeight: 'bold'
           }}>Create Account</Link>
         </Button>
-      </div>
+      </CreateAccountBtn>
     </Container>
   );
 }
+
+export default SignUpForm;
