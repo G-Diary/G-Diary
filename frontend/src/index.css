@@ -5,6 +5,7 @@ html, body{
     width: 100vw;
     padding: 0;
 }
+
 body{
     /* position: fixed; */
     overflow: hidden;
@@ -12,3 +13,4 @@ body{
     background-repeat: no-repeat;
     background-size: cover;
 }
+

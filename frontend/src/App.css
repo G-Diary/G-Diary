@@ -1,0 +1,16 @@
+.link {
+    position: relative;
+    flex:1;
+    width:60%;
+    font-size: 35px;
+    color: black;
+    text-decoration-line: none;
+    top: 165px;
+    right: 261px;
+}
+
+.icon {
+    position: relative;
+    bottom: 420px;
+    right: 21px;
+}
