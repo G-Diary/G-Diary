@@ -1,13 +1,16 @@
-html, body {
+/*화면 높이 100vh로 줄 때 생기는 스크롤 없애기*/
+html, body{
     margin: 0;
     height:100vh;
     width: 100vw;
     padding: 0;
 }
 
-body {
-    background-image: url("../public/images/background.png");
+body{
+    /* position: fixed; */
     overflow: hidden;
+    background-image: url("../public/images/background2.svg");
     background-repeat: no-repeat;
     background-size: cover;
 }
+
