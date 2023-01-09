@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components'
 import {Button, Container, TextField} from '@material-ui/core';
 import { Link } from 'react-router-dom';
@@ -15,6 +15,49 @@ const CreateAccountBtn = styled.div`
   right: 185px;`
 
 function SignUpForm() {
+  const [name, setName] = useState('');
+  const [id, setId] = useState('');
+  const [pw, setPw] = useState('');
+  const [cf, setCf] = useState('');
+
+  function nameInput(e) {
+    setName(e.target.value)
+  }
+
+  function idInput(e) {
+    setId(e.target.value)
+  }
+
+  function pwInput(e) {
+    setPw(e.target.value)
+  }
+
+  function cfInput(e) {
+    setCf(e.target.value)
+  }
+  
+  function nameValid() {
+    var check = /[~!@#$%^&*()-=_+{}|,./<>?;':"]/;
+    return check.test(name);
+  }
+
+  function idValid() {
+    var check = /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+    return check.test(id);
+  }
+
+  function pwValid() {
+    var check = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
+    return check.test(pw);
+  }
+
+  function Same() {
+    if(cf === pw)
+      return true;
+    else
+      return false;
+  }
+
   return(
     <Container>
       <div className='icon'>
@@ -35,6 +78,12 @@ function SignUpForm() {
             name="Nickname"
             autoComplete="freeSolo"
             autoFocus
+            value={name}
+            onChange={nameInput}
+            error={nameValid()}
+            helperText={
+              (nameValid() ? '특수문자나 기호는 쓸 수 없습니다.' : '')
+            }
           />
           <TextField
             margin="dense"
@@ -44,6 +93,13 @@ function SignUpForm() {
             label="ID"
             name="ID"
             autoComplete="email"
+            type='text'
+            value={id}
+            onChange={idInput}
+            error={id ? !idValid() : idValid()}
+            helperText={
+              id ? (!idValid() ? '이메일 형식으로 입력해주세요.' : '') : ''
+            }
           />
           <TextField
             margin="dense"
@@ -53,7 +109,13 @@ function SignUpForm() {
             type="password"
             label="Password"
             name="Password"
-            autoComplete="current-password"
+            autoComplete="new-password"
+            value={pw}
+            onChange={pwInput}
+            error={pw ? !pwValid() : pwValid()}
+            helperText={
+              pw ? (!pwValid() ? '숫자, 영문자, 특수문자 포함 8자리 이상 입력해주세요.' : '') : ''
+            }
           />    
           <TextField
             margin="dense"
@@ -62,8 +124,14 @@ function SignUpForm() {
             required
             type="password"
             label="Confirm"
-            name="Password"
-            autoComplete="current-password"
+            name="Confirm"
+            autoComplete="new-password"
+            value={cf}
+            onChange={cfInput}
+            error={cf ? (!cf ? Same() : !Same()) : ''}
+            helperText={
+              cf ? (!Same() ? '비밀번호를 확인해주세요.' : '') : ''
+            }
           />
         </Container>
       </TypeSignUp>
