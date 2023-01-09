@@ -1,19 +1,19 @@
 from .base import *
 
-DEBUG = False
+ALLOWED_HOSTS = ['*']
 
-ALLOWED_HOST = ['*']
+DEBUG =False
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'diary',
-        'USER': 'root',
-        'PASSWORD': 'jspbook',
-        'HOST':'localhost',
-        'PORT':'3306',
+        'NAME': env('NAME'),
+        'USER': env('DB_USER'),
+        'PASSWORD': env('PASSWORD'),
+        'HOST': env('HOST'),
+        'PORT': env('PORT'),
+        'OPTIONS': {
+            'init_command': 'SET sql_mode="STRICT_TRANS_TABLES"'
+        }
     }
 }
-
-#서비스용
-#python manage.py runserver --settings=config.settings.prod
