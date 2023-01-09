@@ -1,0 +1,19 @@
+version: "3"
+
+services:
+  frontend:
+    container_name: frontend
+    restart: unless-stopped
+    build:
+      context: ./frontend
+    command: ["yarn", "start"]
+    ports:
+      - 3000:3000
+    volumes:
+      - ./frontend/:/frontend/
+      - ./frontend/node_modules/:/frontend/node_modules
+    environment:
+      - CI=true
+      - CHOKIDAR_USEPOLLING=true
+      - REACT_APP_BACKEND_URL=http://localhost:8000
+    tty: true
