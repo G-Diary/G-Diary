@@ -1,9 +1,31 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components';
 import Manuscript from './Manuscript';
+import Drawing from './Drawing';
 import { BsBrightnessHighFill, BsFillCloudFill ,BsFillCloudSnowFill, BsFillCloudRainFill } from 'react-icons/bs';
 
 function DiaryContent(){
+  const [grim, setGrim] = useState(true);  //그리기모드 버튼 클릭 여부
+  const [canvasImg,setCanvasImg]=useState('');  //캔버스 값 받아오기(이미지화를 위해)
+
+  //그리기 모드 버튼
+  const clickedGrim = () => {
+    setGrim((prev) => !prev);
+    console.log(grim);
+  };
+
+  const saveBtn = (imgRef) =>{
+    const image = imgRef.toDataURL('image/png');
+    setCanvasImg(image);
+    console.log(image);
+    console.log(image.width);
+  }
+
+  //그림 이미지화
+  const saveAsPNG = () => {
+    console.log(canvasImg);
+  };
+    
   return(
     <DiviContainer>
       <DateContainer>
@@ -30,11 +52,11 @@ function DiaryContent(){
         <Title>Title: </Title>
         <Titlecontent><input type="text" /></Titlecontent>
       </TitleContainer>
-      <Canvas></Canvas>
+      <Canvas><Drawing grim={grim} save={saveBtn}/></Canvas>
       <ButtonContainer>
-        <Modebutton style={{width:'80px'}}>Drawing</Modebutton>
+        <Modebutton style={{width:'80px'}} onClick={clickedGrim}>{grim?'Drawing':'Stop'}</Modebutton>
         <Modebutton style={{width:'100px'}}>Reposition</Modebutton>
-        <Savebutton>Save</Savebutton>
+        <Savebutton onClick={saveAsPNG}>Save</Savebutton>
       </ButtonContainer>
       <Content><Manuscript /></Content>
     </DiviContainer>

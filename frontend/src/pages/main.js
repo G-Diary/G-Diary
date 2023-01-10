@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import BookCover from '../components/bookshape/bookCover';
-import Titles from './title';
+import Titles from './Title';
 
 const CoverControl = styled.div`
   position: absolute;
