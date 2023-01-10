@@ -11,7 +11,7 @@ const TypeSignUp = styled.div`
 
 const CreateAccountBtn = styled.div`
   position: relative;
-  bottom: 124px;
+  bottom: 188px;
   right: 185px;`
 
 function SignUpForm() {
@@ -58,6 +58,16 @@ function SignUpForm() {
       return false;
   }
 
+  function onClick() {
+    alert('계정이 생성되었습니다.')
+  }
+
+  function Valid() {
+    if((nameValid() === false) & (idValid() & pwValid() & Same() === true)){
+      return false;
+    } else return true;
+  }
+
   return(
     <Container>
       <div className='icon'>
@@ -69,82 +79,80 @@ function SignUpForm() {
       </div>
       <TypeSignUp>
         <Container maxWidth='sm'>
-          <TextField
-            margin="dense"   
-            fullWidth
-            variant="filled"
-            required
-            label="Nickname"
-            name="Nickname"
-            autoComplete="freeSolo"
-            autoFocus
-            value={name}
-            onChange={nameInput}
-            error={nameValid()}
-            helperText={
-              (nameValid() ? '특수문자나 기호는 쓸 수 없습니다.' : '')
-            }
-          />
-          <TextField
-            margin="dense"
-            fullWidth
-            variant="filled"
-            required
-            label="ID"
-            name="ID"
-            autoComplete="email"
-            type='text'
-            value={id}
-            onChange={idInput}
-            error={id ? !idValid() : idValid()}
-            helperText={
-              id ? (!idValid() ? '이메일 형식으로 입력해주세요.' : '') : ''
-            }
-          />
-          <TextField
-            margin="dense"
-            fullWidth
-            variant="filled"
-            required
-            type="password"
-            label="Password"
-            name="Password"
-            autoComplete="new-password"
-            value={pw}
-            onChange={pwInput}
-            error={pw ? !pwValid() : pwValid()}
-            helperText={
-              pw ? (!pwValid() ? '숫자, 영문자, 특수문자 포함 8자리 이상 입력해주세요.' : '') : ''
-            }
-          />    
-          <TextField
-            margin="dense"
-            fullWidth
-            variant="filled"
-            required
-            type="password"
-            label="Confirm"
-            name="Confirm"
-            autoComplete="new-password"
-            value={cf}
-            onChange={cfInput}
-            error={cf ? (!cf ? Same() : !Same()) : ''}
-            helperText={
-              cf ? (!Same() ? '비밀번호를 확인해주세요.' : '') : ''
-            }
-          />
+          <form>
+            <TextField
+              margin="dense"   
+              fullWidth
+              variant="filled"
+              required
+              label="Nickname"
+              name="Nickname"
+              autoComplete="freeSolo"
+              autoFocus
+              value={name}
+              onChange={nameInput}
+              error={nameValid()}
+              helperText={
+                (nameValid() ? '특수문자는 쓸 수 없습니다.' : '')
+              }
+            />
+            <TextField
+              margin="dense"
+              fullWidth
+              variant="filled"
+              required
+              label="ID"
+              name="ID"
+              autoComplete="email"
+              type='text'
+              value={id}
+              onChange={idInput}
+              error={id ? !idValid() : idValid()}
+              helperText={
+                id ? (!idValid() ? '이메일 형식으로 입력해주세요.' : '') : ''
+              }
+            />
+            <TextField
+              margin="dense"
+              fullWidth
+              variant="filled"
+              required
+              type="password"
+              label="Password"
+              name="Password"
+              autoComplete="new-password"
+              value={pw}
+              onChange={pwInput}
+              error={pw ? !pwValid() : pwValid()}
+              helperText={
+                pw ? (!pwValid() ? '숫자, 영문자, 특수문자 포함 8자리 이상 입력해주세요.' : '') : ''
+              }
+            />    
+            <TextField
+              margin="dense"
+              fullWidth
+              variant="filled"
+              required
+              type="password"
+              label="Confirm"
+              name="Confirm"
+              autoComplete="new-password"
+              value={cf}
+              onChange={cfInput}
+              error={cf ? (!cf ? Same() : !Same()) : ''}
+              helperText={
+                cf ? (!Same() ? '비밀번호를 확인해주세요.' : '') : ''
+              }
+            /></form>
         </Container>
       </TypeSignUp>
       <CreateAccountBtn>
-        <Button type='submit' style={{
-          backgroundColor: '#535353', 
-          borderRadius: '30px', 
-          fontSize: '30px'
-        }}>
-          <Link to='/SignIn' style={{
+        <Button type='submit' disabled={Valid()}
+          style={ !Valid() ? { backgroundColor: '#535353', borderRadius: '30px', fontSize: '30px'} : { backgroundColor: '#B3B3B3',borderRadius: '30px', fontSize: '30px'}}>
+          <Link to='/SignIn' onClick={onClick} style={{
             color: 'white', 
             textDecorationLine: 'none', 
-            fontWeight: 'bold'
+            fontWeight: 'bold',
           }}>Create Account</Link>
         </Button>
       </CreateAccountBtn>

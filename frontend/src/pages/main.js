@@ -13,10 +13,10 @@ const LinkBox = styled.div`
 
 const ShowImage = styled.div`
   position: relative;
-  width: 340px;
-  height: 340px;
-  bottom: 217px;
-  right: 180px;
+  width: 330px;
+  height: 330px;
+  bottom: 206px;
+  right: 175px;
   background-color: gray;
   border: solid 2px black;
   color: rgba(0,0,0,0);`

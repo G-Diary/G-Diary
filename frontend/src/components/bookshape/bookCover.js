@@ -12,19 +12,19 @@ const Left = styled.div`
   background-color: #535353;
   float: left;
   width: 55px;
-  height: 814px;
+  height: 758px;
   border-top-left-radius: 20px;
   border-bottom-left-radius: 20px;
-  box-shadow: 5px 5px 3px rgba(0, 0, 0, 0.38);`
+  box-shadow:16px 9px 10px 0 #676262;`
 
 const Right = styled.div`
   background-color: white;
   float: left;
   width: 675px;
-  height: 814px;
+  height: 758px;
   border-top-right-radius: 30px;
   border-bottom-right-radius: 30px;
-  box-shadow: 5px 5px 3px rgba(0, 0, 0, 0.38);`
+  box-shadow:12px 9px 10px 0 #676262;`
 
 const Year = styled.div`
   border-bottom: solid 2px black;
