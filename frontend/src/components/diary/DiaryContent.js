@@ -9,8 +9,11 @@ function DiaryContent(){
   const [grim, setGrim] = useState(true);  //그리기모드 버튼 클릭 여부
   const [weather, setWeather]=useState(''); //날씨 선택
   const {updateCanvas}=useStore();
+  let now=new Date();  //현재 날짜
 
-  
+  let year=now.getFullYear();  //연도 구하기
+  let todayMonth=now.getMonth()+1;  //월 구하기
+  let todayDate=now.getDate();  //일 구하기
 
   //날씨 선택
   const weatherChange = (weatherName)=>{
@@ -33,7 +36,7 @@ function DiaryContent(){
       <DateContainer>
         <Dateline>
           <Datetitle>DATE</Datetitle>
-          <DateContent>23.01.07</DateContent>
+          <DateContent>{year}.{todayMonth}.{todayDate}</DateContent>
           <Weathercontainer>
             <WeatherRadioBtn 
               type='radio' 
@@ -140,7 +143,7 @@ export const DateContent = styled.p`
     align-items: center;
     justify-content: center;
     line-height: 90%;
-    color: #959292;
+    color: #4b4b4b;
     font-family:Comic Sans MS;
 `
 
@@ -190,6 +193,8 @@ export const Titlecontent = styled.p`
     outline: none;
     background: transparent;
     font-family:Comic Sans MS;
+    color:#4b4b4b;
+    caret-color: transparent;
   }
 `
 
