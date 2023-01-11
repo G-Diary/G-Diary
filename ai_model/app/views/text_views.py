@@ -21,19 +21,14 @@ diaries = [
 
 
 @bp.route('/api/v1/diaries/<int:diary_id>', methods=['GET'])
-def get_contents(diary_id):
+def get_keyword(diary_id):
     for diary in diaries:
         if diary['id'] == diary_id:
             get_diary = diary
     if len(get_diary) == 0:
         abort(404)
 
-    get_keyword(get_diary)
-    # return get_keyword(get_diary)
-
-
-def get_keyword(diary):
-    diary_keyword = kkma.nouns(diary)
+    diary_keyword = kkma.nouns(diary['contents'])
     return_key = {"keyword": diary_keyword}
     return return_key
 
