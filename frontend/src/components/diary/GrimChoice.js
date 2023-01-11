@@ -1,13 +1,35 @@
 import React from 'react';
 import styled from 'styled-components';
-
+import { useStore } from '../../store/store';
 function GrimChoice(){
+  const {currentCanvas}=useStore();
+
+  const addImage = (srcImg) => {
+    const newimage = new Image();
+    newimage.src = srcImg.src;
+    newimage.crossOrigin = 'Anonymous';
+    newimage.onload = function () {
+      currentCanvas.drawImage(newimage, 0, 0, srcImg.width, srcImg.height);
+    };
+   
+  };
+
+  const onChange = (e) => {
+    e.preventDefault();
+    addImage(e.target);
+  };
+  
   return(
     <ChoiceContainer>
       <Choicetitle>
         What would you draw?
       </Choicetitle>
-      <Choice></Choice>
+      <Choice>
+        <ChoiceGrim id="image" src="https://cdn-icons-png.flaticon.com/512/5650/5650367.png"
+          alt="star" onClick={onChange}/>
+        <ChoiceGrim id="image" src="https://png.pngtree.com/png-vector/20220411/ourmid/pngtree-glossy-heart-best-vector-ai-and-png-png-image_4538478.png"
+          alt="heart" onClick={onChange}/>
+      </Choice>
       <ChoiceButtonContainer>
         <Choicebutton>Grim</Choicebutton>
         <Choicebutton>Photo</Choicebutton>
@@ -44,6 +66,13 @@ const Choice = styled.div`
     height: 520px;
     background:#B5B5B5;
     border-radius: 10px;
+`
+
+const ChoiceGrim = styled.img`
+    width: 100px;
+    height: 100px;
+    object-fit:cover;
+    margin: 2rem;
 `
 
 export const ChoiceButtonContainer = styled.div`

@@ -11,7 +11,7 @@ function Manuscript() {
   };
   console.log()
   const textlist = tr.map((tr,index) => (
-    <tr className='tr' key={index}>
+    <tr key={index}>
       {td.map((td,index) => (
         <TableTd key={index}></TableTd>
       ))}
@@ -72,10 +72,10 @@ const GridContent =styled.textarea`
   width: 520px;
   height: 280px;
   background-color: rgba(0, 0, 0, 0);
-  font-size: 1.8rem;
-  letter-spacing:33.2px;
-  padding-left: 27px;
-  line-height: 57px;
+  font-size: 2rem;
+  letter-spacing:33px;
+  padding-left: 25px;
+  line-height: 60px;
   z-index: 20;
   word-break: break-all;
   resize: none;
@@ -84,9 +84,11 @@ const GridContent =styled.textarea`
   overflow: clip;
   caret-color: transparent;
   font-family:Comic Sans MS;
+  text-transform: lowercase;
 `
 const PaperTable =styled.table`
   margin: 0 auto;
+  padding-top: 5px;
 `
 
 const TableTd =styled.td`
@@ -99,12 +101,15 @@ const TableTd =styled.td`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  width: 1.5em;
-  height: 1.5em;
-  border: 2px double black;
-  margin: 0.2em 0;
+  width: 1.65em;
+  height: 1.65em;
+  margin-right: 1px;
+  margin-left: 1px;
+  border: 1.2px solid gray;
+  margin: 0.15em 0;
   border-spacing: 20px;
   border-collapse: separate;
-  margin-right: 2.5px;
-  margin-left: 2.5px;
+
 `
+// margin-right: 2.5px;
+// margin-left: 2.5px;

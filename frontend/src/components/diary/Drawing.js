@@ -1,24 +1,27 @@
 import React, {useRef, useEffect, useState} from 'react';
+import { useStore } from '../../store/store';
+
 const defaultStyle={
   display: 'inline-block',
 }
 
-function Drawing({grim,save}){
-  console.log({grim})
+function Drawing({grim}){
   const [ctx, setCtx] = useState();  //canvas
   const canvasRef = useRef(null);
   const [isDrawing, setIsDrawing] = useState(!{grim}); //그리기 모드 여부판단
-  console.log(isDrawing)
+  const {setCurrentCanvas,setUpdateCanvas}=useStore();
+
   useEffect(() => {
     const canvas = canvasRef.current;
     const context = canvas.getContext('2d');
     context.strokeStyle = 'black'; //중복 속성
     context.lineWidth = 1.5;
     context.lineJoin = 'round';
+    setCurrentCanvas(context); 
+    setUpdateCanvas(canvasRef.current);
     setCtx(context);
   }, []);
 
-  console.log(canvasRef.current);
   //그림 그리기 동작 모드 ON
   const startDrawing = ({ nativeEvents }) => {
     setIsDrawing(true);
@@ -51,12 +54,12 @@ function Drawing({grim,save}){
   };
 
   //그림 이미지화
-  const saveAsPNG = () => {
-    // const image = canvasRef.current.toDataURL('image/png');
-    // console.log(image);
-    // console.log(image.width);
-    save(canvasRef.current);
-  };
+  //   const saveAsPNG = () => {
+  //     // const image = canvasRef.current.toDataURL('image/png');
+  //     // console.log(image);
+  //     // console.log(image.width);
+  //     save(canvasRef.current);
+  //   };
  
   return( 
     <div style={{width:'512px', height: '270px'}}>
@@ -71,9 +74,7 @@ function Drawing({grim,save}){
           onMouseDown={startDrawing}
           onMouseUp={finishDrawing}
           onMouseMove={drawing}
-          onMouseLeave={()=>{
-            finishDrawing();
-            saveAsPNG();}}
+          onMouseLeave={finishDrawing}
         ></canvas>
       ) : (
         <canvas

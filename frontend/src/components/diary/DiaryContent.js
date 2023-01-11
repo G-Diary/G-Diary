@@ -3,27 +3,29 @@ import styled from 'styled-components';
 import Manuscript from './Manuscript';
 import Drawing from './Drawing';
 import { BsBrightnessHighFill, BsFillCloudFill ,BsFillCloudSnowFill, BsFillCloudRainFill } from 'react-icons/bs';
+import { useStore } from '../../store/store';
 
 function DiaryContent(){
   const [grim, setGrim] = useState(true);  //그리기모드 버튼 클릭 여부
-  const [canvasImg,setCanvasImg]=useState('');  //캔버스 값 받아오기(이미지화를 위해)
+  const [weather, setWeather]=useState(''); //날씨 선택
+  const {updateCanvas}=useStore();
+
+  
+
+  //날씨 선택
+  const weatherChange = (weatherName)=>{
+    setWeather(weatherName);
+  }
 
   //그리기 모드 버튼
   const clickedGrim = () => {
     setGrim((prev) => !prev);
-    console.log(grim);
   };
-
-  const saveBtn = (imgRef) =>{
-    const image = imgRef.toDataURL('image/png');
-    setCanvasImg(image);
-    console.log(image);
-    console.log(image.width);
-  }
 
   //그림 이미지화
   const saveAsPNG = () => {
-    console.log(canvasImg);
+    const image = updateCanvas.toDataURL('image/png');
+    console.log(image);
   };
     
   return(
@@ -33,18 +35,42 @@ function DiaryContent(){
           <Datetitle>DATE</Datetitle>
           <DateContent>23.01.07</DateContent>
           <Weathercontainer>
-            <BsBrightnessHighFill size="27" color='red' 
-              onMouseOver={({target})=>target.style.color='#ff7e7e'}  
-              onMouseOut={({target})=>target.style.color='red'} />
-            <BsFillCloudFill size="27" color="#4E5D79" 
-              onMouseOver={({target})=>target.style.color='#7b869d'}  
-              onMouseOut={({target})=>target.style.color='#4E5D79'}/>
-            <BsFillCloudRainFill size="26" color="#5A5A5A" style={{paddingTop: '1.5px'}} 
-              onMouseOver={({target})=>target.style.color='#919191'}  
-              onMouseOut={({target})=>target.style.color='#5A5A5A'}/>
-            <BsFillCloudSnowFill size="25" color='#FFFAFA' style={{paddingTop: '2px'}}
-              onMouseOver={({target})=>target.style.color='#e2dfdf'}  
-              onMouseOut={({target})=>target.style.color='#FFFAFA'}/>
+            <WeatherRadioBtn 
+              type='radio' 
+              id="sunny"
+              checked={weather==='sunny'}
+              onChange={()=>weatherChange('sunny')}
+            />
+            <label htmlFor="sunny">
+              {weather==='sunny'?(<BsBrightnessHighFill size="29" color='red' />):(<BsBrightnessHighFill size="27" color='#8e8d8d'/>)}
+            </label>
+            <WeatherRadioBtn 
+              type='radio' 
+              id="cloudy"
+              checked={weather==='cloudy'}
+              onChange={()=>weatherChange('cloudy')} 
+            />
+            <label htmlFor="cloudy">
+              {weather==='cloudy'?(  <BsFillCloudFill size="29" color='rgb(36 75 147)' />):(<BsFillCloudFill size="28" color='#8e8d8d' />)}
+            </label>
+            <WeatherRadioBtn 
+              type='radio' 
+              id="rainy"
+              checked={weather==='rainy'}
+              onChange={()=>weatherChange('rainy')}
+            />
+            <label htmlFor="rainy">
+              {weather==='rainy'?(<BsFillCloudRainFill size="28" style={{paddingTop: '1.5px'}} color='rgb(76 76 76)' />):(<BsFillCloudRainFill size="26.5" style={{paddingTop: '1.5px'}} color='#8e8d8d' />)}
+            </label>
+            <WeatherRadioBtn 
+              type='radio' 
+              id="snow"
+              checked={weather==='snow'}
+              onChange={()=>weatherChange('snow')} 
+            />
+            <label htmlFor="snow">
+              {weather==='snow'?( <BsFillCloudSnowFill size="28" style={{paddingTop: '2px'}} color='#FFFAFA' />):( <BsFillCloudSnowFill size="26" style={{paddingTop: '2px'}} color='#8e8d8d' />)}
+            </label>
           </Weathercontainer>
         </Dateline>
       </DateContainer>
@@ -52,7 +78,7 @@ function DiaryContent(){
         <Title>Title: </Title>
         <Titlecontent><input type="text" /></Titlecontent>
       </TitleContainer>
-      <Canvas><Drawing grim={grim} save={saveBtn}/></Canvas>
+      <Canvas><Drawing grim={grim} /></Canvas>
       <ButtonContainer>
         <Modebutton style={{width:'80px'}} onClick={clickedGrim}>{grim?'Drawing':'Stop'}</Modebutton>
         <Modebutton style={{width:'100px'}}>Reposition</Modebutton>
@@ -122,10 +148,15 @@ export const Weathercontainer = styled.p`
     width: 32%;
     text-align: right;
     margin-left: auto;
-    padding-right: 5px;
+    padding-right: 8px;
     display: flex;
     justify-content: space-around;
     align-items: flex-start;
+    margin-top:20px;
+`
+
+export const WeatherRadioBtn = styled.input`
+  display:none;
 `
 
 /*제목 container*/
