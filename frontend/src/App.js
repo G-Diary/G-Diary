@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css'
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import GrimList from './pages/GrimList';
 import WriteGrim from './pages/WriteGrim';
 import Main from './pages/main';
