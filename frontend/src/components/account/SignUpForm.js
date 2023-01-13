@@ -147,9 +147,18 @@ function SignUpForm() {
         </Container>
       </TypeSignUp>
       <CreateAccountBtn>
+<<<<<<< HEAD:frontend/src/components/account/SignUpForm.js
         <Button type='submit' disabled={Valid()}
           style={ !Valid() ? { backgroundColor: '#535353', borderRadius: '30px', fontSize: '30px'} : { backgroundColor: '#B3B3B3',borderRadius: '30px', fontSize: '30px'}}>
           <Link to='/SignIn' onClick={onClick} style={{
+=======
+        <Button type='submit' style={{
+          backgroundColor: '#535353', 
+          borderRadius: '30px', 
+          fontSize: '30px'
+        }}>
+          <Link to='/signIn' style={{
+>>>>>>> frontend:frontend/src/pages/signUpForm.js
             color: 'white', 
             textDecorationLine: 'none', 
             fontWeight: 'bold',

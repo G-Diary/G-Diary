@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState} from 'react';
 import styled from 'styled-components';
 
 /* 원고지 틀 컴포넌트 */
@@ -49,22 +49,6 @@ const PaperContainer = styled.div`
   flex-wrap: wrap;
   width: calc(var(--line-length));
   font-size: calc(450px / var(--line-length) / 1.5);
-`
-const PaperSpan = styled.div`
-  box-sizing: border-box;
-  flex: 1 0 auto;
-  vertical-align: middle;
-  display: inline-flex;
-  flex-wrap: nowrap;
-  align-content: center;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  width:1.5em;
-  height:1.5em;
-  border:1px solid red;
-  border-left-width: 0px;
-  margin:0.2em 0;
 `
 
 const GridContent =styled.textarea`

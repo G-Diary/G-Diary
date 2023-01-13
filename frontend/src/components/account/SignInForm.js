@@ -45,6 +45,7 @@ function SignInForm() {
 
   return(
     <Container>
+<<<<<<< HEAD:frontend/src/components/account/SignInForm.js
       <form>
         <div className='icon'>
           <LockOutlined style={{
@@ -109,6 +110,64 @@ function SignInForm() {
           </Button>
         </SignInBtn>
       </form>
+=======
+      <div className='icon'>
+        <LockOutlined style={{
+          fontSize:'50px', 
+          backgroundColor: 'lightgray', 
+          borderRadius: '50px'
+        }}/>
+      </div>
+      <TypeSignIn>
+        <Container maxWidth='sm'>
+          <TextField
+            margin='dense'
+            fullWidth
+            variant="filled"
+            required
+            label="ID"
+            name="ID"
+            autoComplete="email"
+            autoFocus
+          />
+          <TextField
+            margin='dense'
+            fullWidth
+            variant="filled"
+            required
+            type="password"
+            label="Password"
+            name="Password"
+            autoComplete="current-password"
+          />
+        </Container>
+      </TypeSignIn>
+      <SignUpBtn>
+        <Button style={{
+          border: 'solid 2px lightgray', 
+          borderRadius: '30px', 
+          fontSize: '20px'
+        }}>
+          <Link to='/signUp' style={{
+            color: 'black', 
+            textDecorationLine: 'none'
+          }}>Sign Up→</Link>
+        </Button>
+      </SignUpBtn>
+      <SignInBtn>
+        <Button type='submit' style={{
+          backgroundColor: '#535353', 
+          borderRadius: '30px', 
+          fontSize: '30px'
+        }}>
+          <Link to='/signUp' style={{
+            color: 'white', 
+            textDecorationLine: 'none', 
+            fontWeight: 'bold'
+          }}>Sign In</Link>
+        </Button>
+      </SignInBtn>
+>>>>>>> frontend:frontend/src/pages/signInForm.js
     </Container>
   );
 }
