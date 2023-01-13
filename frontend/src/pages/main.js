@@ -21,9 +21,9 @@ function Main() {
       <CoverControl>
         <Titles>G.Diary</Titles>
         <LinkBox>
-          <Link to='signIn' className='link'>Sign In</Link>
-          <Link to='signUp' className='link'>Sign Up</Link>
-          <Link to='manual' className='link'>Manual</Link>
+          <Link to='/signIn' className='link'>Sign In</Link>
+          <Link to='/signUp' className='link'>Sign Up</Link>
+          <Link to='/about' className='link'>Manual</Link>
         </LinkBox>
       </CoverControl>
     </BookCover>
