@@ -6,17 +6,17 @@ import { LockOutlined } from '@mui/icons-material';
 
 const TypeSignIn = styled.div`
   position: relative;
-  bottom: 180px;
+  bottom: 296px;
   right: 245px;`
 
 const SignInBtn = styled.div`
   position: relative;
-  bottom: 119px;
+  top: 107px;
   right: 98px;`
 
 const SignUpBtn = styled.div`
   position: relative;
-  bottom: 158px;
+  bottom: 95px;
   left: 32px;`
 
 function SignInForm() {
@@ -53,6 +53,28 @@ function SignInForm() {
             borderRadius: '50px'
           }}/>
         </div>
+        <SignInBtn>
+          <Button type='submit' disabled={Valid()} 
+            style={ Valid() ? { backgroundColor: '#EEE6BE',borderRadius: '30px', fontSize: '30px'} : { backgroundColor: '#F0DB6D', borderRadius: '30px', fontSize: '30px'}}>
+            <Link to='/SignUp' style={{
+              color: 'white', 
+              textDecorationLine: 'none', 
+              fontWeight: 'bold'
+            }}>Sign In</Link>
+          </Button>
+        </SignInBtn>
+        <SignUpBtn>
+          <Button style={{
+            border: 'solid 2px lightgray', 
+            borderRadius: '30px', 
+            fontSize: '20px'
+          }}>
+            <Link to='/SignUp' style={{
+              color: 'black', 
+              textDecorationLine: 'none'
+            }}>Sign Up→</Link>
+          </Button>
+        </SignUpBtn>
         <TypeSignIn>
           <Container maxWidth='sm'>
             <TextField
@@ -86,28 +108,6 @@ function SignInForm() {
             />
           </Container>
         </TypeSignIn>
-        <SignUpBtn>
-          <Button style={{
-            border: 'solid 2px lightgray', 
-            borderRadius: '30px', 
-            fontSize: '20px'
-          }}>
-            <Link to='/SignUp' style={{
-              color: 'black', 
-              textDecorationLine: 'none'
-            }}>Sign Up→</Link>
-          </Button>
-        </SignUpBtn>
-        <SignInBtn>
-          <Button type='submit' disabled={Valid()} 
-            style={ Valid() ? { backgroundColor: '#EEE6BE',borderRadius: '30px', fontSize: '30px'} : { backgroundColor: '#F0DB6D', borderRadius: '30px', fontSize: '30px'}}>
-            <Link to='/SignUp' style={{
-              color: 'white', 
-              textDecorationLine: 'none', 
-              fontWeight: 'bold'
-            }}>Sign In</Link>
-          </Button>
-        </SignInBtn>
       </form>
     </Container>
   );

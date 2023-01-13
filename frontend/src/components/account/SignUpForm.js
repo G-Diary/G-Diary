@@ -7,11 +7,11 @@ import { Person } from '@mui/icons-material';
 const TypeSignUp = styled.div`
   position: relative;
   right: 330px;
-  bottom: 240px;`
+  bottom: 305px;`
 
 const CreateAccountBtn = styled.div`
   position: relative;
-  bottom: 188px;
+  top: 108px;
   right: 185px;`
 
 function SignUpForm() {
@@ -81,6 +81,16 @@ function SignUpForm() {
           borderRadius: '50px'
         }}/>
       </div>
+      <CreateAccountBtn>
+        <Button type='submit' disabled={Valid()}
+          style={ !Valid() ? { backgroundColor: '#F0DB6D', borderRadius: '30px', fontSize: '30px'} : { backgroundColor: '#EEE6BE',borderRadius: '30px', fontSize: '30px'}}>
+          <Link to='/signin' onClick={onClick} style={{
+            color: 'white', 
+            textDecorationLine: 'none', 
+            fontWeight: 'bold',
+          }}>Create Account</Link>
+        </Button>
+      </CreateAccountBtn>
       <TypeSignUp>
         <Container maxWidth='sm'>
           <form>
@@ -150,18 +160,6 @@ function SignUpForm() {
             /></form>
         </Container>
       </TypeSignUp>
-      <Container>
-        <CreateAccountBtn>
-          <Button type='submit' disabled={Valid()}
-            style={ !Valid() ? { backgroundColor: '#F0DB6D', borderRadius: '30px', fontSize: '30px'} : { backgroundColor: '#EEE6BE',borderRadius: '30px', fontSize: '30px'}}>
-            <Link to='/signin' onClick={onClick} style={{
-              color: 'white', 
-              textDecorationLine: 'none', 
-              fontWeight: 'bold',
-            }}>Create Account</Link>
-          </Button>
-        </CreateAccountBtn>
-      </Container>
     </Container>
   );
 }
