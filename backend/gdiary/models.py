@@ -2,9 +2,9 @@ from django.db import models
 
 class User(models.Model):
     id = models.AutoField(primary_key=True) #pk
-    email = models.EmailField(max_length=50, null=False)
+    email = models.EmailField(max_length=50, null=False, unique=True)
     nickname = models.CharField(max_length=10, null=False)
-    password = models.CharField(null=False)
+    #password = models.CharField(null=False)
     cover_image_url = models.CharField(max_length=500, null=False)
     created_at = models.DateTimeField(auto_now_add=True, null=False)
     updated_at = models.DateTimeField(auto_now=True, null=False)
