@@ -1,7 +1,7 @@
 import React from 'react';
-import BookCover from '../components/bookshape/bookCover';
+import BookCover from '../components/bookshape/BookCover';
 import CoverControled from './CoverControl';
-import SignInForm from './signInForm';
+import SignInForm from '../components/account/SignInForm';
 import Titles from './Title';
 
 function SignIn() {
