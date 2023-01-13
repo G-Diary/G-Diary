@@ -69,7 +69,7 @@ function SignInForm() {
               onChange={idInput}
               error={id ? !idValid() : idValid()}
               helperText={
-                id ? (!idValid() ? '이메일 형식으로 입력해주세요.' : '') : ''
+                id ? (!idValid() ? '이메일 형식으로 입력해 주세요.' : '') : ''
               }
             />
             <TextField

@@ -22,6 +22,10 @@ function SignUpForm() {
 
   function nameInput(e) {
     setName(e.target.value)
+    if(name.length > 10) {
+      alert('10글자 이하로 작성해 주세요.')
+      setName(name => name.substring(0, 10))
+    }
   }
 
   function idInput(e) {
@@ -93,7 +97,7 @@ function SignUpForm() {
               onChange={nameInput}
               error={nameValid()}
               helperText={
-                nameValid() ? '특수문자는 쓸 수 없습니다.' : ''
+                nameValid() ? '특수문자는 사용하실 수 없습니다.' : ''
               }
             />
             <TextField
@@ -109,7 +113,7 @@ function SignUpForm() {
               onChange={idInput}
               error={id ? !idValid() : idValid()}
               helperText={
-                id ? (!idValid() ? '이메일 형식으로 입력해주세요.' : '') : ''
+                id ? (!idValid() ? '이메일 형식으로 입력해 주세요.' : '') : ''
               }
             />
             <TextField
@@ -125,7 +129,7 @@ function SignUpForm() {
               onChange={pwInput}
               error={pw ? !pwValid() : pwValid()}
               helperText={
-                pw ? (!pwValid() ? '숫자, 영문자, 특수문자 포함 8자리 이상 입력해주세요.' : '') : ''
+                pw ? (!pwValid() ? '숫자, 영문자, 특수문자 포함 8자리 이상 입력해 주세요.' : '') : ''
               }
             />    
             <TextField
@@ -141,7 +145,7 @@ function SignUpForm() {
               onChange={cfInput}
               error={cf ? (!cf ? Same() : !Same()) : ''}
               helperText={
-                cf ? (!Same() ? '비밀번호를 확인해주세요.' : '') : ''
+                cf ? (!Same() ? '비밀번호를 확인해 주세요.' : '') : ''
               }
             /></form>
         </Container>

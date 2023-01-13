@@ -10,19 +10,19 @@ html, body{
 body{
     /* position: fixed; */
     overflow: hidden;
-    background-image: url("../public/images/nonemove.gif");
+    background-image: url("../public/images/normal.gif");
     background-repeat: no-repeat;
     background-size: cover;
 }
 
-/* @media screen and (max-width: 1360px), screen and (max-height: 770px) {
+@media screen and (max-width: 1400px), screen and (max-height: 760px) {
     #root {
         display: none;
     }
     body {
         overflow: hidden;
-        background-image: url("../public/images/move.gif");
+        background-image: url("../public/images/alert.gif");
         background-repeat: no-repeat;
         background-size: cover;
     }
-} */
+}
