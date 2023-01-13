@@ -31,14 +31,14 @@ function SignInForm() {
     setPw(e.target.value)
   }
 
-  function Validation() {
+  function idValid() {
     var check = /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
     console.log(check.test(id))
     return check.test(id);
   }
 
   function Valid() {
-    if((id === true) & (pw === true)) {
+    if(idValid() === true) {
       return false;
     } else return true;
   }
@@ -67,9 +67,9 @@ function SignInForm() {
               type='text'
               value={id}
               onChange={idInput}
-              error={id ? !Validation() : Validation()}
+              error={id ? !idValid() : idValid()}
               helperText={
-                id ? (!Validation() ? '이메일 형식으로 입력해주세요.' : '') : ''
+                id ? (!idValid() ? '이메일 형식으로 입력해주세요.' : '') : ''
               }
             />
             <TextField
@@ -100,7 +100,7 @@ function SignInForm() {
         </SignUpBtn>
         <SignInBtn>
           <Button type='submit' disabled={Valid()} 
-            style={ !Valid() ? { backgroundColor: '#535353', borderRadius: '30px', fontSize: '30px'} : { backgroundColor: '#B3B3B3',borderRadius: '30px', fontSize: '30px'}}>
+            style={ Valid() ? { backgroundColor: '#B3B3B3',borderRadius: '30px', fontSize: '30px'} : { backgroundColor: '#535353', borderRadius: '30px', fontSize: '30px'}}>
             <Link to='/SignUp' style={{
               color: 'white', 
               textDecorationLine: 'none', 

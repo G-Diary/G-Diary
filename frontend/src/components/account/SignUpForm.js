@@ -37,7 +37,7 @@ function SignUpForm() {
   }
   
   function nameValid() {
-    var check = /[~!@#$%^&*()-=_+{}|,./<>?;':"]/;
+    var check = /[~!@#$%^&*()+|<>?:{}]/;
     return check.test(name);
   }
 
@@ -59,11 +59,11 @@ function SignUpForm() {
   }
 
   function onClick() {
-    alert('계정이 생성되었습니다.')
+    alert('회원가입 성공.')
   }
 
   function Valid() {
-    if((nameValid() === false) & (idValid() & pwValid() & Same() === true)){
+    if((name ? true : false) & idValid() & pwValid() & Same()){
       return false;
     } else return true;
   }
@@ -93,7 +93,7 @@ function SignUpForm() {
               onChange={nameInput}
               error={nameValid()}
               helperText={
-                (nameValid() ? '특수문자는 쓸 수 없습니다.' : '')
+                nameValid() ? '특수문자는 쓸 수 없습니다.' : ''
               }
             />
             <TextField
