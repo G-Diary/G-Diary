@@ -77,7 +77,7 @@ function SignUpForm() {
       <div className='icon'>
         <Person style={{
           fontSize:'50px', 
-          backgroundColor: 'lightgray', 
+          backgroundColor: '#F0DB6D', 
           borderRadius: '50px'
         }}/>
       </div>
@@ -150,16 +150,18 @@ function SignUpForm() {
             /></form>
         </Container>
       </TypeSignUp>
-      <CreateAccountBtn>
-        <Button type='submit' disabled={Valid()}
-          style={ !Valid() ? { backgroundColor: '#535353', borderRadius: '30px', fontSize: '30px'} : { backgroundColor: '#B3B3B3',borderRadius: '30px', fontSize: '30px'}}>
-          <Link to='/signin' onClick={onClick} style={{
-            color: 'white', 
-            textDecorationLine: 'none', 
-            fontWeight: 'bold',
-          }}>Create Account</Link>
-        </Button>
-      </CreateAccountBtn>
+      <Container>
+        <CreateAccountBtn>
+          <Button type='submit' disabled={Valid()}
+            style={ !Valid() ? { backgroundColor: '#F0DB6D', borderRadius: '30px', fontSize: '30px'} : { backgroundColor: '#EEE6BE',borderRadius: '30px', fontSize: '30px'}}>
+            <Link to='/signin' onClick={onClick} style={{
+              color: 'white', 
+              textDecorationLine: 'none', 
+              fontWeight: 'bold',
+            }}>Create Account</Link>
+          </Button>
+        </CreateAccountBtn>
+      </Container>
     </Container>
   );
 }

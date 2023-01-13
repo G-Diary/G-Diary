@@ -49,7 +49,7 @@ function SignInForm() {
         <div className='icon'>
           <LockOutlined style={{
             fontSize:'50px', 
-            backgroundColor: 'lightgray', 
+            backgroundColor: '#F0DB6D',
             borderRadius: '50px'
           }}/>
         </div>
@@ -100,7 +100,7 @@ function SignInForm() {
         </SignUpBtn>
         <SignInBtn>
           <Button type='submit' disabled={Valid()} 
-            style={ Valid() ? { backgroundColor: '#B3B3B3',borderRadius: '30px', fontSize: '30px'} : { backgroundColor: '#535353', borderRadius: '30px', fontSize: '30px'}}>
+            style={ Valid() ? { backgroundColor: '#EEE6BE',borderRadius: '30px', fontSize: '30px'} : { backgroundColor: '#F0DB6D', borderRadius: '30px', fontSize: '30px'}}>
             <Link to='/SignUp' style={{
               color: 'white', 
               textDecorationLine: 'none', 
