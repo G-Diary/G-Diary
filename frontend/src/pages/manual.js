@@ -1,5 +1,5 @@
 import React from 'react';
-import BookCover from '../components/bookshape/bookCover';
+import BookCover from '../components/bookshape/BookCover';
 
 function Manual() {
   return(

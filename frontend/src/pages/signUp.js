@@ -1,6 +1,6 @@
 import React from 'react';
-import BookCover from '../components/bookshape/bookCover';
-import SignUpForm from './signUpForm';
+import BookCover from '../components/bookshape/BookCover';
+import SignUpForm from './SignUpForm';
 import CoverControled from './CoverControl';
 import Titles from './Title';
 

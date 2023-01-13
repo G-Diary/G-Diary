@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import BookCover from '../components/bookshape/bookCover';
+import BookCover from '../components/bookshape/BookCover';
 import Titles from './Title';
 
 const CoverControl = styled.div`
@@ -21,9 +21,9 @@ function Main() {
       <CoverControl>
         <Titles>G.Diary</Titles>
         <LinkBox>
-          <Link to='signIn' className='link'>Sign In</Link>
-          <Link to='signUp' className='link'>Sign Up</Link>
-          <Link to='manual' className='link'>Manual</Link>
+          <Link to='/signIn' className='link'>Sign In</Link>
+          <Link to='/signUp' className='link'>Sign Up</Link>
+          <Link to='/about' className='link'>Manual</Link>
         </LinkBox>
       </CoverControl>
     </BookCover>
