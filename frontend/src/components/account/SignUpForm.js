@@ -19,11 +19,18 @@ function SignUpForm() {
   const [id, setId] = useState('');
   const [pw, setPw] = useState('');
   const [cf, setCf] = useState('');
+  const Swal = require('sweetalert2');
 
   function nameInput(e) {
     setName(e.target.value)
     if(name.length > 10) {
-      alert('10글자 이하로 작성해 주세요.')
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: '10글자 이하로 작성해 주세요.',
+        showConfirmButton: false,
+        timer: 2000
+      })
       setName(name => name.substring(0, 10))
     }
   }
@@ -63,7 +70,13 @@ function SignUpForm() {
   }
 
   function onClick() {
-    alert('회원가입 성공.')
+    Swal.fire({
+      position: 'center',
+      icon: 'success',
+      title: '회원가입 성공.',
+      showConfirmButton: false,
+      timer: 2000
+    })
   }
 
   function Valid() {

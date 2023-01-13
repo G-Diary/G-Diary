@@ -11,22 +11,20 @@ const LinkBox = styled.div`
   display: flex;
   text-align: center;`
 
-const ShowImage = styled.div`
+const ShowImage = styled.img`
   position: relative;
-  width: 330px;
+  width: 254px;
   height: 330px;
   bottom: 206px;
-  right: 175px;
-  background-color: gray;
-  border: solid 2px black;
-  color: rgba(0,0,0,0);`
+  right: 125px;
+  `
 
 function Main() {
   return(
     <BookCover>
       <CoverControl>
         <Titles>G.Diary</Titles>
-        <ShowImage>.</ShowImage>
+        <ShowImage src='images/logo.png' />
         <LinkBox>
           <Link to='/signIn' className='link'>Sign In</Link>
           <Link to='/signUp' className='link'>Sign Up</Link>

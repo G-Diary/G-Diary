@@ -32,11 +32,13 @@ const Year = styled.div`
   margin: 50px;`
 
 function BookCover({children}) {
+  let now = new Date();
+  let year = now.getFullYear();
   return (
     <AllControl>
       <Left/>
       <Right>
-        <Year>2023</Year>
+        <Year>{year}</Year>
         {children}
       </Right>
       <Bookmark/>

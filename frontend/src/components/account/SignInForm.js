@@ -56,7 +56,7 @@ function SignInForm() {
         <SignInBtn>
           <Button type='submit' disabled={Valid()} 
             style={ Valid() ? { backgroundColor: '#EEE6BE',borderRadius: '30px', fontSize: '30px'} : { backgroundColor: '#F0DB6D', borderRadius: '30px', fontSize: '30px'}}>
-            <Link to='/SignUp' style={{
+            <Link to='/signup' style={{
               color: 'white', 
               textDecorationLine: 'none', 
               fontWeight: 'bold'
@@ -69,7 +69,7 @@ function SignInForm() {
             borderRadius: '30px', 
             fontSize: '20px'
           }}>
-            <Link to='/SignUp' style={{
+            <Link to='/signup' style={{
               color: 'black', 
               textDecorationLine: 'none'
             }}>Sign Up→</Link>
