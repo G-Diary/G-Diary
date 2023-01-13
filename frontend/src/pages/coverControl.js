@@ -1,15 +1,15 @@
 import styled from 'styled-components';
 
-const CoverControling = styled.div`
+const Control = styled.div`
   position: absolute;
   top: 50%;
   left: 50%;`
 
 function CoverControl({children}) {
   return(
-    <CoverControling>
+    <Control>
       {children}         
-    </CoverControling>
+    </Control>
   )
 }
 
