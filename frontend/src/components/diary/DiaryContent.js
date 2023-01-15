@@ -4,12 +4,15 @@ import Manuscript from './Manuscript';
 import Drawing from './Drawing';
 import { BsBrightnessHighFill, BsFillCloudFill ,BsFillCloudSnowFill, BsFillCloudRainFill } from 'react-icons/bs';
 import { useStore } from '../../store/store';
+import Reposition from './Reposition';
 
 function DiaryContent(){
   const [grim, setGrim] = useState(true);  //그리기모드 버튼 클릭 여부
   const [weather, setWeather]=useState(''); //날씨 선택
-  const {updateCanvas}=useStore();
+  const {currentCanvas}=useStore();
+  const [move, setMove]=useState(true);
   let now=new Date();  //현재 날짜
+  console.log(currentCanvas);
 
   let year=now.getFullYear();  //연도 구하기
   let todayMonth=now.getMonth()+1;  //월 구하기
@@ -25,9 +28,14 @@ function DiaryContent(){
     setGrim((prev) => !prev);
   };
 
+  //크기조절 모드 버튼
+  const clickedMove = () =>{
+    setMove((prev)=>!prev);
+  }
+
   //그림 이미지화
   const saveAsPNG = () => {
-    const image = updateCanvas.toDataURL('image/png');
+    const image = currentCanvas.toDataURL('image/png');
     console.log(image);
   };
     
@@ -81,10 +89,13 @@ function DiaryContent(){
         <Title>Title: </Title>
         <Titlecontent><input type="text" /></Titlecontent>
       </TitleContainer>
-      <Canvas><Drawing grim={grim} /></Canvas>
+      <Canvas>
+        {/* <Drawing grim={grim}/> */}
+        <Reposition move={move}/>
+      </Canvas>
       <ButtonContainer>
+        <Modebutton style={{width:'100px'}} onClick={clickedMove}>{move?'Reposition':'Stop'}</Modebutton>
         <Modebutton style={{width:'80px'}} onClick={clickedGrim}>{grim?'Drawing':'Stop'}</Modebutton>
-        <Modebutton style={{width:'100px'}}>Reposition</Modebutton>
         <Savebutton onClick={saveAsPNG}>Save</Savebutton>
       </ButtonContainer>
       <Content><Manuscript /></Content>
