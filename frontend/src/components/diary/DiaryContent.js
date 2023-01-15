@@ -2,17 +2,16 @@ import React, {useState} from 'react';
 import styled from 'styled-components';
 import Manuscript from './Manuscript';
 import Drawing from './Drawing';
+import Emoji from './Emoji';
 import { BsBrightnessHighFill, BsFillCloudFill ,BsFillCloudSnowFill, BsFillCloudRainFill } from 'react-icons/bs';
 import { useStore } from '../../store/store';
-import Reposition from './Reposition';
 
 function DiaryContent(){
   const [grim, setGrim] = useState(true);  //그리기모드 버튼 클릭 여부
   const [weather, setWeather]=useState(''); //날씨 선택
-  const {currentCanvas}=useStore();
-  const [move, setMove]=useState(true);
+  const [canvasImg,setCanvasImg]=useState('');  //캔버스 값 받아오기(이미지화를 위해)
+
   let now=new Date();  //현재 날짜
-  console.log(currentCanvas);
 
   let year=now.getFullYear();  //연도 구하기
   let todayMonth=now.getMonth()+1;  //월 구하기
@@ -26,17 +25,19 @@ function DiaryContent(){
   //그리기 모드 버튼
   const clickedGrim = () => {
     setGrim((prev) => !prev);
+    saveAsPNG();
   };
 
-  //크기조절 모드 버튼
-  const clickedMove = () =>{
-    setMove((prev)=>!prev);
+  const saveBtn = (imgRef) =>{
+    const image = imgRef.toDataURL('image/png');
+    setCanvasImg(image);
+    console.log(image);
+    console.log(image.width);
   }
 
   //그림 이미지화
   const saveAsPNG = () => {
-    const image = currentCanvas.toDataURL('image/png');
-    console.log(image);
+    console.log(canvasImg);
   };
     
   return(
@@ -88,13 +89,14 @@ function DiaryContent(){
       <TitleContainer>
         <Title>Title: </Title>
         <Titlecontent><input type="text" /></Titlecontent>
+        <Emoji />
       </TitleContainer>
       <Canvas>
-        {/* <Drawing grim={grim}/> */}
-        <Reposition move={move}/>
+        <Drawing grim={grim} save={saveBtn}/>
+        {/* <Reposition move={move}/> */}
       </Canvas>
       <ButtonContainer>
-        <Modebutton style={{width:'100px'}} onClick={clickedMove}>{move?'Reposition':'Stop'}</Modebutton>
+        <Modebutton style={{width:'100px'}}>Reposition</Modebutton>
         <Modebutton style={{width:'80px'}} onClick={clickedGrim}>{grim?'Drawing':'Stop'}</Modebutton>
         <Savebutton onClick={saveAsPNG}>Save</Savebutton>
       </ButtonContainer>
@@ -194,7 +196,7 @@ export const Title =styled.p`
 `
 
 export const Titlecontent = styled.p`
-  width: 77%;
+  width: 70%;
   margin-left: 4%;
   >input{
     width: 100%;
@@ -246,7 +248,6 @@ export const Modebutton = styled.button`
 `
 
 export const Savebutton = styled.button`
-  position: relative;
   width: 110px;
   height: 30px;
   background-color: black;
@@ -257,8 +258,6 @@ export const Savebutton = styled.button`
   margin-left: auto;
   font-size: 15px;
   padding-bottom:0.5%;
-  z-index:2;
-  position: relative;
   overflow: hidden;
   transition: box-shadow, color 300ms ease-in-out;
   font-family:Comic Sans MS;
