@@ -35,18 +35,6 @@ function SignUpForm() {
     }
   }
 
-  function idInput(e) {
-    setId(e.target.value)
-  }
-
-  function pwInput(e) {
-    setPw(e.target.value)
-  }
-
-  function cfInput(e) {
-    setCf(e.target.value)
-  }
-  
   function nameValid() {
     var check = /[~!@#$%^&*()+|<>?:{}]/;
     return check.test(name);
@@ -106,71 +94,76 @@ function SignUpForm() {
       </CreateAccountBtn>
       <TypeSignUp>
         <Container maxWidth='sm'>
-          <form>
-            <TextField
-              margin="dense"   
-              fullWidth
-              variant="filled"
-              required
-              label="Nickname"
-              name="Nickname"
-              autoComplete="freeSolo"
-              autoFocus
-              value={name}
-              onChange={nameInput}
-              error={nameValid()}
-              helperText={
-                nameValid() ? '특수문자는 사용하실 수 없습니다.' : ''
-              }
-            />
-            <TextField
-              margin="dense"
-              fullWidth
-              variant="filled"
-              required
-              label="ID"
-              name="ID"
-              autoComplete="email"
-              type='text'
-              value={id}
-              onChange={idInput}
-              error={id ? !idValid() : idValid()}
-              helperText={
-                id ? (!idValid() ? '이메일 형식으로 입력해 주세요.' : '') : ''
-              }
-            />
-            <TextField
-              margin="dense"
-              fullWidth
-              variant="filled"
-              required
-              type="password"
-              label="Password"
-              name="Password"
-              autoComplete="new-password"
-              value={pw}
-              onChange={pwInput}
-              error={pw ? !pwValid() : pwValid()}
-              helperText={
-                pw ? (!pwValid() ? '숫자, 영문자, 특수문자 포함 8자리 이상 입력해 주세요.' : '') : ''
-              }
-            />    
-            <TextField
-              margin="dense"
-              fullWidth
-              variant="filled"
-              required
-              type="password"
-              label="Confirm"
-              name="Confirm"
-              autoComplete="new-password"
-              value={cf}
-              onChange={cfInput}
-              error={cf ? (!cf ? Same() : !Same()) : ''}
-              helperText={
-                cf ? (!Same() ? '비밀번호를 확인해 주세요.' : '') : ''
-              }
-            /></form>
+          <TextField
+            margin="dense"   
+            fullWidth
+            variant="filled"
+            required
+            label="Nickname"
+            name="Nickname"
+            autoComplete="freeSolo"
+            autoFocus
+            value={name}
+            onChange={nameInput}
+            error={nameValid()}
+            helperText={
+              nameValid() ? '특수문자는 사용하실 수 없습니다.' : ''
+            }
+          />
+          <TextField
+            margin="dense"
+            fullWidth
+            variant="filled"
+            required
+            label="ID"
+            name="ID"
+            autoComplete="email"
+            type='text'
+            value={id}
+            onChange={(e) => {
+              setId(e.target.value)
+            }}
+            error={id ? !idValid() : idValid()}
+            helperText={
+              id ? (!idValid() ? '이메일 형식으로 입력해 주세요.' : '') : ''
+            }
+          />
+          <TextField
+            margin="dense"
+            fullWidth
+            variant="filled"
+            required
+            type="password"
+            label="Password"
+            name="Password"
+            autoComplete="new-password"
+            value={pw}
+            onChange={(e) => {
+              setPw(e.target.value)
+            }}
+            error={pw ? !pwValid() : pwValid()}
+            helperText={
+              pw ? (!pwValid() ? '숫자, 영문자, 특수문자 포함 8자리 이상 입력해 주세요.' : '') : ''
+            }
+          />    
+          <TextField
+            margin="dense"
+            fullWidth
+            variant="filled"
+            required
+            type="password"
+            label="Confirm"
+            name="Confirm"
+            autoComplete="new-password"
+            value={cf}
+            onChange={(e) => {
+              setCf(e.target.value)
+            }}
+            error={cf ? (!cf ? Same() : !Same()) : ''}
+            helperText={
+              cf ? (!Same() ? '비밀번호를 확인해 주세요.' : '') : ''
+            }
+          />
         </Container>
       </TypeSignUp>
     </Container>
