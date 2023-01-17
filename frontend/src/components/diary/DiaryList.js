@@ -3,14 +3,21 @@ import Manuscript from './Manuscript';
 import { BsBrightnessHighFill, BsFillCloudFill ,BsFillCloudSnowFill, BsFillCloudRainFill } from 'react-icons/bs';
 import { Content, DateContainer, Dateline, Datetitle, DiviContainer, Weathercontainer, DateContent, TitleContainer, Title, Titlecontent, Canvas, Modebutton } from './DiaryContent';
 import { ChoiceButtonContainer } from './GrimChoice';
+import { useStore } from '../../store/store';
 
 function DiaryList(){
+  // const {choicedDate}=useStore();
+  // console.log(choicedDate);
+  // const date=choicedDate;
+  // let year=date.getFullYear();  //연도 구하기
+  // let todayMonth=date.getMonth()+1;  //월 구하기
+  // let todayDate=date.getDate();  //일 구하기
   return(
     <DiviContainer>
       <DateContainer>
         <Dateline>
           <Datetitle>DATE</Datetitle>
-          <DateContent>23.01.07</DateContent>
+          <DateContent></DateContent>
           <Weathercontainer>
             <BsBrightnessHighFill size="27" color='red' />
             <BsFillCloudFill size="27" color="#4E5D79" />

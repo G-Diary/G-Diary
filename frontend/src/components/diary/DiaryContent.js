@@ -4,24 +4,23 @@ import Manuscript from './Manuscript';
 import Drawing from './Drawing';
 import Emoji from './Emoji';
 import { BsBrightnessHighFill, BsFillCloudFill ,BsFillCloudSnowFill, BsFillCloudRainFill } from 'react-icons/bs';
-import { useStore } from '../../store/store';
+import { useLocation } from 'react-router-dom';
 
 function DiaryContent(){
+  const location = useLocation();
   const [grim, setGrim] = useState(true);  //그리기모드 버튼 클릭 여부
   const [weather, setWeather]=useState(''); //날씨 선택
   const [canvasImg,setCanvasImg]=useState('');  //캔버스 값 받아오기(이미지화를 위해)
-
-  let now=new Date();  //현재 날짜
-
-  let year=now.getFullYear();  //연도 구하기
-  let todayMonth=now.getMonth()+1;  //월 구하기
-  let todayDate=now.getDate();  //일 구하기
-
+  const date=location.state?.date;
+  console.log(date);
+  let year=date.getFullYear();  //연도 구하기
+  let todayMonth=date.getMonth()+1;  //월 구하기
+  let todayDate=date.getDate();  //일 구하기
+  
   //날씨 선택
   const weatherChange = (weatherName)=>{
     setWeather(weatherName);
   }
-
   //그리기 모드 버튼
   const clickedGrim = () => {
     setGrim((prev) => !prev);
@@ -45,6 +44,7 @@ function DiaryContent(){
       <DateContainer>
         <Dateline>
           <Datetitle>DATE</Datetitle>
+          {/* <DateContent>{year}.{todayMonth}.{todayDate}</DateContent> */}
           <DateContent>{year}.{todayMonth}.{todayDate}</DateContent>
           <Weathercontainer>
             <WeatherRadioBtn 
