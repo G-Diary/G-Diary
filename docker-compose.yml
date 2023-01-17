@@ -52,7 +52,8 @@ services:
       - --lower_case_table_names=1
     container_name: gd_mysql # 컨테이너 이름 설정
     ports:
-      - "3306:3306"
+      # 도커:로컬
+      - "3307:3306"
     env_file:
       - ./backend/.env
     # environment: # -e 옵션
