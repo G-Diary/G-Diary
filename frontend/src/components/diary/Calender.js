@@ -6,8 +6,6 @@ import { startOfMonth, endOfMonth, startOfWeek, endOfWeek } from 'date-fns';
 import { isSameMonth, isSameDay, addDays} from 'date-fns';
 import { Link } from 'react-router-dom';
 import { useStore } from '../../store/store';
-import moment from 'moment';
-import { id } from 'date-fns/locale';
 
 //(date-fns 이용: 날짜 관련 함수 총 집합 라이브러리)
 //header 컴포넌트(월 이동)
@@ -101,7 +99,6 @@ const RenderCells = ({currentMonth, today, list, selectedDate, onDateClick})=>{
         console.log(exist[0])
       }
       day=addDays(day, 1);
-      console.log(cloneDay);
     }
     rows.push(
       <div className='bodyrow' key={day}>
@@ -119,7 +116,6 @@ function Calender({list}){
   const {setChoicedDate}=useStore();
   console.log(list)
   console.log(currentMonth.toDateString());
-  // console.log(new Date(list[1].date).toDateString()===currentMonth.toDateString())
   const prevMonth = () =>{
     setCurrentMonth(subMonths(currentMonth, 1));
   };

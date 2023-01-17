@@ -177,12 +177,24 @@
 
 .listemoji{
     /* align-items: center; */
-    width: 3rem;
+    width: 2.5rem;
     padding-top: 15px;
     cursor: pointer;
     /* display: flex;
     justify-content: center; */
-    transform: translate(-25%,20%);
+    transform: translate(-22%,20%);
     z-index: 100;
     font-size: 2em;
+}
+
+.link{
+    text-decoration-line: none;
+    font-size: 1.7rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: translate(125%,-400%);
+}
+.link:hover{
+    color:rgb(205, 111, 111);
 }
