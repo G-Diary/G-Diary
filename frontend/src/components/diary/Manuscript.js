@@ -38,7 +38,7 @@ function Manuscript() {
 
 export default Manuscript;
 
-const PaperContainer = styled.div`
+export const PaperContainer = styled.div`
   --line-length: 10;
   box-sizing: content-box;
   border: 2px groove transparent;
@@ -50,7 +50,7 @@ const PaperContainer = styled.div`
   width: calc(var(--line-length));
   font-size: calc(450px / var(--line-length) / 1.5);
 `
-const PaperSpan = styled.div`
+export const PaperSpan = styled.div`
   box-sizing: border-box;
   flex: 1 0 auto;
   vertical-align: middle;
@@ -67,7 +67,7 @@ const PaperSpan = styled.div`
   margin:0.2em 0;
 `
 
-const GridContent =styled.textarea`
+export const GridContent =styled.textarea`
   position: absolute;
   width: 520px;
   height: 280px;
@@ -86,12 +86,12 @@ const GridContent =styled.textarea`
   font-family:Comic Sans MS;
   text-transform: lowercase;
 `
-const PaperTable =styled.table`
+export const PaperTable =styled.table`
   margin: 0 auto;
   padding-top: 5px;
 `
 
-const TableTd =styled.td`
+export const TableTd =styled.td`
   box-sizing: border-box;
   flex: 1 0 auto;
   vertical-align: middle;

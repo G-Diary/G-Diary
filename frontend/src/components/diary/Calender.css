@@ -127,7 +127,7 @@
     margin: 2px 0 0 5px;
 }
 .not-valid{
-    color: #a5a5a5;
+    color: #a5a5a5; 
 }
 .bodycol>img{
     opacity: 0.1;
@@ -176,11 +176,13 @@
 }
 
 .listemoji{
-    align-items: center;
+    /* align-items: center; */
+    width: 3rem;
     padding-top: 15px;
     cursor: pointer;
-    display: flex;
-    justify-content: center;
+    /* display: flex;
+    justify-content: center; */
+    transform: translate(-25%,20%);
     z-index: 100;
     font-size: 2em;
 }

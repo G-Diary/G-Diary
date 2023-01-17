@@ -5,7 +5,9 @@ import { format, addMonths, subMonths } from 'date-fns';
 import { startOfMonth, endOfMonth, startOfWeek, endOfWeek } from 'date-fns';
 import { isSameMonth, isSameDay, addDays} from 'date-fns';
 import { Link } from 'react-router-dom';
-// import { useStore } from '../../store/store';
+import { useStore } from '../../store/store';
+import moment from 'moment';
+import { id } from 'date-fns/locale';
 
 //(date-fns 이용: 날짜 관련 함수 총 집합 라이브러리)
 //header 컴포넌트(월 이동)
@@ -44,18 +46,18 @@ const RenderDays = () =>{
 }
 
 //Body(Cells) 컴포넌트(날짜(일))
-const RenderCells = ({currentMonth, today, selectedDate, onDateClick})=>{
+const RenderCells = ({currentMonth, today, list, selectedDate, onDateClick})=>{
   const monthStart=startOfMonth(currentMonth);
   const monthEnd=endOfMonth(monthStart);
   const startDate=startOfWeek(monthStart);
   const endDate=endOfWeek(monthEnd);
   const [add, setAdd]=useState(true);  //일기 추가 상태
   const [newDiary, setNewDiary]=useState(false);
-
   const rows=[];
   let days=[];
   let day=startDate;
   let formattedDate = '';
+  let exist=[];
 
   while(day<=endDate){
     for (let i=0; i<7; i++){
@@ -75,23 +77,31 @@ const RenderCells = ({currentMonth, today, selectedDate, onDateClick})=>{
         }`}
         key={day}
         onClick={()=>onDateClick(cloneDay)}
-        // onClick={(day)=>console.log({day})}
         >
           <span>
             {formattedDate}
           </span>
-          <BsPlusCircleFill style={{color:'#c04922'}} className={`hover-close ${add?'hide':''}`} />
-          <Link to='/write' state={{date:day}}>
+          {list.filter(x=>new Date(x.date).toDateString()===cloneDay.toDateString())
+            // eslint-disable-next-line no-loop-func
+            .map(data=>{
+              exist.push(cloneDay)
+              console.log(exist)
+              return <div key={data}><img src={data.emoji} alt="emoji" className='listemoji'/></div>})}
+          {exist.includes(cloneDay)?'':(<div> <Link to='/write' state={{date:day}}>
             <div onMouseEnter={()=>{setAdd(false)}}
               onMouseLeave={()=>{setAdd(true)}}
               onClick={()=>setNewDiary(true)} 
             ><BsPlusCircleFill style={{color:'#c04922'}} className={`hover-close ${add?'hide':''}`} />
             </div>
-          </Link>
-          <span role="img" aria-label="sheep" className='listemoji'>🐑</span>
+          </Link></div>)}
         </div>
       );
+      if(exist.includes(cloneDay)){
+        console.log(true)
+        console.log(exist[0])
+      }
       day=addDays(day, 1);
+      console.log(cloneDay);
     }
     rows.push(
       <div className='bodyrow' key={day}>
@@ -103,10 +113,13 @@ const RenderCells = ({currentMonth, today, selectedDate, onDateClick})=>{
   return <div className='calenderbody'>{rows}</div>
 }
 
-function Calender(){
+function Calender({list}){
   const [currentMonth, setCurrentMonth]=useState(new Date());
   const [selectedDate, setSelectedDate]=useState(new Date());
-  // const {setChoicedDate}=useStore();
+  const {setChoicedDate}=useStore();
+  console.log(list)
+  console.log(currentMonth.toDateString());
+  // console.log(new Date(list[1].date).toDateString()===currentMonth.toDateString())
   const prevMonth = () =>{
     setCurrentMonth(subMonths(currentMonth, 1));
   };
@@ -116,14 +129,16 @@ function Calender(){
   }
   const onDateClick = (day) =>{
     setSelectedDate(day);
+    setChoicedDate(day)
   }
+  console.log(selectedDate)
   return(
     <div className='listcontainer'>
       <div className='listname'>Diary List</div>
       <div className='calender'>
         <RenderHeader currentMonth={currentMonth} prevMonth={prevMonth} nextMonth={nextMonth}></RenderHeader>
         <RenderDays></RenderDays>
-        <RenderCells currentMonth={currentMonth} today={today} selectedDate={selectedDate} onDateClick={onDateClick}></RenderCells>
+        <RenderCells currentMonth={currentMonth} today={today} list={list} selectedDate={selectedDate} onDateClick={onDateClick}></RenderCells>
       </div>
     </div>
   )
