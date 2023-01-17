@@ -1,5 +1,8 @@
 asgiref==3.6.0
-backports.zoneinfo==0.2.1
+#맥 
+#backports.zoneinfo==0.2.1
+#윈도우
+backports.zoneinfo==0.2.1;python_version<"3.9"
 certifi==2022.12.7
 cffi==1.15.1
 charset-normalizer==3.0.1
@@ -13,5 +16,8 @@ pycparser==2.21
 PyMySQL==1.0.2
 pytz==2022.7
 requests==2.28.2
-sqlparse==0.4.3
+#맥 
+#sqlparse==0.4.3
+#윈도우
+sqlparse==0.2.4
 urllib3==1.26.14
