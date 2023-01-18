@@ -28,7 +28,10 @@ services:
         DJANGO_CORS_ORIGIN_WHITELIST: "*"
     container_name: gd_backend  
     # command : 컨테이너가 띄워질 때 실행하는 명령어 / 서버실행
-    command: sh -c "/wait & python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    #맥
+    #command: sh -c "/wait & python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    #윈도우, 접속 후 127.0.0.1 로 url 수정
+    command: sh -c "/wait & python manage.py makemigrations gdiary && python manage.py migrate gdiary && python manage.py runserver 0.0.0.0:8000"
     
     # restart : 실패하면 재시작
     restart: on-failure
