@@ -9,12 +9,12 @@ function IntroduceL(){
       </Introducetitle>
       <div style={{fontSize:'23px', textAlign:'center', fontFamily:'Comic Sans MS', marginBottom:'8px', color:'#777777'}}>About Team..?</div>
       <IntroduceTeam>
-        <Team><TeamImg src="images/background.png" alt="team" /><TeamGit href="https://github.com/gmlrude">HeeKyeong</TeamGit></Team>
-        <Team><TeamImg src="images/background.png" alt="team" /><TeamGit href="https://github.com/aristo0922">AhRyeong</TeamGit></Team>
-        <Team><TeamImg src="images/background.png" alt="team" /><TeamGit href="https://github.com/yangwonjoon">WonJoon</TeamGit></Team>
-        <Team><TeamImg src="images/background.png" alt="team" /><TeamGit href='https://github.com/gs0428'>GwangSoo</TeamGit></Team>
-        <Team><TeamImg src="images/background.png" alt="team" /><TeamGit href='https://github.com/yunyoungse2222'>YoungSe</TeamGit></Team>
-        <Team><TeamImg src="images/background.png" alt="team" /><TeamGit href='https://github.com/alswlfl29'>MinJi</TeamGit></Team>
+        <Team><TeamImg src="images/park.JPG" alt="team" /><TeamGit href="https://github.com/gmlrude">HeeKyeong</TeamGit></Team>
+        <Team><TeamImg src="images/jang.JPG" alt="team" /><TeamGit href="https://github.com/aristo0922">AhRyeong</TeamGit></Team>
+        <Team><TeamImg src="images/yoon.JPG" alt="team" /><TeamGit href="https://github.com/yangwonjoon">WonJoon</TeamGit></Team>
+        <Team><TeamImg src="images/lim.JPG" alt="team" /><TeamGit href='https://github.com/gs0428'>GwangSoo</TeamGit></Team>
+        <Team><TeamImg src="images/yang.JPG" alt="team" /><TeamGit href='https://github.com/yunyoungse2222'>YoungSe</TeamGit></Team>
+        <Team><TeamImg src="images/lee.JPG" alt="team" /><TeamGit href='https://github.com/alswlfl29'>MinJi</TeamGit></Team>
       </IntroduceTeam>
     </IntroduceContainer>)
 }

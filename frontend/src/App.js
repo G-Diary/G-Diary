@@ -10,6 +10,7 @@ import SignUp from './pages/SignUp';
 import Manual from './pages/Manual';
 
 function App() {
+  let today=new Date();
   return (
     <Routes>
       <Route path="/" element={<Main />} />
@@ -19,7 +20,6 @@ function App() {
       <Route path="/about" element={<Manual />} />
       <Route path="/write" element={<WriteGrim />} />
       <Route path="/list" element={<GrimList />} />
-      {/* <Route path="/list/:userid" element={<GrimList />} /> */}
     </Routes>
   );
 }
