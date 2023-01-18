@@ -9,6 +9,7 @@ import SignUp from './pages/SignUp';
 import Manual from './pages/Manual';
 
 function App() {
+  let today=new Date();
   return (
     <Routes>
       <Route path="/" element={<Main />} />

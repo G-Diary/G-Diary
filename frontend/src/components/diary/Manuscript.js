@@ -30,7 +30,7 @@ function Manuscript() {
     }
   }
   return (
-    <div>
+    <div style={{marginTop:'13px', marginLeft:'7px'}}>
       <PaperContainer>
         <GridContent spellCheck="false" id="word" type="text" value={word} onChange={wordInput}/>
         <label htmlFor='word'>
@@ -92,12 +92,13 @@ export const GridContent =styled.textarea`
   top: -400px;
 `
 
-const TableTd =styled.div`
+export const TableTd =styled.div`
   border: 1px solid black;
-  width: 48px;
-  height: 48px;
+  width: 47.3px;
+  height: 47.3px;
   font-size: 30px;
   text-align: center;
   z-index: 1;
   margin-bottom: 5px;
+  margin:1px;
 `
