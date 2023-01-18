@@ -49,17 +49,19 @@ services:
       - gd_mysql
 
   gd_mysql:
-    image: gd_mysql
-    command: --lower_case_table_names=1
+    image: mysql
+    command: 
+      - --lower_case_table_names=1
     container_name: gd_mysql # 컨테이너 이름 설정
     ports:
-      - "3306:3306"
-    # env_file:
-    #   - ./backend/.env
-    environment: # -e 옵션
-      - MYSQL_DATABASE=
-      # - MYSQL_USER=root
-      - MYSQL_ROOT_PASSWORD=  # MYSQL 패스워드 설정 옵션
+      # 도커:로컬
+      - "3307:3306"
+    env_file:
+      - ./backend/.env
+    # environment: # -e 옵션
+    #   - MYSQL_DATABASE=${MYSQL_DATABASE}
+    #   - MYSQL_USER=${MYSQL_USER}
+    #   - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}  # MYSQL 패스워드 설정 옵션
     # 가상 네트워크 연결
     networks:
       - gd
