@@ -1,40 +1,104 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components';
 import Manuscript from './Manuscript';
+import Drawing from './Drawing';
+import Emoji from './Emoji';
 import { BsBrightnessHighFill, BsFillCloudFill ,BsFillCloudSnowFill, BsFillCloudRainFill } from 'react-icons/bs';
+import { useLocation } from 'react-router-dom';
 
 function DiaryContent(){
+  const location = useLocation();
+  const [grim, setGrim] = useState(true);  //그리기모드 버튼 클릭 여부
+  const [weather, setWeather]=useState(''); //날씨 선택
+  const [canvasImg,setCanvasImg]=useState('');  //캔버스 값 받아오기(이미지화를 위해)
+  const date=location.state?.date;
+  console.log(date);
+  let year=date.getFullYear();  //연도 구하기
+  let todayMonth=date.getMonth()+1;  //월 구하기
+  let todayDate=date.getDate();  //일 구하기
+  
+  //날씨 선택
+  const weatherChange = (weatherName)=>{
+    setWeather(weatherName);
+  }
+  //그리기 모드 버튼
+  const clickedGrim = () => {
+    setGrim((prev) => !prev);
+    saveAsPNG();
+  };
+
+  const saveBtn = (imgRef) =>{
+    const image = imgRef.toDataURL('image/png');
+    setCanvasImg(image);
+    console.log(image);
+    console.log(image.width);
+  }
+
+  //그림 이미지화
+  const saveAsPNG = () => {
+    console.log(canvasImg);
+  };
+    
   return(
     <DiviContainer>
       <DateContainer>
         <Dateline>
           <Datetitle>DATE</Datetitle>
-          <DateContent>23.01.07</DateContent>
+          {/* <DateContent>{year}.{todayMonth}.{todayDate}</DateContent> */}
+          <DateContent>{year}.{todayMonth}.{todayDate}</DateContent>
           <Weathercontainer>
-            <BsBrightnessHighFill size="27" color='red' 
-              onMouseOver={({target})=>target.style.color='#ff7e7e'}  
-              onMouseOut={({target})=>target.style.color='red'} />
-            <BsFillCloudFill size="27" color="#4E5D79" 
-              onMouseOver={({target})=>target.style.color='#7b869d'}  
-              onMouseOut={({target})=>target.style.color='#4E5D79'}/>
-            <BsFillCloudRainFill size="26" color="#5A5A5A" style={{paddingTop: '1.5px'}} 
-              onMouseOver={({target})=>target.style.color='#919191'}  
-              onMouseOut={({target})=>target.style.color='#5A5A5A'}/>
-            <BsFillCloudSnowFill size="25" color='#FFFAFA' style={{paddingTop: '2px'}}
-              onMouseOver={({target})=>target.style.color='#e2dfdf'}  
-              onMouseOut={({target})=>target.style.color='#FFFAFA'}/>
+            <WeatherRadioBtn 
+              type='radio' 
+              id="sunny"
+              checked={weather==='sunny'}
+              onChange={()=>weatherChange('sunny')}
+            />
+            <label htmlFor="sunny">
+              {weather==='sunny'?(<BsBrightnessHighFill size="29" color='red' />):(<BsBrightnessHighFill size="27" color='#8e8d8d'/>)}
+            </label>
+            <WeatherRadioBtn 
+              type='radio' 
+              id="cloudy"
+              checked={weather==='cloudy'}
+              onChange={()=>weatherChange('cloudy')} 
+            />
+            <label htmlFor="cloudy">
+              {weather==='cloudy'?(  <BsFillCloudFill size="29" color='rgb(36 75 147)' />):(<BsFillCloudFill size="28" color='#8e8d8d' />)}
+            </label>
+            <WeatherRadioBtn 
+              type='radio' 
+              id="rainy"
+              checked={weather==='rainy'}
+              onChange={()=>weatherChange('rainy')}
+            />
+            <label htmlFor="rainy">
+              {weather==='rainy'?(<BsFillCloudRainFill size="28" style={{paddingTop: '1.5px'}} color='rgb(76 76 76)' />):(<BsFillCloudRainFill size="26.5" style={{paddingTop: '1.5px'}} color='#8e8d8d' />)}
+            </label>
+            <WeatherRadioBtn 
+              type='radio' 
+              id="snow"
+              checked={weather==='snow'}
+              onChange={()=>weatherChange('snow')} 
+            />
+            <label htmlFor="snow">
+              {weather==='snow'?( <BsFillCloudSnowFill size="28" style={{paddingTop: '2px'}} color='#FFFAFA' />):( <BsFillCloudSnowFill size="26" style={{paddingTop: '2px'}} color='#8e8d8d' />)}
+            </label>
           </Weathercontainer>
         </Dateline>
       </DateContainer>
       <TitleContainer>
         <Title>Title: </Title>
         <Titlecontent><input type="text" /></Titlecontent>
+        <Emoji />
       </TitleContainer>
-      <Canvas></Canvas>
+      <Canvas>
+        <Drawing grim={grim} save={saveBtn}/>
+        {/* <Reposition move={move}/> */}
+      </Canvas>
       <ButtonContainer>
-        <Modebutton style={{width:'80px'}}>Drawing</Modebutton>
         <Modebutton style={{width:'100px'}}>Reposition</Modebutton>
-        <Savebutton>Save</Savebutton>
+        <Modebutton style={{width:'80px'}} onClick={clickedGrim}>{grim?'Drawing':'Stop'}</Modebutton>
+        <Savebutton onClick={saveAsPNG}>Save</Savebutton>
       </ButtonContainer>
       <Content><Manuscript /></Content>
     </DiviContainer>
@@ -92,7 +156,7 @@ export const DateContent = styled.p`
     align-items: center;
     justify-content: center;
     line-height: 90%;
-    color: #959292;
+    color: #4b4b4b;
     font-family:Comic Sans MS;
 `
 
@@ -100,10 +164,15 @@ export const Weathercontainer = styled.p`
     width: 32%;
     text-align: right;
     margin-left: auto;
-    padding-right: 5px;
+    padding-right: 8px;
     display: flex;
     justify-content: space-around;
     align-items: flex-start;
+    margin-top:20px;
+`
+
+export const WeatherRadioBtn = styled.input`
+  display:none;
 `
 
 /*제목 container*/
@@ -127,7 +196,7 @@ export const Title =styled.p`
 `
 
 export const Titlecontent = styled.p`
-  width: 77%;
+  width: 70%;
   margin-left: 4%;
   >input{
     width: 100%;
@@ -137,6 +206,8 @@ export const Titlecontent = styled.p`
     outline: none;
     background: transparent;
     font-family:Comic Sans MS;
+    color:#4b4b4b;
+    caret-color: transparent;
   }
 `
 
@@ -177,7 +248,6 @@ export const Modebutton = styled.button`
 `
 
 export const Savebutton = styled.button`
-  position: relative;
   width: 110px;
   height: 30px;
   background-color: black;
@@ -188,8 +258,6 @@ export const Savebutton = styled.button`
   margin-left: auto;
   font-size: 15px;
   padding-bottom:0.5%;
-  z-index:2;
-  position: relative;
   overflow: hidden;
   transition: box-shadow, color 300ms ease-in-out;
   font-family:Comic Sans MS;

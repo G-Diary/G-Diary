@@ -6,7 +6,6 @@ import Bookmark from '../components/diary/Bookmark';
 import IntroduceL from '../components/IntroduceL';
 import IntroduceR from '../components/IntroduceR';
 
-
 function Manual() {
   return(
     <WriteContainer>

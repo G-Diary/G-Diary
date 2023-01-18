@@ -9,7 +9,7 @@ const AllControl = styled.div`
   align-items: center;`
 
 const Left = styled.div`
-  background-color: #535353;
+  background-color: #F0DB6D;
   float: left;
   width: 55px;
   height: 758px;
@@ -18,7 +18,7 @@ const Left = styled.div`
   box-shadow:16px 9px 10px 0 #676262;`
 
 const Right = styled.div`
-  background-color: white;
+  background-color: #FDF6EA;
   float: left;
   width: 675px;
   height: 758px;
@@ -32,11 +32,13 @@ const Year = styled.div`
   margin: 50px;`
 
 function BookCover({children}) {
+  let now = new Date();
+  let year = now.getFullYear();
   return (
     <AllControl>
       <Left/>
       <Right>
-        <Year>2023</Year>
+        <Year>{year}</Year>
         {children}
       </Right>
       <Bookmark/>
