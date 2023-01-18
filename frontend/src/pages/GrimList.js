@@ -14,8 +14,7 @@ import '../components/diary/Calender.css';
 
 function GrimList(){
   const [list, setList]=useState([]);
-  const {choiceDate}=useStore();
-  let exist=[];
+  const {choiceDate, exist}=useStore();
 
   useEffect(()=>{
     fetch('/data/dummy.json')
@@ -41,46 +40,15 @@ function GrimList(){
             // eslint-disable-next-line no-loop-func
             .map(data=>{
               return <DiaryList key={data.id} title={data.title} weather={data.weather} draw={data.drawing_url} contents={data.contents} date={data.date} emoji={data.emoji} />})}
-          {list && list.map((x)=>{
-            if(Object.keys(x).includes(choiceDate.toDateString())){
-              return <></>
-            }
-            else{
-              return <div>ss</div>
-            }
-          })}
-          {/* {list.filter(x=>new Date(x.date).toDateString()!==choiceDate.toDateString())
-            // eslint-disable-next-line no-loop-func
-            .map(data=>{
-              exist.push(data.date)
-              console.log(exist)
-            })}
-          {list && list.map((x)=>{
-            if(exist.includes(x.date)){
-              return(<>dd</>)
-            }else{
-              return(<DiviContainer>
-                <div style={{fontSize:'2.5rem', fontFamily:'Comic Sans MS', textAlign:'center'}}>
+          {exist.includes(choiceDate)?'':(<DiviContainer>
+            <div style={{fontSize:'2.5rem', fontFamily:'Comic Sans MS', textAlign:'center'}}>
                 Shall we record the day of
-                  <p style={{display:'flex', flexDirection:'row', justifyContent:'center'}}><p style={{width:'17rem', margin:'0', color:'orange'}}>{format(choiceDate, 'MMM')} {choiceDate.getDate()}, {choiceDate.getFullYear()}</p>?</p>
-                  <Link to='/write' state={{date:choiceDate}} className="listLink">
+              <p style={{display:'flex', flexDirection:'row', justifyContent:'center'}}><p style={{width:'17rem', margin:'0', color:'orange'}}>{format(choiceDate, 'MMM')} {choiceDate.getDate()}, {choiceDate.getFullYear()}</p>?</p>
+              <Link to='/write' state={{date:choiceDate}} className="listLink">
                     Get started<BsArrowRight size="1.5rem" style={{marginLeft:'1rem', paddingTop:'3px'}}/>
-                  </Link>
-                </div>
-              </DiviContainer>)
-            }})
-          } */}
-          {/* {list && list.map((x,index)=>{
-            return(exist.includes(x.date)?'':(<DiviContainer>
-              <div style={{fontSize:'2.5rem', fontFamily:'Comic Sans MS', textAlign:'center'}}>
-              Shall we record the day of
-                <p style={{display:'flex', flexDirection:'row', justifyContent:'center'}}><p style={{width:'17rem', margin:'0', color:'orange'}}>{format(choiceDate, 'MMM')} {choiceDate.getDate()}, {choiceDate.getFullYear()}</p>?</p>
-                <Link to='/write' state={{date:choiceDate}} className="link">
-                  Get started<BsArrowRight size="1.5rem" style={{marginLeft:'1rem', paddingTop:'3px'}}/>
-                </Link>
-              </div>
-            </DiviContainer>))
-          })} */}
+              </Link>
+            </div>
+          </DiviContainer>)}
         </BookShape2R>
         <Bookmark />
       </Book2Container>

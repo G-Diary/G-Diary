@@ -51,11 +51,12 @@ const RenderCells = ({currentMonth, today, list, selectedDate, onDateClick})=>{
   const endDate=endOfWeek(monthEnd);
   const [add, setAdd]=useState(true);  //일기 추가 상태
   const [newDiary, setNewDiary]=useState(false);
+  const {exist}=useStore();
   const rows=[];
   let days=[];
   let day=startDate;
   let formattedDate = '';
-  let exist=[];
+  // let exist=[];
 
   while(day<=endDate){
     for (let i=0; i<7; i++){
@@ -94,10 +95,6 @@ const RenderCells = ({currentMonth, today, list, selectedDate, onDateClick})=>{
           </Link></div>)}
         </div>
       );
-      if(exist.includes(cloneDay)){
-        console.log(true)
-        console.log(exist[0])
-      }
       day=addDays(day, 1);
     }
     rows.push(
@@ -113,7 +110,7 @@ const RenderCells = ({currentMonth, today, list, selectedDate, onDateClick})=>{
 function Calender({list}){
   const [currentMonth, setCurrentMonth]=useState(new Date());
   const [selectedDate, setSelectedDate]=useState(new Date());
-  const {setChoicedDate}=useStore();
+  const {setChoicedDate, exist}=useStore();
   console.log(list)
   console.log(currentMonth.toDateString());
   const prevMonth = () =>{
