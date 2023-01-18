@@ -46,7 +46,7 @@ function SignInForm() {
       <SignInBtn>
         <Button disabled={Valid()} 
           style={ Valid() ? { backgroundColor: '#EEE6BE',borderRadius: '30px', fontSize: '30px'} : { backgroundColor: '#F0DB6D', borderRadius: '30px', fontSize: '30px'}}>
-          <Link to='/signin' style={{
+          <Link to='/main' style={{
             color: 'white', 
             textDecorationLine: 'none', 
             fontWeight: 'bold'
