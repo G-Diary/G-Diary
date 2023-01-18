@@ -2,6 +2,7 @@
 # 도커컴포즈는 업할때 반영
 version: "3"
 
+<<<<<<< refs/remotes/origin/develop
 services:
   gd_frontend:
     container_name: gd_frontend
@@ -19,6 +20,9 @@ services:
       - CHOKIDAR_USEPOLLING=true
       - REACT_APP_BACKEND_URL=http://localhost:8000
     tty: true
+=======
+services: 
+>>>>>>> fix: 회원가입, 로그인 관련 url 수정
 
   gd_backend:
     build:
