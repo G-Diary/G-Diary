@@ -1,4 +1,4 @@
-import React, { useState} from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components';
 
 /* 원고지 틀 컴포넌트 */
@@ -7,15 +7,13 @@ function Manuscript() {
   const Swal = require('sweetalert2');
   let tr = Array.apply(null, new Array(5)).map(Number.prototype.valueOf, 0);
   let td = Array.apply(null, new Array(10)).map(Number.prototype.valueOf, 0);
-  
-  console.log()
+
   const textlist = tr.map((tr,index) => (
     <div style={{display: 'flex'}} key={index}>
       {td.map((td,index1) => (
         <TableTd key={index1}>{word[index1 + 10 * index]}</TableTd>
       ))}
     </div>
-    
   ));
 
   function wordInput(e) {
@@ -84,3 +82,4 @@ const TableTd =styled.div`
   z-index: 1;
   margin-bottom: 5px;
 `
+

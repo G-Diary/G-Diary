@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import {Button, Container, TextField} from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import { LockOutlined } from '@mui/icons-material';
-import axios from 'axios';
 
 const TypeSignIn = styled.div`
   position: relative;
@@ -35,9 +34,6 @@ function SignInForm() {
     } else return true;
   }
 
-  function checkUser() {
-  }
-
   return(
     <Container>
       <div className='icon'>
@@ -48,7 +44,7 @@ function SignInForm() {
         }}/>
       </div>
       <SignInBtn>
-        <Button onClick={checkUser} disabled={Valid()} 
+        <Button disabled={Valid()} 
           style={ Valid() ? { backgroundColor: '#EEE6BE',borderRadius: '30px', fontSize: '30px'} : { backgroundColor: '#F0DB6D', borderRadius: '30px', fontSize: '30px'}}>
           <Link to='/signin' style={{
             color: 'white', 
