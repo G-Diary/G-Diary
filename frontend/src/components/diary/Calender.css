@@ -187,7 +187,7 @@
     font-size: 2em;
 }
 
-.link{
+.listLink{
     text-decoration-line: none;
     font-size: 1.7rem;
     display: flex;
@@ -195,6 +195,6 @@
     align-items: center;
     transform: translate(125%,-400%);
 }
-.link:hover{
+.listLink:hover{
     color:rgb(205, 111, 111);
 }
