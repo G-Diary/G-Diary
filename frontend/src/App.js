@@ -17,7 +17,6 @@ function App() {
       <Route path="/about" element={<Manual />} />
       <Route path="/write" element={<WriteGrim />} />
       <Route path="/list" element={<GrimList />} />
-      {/* <Route path="/list/:userid" element={<GrimList />} /> */}
     </Routes>
   );
 }
