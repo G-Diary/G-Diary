@@ -2,22 +2,24 @@
 # 도커컴포즈는 업할때 반영
 version: "3"
 
-services: 
-
-  # gd_frontend:
-  #   build: ./frontend
-  #   command: ["npm", "start"]
-  #   container_name: gd_frontend
-  #   environment:
-  #     - REACT_APP_BACKEND_URL=http://localhost:8000
-  #   ports:
-  #     - 3000:3000
-  #   networks:
-  #     - gd
-  #   volumes:
-  #     - ./frontend:/frontend
-  #   tty: true
-
+services:
+  gd_frontend:
+    container_name: frontend
+    restart: unless-stopped
+    build:
+      context: ./frontend
+    command: ["yarn", "start"]
+    ports:
+      - 3000:3000
+    volumes:
+      - ./frontend/:/frontend/
+      - ./frontend/node_modules/:/frontend/node_modules
+    environment:
+      - CI=true
+      - CHOKIDAR_USEPOLLING=true
+      - REACT_APP_BACKEND_URL=http://localhost:8000
+    tty: true
+    
   gd_backend:
     build:
     # context : 현재 폴더의 backend 폴더에 있는 도커파일을 쓰겠다.
@@ -66,3 +68,4 @@ services:
 networks:
   gd:
     driver: bridge
+
