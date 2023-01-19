@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'gdiary',
     'rest_framework', # django rest framework
+    "drf_yasg", #swagger
 ]
 
 MIDDLEWARE = [
