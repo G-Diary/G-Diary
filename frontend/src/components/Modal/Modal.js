@@ -3,6 +3,7 @@ import { display } from '@mui/system';
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import Modal from 'react-modal';
+import { Link } from 'react-router-dom';
 import './Modal.css'
 import DivBtn from './Button';
 import { useStore } from '../../store/store';
@@ -68,7 +69,12 @@ function Modals() {
     <div className='container'>
       {/* <h1 className='nameDiary'>John's Diary</h1> */}
       <div className='imgDisplay'><img className='imgClass' src={`images/${selected}.png`}/></div>
-      <button className='openBtn' onClick={openModal}>START</button>
+      <button className='openBtn' onClick={openModal}>  <Link to='/list' style={{
+        color: 'white', 
+        textDecorationLine: 'none', 
+        fontWeight: 'bold'
+      }}>START</Link></button>
+    
       <Modal
         isOpen={modalIsOpen}
         onAfterOpen={afterOpenModal}
