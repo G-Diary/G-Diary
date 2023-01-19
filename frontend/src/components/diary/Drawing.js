@@ -71,7 +71,7 @@ function Drawing({grim, save}){
         id="canvas"
         className='canvas'
         width="498" 
-        height="270"
+        height="290"
         ref={canvasRef}
         style={defaultStyle}
         onMouseDown={startDrawing}
@@ -86,7 +86,7 @@ function Drawing({grim, save}){
         id="canvas"
         className="canvas"
         width="498" 
-        height="270"
+        height="290"
         ref={canvasRef}
         style={defaultStyle}
         onClick={clickXY}

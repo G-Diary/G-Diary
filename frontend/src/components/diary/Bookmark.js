@@ -31,17 +31,17 @@ const StyledNavLink=styled(NavLink)`
       color: gray;
     }
     &.active {
-      color: #d5260d;
+      color: white;
       font-weight: 700;
     }
 `
 function Bookmark(){
   return(
     <BookMark>
-      <StyledNavLink to='/' style={{background:'#F29F05'}}>Home</StyledNavLink> 
-      <StyledNavLink to='/write' state={{date:new Date()}} style={{background:'#F2C879'}}>Write</StyledNavLink> 
-      <StyledNavLink to='/list' style={{background:'rgb(242, 181, 107)'}}>List</StyledNavLink> 
-      <StyledNavLink to='/about' style={{background:'#F25C05'}}>About</StyledNavLink>
+      <StyledNavLink to='/main' style={{background:'#80FF00'}}>Home</StyledNavLink> 
+      <StyledNavLink to='/list' style={{background:'#FFE600'}}>List</StyledNavLink> 
+      <StyledNavLink to='/write' state={{date:new Date()}} style={{background:'#0085FF'}}>Write</StyledNavLink> 
+      <StyledNavLink to='/about' style={{background:'#FF0000'}}>About</StyledNavLink>
     </BookMark>)
 }
 
