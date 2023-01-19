@@ -1,0 +1,173 @@
+.container{
+  width: 100%;
+  height: 600px;
+  /* border: 1px solid black;  */
+  display: flex;
+  justify-content: center;
+  position: relative;
+  /* background-color: blue; */
+}
+
+.imgDisplay{
+  /* background-image: url('../../../public/images/Afs2.png'); */
+  margin-top: 50px;
+  width: 450px;
+  height: 420px;
+  /* background-color: blue; */
+  background-size: cover;
+  border-radius: 15px;
+  
+}
+
+[type=radio]{
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+[type=radio] + img{
+  cursor: pointer;
+}
+[type=radio]:checked +img{
+  outline: 2px solid black;
+}
+
+
+.imgDisplay>img{
+  /* margin-top: 100px; */
+  width: 450px;
+  height: 420px;
+  border-radius: 15px;
+}
+
+.openBtn{
+  position: absolute;
+  font-weight: bold;
+  bottom: 20px;
+  right: 235px;
+  width: 200px;
+  height: 70px;
+  font-size: 50px;
+  border-radius: 35px;
+  /* background-color: rgb(240, 219, 109); */
+  background-color: rgb(238, 230, 190);
+  color: white;
+  border-color: unset;
+  border-style: outset;
+  outline: none;
+  border: none;
+  /* box-shadow: none; */
+}
+.openBtn:hover:focus{
+  background-color: rgb(240, 219, 109);
+  border-color: rgb(240, 219, 109);
+  cursor: pointer;
+  box-shadow: none;
+  /* border-style: outset; */
+  
+}
+
+.closeBtn{
+  width: 70px;
+  height: 30px;
+  border-radius: 25px;
+  background-color: rgb(238, 230, 190);
+  color: white;
+  border-color: unset;
+  border-style: outset;
+  outline: none;
+  border: none;
+}
+.closeBtn:hover{
+  background-color: rgb(240, 219, 109);
+  border-color: rgb(240, 219, 109);
+  cursor: pointer;
+  box-shadow: none;
+  /* border-style: outset; */
+  
+}
+
+
+.photoBtn{
+  width: 50px;
+  height: 30px;
+}
+
+.insideModal{
+  margin-top: 0;
+  width: 550px;
+  height: 420px;
+  /* background-color: blue; */
+  /* border: 1px solid royalblue; */
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+
+  justify-content: space-evenly;
+  align-items: center;
+  align-content: flex-start;
+}
+.itemBox{
+  padding: 0px;
+  margin-top: 0;
+  width: 550px;
+  height: 400px;
+  /* background-color: blue; */
+  /* border: 1px solid brown; */
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+
+  /* justify-content: space-around;  */
+  justify-content: center;
+  align-items: center;
+  /* align-items: center; */
+
+  /* align-content: flex-start; */
+}
+
+.item:hover{
+  /* box-shadow:  2px 2px 5px orange; */
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.381), 0 6px 20px 0 rgba(0, 0, 0, 0.381);
+  /* border: 3px solid white; */
+}
+
+
+.item{
+  /* border: 3px solid black; */
+  background-size: cover;
+  padding: 3px;
+  margin-top: 10px;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-bottom: 10px;
+  width: 170px;
+  height: 170px;
+}
+.item2{
+    /* border: 3px solid black; */
+    background-size: cover;
+    /* padding: 3px; */
+    margin-top: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 10px;
+    width: 170px;
+    height: 170px;
+    border: 4px solid black;
+    /* border-color: white; */
+}
+
+
+div>h2{
+  position: relative;
+  margin: 0 auto;
+  padding: 0 auto;
+  text-align: center;
+}
+
+form{
+  /* background-color: yellow; */
+  display: flex;
+  justify-content: center;
+}
