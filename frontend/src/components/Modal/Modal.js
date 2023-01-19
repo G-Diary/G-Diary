@@ -6,7 +6,7 @@ import Modal from 'react-modal';
 import './Modal.css'
 import DivBtn from './Button';
 import { useStore } from '../../store/store';
-
+import Titles from '../../pages/Title';
 
 const CustomStyles = {
   content: {
@@ -35,7 +35,7 @@ const CustomStyles = {
 Modal.setAppElement('#root');
 
 function Modals() {
-  const [selected, setSelected] = useState('logo1')
+  const [selected, setSelected] = useState('this')
   const [img, setImg] = useState('');
 
   const onClick = (img) => {
@@ -66,6 +66,7 @@ function Modals() {
 
   return (
     <div className='container'>
+      {/* <h1 className='nameDiary'>John's Diary</h1> */}
       <div className='imgDisplay'><img className='imgClass' src={`images/${selected}.png`}/></div>
       <button className='openBtn' onClick={openModal}>START</button>
       <Modal

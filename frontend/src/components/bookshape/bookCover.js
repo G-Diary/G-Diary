@@ -31,6 +31,7 @@ const Year = styled.div`
   font-size: 30px;
   margin: 50px;`
 
+
 function BookCover({children}) {
   let now = new Date();
   let year = now.getFullYear();
