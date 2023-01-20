@@ -2,9 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Title = styled.div`
-  position: relative;
-  bottom: 236px;
-  right: 146px;
+  display: flex;
+  justify-contents : center;
+  align-items : center;
   font-size: 80px;`
 
 function Titles({children}) {
