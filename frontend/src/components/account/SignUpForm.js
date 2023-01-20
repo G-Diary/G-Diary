@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import styled from 'styled-components'
 import {Button, Container, TextField} from '@material-ui/core';
-import api from '../apis/axios';
+import api from '../../apis/axios';
 
 const TypeSignUp = styled.div`
 position: relative;
