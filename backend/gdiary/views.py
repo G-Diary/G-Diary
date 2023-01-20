@@ -2,6 +2,8 @@ from rest_framework import viewsets, permissions, generics, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.decorators import api_view
+from drf_yasg import openapi
+from drf_yasg.utils import swagger_auto_schema
 from django.shortcuts import get_object_or_404
 from django.contrib.auth import authenticate
 from config.settings import *
@@ -122,6 +124,28 @@ class AuthAPIView(APIView):
 
 class DiaryViewset(viewsets.ModelViewSet):
     queryset = Diary.objects.all()
-    serializer_class = DiarySerializer   
+    serializer_class = DiarySerializer 
+    
+    # manual parameter
+    param_date = openapi.Parameter(
+        'diary_date',
+        openapi.IN_QUERY,
+        description='yyyy-mm-dd',
+        type=openapi.FORMAT_DATE
+    )
 
+    # get_queryset에 데코레이터 인식 못하기 때문에 list 상속 받아 구현
+    @swagger_auto_schema(manual_parameters=[param_date])
+    def list(self, request, *args, **kwargs):
+        return super().list(request, *args, **kwargs)
 
+   
+    def get_queryset(self):
+        diaries = Diary.objects.filter(is_deleted = False)
+
+        date = self.request.query_params.get('date', '')
+        if date:
+            diaries = diaries.filter(diary_date=date)
+        return diaries
+
+    
