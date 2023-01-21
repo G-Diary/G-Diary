@@ -14,10 +14,7 @@ django-cors-headers==3.13.0
 django-environ==0.9.0
 djangorestframework==3.14.0
 djangorestframework-simplejwt==5.2.0
-<<<<<<< refs/remotes/origin/develop
 drf-yasg==1.21.4
-=======
->>>>>>> feat : 회원가입 api, 로그인 api 구현
 idna==3.4
 inflection==0.5.1
 itypes==1.2.0
