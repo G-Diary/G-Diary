@@ -30,8 +30,10 @@ function DiaryContent(){
   const saveBtn = (imgRef) =>{
     const image = imgRef.toDataURL('image/png');
     setCanvasImg(image);
-    console.log(image);
-    console.log(image.width);
+    // const link=document.createElement('a');
+    // link.href=image;
+    // link.download=image;
+    // link.click();
   }
 
   //그림 이미지화

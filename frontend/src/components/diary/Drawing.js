@@ -1,7 +1,7 @@
 import React, {useRef, useEffect, useState} from 'react';
 import { useStore } from '../../store/store';
 import { BsEraserFill } from 'react-icons/bs';
-import {BsFillCircleFill } from 'react-icons/bs';
+import {BsFillCircleFill, BsFillEraserFill } from 'react-icons/bs';
 import { FaUndoAlt } from 'react-icons/fa';
 import {Stage, Layer, Line, Image, Transformer} from 'react-konva';
 import useImage from 'use-image';
@@ -15,12 +15,16 @@ function Drawing({grim, save}){
   const canvasRef = useRef(null);
   const [isDrawing, setIsDrawing] = useState(!{grim}); //그리기 모드 여부판단
   const {setCurrentCanvas,setUpdateCanvas}=useStore();
+  const [tool, setTool]=useState('pen');
+  const [lines,setLines]=useState([]);
+  const [currentColor,setColor]=useState('black');
+  const listColors=['black','red','blue']
+  console.log(currentColor);
 
   useEffect(() => {
     const canvas = canvasRef.current;
     const context = canvas.getContext('2d');
-    context.strokeStyle = 'black'; //중복 속성
-    context.lineWidth = 1.5;
+    context.lineWidth = 2;
     context.lineJoin = 'round';
     setCurrentCanvas(context); 
     setUpdateCanvas(canvasRef.current);
@@ -43,6 +47,10 @@ function Drawing({grim, save}){
       if (!isDrawing) {
         ctx.beginPath();
         ctx.moveTo(offsetX, offsetY);
+        ctx.strokeStyle=currentColor;
+        ctx.lineWidth=2;
+        // eslint-disable-next-line no-lone-blocks, no-unused-expressions
+        {tool==='eraser'?(ctx.globalCompositeOperation='destination-out', ctx.lineWidth=8):ctx.globalCompositeOperation ='source-over';}
       } else {
         ctx.lineTo(offsetX, offsetY);
         ctx.stroke();
@@ -67,20 +75,33 @@ function Drawing({grim, save}){
   };
   return( <div style={{width:'512px', height: '270px'}}>
     {!grim ? (
-      <canvas
-        id="canvas"
-        className='canvas'
-        width="498" 
-        height="290"
-        ref={canvasRef}
-        style={defaultStyle}
-        onMouseDown={startDrawing}
-        onMouseUp={finishDrawing}
-        onMouseMove={drawing}
-        onMouseLeave={()=>{
-          finishDrawing();
-          saveAsPNG();}}
-      ></canvas>
+      <>
+        <canvas
+          id="canvas"
+          className='canvas'
+          width="498" 
+          height="270"
+          ref={canvasRef}
+          style={defaultStyle}
+          onMouseDown={startDrawing}
+          onMouseUp={finishDrawing}
+          onMouseMove={drawing}
+          onMouseLeave={()=>{
+            finishDrawing();
+            saveAsPNG();}}
+        ></canvas>
+        <div style={{ display:'flex', justifyContent:'flex-end',alignContent:'center', transform:'translate(0,-90%)', marginRight:'10px'}}>
+          {listColors && listColors.map((map,index)=>{
+            return(
+              <BsFillCircleFill key={index} color={map} size="23" style={{marginRight:'8px'}} onClick={()=>{
+                setColor(map);
+                setTool('pencil')
+              }} />
+            )
+          })}
+          <BsFillEraserFill size="24" style={{marginRight: '10px', marginBottom: '10px'}} onClick={()=>{setTool('eraser')}}/>
+        </div>
+      </>
     ) : (
       <canvas
         id="canvas"
