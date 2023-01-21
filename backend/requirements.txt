@@ -22,3 +22,5 @@ requests==2.28.2
 #윈도우
 sqlparse==0.2.4
 urllib3==1.26.14
+boto3==1.26.53
+django==1.13.2
