@@ -69,7 +69,7 @@ function DiaryList({key, title, weather, draw, contents, date, emoji}){
         <Titlecontent>{title}</Titlecontent>
         <img src={`${emoji}`} alt="emoji" style={{width:'1em', fontSize:'1.8em'}}/>
       </TitleContainer>
-      <Canvas><img src={draw} alt="diarygrim" style={{width:'500px', height:'270px'}}/></Canvas>
+      <Canvas><img src={draw} alt="diarygrim" style={{width:'500px', height:'290px'}}/></Canvas>
       <ChoiceButtonContainer style={{height: '25px' ,marginTop:'2%', marginLeft:'2.2%'}}>
         <Modebutton style={{width: '130px', height:'30px'}}>Post on SNS</Modebutton>
       </ChoiceButtonContainer>
