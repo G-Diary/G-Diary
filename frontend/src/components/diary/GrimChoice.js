@@ -21,6 +21,8 @@ function GrimChoice(){
         height: srcImg.height,
       })
   };
+  // srcImg.width
+  // srcImg.height
 
   const onChange = (e) => {
     e.preventDefault();
@@ -33,10 +35,8 @@ function GrimChoice(){
         What would you draw?
       </Choicetitle>
       <Choice>
-        <ChoiceGrim id="image" src="https://cdn-icons-png.flaticon.com/512/5650/5650367.png"
-          alt="star" onClick={onChange}/>
-        <ChoiceGrim id="image" src="https://png.pngtree.com/png-vector/20220411/ourmid/pngtree-glossy-heart-best-vector-ai-and-png-png-image_4538478.png"
-          alt="heart" onClick={onChange}/>
+        <ChoiceGrim id="image" src="images/car.JPG"
+          alt="fish" onClick={onChange}/>
       </Choice>
       <ChoiceButtonContainer>
         <Choicebutton>Photo</Choicebutton>

@@ -206,7 +206,7 @@ export const Titlecontent = styled.p`
 /*그림판 container*/
 export const Canvas = styled.div`
   width: 500px;   
-  height: 270px;
+  height: 290px;
   background: white;
   border-bottom-left-radius:10px ;
   border-bottom-right-radius: 10px;
@@ -262,5 +262,5 @@ export const Savebutton = styled.button`
 /*내용 container*/
 export const Content = styled.div`
   width: 520px;
-  height: 300px;
+  height: 280px;
 `
