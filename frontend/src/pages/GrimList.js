@@ -45,7 +45,7 @@ function GrimList(){
                 Shall we record the day of
               <p style={{display:'flex', flexDirection:'row', justifyContent:'center'}}><p style={{width:'17rem', margin:'0', color:'orange'}}>{format(choiceDate, 'MMM')} {choiceDate.getDate()}, {choiceDate.getFullYear()}</p>?</p>
               <Link to='/write' state={{date:choiceDate}} className="listLink">
-                    Get started<BsArrowRight size="1.5rem" style={{marginLeft:'1rem', paddingTop:'3px'}}/>
+                    Get started<BsArrowRight size="1.5rem" />
               </Link>
             </div>
           </DiviContainer>)}
