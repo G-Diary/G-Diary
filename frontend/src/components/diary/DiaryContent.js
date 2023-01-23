@@ -1,18 +1,18 @@
 import React, {useState} from 'react';
 import styled from 'styled-components';
 import Manuscript from './Manuscript';
-import Drawing from './Drawing';
 import Emoji from './Emoji';
 import { BsBrightnessHighFill, BsFillCloudFill ,BsFillCloudSnowFill, BsFillCloudRainFill } from 'react-icons/bs';
 import { useLocation } from 'react-router-dom';
+import Drawing from './Drawing';
+import { useStore } from '../../store/store';
 
 function DiaryContent(){
   const location = useLocation();
   const [grim, setGrim] = useState(true);  //그리기모드 버튼 클릭 여부
   const [weather, setWeather]=useState(''); //날씨 선택
-  const [canvasImg,setCanvasImg]=useState('');  //캔버스 값 받아오기(이미지화를 위해)
+  const {updateCanvas}=useStore();
   const date=location.state?.date;
-  console.log(date);
   let year=date.getFullYear();  //연도 구하기
   let todayMonth=date.getMonth()+1;  //월 구하기
   let todayDate=date.getDate();  //일 구하기
@@ -27,18 +27,9 @@ function DiaryContent(){
     saveAsPNG();
   };
 
-  const saveBtn = (imgRef) =>{
-    const image = imgRef.toDataURL('image/png');
-    setCanvasImg(image);
-    // const link=document.createElement('a');
-    // link.href=image;
-    // link.download=image;
-    // link.click();
-  }
-
   //그림 이미지화
   const saveAsPNG = () => {
-    console.log(canvasImg);
+    console.log(updateCanvas);
   };
     
   return(
@@ -94,11 +85,10 @@ function DiaryContent(){
         <Emoji />
       </TitleContainer>
       <Canvas>
-        <Drawing grim={grim} save={saveBtn}/>
-        {/* <Reposition move={move}/> */}
+        <Drawing grim={grim}/>
       </Canvas>
       <ButtonContainer>
-        <Modebutton style={{width:'100px'}}>Reposition</Modebutton>
+        <Modebutton style={{width:'100px'}}>analyze</Modebutton>
         <Modebutton style={{width:'80px'}} onClick={clickedGrim}>{grim?'Drawing':'Stop'}</Modebutton>
         <Savebutton onClick={saveAsPNG}>Save</Savebutton>
       </ButtonContainer>
