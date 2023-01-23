@@ -2,31 +2,30 @@ import React from 'react';
 import styled from 'styled-components';
 import { useStore } from '../../store/store';
 function GrimChoice(){
-  const {currentCanvas, setChoiceImg}=useStore();
+  const {currentCanvas,setChoiceImg}=useStore();
   const addImage = (srcImg) => {
     const newimage = new Image();
-    newimage.src = srcImg.src;
+    newimage.src=srcImg.src;
+    console.log(newimage);
     newimage.crossOrigin = 'Anonymous';
-    newimage.onload = function () {
-      currentCanvas.drawImage(newimage, 0, 0, srcImg.width, srcImg.height);
-    };
+    // newimage.onload = function () {
+    //   currentCanvas.drawImage(newimage, 0, 0, srcImg.width, srcImg.height);
+    // };
+    setChoiceImg(
+      {
+        id:srcImg.alt,
+        img: newimage.src,
+        x:0,
+        y:0,
+        width: srcImg.width,
+        height: srcImg.height,
+      })
   };
 
   const onChange = (e) => {
     e.preventDefault();
     addImage(e.target);
   };
- 
-  
-  // const onChange = (e) => {
-  //   e.preventDefault();
-  //   addImage(e.target);
-  // };
-  
-  // const addImage = (srcImg) => {
-  //   // const newimage = new Image();
-  //   setChoiceImg(srcImg);
-  // };
   
   return(
     <ChoiceContainer>
@@ -40,7 +39,6 @@ function GrimChoice(){
           alt="heart" onClick={onChange}/>
       </Choice>
       <ChoiceButtonContainer>
-        <Choicebutton>Grim</Choicebutton>
         <Choicebutton>Photo</Choicebutton>
       </ChoiceButtonContainer>
     </ChoiceContainer>)
