@@ -129,7 +129,7 @@ function Drawing({grim}){
         <Stage
           ref={stageRef}
           width={500}
-          height={270}
+          height={290}
           onMouseDown={(e) => {      
             checkDeselect(e);
           }}
@@ -175,7 +175,7 @@ function Drawing({grim}){
       ):( <Stage
         ref={stageRef}
         width={500}
-        height={270}
+        height={290}
         onMouseDown={(e) => {      
           handleMouseDown(e);
           checkDeselect(e);
