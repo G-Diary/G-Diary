@@ -1,8 +1,8 @@
-import Main from '../../pages/Main'
-import isLogin from './isLogin'
+import AfterLogin from '../Modal/AfterLogin'
+import IsLogin from './IsLogin'
 
 export default function PublicPages({Component, restricted}) {
   return (
-    (isLogin() && restricted) ? <Main /> : <Component />
+    (IsLogin() && restricted) ? <AfterLogin /> : <Component />
   )
 }

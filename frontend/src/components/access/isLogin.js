@@ -1,3 +1,3 @@
-export default function isLogin() {
+export default function IsLogin() {
   return !!localStorage.getItem('token');
 }

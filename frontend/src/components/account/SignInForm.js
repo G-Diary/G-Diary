@@ -45,7 +45,6 @@ function SignInForm() {
 
   function onClick(e) {
     e.preventDefault();
-
     api.post('/auth/', {
       email: `${email}`,
       password: `${password}`
@@ -57,9 +56,10 @@ function SignInForm() {
         showConfirmButton: false,
         timer: 2000
       })
-      api.defaults.headers.common['Authorization'] = `Bearer ${res.data.token}`
-      localStorage.setItem('token', res.data.token.access);
-      console.log(res.data)
+      const token = res.data.token
+      api.defaults.headers.common['Authorization'] = `Bearer ${token.access}`
+      localStorage.setItem('token', token.access);
+      localStorage.setItem('refresh', token.refresh);
       navigate('/main')
     }).catch(function(res) {
       console.log(res)

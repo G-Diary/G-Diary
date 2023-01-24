@@ -1,8 +1,8 @@
 import SignIn from '../../pages/SignIn'
-import isLogin from './isLogin'
+import IsLogin from './IsLogin'
 
 export default function PrivatePages({Component}) {
   return (
-    isLogin() ? <Component /> : <SignIn />
+    IsLogin() ? <Component /> : <SignIn />
   )
 }
