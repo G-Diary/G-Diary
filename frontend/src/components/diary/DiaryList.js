@@ -17,7 +17,7 @@ function DiaryList({title, weather, draw, contents, date, emoji}){
       <DateContainer>
         <Dateline>
           <Datetitle>DATE</Datetitle>
-          <DateContent style={{width: '9rem'}}>{year}.{todayMonth}.{todayDate}</DateContent>
+          <DateContent style={{width: '9rem', fontSize:'1.5rem'}}>{year}.{todayMonth}.{todayDate}</DateContent>
           <Weathercontainer>
             {weather===1?(
               <>
@@ -58,7 +58,7 @@ function DiaryList({title, weather, draw, contents, date, emoji}){
       </DateContainer>
       <TitleContainer>
         <Title>Title:</Title>
-        <Titlecontent>{title}</Titlecontent>
+        <Titlecontent style={{fontSize: '1.5rem'}}>{title}</Titlecontent>
         <img src={`${emoji}`} alt="emoji" style={{width:'1em', fontSize:'1.8em'}}/>
       </TitleContainer>
       <Canvas><img src={draw} alt="diarygrim" style={{width:'500px', height:'290px'}}/></Canvas>

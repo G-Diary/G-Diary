@@ -69,7 +69,7 @@ function DiaryContent(){
           <Datetitle>DATE</Datetitle>
           {/* <DateContent>{year}.{todayMonth}.{todayDate}</DateContent> */}
           <DateContent>{year}.{todayMonth}.{todayDate}</DateContent>
-          <Weathercontainer>
+          <Weathercontainer style={{marginTop: '5px'}}>
             <WeatherRadioBtn 
               type='radio' 
               id="sunny"
@@ -158,7 +158,7 @@ export const Dateline=styled.div`
     border-radius: 3px;
 `
 
-export const Datetitle=styled.p`
+export const Datetitle=styled.div`
     margin-left: 5%;
     width: 10%;
     font-size: 25px;
@@ -166,7 +166,7 @@ export const Datetitle=styled.p`
     font-family:Comic Sans MS;
 `
 
-export const DateContent = styled.p`
+export const DateContent = styled.div`
     width: 25%;
     font-size: 23px;
     border: 2px solid transparent;
@@ -182,7 +182,7 @@ export const DateContent = styled.p`
     font-family:Comic Sans MS;
 `
 
-export const Weathercontainer = styled.p`
+export const Weathercontainer = styled.div`
     width: 32%;
     text-align: right;
     margin-left: auto;
@@ -190,7 +190,6 @@ export const Weathercontainer = styled.p`
     display: flex;
     justify-content: space-around;
     align-items: flex-start;
-    margin-top:20px;
 `
 
 export const WeatherRadioBtn = styled.input`
@@ -209,7 +208,7 @@ export const TitleContainer = styled.div`
   font-family:Comic Sans MS;
 `
 
-export const Title =styled.p`
+export const Title =styled.div`
   margin-left: 5%;
   width: 10%;
   text-align: left;
@@ -217,7 +216,7 @@ export const Title =styled.p`
   font-family:Comic Sans MS;
 `
 
-export const Titlecontent = styled.p`
+export const Titlecontent = styled.div`
   width: 70%;
   margin-left: 4%;
   >input{
@@ -238,7 +237,7 @@ export const Canvas = styled.div`
   width: 500px;   
   height: 290px;
   background: white;
-  border-bottom-left-radius:10px ;
+  border-bottom-left-radius:10px;
   border-bottom-right-radius: 10px;
 `
 
