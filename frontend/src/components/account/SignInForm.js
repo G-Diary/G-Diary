@@ -1,7 +1,8 @@
 import React,{ useState }  from 'react';
 import styled from 'styled-components';
 import {Button, Container, TextField} from '@material-ui/core';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import api from '../../apis/axios'
 
 const TypeSignIn = styled.div`
 display: flex;
@@ -26,8 +27,10 @@ const Wrap = styled.div`
   align-items: center;`
 
 function SignInForm() {
+  const navigate = useNavigate();
   const [email, setEmail] = useState('');
-  const [pw,setPw] = useState('');
+  const [password,setPassword] = useState('');
+  const Swal = require('sweetalert2');
 
   function emailValid() {
     var check = /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
@@ -35,15 +38,38 @@ function SignInForm() {
   }
 
   function Valid() {
-    if(emailValid() === true) {
+    if(emailValid() && password) {
       return false;
     } else return true;
+  }
+
+  function onClick(e) {
+    e.preventDefault();
+    api.post('/users/auth/', {
+      email: `${email}`,
+      password: `${password}`
+    }).then(function(res) {
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Success SignIn',
+        showConfirmButton: false,
+        timer: 2000
+      })
+      const token = res.data.token
+      api.defaults.headers.common['Authorization'] = `Bearer ${token.access}`
+      localStorage.setItem('token', token.access);
+      localStorage.setItem('refresh', token.refresh);
+      navigate('/main')
+    }).catch(function(res) {
+      console.log(res)
+    })
   }
 
   return(
     <Wrap>
       <SignInBtn>
-        <Button disabled={Valid()} 
+        <Button type='button' onClick={onClick} disabled={Valid()} 
           style={ Valid() ? {color: 'white', fontWeight: 'bolder', backgroundColor: '#F8EDB7',borderRadius: '30px', fontSize: '30px'} : { fontWeight: 'bolder', backgroundColor: '#FFD711', borderRadius: '30px', fontSize: '30px'}}>
         Sign In</Button>
       </SignInBtn>
@@ -77,9 +103,9 @@ function SignInForm() {
             label="Password"
             name="Password"
             autoComplete="current-password"
-            value={pw}
+            value={password}
             onChange={(e) => {
-              setPw(e.target.value)
+              setPassword(e.target.value)
             }}
           />
         </Container>

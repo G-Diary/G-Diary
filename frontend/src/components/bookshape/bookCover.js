@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import Bookmark from '../diary/Bookmark';
+import LogoutBtn from '../access/Logout';
+import isLogin from '../access/IsLogin';
 
 const AllControl = styled.div`
   height: 100vh;
@@ -27,10 +29,11 @@ const Right = styled.div`
   box-shadow:12px 9px 10px 0 #676262;`
 
 const Year = styled.div`
+  display:flex;
+  justify-content:space-between;
   border-bottom: solid 2px black;
   font-size: 30px;
   margin: 35px;`
-
 
 
 function BookCover({children}) {
@@ -40,7 +43,10 @@ function BookCover({children}) {
     <AllControl>
       <Left/>
       <Right>
-        <Year>{year}</Year>
+        <Year>
+          {year}
+          {isLogin() ? <LogoutBtn/> : ''}
+        </Year>
         {children}
       </Right>
       <Bookmark/>

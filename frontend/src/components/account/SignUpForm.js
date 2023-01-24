@@ -68,7 +68,7 @@ function SignUpForm() {
 
   function onClick(e) {
     e.preventDefault();
-    api.post('/join/', {
+    api.post('/users/join/', {
       nickname: `${nickname}`,
       email: `${email}`,
       password: `${password}`
@@ -108,6 +108,9 @@ function SignUpForm() {
     } else return true;
   }
 
+  console.log(nickname)
+  console.log(email)
+  console.log(password)
   return(
     <Wrap>
       <CreateAccountBtn>
