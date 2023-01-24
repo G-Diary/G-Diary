@@ -44,19 +44,18 @@ const RenderDays = () =>{
 }
 
 //Body(Cells) 컴포넌트(날짜(일))
-const RenderCells = ({currentMonth, today, list, selectedDate, onDateClick})=>{
+const RenderCells = ({currentMonth, today, list, exist, selectedDate, onDateClick})=>{
   const monthStart=startOfMonth(currentMonth);
   const monthEnd=endOfMonth(monthStart);
   const startDate=startOfWeek(monthStart);
   const endDate=endOfWeek(monthEnd);
   const [add, setAdd]=useState(true);  //일기 추가 상태
   const [newDiary, setNewDiary]=useState(false);
-  const {exist}=useStore();
   const rows=[];
   let days=[];
   let day=startDate;
   let formattedDate = '';
-  // let exist=[];
+
 
   while(day<=endDate){
     for (let i=0; i<7; i++){
@@ -83,10 +82,8 @@ const RenderCells = ({currentMonth, today, list, selectedDate, onDateClick})=>{
           {list.filter(x=>new Date(x.diary_date).toDateString()===cloneDay.toDateString())
             // eslint-disable-next-line no-loop-func
             .map(data=>{
-              exist.push(cloneDay)
-              console.log(exist)
               return <div key={data}><img src={data.drawing_url} alt="emoji" className='listemoji'/></div>})}
-          {exist.includes(cloneDay)?'':(<div> <Link to='/write' state={{date:day}}>
+          {exist.includes(format(cloneDay, 'yyyy-MM-dd'))?'':(<div> <Link to='/write' state={{date:day}}>
             <div onMouseEnter={()=>{setAdd(false)}}
               onMouseLeave={()=>{setAdd(true)}}
               onClick={()=>setNewDiary(true)} 
@@ -107,12 +104,10 @@ const RenderCells = ({currentMonth, today, list, selectedDate, onDateClick})=>{
   return <div className='calenderbody'>{rows}</div>
 }
 
-function Calender({list}){
+function Calender({list, exist}){
   const [currentMonth, setCurrentMonth]=useState(new Date());
   const [selectedDate, setSelectedDate]=useState(new Date());
-  const {setChoicedDate, exist}=useStore();
-  console.log(list)
-  console.log(currentMonth.toDateString());
+  const {setChoicedDate}=useStore();
   const prevMonth = () =>{
     setCurrentMonth(subMonths(currentMonth, 1));
   };
@@ -124,14 +119,13 @@ function Calender({list}){
     setSelectedDate(day);
     setChoicedDate(day)
   }
-  console.log(selectedDate)
   return(
     <div className='listcontainer'>
       <div className='listname'>Diary List</div>
       <div className='calender'>
         <RenderHeader currentMonth={currentMonth} prevMonth={prevMonth} nextMonth={nextMonth}></RenderHeader>
         <RenderDays></RenderDays>
-        <RenderCells currentMonth={currentMonth} today={today} list={list} selectedDate={selectedDate} onDateClick={onDateClick}></RenderCells>
+        <RenderCells currentMonth={currentMonth} today={today} list={list} exist={exist} selectedDate={selectedDate} onDateClick={onDateClick}></RenderCells>
       </div>
     </div>
   )

@@ -5,15 +5,7 @@ import { Content, DateContainer, Dateline, Datetitle, DiviContainer, Weathercont
 import { ChoiceButtonContainer } from './GrimChoice';
 
 
-function DiaryList({key, title, weather, draw, contents, date, emoji}){
-  
-  console.log(key)
-  console.log(title)
-  console.log(weather)
-  console.log(draw)
-  console.log(contents)
-  console.log(date)
-  console.log(emoji)
+function DiaryList({title, weather, draw, contents, date, emoji}){
 
   let fulldate=date.split('-');
   let year=fulldate[0];  //연도 구하기

@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import styled from 'styled-components';
 
 /* 원고지 틀 컴포넌트 */
-function Manuscript() {
+function Manuscript(props) {
   const [word, setWord] = useState('');
   const Swal = require('sweetalert2');
   let tr = Array.apply(null, new Array(5)).map(Number.prototype.valueOf, 0);
@@ -18,6 +18,7 @@ function Manuscript() {
 
   function wordInput(e) {
     setWord(e.target.value)
+    props.setContent(e.target.value);
     if(word.length > 50) {
       Swal.fire({
         position: 'center',
