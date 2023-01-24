@@ -238,22 +238,6 @@ function Drawing({grim}){
               }} />
             )
           })}
-<<<<<<< refs/remotes/origin/develop
-          <BsFillEraserFill size="24" style={{marginRight: '10px', marginBottom: '10px'}} onClick={()=>{setTool('eraser')}}/>
-        </div>
-      </>
-    ) : (
-      <canvas
-        id="canvas"
-        className="canvas"
-        width="498" 
-        height="290"
-        ref={canvasRef}
-        style={defaultStyle}
-        onClick={clickXY}
-      ></canvas>
-    )}
-=======
           <BsFillEraserFill size="26" style={{marginRight: '10px'}} onClick={()=>{
             setTool('eraser');
           }} />
@@ -262,7 +246,6 @@ function Drawing({grim}){
     
     </div>
   )
->>>>>>> feat: 그림판 기능(이동및 크기조절)
 
 
 }

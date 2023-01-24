@@ -2,20 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 import { useStore } from '../../store/store';
 function GrimChoice(){
-  const {currentCanvas,setChoiceImg}=useStore();
+  const {setChoiceImg}=useStore();
   const addImage = (srcImg) => {
     const newimage = new Image();
     newimage.src=srcImg.src;
     console.log(newimage);
     newimage.crossOrigin = 'Anonymous';
-<<<<<<< refs/remotes/origin/develop
-    newimage.onload = function () {
-      currentCanvas.drawImage(newimage, 160, 100, 200,200);
-    };
-=======
-    // newimage.onload = function () {
-    //   currentCanvas.drawImage(newimage, 0, 0, srcImg.width, srcImg.height);
-    // };
     setChoiceImg(
       {
         id:srcImg.alt,
@@ -25,11 +17,7 @@ function GrimChoice(){
         width: srcImg.width,
         height: srcImg.height,
       })
->>>>>>> feat: 그림판 기능(이동및 크기조절)
   };
-  // srcImg.width
-  // srcImg.height
-
   const onChange = (e) => {
     e.preventDefault();
     addImage(e.target);

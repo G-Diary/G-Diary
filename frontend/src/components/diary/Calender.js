@@ -80,12 +80,12 @@ const RenderCells = ({currentMonth, today, list, selectedDate, onDateClick})=>{
           <span>
             {formattedDate}
           </span>
-          {list.filter(x=>new Date(x.date).toDateString()===cloneDay.toDateString())
+          {list.filter(x=>new Date(x.diary_date).toDateString()===cloneDay.toDateString())
             // eslint-disable-next-line no-loop-func
             .map(data=>{
               exist.push(cloneDay)
               console.log(exist)
-              return <div key={data}><img src={data.emoji} alt="emoji" className='listemoji'/></div>})}
+              return <div key={data}><img src={data.drawing_url} alt="emoji" className='listemoji'/></div>})}
           {exist.includes(cloneDay)?'':(<div> <Link to='/write' state={{date:day}}>
             <div onMouseEnter={()=>{setAdd(false)}}
               onMouseLeave={()=>{setAdd(true)}}
