@@ -79,7 +79,6 @@ class Diary(BaseModel):
     drawing_url = models.CharField(max_length=500, null=False)
     contents = models.CharField(max_length=50, null=False)
     diary_date = models.DateField(null=False)
- 
 
     def __str__(self):
         return self.id

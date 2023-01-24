@@ -1,6 +1,7 @@
+
 from rest_framework import viewsets, permissions, generics, status
 from rest_framework.response import Response
-from rest_framework.views import APIView
+from rest_framework.views import APIView, View
 from rest_framework.decorators import api_view
 from django.shortcuts import get_object_or_404
 from django.contrib.auth import authenticate
@@ -10,7 +11,30 @@ from .models import *
 import jwt
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer, TokenRefreshSerializer
 from rest_framework.permissions import IsAuthenticated
+import boto3
+import uuid
+from django.http import JsonResponse
 
+class ImageUploader(APIView) :
+    
+    def post(self, request) :
+        try :
+            files = request.FILES.getlist('files')
+            host_id = request.GET.get('host_id')
+            s3r = boto3.resource('s3', aws_access_key_id= AWS_ACCESS_KEY_ID, aws_secret_access_key= AWS_ACCESS_ACCESS_KEY)
+            key = "%s" %(host_id)
+
+            for file in files :
+                file._set_name(str(uuid.uuid4()))
+                s3r.Bucket(AWS_STORAGE_BUCKET_NAME).put_object( Key=key+'/%s'%(file), Body=file, ContentType='jpg')
+                Image.objects.create(
+                    image_url = AWS_S3_CUSTOM_DOMAIN+"%s/%s"%(host_id, file),
+                    host_id = host_id
+                )
+            return JsonResponse({"MESSGE" : "SUCCESS"}, status=200)
+
+        except Exception as e :
+            return JsonResponse({"ERROR" : e.message})
 
 class RegisterAPIView(APIView):
     def post(self, request):

@@ -15,4 +15,5 @@ urlpatterns = [
     path('join/', RegisterAPIView.as_view()), #회원가입
     path("auth/refresh/", TokenRefreshView.as_view()), #토큰 재발급
     path('auth/', AuthAPIView.as_view()), #로그인
+    path('ImageUploader/', ImageUploader.as_view())
 ]
