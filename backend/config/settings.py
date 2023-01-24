@@ -133,3 +133,19 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+SCHEDULE_MINUTE = 60
+SCHEDULE_HOUR = 60 * SCHEDULE_MINUTE
+SCHEDULE_DAY = 24 * SCHEDULE_HOUR
+SCHEDULE_WEEK = 7 * SCHEDULE_DAY
+SCHEDULE_MONTH = 30 * SCHEDULE_DAY
+
+CELERY_BEAT_SCHEDULE = {
+    'add': {
+        'task': 'au_model.tasks.add',
+        'schedule': 5 * SCHEDULE_MINUTE,
+        # 'schedule': 2.0,
+        # 'args': (4, 4)
+    }
+}
