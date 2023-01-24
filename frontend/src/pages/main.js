@@ -6,19 +6,17 @@ import Titles from './Title';
 import CoverControl from './CoverControl'
 
 const LinkBox = styled.div`
-  width: 110%;
-  margin: auto;
-  padding-bottom : 10px;
+  width: 180%;
+  margin: 10px auto;
   display: flex;
-  text-align: center;
-  `
+  text-align: center;`
 
 const ShowImage = styled.img`
-  display: flex;
-  justify-contents : center;
-  align-items : center;
-  width: 420px;
-  heigth: 450px;
+  position: relative;
+  width: 254px;
+  height: 330px;
+  bottom: 206px;
+  right: 125px;
   `
 
 function Main() {

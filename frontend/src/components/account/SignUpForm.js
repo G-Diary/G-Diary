@@ -1,119 +1,96 @@
 import React, {useState} from 'react';
-import {useNavigate} from 'react-router-dom'
 import styled from 'styled-components'
 import {Button, Container, TextField} from '@material-ui/core';
-import api from '../../apis/axios'
+import { Link } from 'react-router-dom';
+import { Person } from '@mui/icons-material';
 
 const TypeSignUp = styled.div`
-position: relative;
-bottom:60px;`
+  position: relative;
+  right: 330px;
+  bottom: 305px;`
 
 const CreateAccountBtn = styled.div`
-position: relative;
-top:360px;`
-
-const CheckDuplicate = styled.div`
-  float:right;
-  margin-top:8px;`
-
-const Wrap = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;`
+  position: relative;
+  top: 108px;
+  right: 185px;`
 
 function SignUpForm() {
-  const navigate = useNavigate();
-  const [nickname, setNickname] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirm, setConfirm] = useState('');
+  const [name, setName] = useState('');
+  const [id, setId] = useState('');
+  const [pw, setPw] = useState('');
+  const [cf, setCf] = useState('');
   const Swal = require('sweetalert2');
 
   function nameInput(e) {
-    setNickname(e.target.value)
-    if(nickname.length > 10) {
+    setName(e.target.value)
+    if(name.length > 10) {
       Swal.fire({
         position: 'center',
         icon: 'error',
-        title: 'Please write in less than 10 letters.',
+        title: '10글자 이하로 작성해 주세요.',
         showConfirmButton: false,
         timer: 2000
       })
-      setNickname(name => name.substring(0, 10))
+      setName(name => name.substring(0, 10))
     }
   }
 
-  function nicknameValid() {
-    var check = /[~!@#$%^&*()+|<>?:{}ㄱ-ㅎㅏ-ㅣ]/;
-    return check.test(nickname);
+  function nameValid() {
+    var check = /[~!@#$%^&*()+|<>?:{}]/;
+    return check.test(name);
   }
 
-  function emailValid() {
+  function idValid() {
     var check = /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
-    return check.test(email);
+    return check.test(id);
   }
 
-  function passwordValid() {
+  function pwValid() {
     var check = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
-    return check.test(password);
+    return check.test(pw);
   }
 
-  function isSame() {
-    if(confirm === password)
+  function Same() {
+    if(cf === pw)
       return true;
     else
       return false;
   }
 
-  function onClick(e) {
-    e.preventDefault();
-    api.post('/join/', {
-      nickname: `${nickname}`,
-      email: `${email}`,
-      password: `${password}`
-    }).then(function(res) {
-      Swal.fire({
-        position: 'center',
-        icon: 'success',
-        title: 'Success SignUp',
-        showConfirmButton: false,
-        timer: 2000
-      })
-      navigate('/signin')
-    }).catch(function(res) {
-      if(res.response.data.email) {
-        Swal.fire({
-          position: 'center',
-          icon: 'error',
-          title: `${res.response.data.email}`,
-          showConfirmButton: false,
-          timer: 2000
-        })
-      } else if(res.response.data.nickname) {
-        Swal.fire({
-          position: 'center',
-          icon: 'error',
-          title: `${res.response.data.nickname}`,
-          showConfirmButton: false,
-          timer: 2000
-        })
-      }
+  function onClick() {
+    Swal.fire({
+      position: 'center',
+      icon: 'success',
+      title: '회원가입 성공.',
+      showConfirmButton: false,
+      timer: 2000
     })
   }
-  
+
   function Valid() {
-    if((nickname ? true : false) & (nickname.length >= 2) & !nicknameValid() & emailValid() & passwordValid() & isSame()){
+    if((name ? true : false) & idValid() & pwValid() & Same()){
       return false;
     } else return true;
   }
 
   return(
-    <Wrap>
+    <Container>
+      <div className='icon'>
+        <Person style={{
+          fontSize:'50px', 
+          backgroundColor: '#F0DB6D', 
+          borderRadius: '50px'
+        }}/>
+      </div>
       <CreateAccountBtn>
-        <Button type='button' onClick={onClick} disabled={Valid()}
-          style={ !Valid() ? {fontWeight:'bolder', backgroundColor: '#FFD711', borderRadius: '30px', fontSize: '30px'} : { color:'white',fontWeight:'bolder',backgroundColor: '#F8EDB7',borderRadius: '30px', fontSize: '30px'}}>
-        Create Account</Button>
+        <Button type='submit' disabled={Valid()}
+          style={ !Valid() ? { backgroundColor: '#F0DB6D', borderRadius: '30px', fontSize: '30px'} : { backgroundColor: '#EEE6BE',borderRadius: '30px', fontSize: '30px'}}>
+          <Link to='/signin' onClick={onClick} style={{
+            color: 'white', 
+            textDecorationLine: 'none', 
+            fontWeight: 'bold',
+          }}>Create Account</Link>
+        </Button>
       </CreateAccountBtn>
       <TypeSignUp>
         <Container maxWidth='sm'>
@@ -126,31 +103,29 @@ function SignUpForm() {
             name="Nickname"
             autoComplete="freeSolo"
             autoFocus
-            value={nickname}
+            value={name}
             onChange={nameInput}
-            error={nicknameValid()}
+            error={nameValid()}
             helperText={
-              nicknameValid() ? 'Special characters are not allowed.' : ''
+              nameValid() ? '특수문자는 사용하실 수 없습니다.' : ''
             }
           />
-          <CheckDuplicate>
-          </CheckDuplicate>
           <TextField
             margin="dense"
             fullWidth
             variant="filled"
             required
-            label="Email"
-            name="email"
+            label="ID"
+            name="ID"
             autoComplete="email"
             type='text'
-            value={email}
+            value={id}
             onChange={(e) => {
-              setEmail(e.target.value)
+              setId(e.target.value)
             }}
-            error={email ? !emailValid() : emailValid()}
+            error={id ? !idValid() : idValid()}
             helperText={
-              email ? (!emailValid() ? 'Enter it in e-mail format.' : '') : ''
+              id ? (!idValid() ? '이메일 형식으로 입력해 주세요.' : '') : ''
             }
           />
           <TextField
@@ -162,13 +137,13 @@ function SignUpForm() {
             label="Password"
             name="Password"
             autoComplete="new-password"
-            value={password}
+            value={pw}
             onChange={(e) => {
-              setPassword(e.target.value)
+              setPw(e.target.value)
             }}
-            error={password ? !passwordValid() : passwordValid()}
+            error={pw ? !pwValid() : pwValid()}
             helperText={
-              password ? (!passwordValid() ? 'Enter at least 8 digits, including numbers and special characters.' : '') : ''
+              pw ? (!pwValid() ? '숫자, 영문자, 특수문자 포함 8자리 이상 입력해 주세요.' : '') : ''
             }
           />    
           <TextField
@@ -180,18 +155,18 @@ function SignUpForm() {
             label="Confirm"
             name="Confirm"
             autoComplete="new-password"
-            value={confirm}
+            value={cf}
             onChange={(e) => {
-              setConfirm(e.target.value)
+              setCf(e.target.value)
             }}
-            error={confirm ? (!confirm ? isSame() : !isSame()) : false}
+            error={cf ? (!cf ? Same() : !Same()) : ''}
             helperText={
-              confirm ? (!isSame() ? 'Check your password again.' : '') : ''
+              cf ? (!Same() ? '비밀번호를 확인해 주세요.' : '') : ''
             }
           />
         </Container>
       </TypeSignUp>
-    </Wrap>
+    </Container>
   );
 }
 

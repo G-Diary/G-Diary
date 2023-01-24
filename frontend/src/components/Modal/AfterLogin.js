@@ -1,17 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 import Modal from 'react-modal';
 import BookCover from '../bookshape/BookCover';
 import Modals from './Modal'
-import Titles from '../../pages/Title';
-import CoverControl from '../../pages/CoverControl';
 
-function AfterLogin() {
-
-  console.log(localStorage)
+function AfterLogin(){
   return (
     <BookCover>
-      <Modals />
+      <Modals/>
     </BookCover>
   );
 }

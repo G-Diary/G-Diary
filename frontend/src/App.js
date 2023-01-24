@@ -8,19 +8,17 @@ import AfterLogin from './components/Modal/AfterLogin';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
 import Manual from './pages/Manual';
-import PrivatePages from './components/access/PrivatePages';
-import PublicPages from './components/access/PublicPages';
 
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<PublicPages Component={Main}/>} />
-      <Route path="/signin" element={<PublicPages Component={SignIn} restricted/>} />
-      <Route path="/main" element={<PrivatePages Component={AfterLogin}/>} />
-      <Route path="/signup" element={<PublicPages Component={SignUp} restricted/>} />
-      <Route path="/about" element={<PublicPages Component={Manual}/>} />
-      <Route path="/write" element={<PrivatePages Component={WriteGrim}/>} />
-      <Route path="/list" element={<PrivatePages Component={GrimList}/>} />
+      <Route path="/" element={<Main />} />
+      <Route path="/signin" element={<SignIn />} />
+      <Route path="/main" element={<AfterLogin />} />
+      <Route path="/signup" element={<SignUp />} />
+      <Route path="/about" element={<Manual />} />
+      <Route path="/write" element={<WriteGrim />} />
+      <Route path="/list" element={<GrimList />} />
     </Routes>
   );
 }

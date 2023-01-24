@@ -7,13 +7,6 @@
   position: relative;
   /* background-color: blue; */
 }
-.nameDiary{
-  /* display: flex; */
-  position: absolute;
-  /* padding-top: 0px; */
-  margin-top: 0 auto;
-  font-size: 80px;
-}
 
 .imgDisplay{
   /* background-image: url('../../../public/images/Afs2.png'); */
@@ -51,14 +44,14 @@
   position: absolute;
   font-weight: bold;
   bottom: 20px;
-  right: 260px;
-  width: 170px;
-  height: 50px;
-  font-size: 38px;
+  right: 235px;
+  width: 200px;
+  height: 70px;
+  font-size: 50px;
   border-radius: 35px;
-  background-color: rgb(240, 219, 109);
-  /* background-color: rgb(238, 230, 190); */
-  color: rgb(0, 0, 0);
+  /* background-color: rgb(240, 219, 109); */
+  background-color: rgb(238, 230, 190);
+  color: white;
   border-color: unset;
   border-style: outset;
   outline: none;
@@ -66,8 +59,8 @@
   /* box-shadow: none; */
 }
 .openBtn:hover:focus{
-  background-color: rgb(255, 215, 17);
-  /* border-color: rgb(240, 219, 109); */
+  background-color: rgb(240, 219, 109);
+  border-color: rgb(240, 219, 109);
   cursor: pointer;
   box-shadow: none;
   /* border-style: outset; */
@@ -78,18 +71,16 @@
   width: 70px;
   height: 30px;
   border-radius: 25px;
-  background-color: rgb(240, 219, 109);
-  /* background-color: rgb(238, 230, 190); */
-  color: rgb(0, 0, 0);
+  background-color: rgb(238, 230, 190);
+  color: white;
   border-color: unset;
   border-style: outset;
   outline: none;
   border: none;
 }
 .closeBtn:hover{
-  /* background-color: rgb(240, 219, 109); */
-  background-color: rgb(255, 215, 17);
-  /* border-color: rgb(240, 219, 109); */
+  background-color: rgb(240, 219, 109);
+  border-color: rgb(240, 219, 109);
   cursor: pointer;
   box-shadow: none;
   /* border-style: outset; */
