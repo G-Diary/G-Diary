@@ -99,6 +99,7 @@ function SignUpForm() {
           timer: 2000
         })
       }
+      console.log(res)
     })
   }
   
@@ -108,9 +109,6 @@ function SignUpForm() {
     } else return true;
   }
 
-  console.log(nickname)
-  console.log(email)
-  console.log(password)
   return(
     <Wrap>
       <CreateAccountBtn>

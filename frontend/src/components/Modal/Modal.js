@@ -41,16 +41,16 @@ function Modals() {
   const [selected, setSelected] = useState('mainLogo')
   const [img, setImg] = useState('');
 
-  axios.get('http://localhost:8000/api/v1/auth/').then(function(res){
-    console.log(res.data)
+  // axios.get('http://localhost:8000/api/v1/auth/').then(function(res){
+  //   console.log(res.data)
     
-  }).catch(function(res){
-    console.log(res)
-  })
+  // }).catch(function(res){
+  //   console.log(res)
+  // })
 
-  const onClick = (img) => {
-    setImg(img)
-  }
+  // const onClick = (img) => {
+  //   setImg(img)
+  // }
 
 
 
