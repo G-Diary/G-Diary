@@ -2,69 +2,51 @@ import React,{ useState }  from 'react';
 import styled from 'styled-components';
 import {Button, Container, TextField} from '@material-ui/core';
 import { Link } from 'react-router-dom';
-import { LockOutlined } from '@mui/icons-material';
 
 const TypeSignIn = styled.div`
-  position: relative;
-  bottom: 296px;
-  right: 245px;`
+display: flex;
+justify-content: center;
+align-items: center;
+`
 
 const SignInBtn = styled.div`
-  position: relative;
-  top: 107px;
-  right: 98px;`
+position: relative;
+top:360px;`
 
 const SignUpBtn = styled.div`
-  position: relative;
-  bottom: 95px;
-  left: 32px;`
+position: relative;
+top: 8px;
+right: 25px;
+align-self:flex-end;`
+
+const Wrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;`
 
 function SignInForm() {
-  const [id, setId] = useState('');
+  const [email, setEmail] = useState('');
   const [pw,setPw] = useState('');
 
-  function idValid() {
+  function emailValid() {
     var check = /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
-    return check.test(id);
+    return check.test(email);
   }
 
   function Valid() {
-    if(idValid() === true) {
+    if(emailValid() === true) {
       return false;
     } else return true;
   }
 
   return(
-    <Container>
-      <div className='icon'>
-        <LockOutlined style={{
-          fontSize:'50px', 
-          backgroundColor: '#F0DB6D',
-          borderRadius: '50px'
-        }}/>
-      </div>
+    <Wrap>
       <SignInBtn>
         <Button disabled={Valid()} 
-          style={ Valid() ? { backgroundColor: '#EEE6BE',borderRadius: '30px', fontSize: '30px'} : { backgroundColor: '#F0DB6D', borderRadius: '30px', fontSize: '30px'}}>
-          <Link to='/main' style={{
-            color: 'white', 
-            textDecorationLine: 'none', 
-            fontWeight: 'bold'
-          }}>Sign In</Link>
-        </Button>
+          style={ Valid() ? {color: 'white', fontWeight: 'bolder', backgroundColor: '#F8EDB7',borderRadius: '30px', fontSize: '30px'} : { fontWeight: 'bolder', backgroundColor: '#FFD711', borderRadius: '30px', fontSize: '30px'}}>
+        Sign In</Button>
       </SignInBtn>
-      <SignUpBtn>
-        <Button style={{
-          border: 'solid 2px lightgray', 
-          borderRadius: '30px', 
-          fontSize: '20px'
-        }}>
-          <Link to='/signup' style={{
-            color: 'black', 
-            textDecorationLine: 'none'
-          }}>Sign Up→</Link>
-        </Button>
-      </SignUpBtn>
       <TypeSignIn>
         <Container maxWidth='sm'>
           <TextField
@@ -72,18 +54,18 @@ function SignInForm() {
             fullWidth
             variant="filled"
             required
-            label="ID"
-            name="ID"
+            label="Email"
+            name="email"
             autoComplete="email"
             autoFocus
             type='text'
-            value={id}
+            value={email}
             onChange={(e) => {
-              setId(e.target.value)
+              setEmail(e.target.value)
             }}
-            error={id ? !idValid() : idValid()}
+            error={email ? !emailValid() : emailValid()}
             helperText={
-              id ? (!idValid() ? '이메일 형식으로 입력해 주세요.' : '') : ''
+              email ? (!emailValid() ? 'Please enter it in e-mail format.' : '') : ''
             }
           />
           <TextField
@@ -102,7 +84,19 @@ function SignInForm() {
           />
         </Container>
       </TypeSignIn>
-    </Container>
+      <SignUpBtn>
+        <Button style={{
+          border: 'solid 2px lightgray', 
+          borderRadius: '30px', 
+          fontSize: '20px'
+        }}>
+          <Link to='/signup' style={{
+            color: 'black', 
+            textDecorationLine: 'none'
+          }}>Sign Up→</Link>
+        </Button>
+      </SignUpBtn>
+    </Wrap>
   );
 }
 

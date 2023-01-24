@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'rest_framework', # django rest framework
     "drf_yasg", #swagger
     'rest_framework_simplejwt', #jwt
+    'corsheaders' # cors 오류 해결
 ]
 
 #jwtauthentication으로 인증할거임
@@ -103,6 +104,7 @@ SIMPLE_JWT = {
 }
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware', # cors 설정, 상단에 추가
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -111,6 +113,13 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+# CORS 설정 - whitelist 에 추가된 주소 접근 허용
+CORS_ORIGIN_WHITELIST = ['http://127.0.0.1:3000', 'http://localhost:3000', 'http://0.0.0.0:3000',
+                         'http://127.0.0.1:8000', 'http://localhost:8000', 'http://0.0.0.0:8000',
+                         'http://localhost', 'http://0.0.0.0', 'http://127.0.0.1',]
+
+CORS_ALLOW_CREDENTIALS = True
 
 ROOT_URLCONF = 'config.urls'
 

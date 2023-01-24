@@ -7,6 +7,13 @@
   position: relative;
   /* background-color: blue; */
 }
+.nameDiary{
+  /* display: flex; */
+  position: absolute;
+  /* padding-top: 0px; */
+  margin-top: 0 auto;
+  font-size: 80px;
+}
 
 
 
@@ -116,6 +123,7 @@
   border: none;
   /* box-shadow: none; */
 }
+
 .startBtn:hover{
   background-color: rgb(255, 215, 17);
   /* border-color: rgb(240, 219, 109); */

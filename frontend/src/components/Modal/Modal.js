@@ -3,11 +3,13 @@ import { display } from '@mui/system';
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import Modal from 'react-modal';
+import { Link } from 'react-router-dom';
 import './Modal.css'
 import DivBtn from './Button';
 import { useStore } from '../../store/store';
 import Titles from '../../pages/Title';
 import axios from 'axios';
+
 
 const CustomStyles = {
   content: {

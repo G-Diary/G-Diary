@@ -1,16 +1,13 @@
 .link {
-    position: relative;
-    flex:1;
-    width:60%;
+    width:30%;
     font-size: 35px;
     color: black;
     text-decoration-line: none;
-    bottom: 177px;
-    right: 327px;
 }
 
 .icon {
     position: relative;
-    bottom: 370px;
-    right: 56px;
+    display: flex;
+    align-items: center;
+    justify-items: center;
 }

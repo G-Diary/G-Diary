@@ -15,13 +15,13 @@ body{
     background-size: cover;
 }
 
-@media screen and (min-width: 1401px), screen and (min-height: 761px) {
+@media screen and (min-width: 1401px), screen and (min-height: 701px) {
     #help {
         color: rgba(0, 0, 0, 0);
     }
 }
 
-@media screen and (max-width: 1400px), screen and (max-height: 760px) {
+@media screen and (max-width: 1400px), screen and (max-height: 700px) {
     #root {
         display: none;
     }

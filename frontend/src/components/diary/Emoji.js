@@ -23,5 +23,3 @@ function Emoji(){
 }
 
 export default Emoji;
-
-// onClick={(e)=>setInputStr(e.target.value)}

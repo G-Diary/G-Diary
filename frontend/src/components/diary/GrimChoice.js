@@ -2,31 +2,26 @@ import React from 'react';
 import styled from 'styled-components';
 import { useStore } from '../../store/store';
 function GrimChoice(){
-  const {currentCanvas, setChoiceImg}=useStore();
+  const {setChoiceImg}=useStore();
   const addImage = (srcImg) => {
     const newimage = new Image();
-    newimage.src = srcImg.src;
+    newimage.src=srcImg.src;
+    console.log(newimage);
     newimage.crossOrigin = 'Anonymous';
-    newimage.onload = function () {
-      currentCanvas.drawImage(newimage, 0, 0, srcImg.width, srcImg.height);
-    };
+    setChoiceImg(
+      {
+        id:srcImg.alt,
+        img: newimage.src,
+        x:0,
+        y:0,
+        width: srcImg.width,
+        height: srcImg.height,
+      })
   };
-
   const onChange = (e) => {
     e.preventDefault();
     addImage(e.target);
   };
- 
-  
-  // const onChange = (e) => {
-  //   e.preventDefault();
-  //   addImage(e.target);
-  // };
-  
-  // const addImage = (srcImg) => {
-  //   // const newimage = new Image();
-  //   setChoiceImg(srcImg);
-  // };
   
   return(
     <ChoiceContainer>
@@ -34,13 +29,10 @@ function GrimChoice(){
         What would you draw?
       </Choicetitle>
       <Choice>
-        <ChoiceGrim id="image" src="https://cdn-icons-png.flaticon.com/512/5650/5650367.png"
-          alt="star" onClick={onChange}/>
-        <ChoiceGrim id="image" src="https://png.pngtree.com/png-vector/20220411/ourmid/pngtree-glossy-heart-best-vector-ai-and-png-png-image_4538478.png"
-          alt="heart" onClick={onChange}/>
+        <ChoiceGrim id="image" src="images/car.JPG"
+          alt="fish" onClick={onChange}/>
       </Choice>
       <ChoiceButtonContainer>
-        <Choicebutton>Grim</Choicebutton>
         <Choicebutton>Photo</Choicebutton>
       </ChoiceButtonContainer>
     </ChoiceContainer>)
