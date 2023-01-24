@@ -1,23 +1,11 @@
+from requests import Response
 from rest_framework import serializers
 from .models import *
 
 class UserSerializer(serializers.ModelSerializer):
-    def create(self, validated_data):
-        user = User.objects.create_user(
-            email = validated_data['email'],
-            nickname = validated_data['nickname'],
-            password = validated_data['password']
-        )
-        return user
-
+    # 회원가입, 로그인 둘 다 같은 Serializer 사용 (create 오버라이딩의 유무만 차이)
     class Meta:
         model = User
-        fields = ['nickname', 'email', 'password']
-        
-class SignSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        #모두 직렬화하겠음
         fields = '__all__'
 
 class DiarySerializer(serializers.ModelSerializer):
