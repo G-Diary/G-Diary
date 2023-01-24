@@ -2,15 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 import { useStore } from '../../store/store';
 function GrimChoice(){
-  const {currentCanvas,setChoiceImg}=useStore();
+  const {setChoiceImg}=useStore();
   const addImage = (srcImg) => {
     const newimage = new Image();
     newimage.src=srcImg.src;
     console.log(newimage);
     newimage.crossOrigin = 'Anonymous';
-    // newimage.onload = function () {
-    //   currentCanvas.drawImage(newimage, 0, 0, srcImg.width, srcImg.height);
-    // };
     setChoiceImg(
       {
         id:srcImg.alt,
@@ -21,9 +18,6 @@ function GrimChoice(){
         height: srcImg.height,
       })
   };
-  // srcImg.width
-  // srcImg.height
-
   const onChange = (e) => {
     e.preventDefault();
     addImage(e.target);

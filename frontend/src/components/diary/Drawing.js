@@ -124,7 +124,6 @@ function Drawing({grim}){
 
   return(
     <div>
-      {/* <button onClick={handleExport}>save</button> */}
       {grim?(
         <Stage
           ref={stageRef}
