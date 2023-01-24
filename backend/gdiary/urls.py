@@ -12,7 +12,7 @@ router.register(r'diaries', DiaryViewset)
 urlpatterns = [
     path('', include(router.urls)),
 
-    path('join/', RegisterAPIView.as_view()), #회원가입
-    path("auth/refresh/", TokenRefreshView.as_view()), #토큰 재발급
-    path('auth/', AuthAPIView.as_view()), #로그인
+    path('users/join/', RegisterAPIView.as_view()), #회원가입
+    path("users/auth/refresh/", TokenRefreshView.as_view()), #토큰 재발급
+    path('users/auth/', AuthAPIView.as_view()), #로그인
 ]

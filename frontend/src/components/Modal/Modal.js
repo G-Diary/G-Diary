@@ -8,6 +8,8 @@ import './Modal.css'
 import DivBtn from './Button';
 import { useStore } from '../../store/store';
 import Titles from '../../pages/Title';
+import axios from 'axios';
+
 
 const CustomStyles = {
   content: {
@@ -36,8 +38,15 @@ const CustomStyles = {
 Modal.setAppElement('#root');
 
 function Modals() {
-  const [selected, setSelected] = useState('this')
+  const [selected, setSelected] = useState('mainLogo')
   const [img, setImg] = useState('');
+
+  axios.get('http://localhost:8000/api/v1/auth/').then(function(res){
+    console.log(res.data)
+    
+  }).catch(function(res){
+    console.log(res)
+  })
 
   const onClick = (img) => {
     setImg(img)
@@ -67,14 +76,11 @@ function Modals() {
 
   return (
     <div className='container'>
-      {/* <h1 className='nameDiary'>John's Diary</h1> */}
+      <h1 className='nickname'>Kendalljenner's</h1>
+      <h1 className='nameDiary'>Diary</h1>
       <div className='imgDisplay'><img className='imgClass' src={`images/${selected}.png`}/></div>
-      <button className='openBtn' onClick={openModal}>  <Link to='/list' style={{
-        color: 'white', 
-        textDecorationLine: 'none', 
-        fontWeight: 'bold'
-      }}>START</Link></button>
-    
+      <button className='openBtn' onClick={openModal}>+ Select</button>
+      <button className='startBtn'>Start</button>
       <Modal
         isOpen={modalIsOpen}
         onAfterOpen={afterOpenModal}
