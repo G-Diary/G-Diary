@@ -26,6 +26,7 @@ const Line =styled.div`
   border-bottom : 5px solid #F0DB6D;
   background: linear-gradient(90deg, rgba(129, 121, 121, 1) , rgba(244, 244, 244, 1));
   height : 750px;
+  box-shadow:12px 9px 10px 0 #676262;
 `
 function BookShape2R({children}){
   return(   

@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import {NavLink} from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
+import IsLogin from '../access/IsLogin'
 
 const BookMark = styled.div`
     width: 70px;
@@ -38,10 +39,10 @@ const StyledNavLink=styled(NavLink)`
 function Bookmark(){
   return(
     <BookMark>
-      <StyledNavLink to='/' style={{background:'#F29F05'}}>Home</StyledNavLink> 
+      <StyledNavLink to={IsLogin() ? '/main' : '/'} style={{background:'#F29F05'}}>Home</StyledNavLink> 
       <StyledNavLink to='/write' state={{date:new Date()}} style={{background:'#F2C879'}}>Write</StyledNavLink> 
       <StyledNavLink to='/list' style={{background:'rgb(242, 181, 107)'}}>List</StyledNavLink> 
-      <StyledNavLink to='/about' style={{background:'#F25C05'}}>About</StyledNavLink>
+      <StyledNavLink to='/about' style={{ background: '#F25C05' }}>About</StyledNavLink>
     </BookMark>)
 }
 
