@@ -8,18 +8,10 @@ import CoverControl from '../../pages/CoverControl';
 import api from '../../apis/axios';
 
 function AfterLogin() {
-  function onClick(e) {
-    // console.log(sessionStorage.getItem('id'))
-    api.get(`/users/${sessionStorage.getItem('id')}`).then(function (res) {
-      console.log(res)
-    }).catch(function (err) {
-      console.log(err)
-    })
-  }
+  
   return (
     <BookCover>
       <Modals />
-      <button type='button' onClick={onClick}>회원정보</button>
     </BookCover>
   );
 }
