@@ -175,6 +175,7 @@ function DiaryContent({getLoading}) {
     </DiviContainer>
     
   );
+  
 }
 
 export default DiaryContent;

@@ -99,6 +99,24 @@ function SignInForm() {
         showConfirmButton: false,
         timer: 2000
       })
+      const token = res.data.token
+      api.defaults.headers.common['Authorization'] = `Bearer ${token.access}`
+      sessionStorage.setItem('token', token.access);
+      sessionStorage.setItem('refresh', token.refresh);
+      sessionStorage.setItem('nickname', `${res.data.user.nickname}`)
+      sessionStorage.setItem('id', `${res.data.user.id}`)
+      navigate('/main')
+      console.log(res.data)
+      console.log(api.defaults.headers)
+      console.log(sessionStorage)
+    }).catch(function (res) {
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: '아이디 혹은 비밀번호를 다시 확인해주세요.',
+        showConfirmButton: false,
+        timer: 2000
+      })
       console.log(res)
     })
   }
