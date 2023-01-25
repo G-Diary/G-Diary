@@ -16,7 +16,7 @@ urlpatterns = [
     path("auth/refresh/", TokenRefreshView.as_view()), #토큰 재발급
     path('auth/', AuthAPIView.as_view()), #로그인
     path('ImageUploader/', ImageUploader.as_view()),
-    path('insertkeyword/', insertkeyword), #keyword 테이블 넣을때, {"keyword" : string } 만 넣어주기
-    path('inserturl/', inserturl), #url 테이블 넣을때, {"keyword_id" : int,   "image_url" : string } 만 넣어주기
-    path('proapi/',ProductListAPI.as_view()),
+    path('keyword/', KeywordViewset.as_view({'get':'list', 'post':'create'})), #keyword 테이블 넣을때, {"keyword" : string } 만 넣어주기
+    path('drawings/', DrawingViewset.as_view({'get':'list', 'post':'create'})), #url 테이블 넣을때, {"keyword_id" : int,   "image_url" : string } 만 넣어주기
+    #path('proapi/',ProductListAPI.as_view()),
 ]

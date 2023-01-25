@@ -146,38 +146,46 @@ class DiaryViewset(viewsets.ModelViewSet):
     serializer_class = DiarySerializer 
 
 
-# class KeywordViewset(viewsets.ModelViewSet):
-#     queryset = Keyword.objects.all()
-#     serializer_class = KeywordSerializer
+class KeywordViewset(viewsets.ModelViewSet):
+    queryset = Keyword.objects.all()
+    serializer_class = KeywordSerializer
 
-# class DrawingViewset(viewsets.ModelViewSet):
-#     queryset = Drawing.objects.all()
-#     serializer_class = DrawingSerializer
+class DrawingViewset(viewsets.ModelViewSet):
+    queryset = Drawing.objects.all()
+    serializer_class = DrawingSerializer
+   
+    def get_queryset(self):
+        drawings = Drawing.objects.filter(is_deleted = False)
 
-@api_view(['POST'])
-def insertkeyword(request):
-    reqData = request.data
-    serializer = KeywordSerializer(data=reqData)
-    if serializer.is_valid():
-        serializer.save()
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
-    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        kw = self.request.query_params.get('kw',None)
+        if kw:
+            drawings = drawings.filter(keyword = kw)
+        return drawings
 
-@api_view(['POST'])
-def inserturl(request):
-    reqData = request.data
-    serializer = DrawingSerializer(data=reqData)
-    if serializer.is_valid():
-        serializer.save()
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
-    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+# @api_view(['POST'])
+# def insertkeyword(request):
+#     reqData = request.data
+#     serializer = KeywordSerializer(data=reqData)
+#     if serializer.is_valid():
+#         serializer.save()
+#         return Response(serializer.data, status=status.HTTP_201_CREATED)
+#     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-class ProductListAPI(APIView):
-    def get(self, request):
-        queryset = Keyword.objects.all()
-        print(queryset)
-        serializer = KeywordSerializer(queryset, many=True)
-        return Response(serializer.data)
+# @api_view(['POST'])
+# def inserturl(request):
+#     reqData = request.data
+#     serializer = DrawingSerializer(data=reqData)
+#     if serializer.is_valid():
+#         serializer.save()
+#         return Response(serializer.data, status=status.HTTP_201_CREATED)
+#     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+# class ProductListAPI(APIView):
+#     def get(self, request):
+#         queryset = Drawing.objects.all()
+#         print(queryset)
+#         serializer = DrawingSerializer(queryset, many=True)
+#         return Response(serializer.data)
 
 
 
