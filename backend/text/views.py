@@ -1,5 +1,9 @@
 from django.http import HttpResponse
 from django.shortcuts import render
+from konlpy.tag import Kkma
+from requests import Response
+from rest_framework.decorators import api_view
+from .celery import app
 
 # Create your views here.
 # from backend.text.models import Diary
@@ -30,6 +34,20 @@ diaries = [
         'is_deleted': False
     },
 ]
+kkma = Kkma()
+# @route('/api/v1/diaries/<int:diary_id>', methods=['GET'])
+@app.task
+@api_view(['GET'])
+def get_keyword(request):
+    # for diary in diaries:
+    #     if diary['id'] == diary_id:
+    #         get_diary = diary
+    diary_contents = '새해가 밝았습니다 제주도에 눈이 와요 어젠 목도리만 둘렀는데.. 날씨가 왕왕 많이 바뀌네요'
+    diary_keyword = kkma.nouns(diary_contents)
+    print(diary_keyword)
+    return_key = {"keyword": diary_keyword}
+    HttpResponse(return_key)
+    return HttpResponse(return_key)
 
 # def new_post(request):
     # if request.method == 'POST':
