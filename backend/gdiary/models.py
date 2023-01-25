@@ -96,4 +96,4 @@ class Drawing(BaseModel):
     image_url = models.CharField(max_length=500, null=False)
 
     def __str__(self):
-        return self.id
+        return str(self.image_url)
