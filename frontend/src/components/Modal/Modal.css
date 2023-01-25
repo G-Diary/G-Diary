@@ -124,6 +124,11 @@
   /* box-shadow: none; */
 }
 
+.linkBtn{
+  color: black;
+  text-decoration: none;
+}
+
 .startBtn:hover{
   background-color: rgb(255, 215, 17);
   /* border-color: rgb(240, 219, 109); */
@@ -131,6 +136,12 @@
   box-shadow: none;
   /* border-style: outset; */
   
+}
+
+.Btnlocation{
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .closeBtn{

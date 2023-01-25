@@ -38,7 +38,7 @@ function DiaryContent(){
     form.append('contents',content);
     form.append('diary_date',format(date, 'yyyy-MM-dd'));
     console.log(form);
-    await api.post('/diaries/', form)
+    await api.post('diaries/', form)
       .then(function (response){
         console.log(response, JSON.stringify(response,null,5));
       })

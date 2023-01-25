@@ -72,7 +72,7 @@ function Modals() {
   }
 
   function closeModal() {
-    axios.post()
+    // axios.post()
     setIsOpen(false);
   }
 
@@ -80,9 +80,9 @@ function Modals() {
     <div className='container'>
       <h1 className='nickname'>{nickname}'s</h1>
       <h1 className='nameDiary'>Diary</h1>
-      <div className='imgDisplay'><img className='imgClass' src={`../images/${selected}.png`}/></div>
+      <div className='imgDisplay'><img className='imgClass' src={`images/${selected}.png`}/></div>
       <button className='openBtn' onClick={openModal}>+ Select</button>
-      <button className='startBtn'>Start</button>
+      <button className='startBtn'><Link to={'/list'} className='linkBtn'>Start</Link></button>
       <Modal
         isOpen={modalIsOpen}
         onAfterOpen={afterOpenModal}
@@ -102,27 +102,27 @@ function Modals() {
             <>
               <input name='c' type='radio' id='C1' checked={selected==='C1'} onChange={()=>selectedImg('C1')}/>
               <label htmlFor='C1'>
-                {selected === 'C1' ? (<img src='../images/C1.png' alt='image1' className='item2' />):(<img src='../images/C1.png' alt='image1' className='item' />)} 
+                {selected === 'C1' ? (<img src='images/C1.png' alt='image1' className='item2' />):(<img src='images/C1.png' alt='image1' className='item' />)} 
               </label>
               <input name='c' type='radio' id='C2' checked={selected==='C2'} onChange={()=>selectedImg('C2')}/>
               <label htmlFor='C2'>
-                {selected ==='C2' ? (<img src='../images/C2.png' alt='image1' className='item2' />):(<img src='../images/C2.png' alt='image1' className='item' />)} 
+                {selected ==='C2' ? (<img src='images/C2.png' alt='image1' className='item2' />):(<img src='images/C2.png' alt='image1' className='item' />)} 
               </label>
               <input name='c' type='radio' id='C3' checked={selected==='C3'} onChange={()=>selectedImg('C3')}/>
               <label htmlFor='C3'>
-                {selected ==='C3' ? (<img src='../images/C3.png' alt='image1' className='item2' />):(<img src='../images/C3.png' alt='image1' className='item' />)} 
+                {selected ==='C3' ? (<img src='images/C3.png' alt='image1' className='item2' />):(<img src='images/C3.png' alt='image1' className='item' />)} 
               </label>
               <input name='c' type='radio' id='C4'  checked={selected==='C4'} onChange={()=>selectedImg('C4')}/>
               <label htmlFor='C4'>
-                {selected ==='C4' ? (<img src='../images/C4.png' alt='image1' className='item2' />):(<img src='../images/C4.png' alt='image1' className='item' />)} 
+                {selected ==='C4' ? (<img src='images/C4.png' alt='image1' className='item2' />):(<img src='images/C4.png' alt='image1' className='item' />)} 
               </label>
             </>
           </div>
         </div>
 
-        <form>
-          <button className='closeBtn' onClick={closeModal}>Select</button>
-        </form>
+        <div className='Btnlocation'>
+          <button className='closeBtn' type='button' onClick={closeModal}>Select</button>
+        </div>
       </Modal>
     </div>
   );

@@ -1,15 +1,20 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import Modal from 'react-modal';
-import BookCover from '../bookshape/BookCover';
+import BookCover from '../bookshape/BookCoverJ';
 import Modals from './Modal'
 import Titles from '../../pages/Title';
 import CoverControl from '../../pages/CoverControl';
-import axios from '../../apis/axios';
+import api from '../../apis/axios';
 
 function AfterLogin() {
   function onClick(e) {
-    console.log(sessionStorage.getItem('nickname'))
+    // console.log(sessionStorage.getItem('id'))
+    api.get(`/users/${sessionStorage.getItem('id')}`).then(function (res) {
+      console.log(res)
+    }).catch(function (err) {
+      console.log(err)
+    })
   }
   return (
     <BookCover>

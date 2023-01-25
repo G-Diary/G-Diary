@@ -68,7 +68,7 @@ function SignUpForm() {
 
   function onClick(e) {
     e.preventDefault();
-    api.post('/users/join/', {
+    api.post('join', {
       nickname: `${nickname}`,
       email: `${email}`,
       password: `${password}`
