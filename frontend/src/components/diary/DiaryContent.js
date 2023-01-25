@@ -29,18 +29,21 @@ function DiaryContent(){
     'diary_date': format(date, 'yyyy-MM-dd')
   }
   console.log(diaryData);
+  const user=sessionStorage.getItem('id');
+  console.log(sessionStorage);
   //작성한 일기 보내기
-  const grimDiary = async () => {
+  const grimDiary = () => {
     let form = new FormData();
+    form.append('user_id',user);
     form.append('title',title);
     form.append('weather',weather);
     form.append('drawing_url','images/ateIcecream.png');
     form.append('contents',content);
     form.append('diary_date',format(date, 'yyyy-MM-dd'));
-    console.log(form);
-    await api.post('diaries/', form)
+
+    api.post('diaries/', form)
       .then(function (response){
-        console.log(response, JSON.stringify(response,null,5));
+        console.log(response, JSON.stringify(response,null,7));
       })
       .catch(function (error){
         console.log(error);
