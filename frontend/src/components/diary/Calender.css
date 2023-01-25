@@ -193,7 +193,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    transform: translate(125%,-400%);
+    transform: translate(0%,-10%);
+    color: #e83710;
 }
 .listLink:hover{
     color:rgb(205, 111, 111);

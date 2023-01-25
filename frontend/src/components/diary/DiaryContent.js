@@ -1,21 +1,56 @@
 import React, {useState} from 'react';
 import styled from 'styled-components';
 import Manuscript from './Manuscript';
-import Drawing from './Drawing';
 import Emoji from './Emoji';
 import { BsBrightnessHighFill, BsFillCloudFill ,BsFillCloudSnowFill, BsFillCloudRainFill } from 'react-icons/bs';
 import { useLocation } from 'react-router-dom';
+import Drawing from './Drawing';
+import { useStore } from '../../store/store';
+import api from '../../apis/axios';
+import { format } from 'date-fns';
 
 function DiaryContent(){
   const location = useLocation();
   const [grim, setGrim] = useState(true);  //그리기모드 버튼 클릭 여부
-  const [weather, setWeather]=useState(''); //날씨 선택
-  const [canvasImg,setCanvasImg]=useState('');  //캔버스 값 받아오기(이미지화를 위해)
+  const [title, setTitle]=useState(''); //제목
+  const [content, setContent]=useState(''); //일기 내용
+  const [weather, setWeather]=useState(); //날씨 선택
+  const {updateCanvas}=useStore();
   const date=location.state?.date;
-  console.log(date);
   let year=date.getFullYear();  //연도 구하기
   let todayMonth=date.getMonth()+1;  //월 구하기
   let todayDate=date.getDate();  //일 구하기
+  
+  const diaryData={
+    'title': title,
+    'weather': weather,
+    'drawing_url': 'images/ateIcecream.png',
+    'contents':content,
+    'diary_date': format(date, 'yyyy-MM-dd')
+  }
+  console.log(diaryData);
+  //작성한 일기 보내기
+  const grimDiary = async () => {
+    let form = new FormData();
+    form.append('title',title);
+    form.append('weather',weather);
+    form.append('drawing_url','images/ateIcecream.png');
+    form.append('contents',content);
+    form.append('diary_date',format(date, 'yyyy-MM-dd'));
+    console.log(form);
+    await api.post('diaries/', form)
+      .then(function (response){
+        console.log(response, JSON.stringify(response,null,5));
+      })
+      .catch(function (error){
+        console.log(error);
+      });
+  }
+
+  //제목 내용
+  const onChange = (e)=>{
+    setTitle(e.target.value);
+  }
   
   //날씨 선택
   const weatherChange = (weatherName)=>{
@@ -24,20 +59,8 @@ function DiaryContent(){
   //그리기 모드 버튼
   const clickedGrim = () => {
     setGrim((prev) => !prev);
-    saveAsPNG();
   };
 
-  const saveBtn = (imgRef) =>{
-    const image = imgRef.toDataURL('image/png');
-    setCanvasImg(image);
-    console.log(image);
-    console.log(image.width);
-  }
-
-  //그림 이미지화
-  const saveAsPNG = () => {
-    console.log(canvasImg);
-  };
     
   return(
     <DiviContainer>
@@ -46,63 +69,62 @@ function DiaryContent(){
           <Datetitle>DATE</Datetitle>
           {/* <DateContent>{year}.{todayMonth}.{todayDate}</DateContent> */}
           <DateContent>{year}.{todayMonth}.{todayDate}</DateContent>
-          <Weathercontainer>
+          <Weathercontainer style={{marginTop: '5px'}}>
             <WeatherRadioBtn 
               type='radio' 
               id="sunny"
               checked={weather==='sunny'}
-              onChange={()=>weatherChange('sunny')}
+              onChange={()=>weatherChange(1)}
             />
             <label htmlFor="sunny">
-              {weather==='sunny'?(<BsBrightnessHighFill size="29" color='red' />):(<BsBrightnessHighFill size="27" color='#8e8d8d'/>)}
+              {weather===1?(<BsBrightnessHighFill size="29" color='red' />):(<BsBrightnessHighFill size="27" color='#8e8d8d'/>)}
             </label>
             <WeatherRadioBtn 
               type='radio' 
               id="cloudy"
               checked={weather==='cloudy'}
-              onChange={()=>weatherChange('cloudy')} 
+              onChange={()=>weatherChange(2)} 
             />
             <label htmlFor="cloudy">
-              {weather==='cloudy'?(  <BsFillCloudFill size="29" color='rgb(36 75 147)' />):(<BsFillCloudFill size="28" color='#8e8d8d' />)}
+              {weather===2?(  <BsFillCloudFill size="29" color='rgb(36 75 147)' />):(<BsFillCloudFill size="28" color='#8e8d8d' />)}
             </label>
             <WeatherRadioBtn 
               type='radio' 
               id="rainy"
               checked={weather==='rainy'}
-              onChange={()=>weatherChange('rainy')}
+              onChange={()=>weatherChange(3)}
             />
             <label htmlFor="rainy">
-              {weather==='rainy'?(<BsFillCloudRainFill size="28" style={{paddingTop: '1.5px'}} color='rgb(76 76 76)' />):(<BsFillCloudRainFill size="26.5" style={{paddingTop: '1.5px'}} color='#8e8d8d' />)}
+              {weather===3?(<BsFillCloudRainFill size="28" style={{paddingTop: '1.5px'}} color='rgb(76 76 76)' />):(<BsFillCloudRainFill size="26.5" style={{paddingTop: '1.5px'}} color='#8e8d8d' />)}
             </label>
             <WeatherRadioBtn 
               type='radio' 
               id="snow"
               checked={weather==='snow'}
-              onChange={()=>weatherChange('snow')} 
+              onChange={()=>weatherChange(4)} 
             />
             <label htmlFor="snow">
-              {weather==='snow'?( <BsFillCloudSnowFill size="28" style={{paddingTop: '2px'}} color='#FFFAFA' />):( <BsFillCloudSnowFill size="26" style={{paddingTop: '2px'}} color='#8e8d8d' />)}
+              {weather===4?( <BsFillCloudSnowFill size="28" style={{paddingTop: '2px'}} color='#FFFAFA' />):( <BsFillCloudSnowFill size="26" style={{paddingTop: '2px'}} color='#8e8d8d' />)}
             </label>
           </Weathercontainer>
         </Dateline>
       </DateContainer>
       <TitleContainer>
         <Title>Title: </Title>
-        <Titlecontent><input type="text" /></Titlecontent>
+        <Titlecontent><input type="text" onChange={onChange} value={title} /></Titlecontent>
         <Emoji />
       </TitleContainer>
       <Canvas>
-        <Drawing grim={grim} save={saveBtn}/>
-        {/* <Reposition move={move}/> */}
+        <Drawing grim={grim}/>
       </Canvas>
       <ButtonContainer>
-        <Modebutton style={{width:'100px'}}>Reposition</Modebutton>
+        <Modebutton style={{width:'100px'}}>analyze</Modebutton>
         <Modebutton style={{width:'80px'}} onClick={clickedGrim}>{grim?'Drawing':'Stop'}</Modebutton>
-        <Savebutton onClick={saveAsPNG}>Save</Savebutton>
+        <Savebutton onClick={grimDiary}>Save</Savebutton>
       </ButtonContainer>
-      <Content><Manuscript /></Content>
+      <Content><Manuscript setContent={setContent}/></Content>
     </DiviContainer>
-  )
+  );
 }
 
 export default DiaryContent;
@@ -136,7 +158,7 @@ export const Dateline=styled.div`
     border-radius: 3px;
 `
 
-export const Datetitle=styled.p`
+export const Datetitle=styled.div`
     margin-left: 5%;
     width: 10%;
     font-size: 25px;
@@ -144,7 +166,7 @@ export const Datetitle=styled.p`
     font-family:Comic Sans MS;
 `
 
-export const DateContent = styled.p`
+export const DateContent = styled.div`
     width: 25%;
     font-size: 23px;
     border: 2px solid transparent;
@@ -160,7 +182,7 @@ export const DateContent = styled.p`
     font-family:Comic Sans MS;
 `
 
-export const Weathercontainer = styled.p`
+export const Weathercontainer = styled.div`
     width: 32%;
     text-align: right;
     margin-left: auto;
@@ -168,7 +190,6 @@ export const Weathercontainer = styled.p`
     display: flex;
     justify-content: space-around;
     align-items: flex-start;
-    margin-top:20px;
 `
 
 export const WeatherRadioBtn = styled.input`
@@ -187,7 +208,7 @@ export const TitleContainer = styled.div`
   font-family:Comic Sans MS;
 `
 
-export const Title =styled.p`
+export const Title =styled.div`
   margin-left: 5%;
   width: 10%;
   text-align: left;
@@ -195,7 +216,7 @@ export const Title =styled.p`
   font-family:Comic Sans MS;
 `
 
-export const Titlecontent = styled.p`
+export const Titlecontent = styled.div`
   width: 70%;
   margin-left: 4%;
   >input{
@@ -214,9 +235,9 @@ export const Titlecontent = styled.p`
 /*그림판 container*/
 export const Canvas = styled.div`
   width: 500px;   
-  height: 270px;
+  height: 290px;
   background: white;
-  border-bottom-left-radius:10px ;
+  border-bottom-left-radius:10px;
   border-bottom-right-radius: 10px;
 `
 
@@ -270,5 +291,5 @@ export const Savebutton = styled.button`
 /*내용 container*/
 export const Content = styled.div`
   width: 520px;
-  height: 300px;
+  height: 280px;
 `

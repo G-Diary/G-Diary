@@ -3,7 +3,7 @@ import styled from 'styled-components';
 function IntroduceL(){
   return( 
     <IntroduceContainer>
-      <LogoImg src="images/logo.svg" alt="logo" />
+      <LogoImg src="images/this.png" alt="logo" />
       <Introducetitle>
        What about<span style={{color:'orange', fontWeight:'700'}}>&nbsp;G-Diary?</span>
       </Introducetitle>
@@ -36,14 +36,14 @@ const Introducetitle =styled.div`
     align-items: center;
     justify-content: center;
     width: 500px;
-    height: 80px;
-    font-size: 38px;
+    height: 70px;
+    font-size: 35px;
     font-family:Comic Sans MS;
     font-style: italic;
 `
 
 const LogoImg = styled.img`
-    width: 20%;
+    width: 25%;
     border:none;
 `
 

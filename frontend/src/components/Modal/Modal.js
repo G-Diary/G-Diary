@@ -3,10 +3,13 @@ import { display } from '@mui/system';
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import Modal from 'react-modal';
+import { Link } from 'react-router-dom';
 import './Modal.css'
 import DivBtn from './Button';
 import { useStore } from '../../store/store';
 import Titles from '../../pages/Title';
+import axios from 'axios';
+
 
 const CustomStyles = {
   content: {
@@ -35,12 +38,20 @@ const CustomStyles = {
 Modal.setAppElement('#root');
 
 function Modals() {
-  const [selected, setSelected] = useState('this')
+  const [selected, setSelected] = useState('mainLogo')
   const [img, setImg] = useState('');
+  const nickname = sessionStorage.getItem('nickname');
 
-  const onClick = (img) => {
-    setImg(img)
-  }
+  // axios.get('http://localhost:8000/api/v1/auth/').then(function(res){
+  //   console.log(res.data)
+    
+  // }).catch(function(res){
+  //   console.log(res)
+  // })
+
+  // const onClick = (img) => {
+  //   setImg(img)
+  // }
 
 
 
@@ -61,14 +72,17 @@ function Modals() {
   }
 
   function closeModal() {
+    // axios.post()
     setIsOpen(false);
   }
 
   return (
     <div className='container'>
-      {/* <h1 className='nameDiary'>John's Diary</h1> */}
+      <h1 className='nickname'>{nickname}'s</h1>
+      <h1 className='nameDiary'>Diary</h1>
       <div className='imgDisplay'><img className='imgClass' src={`images/${selected}.png`}/></div>
-      <button className='openBtn' onClick={openModal}>START</button>
+      <button className='openBtn' onClick={openModal}>+ Select</button>
+      <button className='startBtn'><Link to={'/list'} className='linkBtn'>Start</Link></button>
       <Modal
         isOpen={modalIsOpen}
         onAfterOpen={afterOpenModal}
@@ -106,9 +120,9 @@ function Modals() {
           </div>
         </div>
 
-        <form>
-          <button className='closeBtn' onClick={closeModal}>Select</button>
-        </form>
+        <div className='Btnlocation'>
+          <button className='closeBtn' type='button' onClick={closeModal}>Select</button>
+        </div>
       </Modal>
     </div>
   );

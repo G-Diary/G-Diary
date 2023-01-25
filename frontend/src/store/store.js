@@ -6,14 +6,10 @@ export const useStore = create((set)=>({
   updateCanvas:'',  //현재 캔버스 위에 있는 내용을 이미지화하기 위해
   choiceImg:[], //캔버스에 이미지 추가
   choiceDate:new Date(), //날짜 선택
-  exist:[], //작성되어 있는 글 날짜
   setCurrentCanvas: (updateCanvas)=>set({currentCanvas:updateCanvas}),
   setUpdateCanvas:(canvas)=>set({updateCanvas:canvas}),
   setChoiceImg:(img)=>{
     set((state)=>({...state,choiceImg:img}));
   },
   setChoicedDate:(date)=>set({choiceDate:date}),
-  setExist:(d)=>{
-    set((state)=>({...state,exits:d}));
-  },
 }));
