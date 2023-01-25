@@ -20,17 +20,14 @@ class ImageUploader(APIView) :
     def post(self, request) :
         try :
             files = request.FILES.getlist('files')
-            #host_id = request.GET.get('host_id')
             s3r = boto3.resource('s3', aws_access_key_id= AWS_ACCESS_KEY_ID, aws_secret_access_key= AWS_ACCESS_ACCESS_KEY)
-            #key = "%s" %(host_id)
 
             for file in files :
                 file._set_name(str(uuid.uuid4()))
-                s3r.Bucket(AWS_STORAGE_BUCKET_NAME).put_object( Key='/%s'%(file), Body=file, ContentType='jpg')
-                Image.objects.create(
-                    image_url = AWS_S3_CUSTOM_DOMAIN+"/%s"%(file),
-                    #host_id = host_id
-                )
+                s3r.Bucket(AWS_STORAGE_BUCKET_NAME).put_object(Key='%s'%(file), Body=file, ContentType='jpg')
+                
+                image_url = AWS_S3_CUSTOM_DOMAIN+"/%s"%(file),
+                
             return JsonResponse({"MESSGE" : "SUCCESS"}, status=200)
 
         except Exception as e :
