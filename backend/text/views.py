@@ -23,6 +23,12 @@ diaries = [
         'contents': '피아노를 치는데 소리가 구리다. 자괴감이 대박이다.',
         'is_deleted': False
     },
+    {
+        'id': 3,
+        'title': '새해 제주',
+        'contents': '새해가 밝았습니다 제주도에 눈이 와요 어젠 목도리만 둘렀는데.. 날씨가 왕왕 많이 바뀌네요',
+        'is_deleted': False
+    },
 ]
 
 # def new_post(request):
