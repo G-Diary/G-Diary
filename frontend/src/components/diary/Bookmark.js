@@ -39,9 +39,9 @@ const StyledNavLink=styled(NavLink)`
 function Bookmark(){
   return(
     <BookMark>
-      <StyledNavLink to={IsLogin() ? '/main' : '/'} style={{background:'#80FF00'}}>Home</StyledNavLink> 
-      <StyledNavLink to='/list' style={{background:'#FFE600'}}>List</StyledNavLink> 
-      <StyledNavLink to='/write' state={{date:new Date()}} style={{background:'#0085FF'}}>Write</StyledNavLink> 
+      <StyledNavLink to={IsLogin() ? '/main/:id' : '/'} style={{background:'#80FF00'}}>Home</StyledNavLink> 
+      <StyledNavLink to='/list/:id' style={{background:'#FFE600'}}>List</StyledNavLink> 
+      <StyledNavLink to='/write/:id' state={{date:new Date()}} style={{background:'#0085FF'}}>Write</StyledNavLink> 
       <StyledNavLink to='/about' style={{ background: '#FF0000' }}>About</StyledNavLink>
     </BookMark>)
 }

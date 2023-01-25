@@ -58,9 +58,14 @@ function SignInForm() {
       })
       const token = res.data.token
       api.defaults.headers.common['Authorization'] = `Bearer ${token.access}`
-      localStorage.setItem('token', token.access);
-      localStorage.setItem('refresh', token.refresh);
-      navigate('/main')
+      sessionStorage.setItem('token', token.access);
+      sessionStorage.setItem('refresh', token.refresh);
+      sessionStorage.setItem('nickname', `${res.data.user.nickname}`)
+      sessionStorage.setItem('id', `${res.data.user.id}`)
+      navigate(`/main/${res.data.user.id}`)
+      console.log(res.data)
+      console.log(api.defaults.headers)
+      console.log(sessionStorage)
     }).catch(function(res) {
       console.log(res)
     })

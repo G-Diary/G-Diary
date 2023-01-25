@@ -16,11 +16,11 @@ function App() {
     <Routes>
       <Route path="/" element={<PublicPages Component={Main}/>} />
       <Route path="/signin" element={<PublicPages Component={SignIn} restricted/>} />
-      <Route path="/main" element={<PrivatePages Component={AfterLogin}/>} />
+      <Route path="/main/:id" element={<PrivatePages Component={AfterLogin}/>} />
       <Route path="/signup" element={<PublicPages Component={SignUp} restricted/>} />
       <Route path="/about" element={<PublicPages Component={Manual}/>} />
-      <Route path="/write" element={<PrivatePages Component={WriteGrim}/>} />
-      <Route path="/list" element={<PrivatePages Component={GrimList}/>} />
+      <Route path="/write/:id" element={<PrivatePages Component={WriteGrim}/>} />
+      <Route path="/list/:id" element={<PrivatePages Component={GrimList}/>} />
     </Routes>
   );
 }

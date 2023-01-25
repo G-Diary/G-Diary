@@ -81,6 +81,7 @@ function SignUpForm() {
         timer: 2000
       })
       navigate('/signin')
+      console.log(res.data)
     }).catch(function(res) {
       if(res.response.data.email) {
         Swal.fire({
