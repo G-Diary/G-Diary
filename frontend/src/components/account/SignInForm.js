@@ -66,7 +66,14 @@ function SignInForm() {
       console.log(res.data)
       console.log(api.defaults.headers)
       console.log(sessionStorage)
-    }).catch(function(res) {
+    }).catch(function (res) {
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: '아이디 혹은 비밀번호를 다시 확인해주세요.',
+        showConfirmButton: false,
+        timer: 2000
+      })
       console.log(res)
     })
   }
