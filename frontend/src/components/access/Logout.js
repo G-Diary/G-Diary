@@ -31,7 +31,7 @@ export default function LogoutBtn() {
       }
     })
   }
-  
+
   return (
     <Button type='button' onClick={onClick}>로그아웃</Button>
   )
