@@ -2,8 +2,8 @@ from django.http import HttpResponse
 from django.shortcuts import render
 
 # Create your views here.
-from backend.text.models import Diary
-from ai_model.app.views.text_views import get_keyword
+# from backend.text.models import Diary
+# from ai_model.app.views.text_views import get_keyword
 
 
 def hello_world(request):
@@ -41,20 +41,20 @@ diaries = [
     #         )
     #     return redirect('/blog/')
 # text 분석 함수 post
-def get_contents(request):
-    if request.method == "POST":
-        new_diary = Diary.object.create(
-            diary_id = 1,
-            title = '오늘은 즐거운 날이다.',
-            contents = '피아노를 치는데 소리가 구리다. 자괴감이 대박이다.',
-            is_deleted = False
-        )
-
-    # db 연결 코드 추가
-    # 플라스크로 넘기기
-    keyword_json = get_keyword(new_diary.contents)
-    # 결과 받기
-    return HttpResponse("hello! this is get_keyword api")
+# def get_contents(request):
+#     if request.method == "POST":
+#         new_diary = Diary.object.create(
+#             diary_id = 1,
+#             title = '오늘은 즐거운 날이다.',
+#             contents = '피아노를 치는데 소리가 구리다. 자괴감이 대박이다.',
+#             is_deleted = False
+#         )
+#
+#     # db 연결 코드 추가
+#     # 플라스크로 넘기기
+#     keyword_json = get_keyword(new_diary.contents)
+#     # 결과 받기
+#     return HttpResponse("hello! this is get_keyword api")
 
 
 # text 기반 그림 보여주기
