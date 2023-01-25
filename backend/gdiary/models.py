@@ -73,13 +73,12 @@ class User(AbstractBaseUser, PermissionsMixin, BaseModel):
 
 class Diary(BaseModel):
     id = models.AutoField(primary_key=True) #pk
-    #user_id = models.ForeignKey(User, on_delete=models.CASCADE, null=False) #fk 회원가입 api 완료되면 주석 풀기
+    user_id = models.ForeignKey(User, on_delete=models.CASCADE, null=False) #fk
     title = models.CharField(max_length=50, null=False)
-    weather = models.IntegerField(null=True)
-    drawing_url = models.CharField(max_length=500, null=False)
+    weather = models.IntegerField(null=False)
+    drawing_url = models.CharField(max_length=500, null=True)
     contents = models.CharField(max_length=50, null=False)
     diary_date = models.DateField(null=False)
- 
 
     def __str__(self):
         return self.id
