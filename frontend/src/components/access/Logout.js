@@ -22,9 +22,10 @@ export default function LogoutBtn() {
           '',
           'success'
         )
-        api.defaults.headers.common['Authorization'] = `Bearer ${null}`
         sessionStorage.removeItem('token');
         sessionStorage.removeItem('refresh');
+        sessionStorage.removeItem('nickname');
+        sessionStorage.removeItem('id');
         console.log(api.defaults.headers.common)
         console.log(sessionStorage)
         navigate('/')

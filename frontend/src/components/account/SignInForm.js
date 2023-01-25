@@ -63,8 +63,7 @@ function SignInForm() {
       sessionStorage.setItem('nickname', `${res.data.user.nickname}`)
       sessionStorage.setItem('id', `${res.data.user.id}`)
       navigate('/main')
-      console.log(res.data)
-      console.log(api.defaults.headers)
+      console.log(api.defaults)
       console.log(sessionStorage)
     }).catch(function (res) {
       Swal.fire({
