@@ -9,54 +9,77 @@ import { useStore } from '../../store/store';
 import api from '../../apis/axios';
 import { format } from 'date-fns';
 
-function DiaryContent(){
+function DiaryContent() {
   const location = useLocation();
   const [grim, setGrim] = useState(true);  //그리기모드 버튼 클릭 여부
-  const [title, setTitle]=useState(''); //제목
-  const [content, setContent]=useState(''); //일기 내용
-  const [weather, setWeather]=useState(); //날씨 선택
-  const {updateCanvas}=useStore();
-  const date=location.state?.date;
-  let year=date.getFullYear();  //연도 구하기
-  let todayMonth=date.getMonth()+1;  //월 구하기
-  let todayDate=date.getDate();  //일 구하기
+  const [title, setTitle] = useState(''); //제목
+  const [content, setContent] = useState(''); //일기 내용
+  const [weather, setWeather] = useState(); //날씨 선택
+  const { updateCanvas } = useStore();
+  const date = location.state?.date;
+  const Swal = require('sweetalert2');
+  let year = date.getFullYear();  //연도 구하기
+  let todayMonth = date.getMonth() + 1;  //월 구하기
+  let todayDate = date.getDate();  //일 구하기
   
-  const diaryData={
+  const diaryData = {
     'title': title,
     'weather': weather,
     'drawing_url': 'images/ateIcecream.png',
-    'contents':content,
+    'contents': content,
     'diary_date': format(date, 'yyyy-MM-dd')
   }
   console.log(diaryData);
-  const user=sessionStorage.getItem('id');
-  console.log(sessionStorage);
+  const user = sessionStorage.getItem('id');
   //작성한 일기 보내기
-  const grimDiary = () => {
+  const grimDiary = async () => {
     let form = new FormData();
-    form.append('user_id',user);
-    form.append('title',title);
-    form.append('weather',weather);
-    form.append('drawing_url','images/ateIcecream.png');
-    form.append('contents',content);
-    form.append('diary_date',format(date, 'yyyy-MM-dd'));
-
-    api.post('diaries/', form)
-      .then(function (response){
-        console.log(response, JSON.stringify(response,null,7));
+    form.append('user_id', user)
+    form.append('title', title);
+    form.append('weather', weather);
+    form.append('drawing_url', 'images/ateIcecream.png');
+    form.append('contents', content);
+    form.append('diary_date', format(date, 'yyyy-MM-dd'));
+    await api.post('diaries/', form)
+      .then(function (response) {
+        console.log(response, JSON.stringify(response, null, 7));
       })
-      .catch(function (error){
-        console.log(error);
-      });
+      .catch(function (error) {
+        if (error.response.data.title) {
+          Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: '제목을 입력해 주세요.',
+            showConfirmButton: false,
+            timer: 2000
+          })
+        } else if (error.response.data.contents) {
+          Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: '내용을 입력해 주세요.',
+            showConfirmButton: false,
+            timer: 2000
+          })
+        } else if (error.response.data.weather) {
+          Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: '날씨를 선택해 주세요.',
+            showConfirmButton: false,
+            timer: 2000
+          })
+        }
+      })
   }
 
   //제목 내용
-  const onChange = (e)=>{
+  const onChange = (e) => {
     setTitle(e.target.value);
   }
   
   //날씨 선택
-  const weatherChange = (weatherName)=>{
+  const weatherChange = (weatherName) => {
     setWeather(weatherName);
   }
   //그리기 모드 버튼
@@ -65,49 +88,49 @@ function DiaryContent(){
   };
 
     
-  return(
+  return (
     <DiviContainer>
       <DateContainer>
         <Dateline>
           <Datetitle>DATE</Datetitle>
           {/* <DateContent>{year}.{todayMonth}.{todayDate}</DateContent> */}
           <DateContent>{year}.{todayMonth}.{todayDate}</DateContent>
-          <Weathercontainer style={{marginTop: '5px'}}>
-            <WeatherRadioBtn 
-              type='radio' 
+          <Weathercontainer style={{ marginTop: '5px' }}>
+            <WeatherRadioBtn
+              type='radio'
               id="sunny"
-              checked={weather==='sunny'}
-              onChange={()=>weatherChange(1)}
+              checked={weather === 'sunny'}
+              onChange={() => weatherChange(1)}
             />
             <label htmlFor="sunny">
-              {weather===1?(<BsBrightnessHighFill size="29" color='red' />):(<BsBrightnessHighFill size="27" color='#8e8d8d'/>)}
+              {weather === 1 ? (<BsBrightnessHighFill size="29" color='red' />) : (<BsBrightnessHighFill size="27" color='#8e8d8d' />)}
             </label>
-            <WeatherRadioBtn 
-              type='radio' 
+            <WeatherRadioBtn
+              type='radio'
               id="cloudy"
-              checked={weather==='cloudy'}
-              onChange={()=>weatherChange(2)} 
+              checked={weather === 'cloudy'}
+              onChange={() => weatherChange(2)}
             />
             <label htmlFor="cloudy">
-              {weather===2?(  <BsFillCloudFill size="29" color='rgb(36 75 147)' />):(<BsFillCloudFill size="28" color='#8e8d8d' />)}
+              {weather === 2 ? (<BsFillCloudFill size="29" color='rgb(36 75 147)' />) : (<BsFillCloudFill size="28" color='#8e8d8d' />)}
             </label>
-            <WeatherRadioBtn 
-              type='radio' 
+            <WeatherRadioBtn
+              type='radio'
               id="rainy"
-              checked={weather==='rainy'}
-              onChange={()=>weatherChange(3)}
+              checked={weather === 'rainy'}
+              onChange={() => weatherChange(3)}
             />
             <label htmlFor="rainy">
-              {weather===3?(<BsFillCloudRainFill size="28" style={{paddingTop: '1.5px'}} color='rgb(76 76 76)' />):(<BsFillCloudRainFill size="26.5" style={{paddingTop: '1.5px'}} color='#8e8d8d' />)}
+              {weather === 3 ? (<BsFillCloudRainFill size="28" style={{ paddingTop: '1.5px' }} color='rgb(76 76 76)' />) : (<BsFillCloudRainFill size="26.5" style={{ paddingTop: '1.5px' }} color='#8e8d8d' />)}
             </label>
-            <WeatherRadioBtn 
-              type='radio' 
+            <WeatherRadioBtn
+              type='radio'
               id="snow"
-              checked={weather==='snow'}
-              onChange={()=>weatherChange(4)} 
+              checked={weather === 'snow'}
+              onChange={() => weatherChange(4)}
             />
             <label htmlFor="snow">
-              {weather===4?( <BsFillCloudSnowFill size="28" style={{paddingTop: '2px'}} color='#FFFAFA' />):( <BsFillCloudSnowFill size="26" style={{paddingTop: '2px'}} color='#8e8d8d' />)}
+              {weather === 4 ? (<BsFillCloudSnowFill size="28" style={{ paddingTop: '2px' }} color='#FFFAFA' />) : (<BsFillCloudSnowFill size="26" style={{ paddingTop: '2px' }} color='#8e8d8d' />)}
             </label>
           </Weathercontainer>
         </Dateline>
@@ -118,16 +141,17 @@ function DiaryContent(){
         <Emoji />
       </TitleContainer>
       <Canvas>
-        <Drawing grim={grim}/>
+        <Drawing grim={grim} />
       </Canvas>
       <ButtonContainer>
-        <Modebutton style={{width:'100px'}}>analyze</Modebutton>
-        <Modebutton style={{width:'80px'}} onClick={clickedGrim}>{grim?'Drawing':'Stop'}</Modebutton>
+        <Modebutton style={{ width: '100px' }}>analyze</Modebutton>
+        <Modebutton style={{ width: '80px' }} onClick={clickedGrim}>{grim ? 'Drawing' : 'Stop'}</Modebutton>
         <Savebutton onClick={grimDiary}>Save</Savebutton>
       </ButtonContainer>
-      <Content><Manuscript setContent={setContent}/></Content>
+      <Content><Manuscript setContent={setContent} /></Content>
     </DiviContainer>
   );
+  
 }
 
 export default DiaryContent;
