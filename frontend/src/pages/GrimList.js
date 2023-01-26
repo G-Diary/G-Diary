@@ -14,9 +14,13 @@ import '../components/diary/Calender.css';
 import api from '../apis/axios';
 
 function GrimList(){
-  const [list, setList]=useState([]);
+  // const [list, setList]=useState([]);
+  const [add, setAdd]=useState([]);
   const {choiceDate}=useStore();
   const exist=[];
+  const list=[];
+  const user=sessionStorage.getItem('id'); //user id받아오기
+  console.log(user);
 
   //일기 리스트 가져오기(전체)
   const allList = async () =>{
@@ -27,14 +31,21 @@ function GrimList(){
   useEffect(()=>{
     const getAllList=async () =>{
       const allGrimList = await allList();
-      if(allGrimList) setList(allGrimList);
+      if(allGrimList) setAdd(allGrimList);
+      console.log(add);
     };
     getAllList();
   },[]);
+  console.log(add);
 
-  for(let i=0;i<list.length;i++){
-    exist.push(list[i].diary_date);
+  for(let i=0;i<add.length;i++){
+    if(add[i].user_id===parseInt(user)){
+      exist.push(add[i].diary_date);
+      list.push(add[i])
+    }
   }
+  console.log(exist);
+  console.log(list);
 
   return(
     <WriteContainer>
