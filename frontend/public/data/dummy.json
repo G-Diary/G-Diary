@@ -1,0 +1,21 @@
+[
+  {
+    "id":1,
+    "title":"travel",
+    "weather":4,
+    "drawing_url":"images/jeju.png",
+    "contents":"I went to Jeju Island with my friends.",
+    "date": "2023-01-22",
+    "emoji":"https://e.unicode-table.com/orig/66/402e690a1bd54de348fee6a291fcc5.png"
+  },
+  {
+    "id":2,
+    "title":"ice cream",
+    "weather":1,
+    "drawing_url":"images/ateIcecream.png",
+    "contents":"I went to the ice cream shop and ate ice cream.",
+    "date": "2023-01-18",
+    "emoji":"https://e.unicode-table.com/orig/80/4139df052e66413dcb2ef0b64d1bdd.png"
+  }
+  
+]
