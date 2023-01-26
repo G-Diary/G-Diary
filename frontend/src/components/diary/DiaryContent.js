@@ -190,7 +190,7 @@ export const Datetitle=styled.div`
     width: 10%;
     font-size: 25px;
     text-align: center;
-    font-family:Comic Sans MS;
+    font-family:KyoboHand;
 `
 
 export const DateContent = styled.div`
@@ -206,7 +206,7 @@ export const DateContent = styled.div`
     justify-content: center;
     line-height: 90%;
     color: #4b4b4b;
-    font-family:Comic Sans MS;
+    font-family:KyoboHand;
 `
 
 export const Weathercontainer = styled.div`
@@ -232,7 +232,7 @@ export const TitleContainer = styled.div`
   align-items: center;
   border-top-left-radius: 3px;
   border-top=right-radius: 3px;
-  font-family:Comic Sans MS;
+  font-family:KyoboHand;
 `
 
 export const Title =styled.div`
@@ -240,7 +240,7 @@ export const Title =styled.div`
   width: 10%;
   text-align: left;
   font-size: 25px;
-  font-family:Comic Sans MS;
+  font-family:KyoboHand;
 `
 
 export const Titlecontent = styled.div`
@@ -253,7 +253,7 @@ export const Titlecontent = styled.div`
     border: 0;
     outline: none;
     background: transparent;
-    font-family:Comic Sans MS;
+    font-family:KyoboHand;
     color:#4b4b4b;
     caret-color: transparent;
   }
@@ -286,7 +286,7 @@ export const Modebutton = styled.button`
   margin-right: 1.5%;
   border: 2px solid black;
   transition: box-shadow 250ms ease-in-out, color 200ms ease-in-out;
-  font-family:Comic Sans MS;
+  font-family:KyoboHand;
   padding-bottom:0.5%;
   &:hover{
     box-shadow: 0 0 40px 40px  #404040 inset;
@@ -308,7 +308,7 @@ export const Savebutton = styled.button`
   padding-bottom:0.5%;
   overflow: hidden;
   transition: box-shadow, color 300ms ease-in-out;
-  font-family:Comic Sans MS;
+  font-family:KyoboHand;
   &:hover{
     color: rgb(54, 54, 54);
     background-color: transparent;

@@ -30,5 +30,6 @@ const ServiceInfo=styled.div`
   width: 90%;
   height: 40%;
   font-size: 25px;
-  font-family:Comic Sans MS;
+  font-family:KyoboHand;
+  font-weight: bolder;
 `

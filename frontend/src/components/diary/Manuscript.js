@@ -90,7 +90,7 @@ export const GridContent =styled.textarea`
   color: rgba(0, 0, 0, 0);
   text-decoration-line: none;
   z-index: -1;
-  top: -400px;
+  top: -800px;
 `
 
 export const TableTd =styled.div`

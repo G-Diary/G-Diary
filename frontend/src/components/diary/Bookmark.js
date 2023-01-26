@@ -22,7 +22,6 @@ const StyledNavLink=styled(NavLink)`
     border: 0.8px groove gray;
     border-left: none;
     font-weight: 400;
-    font-family:Comic Sans MS;
     opacity:0.9;
     &:link {
       transition : 0.5s;
@@ -39,10 +38,10 @@ const StyledNavLink=styled(NavLink)`
 function Bookmark(){
   return(
     <BookMark>
-      <StyledNavLink to={IsLogin() ? '/main' : '/'} style={{background:'#80FF00'}}>Home</StyledNavLink> 
-      <StyledNavLink to={'/list'} style={{background:'#FFE600'}}>List</StyledNavLink> 
-      <StyledNavLink to={'/write'} state={{date:new Date()}} style={{background:'#0085FF'}}>Write</StyledNavLink> 
-      <StyledNavLink to='/about' style={{ background: '#FF0000' }}>About</StyledNavLink>
+      <StyledNavLink to={IsLogin() ? '/main' : '/'} style={{background:'#80FF00'}}>홈</StyledNavLink> 
+      <StyledNavLink to={'/list'} style={{background:'#FFE600'}}>목록</StyledNavLink> 
+      <StyledNavLink to={'/write'} state={{date:new Date()}} style={{background:'#0085FF'}}>글 쓰기</StyledNavLink> 
+      <StyledNavLink to='/about' style={{ background: '#FF0000' }}>소개</StyledNavLink>
     </BookMark>)
 }
 
