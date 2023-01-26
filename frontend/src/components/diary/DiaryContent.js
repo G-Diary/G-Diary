@@ -73,6 +73,7 @@ function DiaryContent() {
       })
   }
 
+  console.log(updateCanvas);
   //제목 내용
   const onChange = (e) => {
     setTitle(e.target.value);
