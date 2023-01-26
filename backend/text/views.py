@@ -1,9 +1,14 @@
+import time
+
 from django.http import HttpResponse
 from django.shortcuts import render
 from konlpy.tag import Kkma
 from requests import Response
 from rest_framework.decorators import api_view
-from .celery import app
+from config.celery import *
+from turtle import delay
+from rest_framework.response import Response
+from rest_framework import status
 
 # Create your views here.
 # from backend.text.models import Diary
@@ -36,18 +41,29 @@ diaries = [
 ]
 kkma = Kkma()
 # @route('/api/v1/diaries/<int:diary_id>', methods=['GET'])
-@app.task
-@api_view(['GET'])
+@app.task(name="get_keyword")
+@api_view(['POST'])
 def get_keyword(request):
     # for diary in diaries:
     #     if diary['id'] == diary_id:
     #         get_diary = diary
     diary_contents = '새해가 밝았습니다 제주도에 눈이 와요 어젠 목도리만 둘렀는데.. 날씨가 왕왕 많이 바뀌네요'
-    diary_keyword = kkma.nouns(diary_contents)
-    print(diary_keyword)
-    return_key = {"keyword": diary_keyword}
-    HttpResponse(return_key)
-    return HttpResponse(return_key)
+    diary_keyword = kkma.nouns.delay(diary_contents)
+
+    while True:
+        if diary_keyword.ready() == False:
+            time.sleep(5)
+            print("    delay...    ")
+            continue
+        else :
+            print(diary_keyword)
+            print(diary_keyword.ready())
+            return Response({
+                "resuilt" :"성공"
+            }, status=status.HTTP_201_CREATED)
+    # return_key = {"keyword": diary_keyword}
+    # HttpResponse(return_key)
+    # return HttpResponse(return_key)
 
 # def new_post(request):
     # if request.method == 'POST':
