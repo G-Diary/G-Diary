@@ -36,6 +36,7 @@ function GrimList(){
     getAllList();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   },[]);
+  console.log(add);
 
   for(let i=0;i<add.length;i++){
     if(add[i].user_id===parseInt(user)){
