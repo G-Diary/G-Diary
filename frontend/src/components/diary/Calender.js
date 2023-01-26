@@ -82,7 +82,8 @@ const RenderCells = ({currentMonth, today, list, exist, selectedDate, onDateClic
           {list.filter(x=>new Date(x.diary_date).toDateString()===cloneDay.toDateString())
             // eslint-disable-next-line no-loop-func
             .map(data=>{
-              return <div key={data}><img src={data.drawing_url} alt="emoji" className='listemoji'/></div>})}
+              return <div key={data}><img src={data.drawing_url} alt="emoji" className='listemoji'/></div>})
+          }
           {exist.includes(format(cloneDay, 'yyyy-MM-dd'))?'':(<div> <Link to='/write' state={{date:day}}>
             <div onMouseEnter={()=>{setAdd(false)}}
               onMouseLeave={()=>{setAdd(true)}}
@@ -121,7 +122,7 @@ function Calender({list, exist}){
   }
   return(
     <div className='listcontainer'>
-      <div className='listname'>Diary List</div>
+      <div className='listname'>일기 리스트</div>
       <div className='calender'>
         <RenderHeader currentMonth={currentMonth} prevMonth={prevMonth} nextMonth={nextMonth}></RenderHeader>
         <RenderDays></RenderDays>

@@ -16,7 +16,7 @@ function DiaryList({title, weather, draw, contents, date, emoji}){
     <DiviContainer>
       <DateContainer>
         <Dateline>
-          <Datetitle>DATE</Datetitle>
+          <Datetitle>날짜</Datetitle>
           <DateContent style={{width: '9rem', fontSize:'1.5rem'}}>{year}.{todayMonth}.{todayDate}</DateContent>
           <Weathercontainer>
             {weather===1?(
@@ -57,13 +57,14 @@ function DiaryList({title, weather, draw, contents, date, emoji}){
         </Dateline>
       </DateContainer>
       <TitleContainer>
-        <Title>Title:</Title>
+        <Title>제목:</Title>
         <Titlecontent style={{fontSize: '1.5rem'}}>{title}</Titlecontent>
-        <img src={`${emoji}`} alt="emoji" style={{width:'1em', fontSize:'1.8em'}}/>
+        {/* <img src={`${emoji}`} alt="emoji" style={{width:'1em', fontSize:'1.8em'}}/> */}
+        <div style={{width:'1em', fontSize:'1.8em'}}>🙂</div>
       </TitleContainer>
       <Canvas><img src={draw} alt="diarygrim" style={{width:'500px', height:'290px'}}/></Canvas>
       <ChoiceButtonContainer style={{height: '25px' ,marginTop:'2%', marginLeft:'2.2%'}}>
-        <Modebutton style={{width: '130px', height:'30px'}}>Post on SNS</Modebutton>
+        {/* <Modebutton style={{width: '130px', height:'30px'}}></Modebutton> */}
       </ChoiceButtonContainer>
       <Content><ResultManuscript content={contents}/></Content>
     </DiviContainer>

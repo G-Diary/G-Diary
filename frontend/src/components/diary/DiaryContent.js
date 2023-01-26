@@ -3,13 +3,14 @@ import styled from 'styled-components';
 import Manuscript from './Manuscript';
 import Emoji from './Emoji';
 import { BsBrightnessHighFill, BsFillCloudFill ,BsFillCloudSnowFill, BsFillCloudRainFill } from 'react-icons/bs';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Drawing from './Drawing';
 import { useStore } from '../../store/store';
 import api from '../../apis/axios';
 import { format } from 'date-fns';
 
-function DiaryContent() {
+function DiaryContent({getLoading}) {
+  const navigate = useNavigate();
   const location = useLocation();
   const [grim, setGrim] = useState(true);  //그리기모드 버튼 클릭 여부
   const [title, setTitle]=useState(''); //제목
@@ -47,13 +48,14 @@ function DiaryContent() {
     form.append('user_id',user);
     form.append('title',title);
     form.append('weather',weather);
-    form.append('drawing_url','images/jeju.png');
+    form.append('drawing_url','images/22.png');
     form.append('contents',content);
     form.append('diary_date',format(date, 'yyyy-MM-dd'));
 
     await api.post('diaries/', form)
       .then(function (response){
         console.log(response, JSON.stringify(response,null,7));
+        navigate('/list')
       })
       .catch(function (error) {
         if (error.response.data.title) {
@@ -81,8 +83,8 @@ function DiaryContent() {
             timer: 2000
           })
         }
+      })
   }
-
   console.log(updateCanvas);
   //제목 내용
   const onChange = (e) => {
@@ -97,13 +99,17 @@ function DiaryContent() {
   const clickedGrim = () => {
     setGrim((prev) => !prev);
   };
+
+  //AI키워드 그림 가져오기 버튼
+  const bringGrim = () => {
+    getLoading(true);
+  }
     
   return (
     <DiviContainer>
       <DateContainer>
         <Dateline>
-          <Datetitle>DATE</Datetitle>
-          {/* <DateContent>{year}.{todayMonth}.{todayDate}</DateContent> */}
+          <Datetitle>날짜</Datetitle>
           <DateContent>{year}.{todayMonth}.{todayDate}</DateContent>
           <Weathercontainer style={{ marginTop: '5px' }}>
             <WeatherRadioBtn
@@ -146,7 +152,7 @@ function DiaryContent() {
         </Dateline>
       </DateContainer>
       <TitleContainer>
-        <Title>Title: </Title>
+        <Title>제목: </Title>
         <Titlecontent><input type="text" onChange={onChange} value={title} /></Titlecontent>
         <Emoji />
       </TitleContainer>
@@ -154,14 +160,14 @@ function DiaryContent() {
         <Drawing grim={grim} />
       </Canvas>
       <ButtonContainer>
-        <Modebutton style={{ width: '100px' }}>analyze</Modebutton>
-        <Modebutton style={{ width: '80px' }} onClick={clickedGrim}>{grim ? 'Drawing' : 'Stop'}</Modebutton>
-        <Savebutton onClick={grimDiary}>Save</Savebutton>
+        <Modebutton style={{ width: '100px' }} onClick={bringGrim}>그림가져오기</Modebutton>
+        <Modebutton style={{ width: '80px' }} onClick={clickedGrim}>{grim ? '그림그리기' : '스탑'}</Modebutton>
+        <Savebutton onClick={grimDiary}>저장하기</Savebutton>
       </ButtonContainer>
       <Content><Manuscript setContent={setContent} /></Content>
     </DiviContainer>
+    
   );
-  
 }
 
 export default DiaryContent;
@@ -205,18 +211,19 @@ export const Datetitle=styled.div`
 
 export const DateContent = styled.div`
     width: 25%;
-    font-size: 23px;
+    font-size: 24px;
     border: 2px solid transparent;
     border-radius: 30px;
     background: #D9D9D9;
-    margin-left: 6%;
+    margin-left: 2%;
     text-align: center;
     display: flex;
     align-items: center;
     justify-content: center;
-    line-height: 90%;
+    line-height: 100%;
     color: #4b4b4b;
     font-family:KyoboHand;
+    padding-top: 3px;
 `
 
 export const Weathercontainer = styled.div`
@@ -254,15 +261,16 @@ export const Title =styled.div`
 `
 
 export const Titlecontent = styled.div`
-  width: 70%;
-  margin-left: 4%;
+  width: 75%;
+  margin-left: 2%;
   >input{
     width: 100%;
     margin-bottom:0.5%;
-    font-size: 24px;
+    font-size: 26px;
     border: 0;
     outline: none;
     background: transparent;
+    padding-top:4px;
     font-family:KyoboHand;
     color:#4b4b4b;
     caret-color: transparent;
@@ -298,6 +306,7 @@ export const Modebutton = styled.button`
   transition: box-shadow 250ms ease-in-out, color 200ms ease-in-out;
   font-family:KyoboHand;
   padding-bottom:0.5%;
+  padding-top:3px;
   &:hover{
     box-shadow: 0 0 40px 40px  #404040 inset;
     color: white;
@@ -319,6 +328,7 @@ export const Savebutton = styled.button`
   overflow: hidden;
   transition: box-shadow, color 300ms ease-in-out;
   font-family:KyoboHand;
+  padding-top:3px;
   &:hover{
     color: rgb(54, 54, 54);
     background-color: transparent;
