@@ -99,16 +99,27 @@ function SignInForm() {
         showConfirmButton: false,
         timer: 2000
       })
-      const token = res.data.token
-      api.defaults.headers.common['Authorization'] = `Bearer ${token.access}`
-      sessionStorage.setItem('token', token.access);
-      sessionStorage.setItem('refresh', token.refresh);
-      sessionStorage.setItem('nickname', `${res.data.user.nickname}`)
-      sessionStorage.setItem('id', `${res.data.user.id}`)
-      navigate('/main')
-      console.log(api.defaults)
-      console.log(sessionStorage)
-    }).catch(function (res) {
+      count++;
+    }
+    const access = res.data.token.access;
+    const refresh = res.data.token.refresh;
+    api.defaults.headers.common['Authorization'] = `Bearer ${access}`
+    sessionStorage.setItem('token', access);
+    sessionStorage.setItem('refresh', refresh);
+    sessionStorage.setItem('nickname', `${res.data.user.nickname}`)
+    sessionStorage.setItem('id', `${res.data.user.id}`)
+    setTimeout(onSilentRefresh, JWT_EXPIRY_TIME - 60000);
+    navigate('/main')
+    console.log(api.defaults)
+    console.log(sessionStorage)
+  }
+
+  function onClick(e) {
+    e.preventDefault();
+    api.post('auth', {
+      email: `${email}`,
+      password: `${password}`
+    }).then(onLoginSuccess).catch(function (res) {
       Swal.fire({
         position: 'center',
         icon: 'error',

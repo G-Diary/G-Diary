@@ -57,6 +57,7 @@ function GrimList(){
             .map((data,index)=>{
               return <DiaryList key={index} title={data.title} weather={data.weather} draw={data.drawing_url} contents={data.contents} date={data.diary_date} />})}
           {exist.includes(format(choiceDate, 'yyyy-MM-dd'))?'':(<DiviContainer>
+              <div style={{display:'flex', flexDirection:'row', justifyContent:'center'}}><p style={{width:'17rem', margin:'0', color:'orange'}}>{format(choiceDate, 'MMM')} {choiceDate.getDate()}, {choiceDate.getFullYear()}</p>?</div>
             <div style={{fontSize:'2.5rem', fontFamily:'KyoboHand', textAlign:'center'}}>
               <img src="images/list.jpg" style={{width: '30%'}} alt="list" />
               <div style={{display:'flex', flexDirection:'row', justifyContent:'center', marginBottom:'5px'}}><p style={{width:'17rem', margin:'0', color:'orange'}}>{choiceDate.getFullYear()}년 {format(choiceDate, 'M')}월 {choiceDate.getDate()}일</p>의</div>
