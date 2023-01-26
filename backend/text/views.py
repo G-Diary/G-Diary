@@ -1,5 +1,7 @@
+import os
 import time
 
+import jpype
 from django.http import HttpResponse
 from django.shortcuts import render
 from konlpy.tag import Kkma
@@ -10,10 +12,12 @@ from turtle import delay
 from rest_framework.response import Response
 from rest_framework import status
 
-# Create your views here.
 # from backend.text.models import Diary
 # from ai_model.app.views.text_views import get_keyword
-
+from config.decode import decode
+import django
+django.setup()
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings")
 
 def hello_world(request):
     return HttpResponse("hello world! this is text api")
@@ -41,14 +45,16 @@ diaries = [
 ]
 kkma = Kkma()
 # @route('/api/v1/diaries/<int:diary_id>', methods=['GET'])
-@app.task(name="get_keyword")
+
+
+
 @api_view(['POST'])
 def get_keyword(request):
     # for diary in diaries:
     #     if diary['id'] == diary_id:
     #         get_diary = diary
-    diary_contents = '새해가 밝았습니다 제주도에 눈이 와요 어젠 목도리만 둘렀는데.. 날씨가 왕왕 많이 바뀌네요'
-    diary_keyword = kkma.nouns.delay(diary_contents)
+    # diary_contents = '새해가 밝았습니다 제주도에 눈이 와요 어젠 목도리만 둘렀는데.. 날씨가 왕왕 많이 바뀌네요'
+    diary_keyword = decode.delay()
 
     while True:
         if diary_keyword.ready() == False:
@@ -56,10 +62,10 @@ def get_keyword(request):
             print("    delay...    ")
             continue
         else :
-            print(diary_keyword)
+            print(diary_keyword.get())
             print(diary_keyword.ready())
             return Response({
-                "resuilt" :"성공"
+                "result" :"성공"
             }, status=status.HTTP_201_CREATED)
     # return_key = {"keyword": diary_keyword}
     # HttpResponse(return_key)
