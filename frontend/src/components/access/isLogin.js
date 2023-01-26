@@ -1,3 +1,3 @@
 export default function IsLogin() {
-  return !!localStorage.getItem('token');
+  return !!sessionStorage.getItem('token');
 }

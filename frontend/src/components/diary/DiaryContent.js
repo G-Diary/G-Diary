@@ -20,33 +20,46 @@ function DiaryContent(){
   let year=date.getFullYear();  //연도 구하기
   let todayMonth=date.getMonth()+1;  //월 구하기
   let todayDate=date.getDate();  //일 구하기
-  
+
+  // let file=new Blob([new Uint8Array(updateCanvas)], {type: 'image/png'});
+  // const url=window.URL.createObjectURL(file);
+  let myImg = updateCanvas.replace('data:image/png;base64,', '');
+  // console.log(file);  
+  // console.log(url);
+  console.log(myImg);
+  console.log(updateCanvas)
+
+  const user=sessionStorage.getItem('id');
+  console.log(sessionStorage);
   const diaryData={
+    'user_id':user,
     'title': title,
     'weather': weather,
-    'drawing_url': 'images/ateIcecream.png',
     'contents':content,
     'diary_date': format(date, 'yyyy-MM-dd')
   }
   console.log(diaryData);
+ 
   //작성한 일기 보내기
   const grimDiary = async () => {
     let form = new FormData();
+    form.append('user_id',user);
     form.append('title',title);
     form.append('weather',weather);
-    form.append('drawing_url','images/ateIcecream.png');
+    form.append('drawing_url','images/jeju.png');
     form.append('contents',content);
     form.append('diary_date',format(date, 'yyyy-MM-dd'));
-    console.log(form);
+
     await api.post('diaries/', form)
       .then(function (response){
-        console.log(response, JSON.stringify(response,null,5));
+        console.log(response, JSON.stringify(response,null,7));
       })
       .catch(function (error){
         console.log(error);
       });
   }
 
+  console.log(updateCanvas);
   //제목 내용
   const onChange = (e)=>{
     setTitle(e.target.value);
@@ -60,7 +73,6 @@ function DiaryContent(){
   const clickedGrim = () => {
     setGrim((prev) => !prev);
   };
-
     
   return(
     <DiviContainer>
