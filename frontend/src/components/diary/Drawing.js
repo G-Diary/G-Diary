@@ -67,7 +67,7 @@ const Rectangle = ({ image, shapeProps, isSelected, onSelect, onChange }) => {
 
 function Drawing({grim}){
   const {choiceImg, setUpdateCanvas}=useStore();
-  const [grimimage, setGrimimage] = useState(choiceImg);
+  const [grimimage, setGrimimage] = useState([]);
   const [selectedId, selectShape] = useState(null);
   const [tool, setTool] = useState('pen');
   const [currentColor,setColor]=useState('#000000');
@@ -113,15 +113,15 @@ function Drawing({grim}){
   };
 
   const handleExport = () =>{
-    const dataUrl=stageRef.current.toDataURL({
-      mimeType:'image/png',
-      quality:0,
-      pixelRatio:2,
-      crossorigin:'anonymous'
-    });
+    // const dataUrl=stageRef.current.toDataURL({
+    //   mimeType:'image/png',
+    //   quality:0,
+    //   pixelRatio:2,
+    //   crossorigin:'anonymous'
+    // });
+    const dataUrl=stageRef.current.toDataURL('image/png');
     setUpdateCanvas(dataUrl);
   }
-
   return(
     <div>
       {grim?(

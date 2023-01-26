@@ -20,14 +20,15 @@ function DiaryContent(){
   let year=date.getFullYear();  //연도 구하기
   let todayMonth=date.getMonth()+1;  //월 구하기
   let todayDate=date.getDate();  //일 구하기
-  
-  // const blobBin=atob(updateCanvas.split(',')[1]);
-  // let array=[];
-  // for(let i=0;i<blobBin.length;i++){
-  //   array.push(blobBin.charCodeAt(i));
-  // }
-  // var file=new Blob([new Uint8Array(array)], {type: 'image/png'});
+
+  // let file=new Blob([new Uint8Array(updateCanvas)], {type: 'image/png'});
+  // const url=window.URL.createObjectURL(file);
+  let myImg = updateCanvas.replace('data:image/png;base64,', '');
   // console.log(file);  
+  // console.log(url);
+  console.log(myImg);
+  console.log(updateCanvas)
+
   const user=sessionStorage.getItem('id');
   console.log(sessionStorage);
   const diaryData={
@@ -58,6 +59,7 @@ function DiaryContent(){
       });
   }
 
+  console.log(updateCanvas);
   //제목 내용
   const onChange = (e)=>{
     setTitle(e.target.value);
