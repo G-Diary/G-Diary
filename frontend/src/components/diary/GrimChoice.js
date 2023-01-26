@@ -2,21 +2,21 @@ import React from 'react';
 import styled from 'styled-components';
 import { useStore } from '../../store/store';
 function GrimChoice(){
-  const {setChoiceImg}=useStore();
+  const {choiceImg, setChoiceImg}=useStore();
   const addImage = (srcImg) => {
     const newimage = new Image();
     newimage.src=srcImg.src;
     console.log(newimage);
     newimage.crossOrigin = 'Anonymous';
-    setChoiceImg(
-      {
-        id:srcImg.alt,
-        img: newimage.src,
-        x:0,
-        y:0,
-        width: srcImg.width,
-        height: srcImg.height,
-      })
+    setChoiceImg( {
+      id:srcImg.alt,
+      img: newimage.src,
+      x:0,
+      y:0,
+      width: srcImg.width,
+      height: srcImg.height,
+    }
+    )
   };
   const onChange = (e) => {
     e.preventDefault();
@@ -66,8 +66,9 @@ const Choicetitle =styled.div`
 const Choice = styled.div`
     width: 500px;   
     height: 520px;
-    background:#B5B5B5;
+    background:white;
     border-radius: 10px;
+    border: 2px dotted grey;
 `
 
 const ChoiceGrim = styled.img`

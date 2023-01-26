@@ -12,37 +12,48 @@ import { format } from 'date-fns';
 function DiaryContent() {
   const location = useLocation();
   const [grim, setGrim] = useState(true);  //그리기모드 버튼 클릭 여부
-  const [title, setTitle] = useState(''); //제목
-  const [content, setContent] = useState(''); //일기 내용
-  const [weather, setWeather] = useState(); //날씨 선택
-  const { updateCanvas } = useStore();
-  const date = location.state?.date;
+  const [title, setTitle]=useState(''); //제목
+  const [content, setContent]=useState(''); //일기 내용
+  const [weather, setWeather]=useState(); //날씨 선택
+  const {updateCanvas}=useStore();
   const Swal = require('sweetalert2');
-  let year = date.getFullYear();  //연도 구하기
-  let todayMonth = date.getMonth() + 1;  //월 구하기
-  let todayDate = date.getDate();  //일 구하기
-  
-  const diaryData = {
+  const date=location.state?.date;
+  let year=date.getFullYear();  //연도 구하기
+  let todayMonth=date.getMonth()+1;  //월 구하기
+  let todayDate=date.getDate();  //일 구하기
+
+  // let file=new Blob([new Uint8Array(updateCanvas)], {type: 'image/png'});
+  // const url=window.URL.createObjectURL(file);
+  let myImg = updateCanvas.replace('data:image/png;base64,', '');
+  // console.log(file);  
+  // console.log(url);
+  console.log(myImg);
+  console.log(updateCanvas)
+
+  const user=sessionStorage.getItem('id');
+  console.log(sessionStorage);
+  const diaryData={
+    'user_id':user,
     'title': title,
     'weather': weather,
-    'drawing_url': 'images/ateIcecream.png',
-    'contents': content,
+    'contents':content,
     'diary_date': format(date, 'yyyy-MM-dd')
   }
   console.log(diaryData);
-  const user = sessionStorage.getItem('id');
+ 
   //작성한 일기 보내기
   const grimDiary = async () => {
     let form = new FormData();
-    form.append('user_id', user)
-    form.append('title', title);
-    form.append('weather', weather);
-    form.append('drawing_url', 'images/ateIcecream.png');
-    form.append('contents', content);
-    form.append('diary_date', format(date, 'yyyy-MM-dd'));
+    form.append('user_id',user);
+    form.append('title',title);
+    form.append('weather',weather);
+    form.append('drawing_url','images/jeju.png');
+    form.append('contents',content);
+    form.append('diary_date',format(date, 'yyyy-MM-dd'));
+
     await api.post('diaries/', form)
-      .then(function (response) {
-        console.log(response, JSON.stringify(response, null, 7));
+      .then(function (response){
+        console.log(response, JSON.stringify(response,null,7));
       })
       .catch(function (error) {
         if (error.response.data.title) {
@@ -70,9 +81,9 @@ function DiaryContent() {
             timer: 2000
           })
         }
-      })
   }
 
+  console.log(updateCanvas);
   //제목 내용
   const onChange = (e) => {
     setTitle(e.target.value);
@@ -86,7 +97,6 @@ function DiaryContent() {
   const clickedGrim = () => {
     setGrim((prev) => !prev);
   };
-
     
   return (
     <DiviContainer>
