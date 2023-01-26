@@ -85,7 +85,6 @@ function DiaryContent({getLoading}) {
         }
       })
   }
-  
   //제목 내용
   const onChange = (e) => {
     setTitle(e.target.value);
@@ -175,7 +174,6 @@ function DiaryContent({getLoading}) {
     </DiviContainer>
     
   );
-  
 }
 
 export default DiaryContent;

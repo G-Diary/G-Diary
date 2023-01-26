@@ -112,13 +112,12 @@ function Drawing({grim}){
   };
 
   const handleExport = () =>{
-    // const dataUrl=stageRef.current.toDataURL({
-    //   mimeType:'image/png',
-    //   quality:0,
-    //   pixelRatio:2,
-    //   crossorigin:'anonymous'
-    // });
-    const dataUrl=stageRef.current.toDataURL('image/png');
+    const dataUrl=stageRef.current.toDataURL({
+      mimeType:'image/png',
+      quality:0,
+      pixelRatio:2,
+      crossorigin:'anonymous'
+    });
     setUpdateCanvas(dataUrl);
   }
   return(
