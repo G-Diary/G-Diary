@@ -11,7 +11,7 @@ function Manuscript(props) {
   const textlist = tr.map((tr,index) => (
     <div style={{display: 'flex'}} key={index}>
       {td.map((td,index1) => (
-        <TableTd key={index1}>{word[index1 + 10 * index]}</TableTd>
+        <TableTd key={index1}><div style={{paddingTop:'5px'}}>{word[index1 + 10 * index]}</div></TableTd>
       ))}
     </div>
   ));

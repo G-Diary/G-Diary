@@ -8,7 +8,7 @@ function ResultManuscript({content}) {
   const textlist = tr.map((tr,index) => (
     <div style={{display: 'flex'}} key={index}>
       {td.map((td,index1) => (
-        <TableTd key={index1}>{divi[index1 + 10 * index]}</TableTd>
+        <TableTd key={index1}><div style={{paddingTop:'5px'}}>{divi[index1 + 10 * index]}</div></TableTd>
       ))}
     </div>
   ));

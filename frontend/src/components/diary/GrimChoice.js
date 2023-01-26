@@ -26,15 +26,19 @@ function GrimChoice(){
   return(
     <ChoiceContainer>
       <Choicetitle>
-        What would you draw?
+        GD가 분석해본 그림이에요!
       </Choicetitle>
       <Choice>
-        <ChoiceGrim id="image" src="images/car.JPG"
+        <ChoiceGrim id="image" src="images/snow.JPG"
           alt="fish" onClick={onChange}/>
+        <ChoiceGrim id="image" src="images/newyear.JPG"
+          alt="fish" onClick={onChange}/>
+        <ChoiceGrim id="image" src="images/neck.JPG"
+          alt="fish" onClick={onChange}/>
+        <ChoiceGrim id="image" src="images/stone.JPG"
+          alt="fish" onClick={onChange}/>
+       
       </Choice>
-      <ChoiceButtonContainer>
-        <Choicebutton>Photo</Choicebutton>
-      </ChoiceButtonContainer>
     </ChoiceContainer>)
 }
 
@@ -58,7 +62,7 @@ const Choicetitle =styled.div`
     justify-content: center;
     width: 500px;
     height: 80px;
-    font-size: 33px;
+    font-size: 40px;
     font-family:KyoboHand;
     font-weight: bolder;
 `

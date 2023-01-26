@@ -154,7 +154,7 @@ function Modals() {
       <Nickname>{nickname}'s<br/>일기장</Nickname>
       <Wrap>
         <div className='Img'>
-          <img className='imgClass' alt='star' src={!!selected ? `${selected}` : 'images/mainLogo.png'} />
+          <img style={{objectFit:'cover'}} alt='star' src={!!selected ? `${selected}` : 'images/mainLogo.png'} />
         </div>
         <SelectBtn>
           <Button
