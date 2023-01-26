@@ -86,7 +86,6 @@ function DiaryContent() {
   const clickedGrim = () => {
     setGrim((prev) => !prev);
   };
-
     
   return (
     <DiviContainer>
