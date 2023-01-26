@@ -90,6 +90,13 @@ class Keyword(BaseModel):
     def __str__(self):
         return self.keyword
 
+class Result(models.Model):
+    id = models.AutoField(primary_key=True) #pk
+    keyword = models.CharField(max_length=10, null=False)
+
+    def __str__(self):
+        return self.id
+
 class Drawing(BaseModel):
     id = models.AutoField(primary_key=True) #pk
     keyword = models.ForeignKey(Keyword, on_delete=models.CASCADE, null=False) #fk
@@ -97,3 +104,13 @@ class Drawing(BaseModel):
 
     def __str__(self):
         return str(self.image_url)
+
+class Response(models.Model):
+    id = models.AutoField(primary_key=True) #pk
+    keyword = models.ForeignKey(Keyword, on_delete=models.CASCADE, null=False)
+    diary_id = models.ForeignKey(Diary, on_delete=models.CASCADE, null=False)
+    result_id = models.ForeignKey(Result, on_delete=models.CASCADE, null=False)
+
+    def __str__(self):
+        return self.id
+

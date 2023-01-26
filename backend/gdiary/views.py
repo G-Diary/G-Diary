@@ -184,18 +184,18 @@ class DrawingViewset(viewsets.ModelViewSet):
     serializer_class = DrawingSerializer
 
     # api/v1/drawings?keyword={}&keyword={}&...
-    def get_queryset(self):
-        drawings = Drawing.objects.filter(is_deleted = False)
+    # def get_queryset(self):
+    #     drawings = Drawing.objects.filter(is_deleted = False)
 
-        keyword = self.request.GET.getlist('keyword', None)
+    #     keyword = self.request.GET.getlist('keyword', None)
 
-        q=Q()
+    #     q=Q()
 
-        if keyword:
-            q &= Q(keyword__in = keyword)
-            drawings = drawings.filter(q)
+    #     if keyword:
+    #         q &= Q(keyword__in = keyword)
+    #         drawings = drawings.filter(q)
             
-        return drawings
+    #     return drawings
 
 # @api_view(['POST'])
 # def insertkeyword(request):

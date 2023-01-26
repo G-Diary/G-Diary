@@ -30,6 +30,16 @@ class DrawingSerializer(serializers.ModelSerializer):
         model = Drawing
         fields = ('keyword', "image_url")
 
+class ResultSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Result
+        fields = '__all__'
+
+class ResponseSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Response
+        fields = '__all__'
+
 
 class KeywordSerializer(serializers.ModelSerializer):
     url = DrawingSerializer(many=True, read_only=True)
