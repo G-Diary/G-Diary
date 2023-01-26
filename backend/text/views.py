@@ -1,13 +1,7 @@
 from django.http import HttpResponse
-from django.shortcuts import render
-
-# Create your views here.
-# from backend.text.models import Diary
-# from ai_model.app.views.text_views import get_keyword
-
-
-def hello_world(request):
-    return HttpResponse("hello world! this is text api")
+# from ai_model.tasks import get_keyword
+from celery import shared_task
+# from config.celery import *
 
 
 diaries = [
@@ -47,20 +41,24 @@ diaries = [
     #         )
     #     return redirect('/blog/')
 # text 분석 함수 post
-# def get_contents(request):
-#     if request.method == "POST":
-#         new_diary = Diary.object.create(
-#             diary_id = 1,
-#             title = '오늘은 즐거운 날이다.',
-#             contents = '피아노를 치는데 소리가 구리다. 자괴감이 대박이다.',
-#             is_deleted = False
-#         )
-#
-#     # db 연결 코드 추가
-#     # 플라스크로 넘기기
-#     keyword_json = get_keyword(new_diary.contents)
-#     # 결과 받기
-#     return HttpResponse("hello! this is get_keyword api")
+
+# @app.task(name="get_contents")
+@shared_task
+def get_contents(request):
+    # if request.method == "POST":
+    #     new_diary = Diary.object.create(
+    #         diary_id = 1,
+    #         title = '오늘은 즐거운 날이다.',
+    #         contents = '피아노를 치는데 소리가 구리다. 자괴감이 대박이다.',
+    #         is_deleted = False
+    #     )
+    contents = '새해가 밝았습니다 제주도에 눈이 와요 어젠 목도리만 둘렀는데.. 날씨가 왕왕 많이 바뀌네요'
+    # json 형태로 반환
+    from ai_model.tasks import get_keyword
+    keyword_json = get_keyword(contents)
+    # 결과 받기
+    print(keyword_json)
+    return HttpResponse("hello! this is get_keyword api")
 
 
 # text 기반 그림 보여주기

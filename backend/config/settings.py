@@ -41,7 +41,6 @@ ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -49,10 +48,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'gdiary',
+    # celery
+    'django_celery_beat',
+    'django_celery_results',
     'rest_framework', # django rest framework
+
+    'gdiary',
     'text',
 ]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -143,7 +147,7 @@ SCHEDULE_MONTH = 30 * SCHEDULE_DAY
 
 CELERY_BEAT_SCHEDULE = {
     'add': {
-        'task': 'au_model.tasks.add',
+        'task': 'ai_model.tasks.add',
         'schedule': 5 * SCHEDULE_MINUTE,
         # 'schedule': 2.0,
         # 'args': (4, 4)

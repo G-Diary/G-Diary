@@ -5,5 +5,5 @@ from . import views
 app_name='text'
 
 urlpatterns = [
-    path('api/v1/diaries/', views.hello_world)
+    path('api/v1/diaries/', views.get_contents)
 ]
