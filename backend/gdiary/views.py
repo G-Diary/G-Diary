@@ -1,8 +1,10 @@
-
-from rest_framework import viewsets, permissions, generics, status
+from django.db.models import Q
+from rest_framework import viewsets, status, serializers
 from rest_framework.response import Response
-from rest_framework.views import APIView, View
+from rest_framework.views import APIView
 from rest_framework.decorators import api_view
+from drf_yasg import openapi
+from drf_yasg.utils import swagger_auto_schema
 from django.shortcuts import get_object_or_404
 from django.contrib.auth import authenticate
 from config.settings import *
@@ -32,7 +34,7 @@ class ImageUploader(APIView) :
 
         except Exception as e :
             return JsonResponse({"ERROR" : e.message})
-
+            
 class RegisterAPIView(APIView):
     def post(self, request):
         serializer = UserSerializer(data=request.data)
@@ -63,10 +65,16 @@ class RegisterAPIView(APIView):
             return res
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-class UserViewSet(viewsets.ModelViewSet):
+class UserViewset(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
     queryset = User.objects.all()
-    serializer_class = UserSerializer        
+    serializer_class = SignSerializer       
+
+    # 부분 수정 (단일 필드 수정)
+    def partial_update(self, request, *args, **kwargs):
+        kwargs['partial'] = True
+        return super().update(request, *args, **kwargs) 
+
 
 class AuthAPIView(APIView):
     # 유저 정보 확인
@@ -144,7 +152,28 @@ class AuthAPIView(APIView):
 class DiaryViewset(viewsets.ModelViewSet):
     queryset = Diary.objects.all()
     serializer_class = DiarySerializer 
+    
+    # manual parameter
+    param_date = openapi.Parameter(
+        'diary_date',
+        openapi.IN_QUERY,
+        description='yyyy-mm-dd',
+        type=openapi.FORMAT_DATE
+    )
 
+    # get_queryset에 데코레이터 인식 못하기 때문에 list 상속 받아 구현
+    @swagger_auto_schema(manual_parameters=[param_date])
+    def list(self, request, *args, **kwargs):
+        return super().list(request, *args, **kwargs)
+
+    # api/v1/diaries/?date=2023-01-26
+    def get_queryset(self):
+        diaries = Diary.objects.filter(is_deleted = False)
+
+        date = self.request.query_params.get('date', '')
+        if date:
+            diaries = diaries.filter(diary_date=date)
+        return diaries
 
 class KeywordViewset(viewsets.ModelViewSet):
     queryset = Keyword.objects.all()
@@ -153,13 +182,19 @@ class KeywordViewset(viewsets.ModelViewSet):
 class DrawingViewset(viewsets.ModelViewSet):
     queryset = Drawing.objects.all()
     serializer_class = DrawingSerializer
-   
+
+    # api/v1/drawings?keyword={}&keyword={}&...
     def get_queryset(self):
         drawings = Drawing.objects.filter(is_deleted = False)
 
-        kw = self.request.query_params.get('kw',None)
-        if kw:
-            drawings = drawings.filter(keyword = kw)
+        keyword = self.request.GET.getlist('keyword', None)
+
+        q=Q()
+
+        if keyword:
+            q &= Q(keyword__in = keyword)
+            drawings = drawings.filter(q)
+            
         return drawings
 
 # @api_view(['POST'])
@@ -186,6 +221,4 @@ class DrawingViewset(viewsets.ModelViewSet):
 #         print(queryset)
 #         serializer = DrawingSerializer(queryset, many=True)
 #         return Response(serializer.data)
-
-
-
+    
