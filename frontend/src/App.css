@@ -1,13 +1,6 @@
 .link {
-    width:30%;
-    font-size: 35px;
+    width:30.5%;
+    font-size: 45px;
     color: black;
     text-decoration-line: none;
-}
-
-.icon {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-items: center;
 }

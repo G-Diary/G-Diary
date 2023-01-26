@@ -34,6 +34,7 @@ export default function LogoutBtn() {
   }
 
   return (
-    <Button type='button' onClick={onClick}>로그아웃</Button>
+    <Button type='button' onClick={onClick} style={{ fontWeight: 'bolder' }}>로그아웃</Button>
+    
   )
 }
