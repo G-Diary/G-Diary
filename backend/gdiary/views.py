@@ -151,5 +151,3 @@ class DiaryViewset(viewsets.ModelViewSet):
         if date:
             diaries = diaries.filter(diary_date=date)
         return diaries
-
-    
