@@ -10,18 +10,27 @@ import SignUp from './pages/SignUp';
 import Manual from './pages/Manual';
 import PrivatePages from './components/access/PrivatePages';
 import PublicPages from './components/access/PublicPages';
+import { createTheme, ThemeProvider } from '@material-ui/core';
+
+const theme = createTheme({
+  typography: {
+    fontFamily:'KyoboHand'
+  }
+})
 
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<PublicPages Component={Main}/>} />
-      <Route path="/signin" element={<PublicPages Component={SignIn} restricted/>} />
-      <Route path="/main" element={<PrivatePages Component={AfterLogin}/>} />
-      <Route path="/signup" element={<PublicPages Component={SignUp} restricted/>} />
-      <Route path="/about" element={<PublicPages Component={Manual}/>} />
-      <Route path="/write" element={<PrivatePages Component={WriteGrim}/>} />
-      <Route path="/list" element={<PrivatePages Component={GrimList}/>} />
-    </Routes>
+    <ThemeProvider theme={theme}>
+      <Routes>
+        <Route path="/" element={<PublicPages Component={Main}/>} />
+        <Route path="/signin" element={<PublicPages Component={SignIn} restricted/>} />
+        <Route path="/main" element={<PrivatePages Component={AfterLogin}/>} />
+        <Route path="/signup" element={<PublicPages Component={SignUp} restricted/>} />
+        <Route path="/about" element={<PublicPages Component={Manual}/>} />
+        <Route path="/write" element={<PrivatePages Component={WriteGrim}/>} />
+        <Route path="/list" element={<PrivatePages Component={GrimList}/>} />
+      </Routes>
+    </ThemeProvider>
   );
 }
 

@@ -59,7 +59,7 @@ function GrimList(){
             .map((data,index)=>{
               return <DiaryList key={index} title={data.title} weather={data.weather} draw={data.drawing_url} contents={data.contents} date={data.diary_date} />})}
           {exist.includes(format(choiceDate, 'yyyy-MM-dd'))?'':(<DiviContainer>
-            <div style={{fontSize:'2.5rem', fontFamily:'Comic Sans MS', textAlign:'center'}}>
+            <div style={{fontSize:'2.5rem', fontFamily:'KyoboHand', textAlign:'center'}}>
                 Shall we record the day of
               <div style={{display:'flex', flexDirection:'row', justifyContent:'center'}}><p style={{width:'17rem', margin:'0', color:'orange'}}>{format(choiceDate, 'MMM')} {choiceDate.getDate()}, {choiceDate.getFullYear()}</p>?</div>
               <Link to='/write' state={{date:choiceDate}} className="listLink">

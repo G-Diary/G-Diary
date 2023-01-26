@@ -59,7 +59,8 @@ const Choicetitle =styled.div`
     width: 500px;
     height: 80px;
     font-size: 33px;
-    font-family:Comic Sans MS;
+    font-family:KyoboHand;
+    font-weight: bolder;
 `
 
 const Choice = styled.div`
@@ -96,7 +97,8 @@ export const Choicebutton = styled.button`
     font-size: 17px;
     margin-left: 1.5%;
     transition: box-shadow 250ms ease-in-out, color 200ms ease-in-out;
-    font-family:Comic Sans MS;
+    font-family:KyoboHand;
+    font-weight: bolder;
     &:hover{
         box-shadow: 0 0 40px 40px #404040 inset;
         color: white;
