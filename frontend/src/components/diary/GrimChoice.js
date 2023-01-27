@@ -29,15 +29,8 @@ function GrimChoice(){
         GD가 분석해본 그림이에요!
       </Choicetitle>
       <Choice>
-        <ChoiceGrim id="image" src="images/snow.JPG"
-          alt="fish" onClick={onChange}/>
         <ChoiceGrim id="image" src="images/newyear.JPG"
           alt="fish" onClick={onChange}/>
-        <ChoiceGrim id="image" src="images/neck.JPG"
-          alt="fish" onClick={onChange}/>
-        <ChoiceGrim id="image" src="images/stone.JPG"
-          alt="fish" onClick={onChange}/>
-       
       </Choice>
     </ChoiceContainer>)
 }

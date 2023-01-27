@@ -13,7 +13,7 @@ const BookShape2Left = styled.div`
     border-right : rgba(245, 245, 245, 1);
     background-color: white;
     background-size:cover;
-    background-image: url("images/paper2.jpeg");
+    background-image: url("images/paper.jpeg");
     box-shadow:12px 9px 10px 0 #676262;
 `
 const Line =styled.div`
