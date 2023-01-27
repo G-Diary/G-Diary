@@ -39,7 +39,7 @@ function SignInForm() {
   const classes = useStyles();
   const [email, setEmail] = useState('');
   const [password,setPassword] = useState('');
-  const JWT_EXPIRY_TIME = 1800 * 1000 // 만료시간 30분 (밀리초로 표현)
+  const JWT_EXPIRY_TIME = 3600 * 1000 // 만료시간 1시간 (밀리초로 표현)
   const Swal = require('sweetalert2');
   let count = 0;
 
@@ -57,7 +57,7 @@ function SignInForm() {
   function onSilentRefresh() {
     api.post('auth/refresh', {
       refresh: sessionStorage.getItem('refresh')
-    }).then(onLoginSuccess, console.log('refresh 성공')).catch(function (err) {
+    }).then(onLogin).catch(function (err) {
       console.log(err)
     })
   }
@@ -82,12 +82,12 @@ function SignInForm() {
     sessionStorage.setItem('id', `${res.data.user.id}`)
     setTimeout(onSilentRefresh, JWT_EXPIRY_TIME - 60000);
     navigate('/main')
-    console.log(api.defaults)
-    console.log(sessionStorage)
+    console.log(api.defaults.headers.common)
+    console.log(access)
+    console.log(refresh)
   }
 
-  function onClick(e) {
-    e.preventDefault();
+  function onLogin(e) {
     api.post('auth', {
       email: `${email}`,
       password: `${password}`
@@ -105,7 +105,7 @@ function SignInForm() {
   return(
     <Wrap>
       <SignInBtn>
-        <Button className={classes.customHoverFocus} type='button' onClick={onClick} disabled={Valid()} 
+        <Button className={classes.customHoverFocus} type='button' onClick={onLogin} disabled={Valid()} 
           style={Valid() ? {color: 'white', fontWeight: 'bolder', backgroundColor: '#F8EDB7',borderRadius: '30px', fontSize: '30px', width: '120px' } : { fontWeight: 'bolder', borderRadius: '30px', fontSize: '30px', width: '120px'}}>
         로그인</Button>
       </SignInBtn>

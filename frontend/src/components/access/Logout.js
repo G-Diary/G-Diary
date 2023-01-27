@@ -22,6 +22,7 @@ export default function LogoutBtn() {
           '',
           'success'
         )
+        api.defaults.headers.common['Authorization'] = null;
         sessionStorage.removeItem('token');
         sessionStorage.removeItem('refresh');
         sessionStorage.removeItem('nickname');
@@ -32,9 +33,7 @@ export default function LogoutBtn() {
       }
     })
   }
-
   return (
     <Button type='button' onClick={onClick} style={{ fontWeight: 'bolder' }}>로그아웃</Button>
-    
   )
 }
