@@ -3,22 +3,22 @@
 version: "3"
 
 services:
-  gd_frontend:
-    container_name: gd_frontend
-    restart: unless-stopped
-    build:
-      context: ./frontend
-    command: ["yarn", "start"]
-    ports:
-      - 3000:3000
-    volumes:
-      - ./frontend/:/frontend/
-      - ./frontend/node_modules/:/frontend/node_modules
-    environment:
-      - CI=true
-      - CHOKIDAR_USEPOLLING=true
-      - REACT_APP_BACKEND_URL=http://localhost:8000
-    tty: true
+#  gd_frontend:
+#    container_name: gd_frontend
+#    restart: unless-stopped
+#    build:
+#      context: ./frontend
+#    command: ["yarn", "start"]
+#    ports:
+#      - 3000:3000
+#    volumes:
+#      - ./frontend/:/frontend/
+#      - ./frontend/node_modules/:/frontend/node_modules
+#    environment:
+#      - CI=true
+#      - CHOKIDAR_USEPOLLING=true
+#      - REACT_APP_BACKEND_URL=http://localhost:8000
+#    tty: true
 
   gd_backend:
     build:
@@ -46,6 +46,8 @@ services:
       - gd
     depends_on:
       - gd_mysql
+      - gd_celery
+      - gd_rabbitmq
 
   gd_mysql:
     image: mysql
@@ -82,8 +84,8 @@ services:
         - ./backend:/backend
       networks:
         - gd
-      depends_on:
-        - gd_backend
+#      depends_on:
+#        - gd_backend
       expose:
         - "15672"
 
@@ -95,13 +97,13 @@ services:
 #    env_file:
 #      - ./.env
     depends_on:
-      - gd_backend
+      - gd_mysql
       - gd_rabbitmq
     volumes:
       - ./backend:/backend
     networks:
       - gd
-    command: "celery -A config.celery worker --loglevel=info --pool=solo"
+    command: sh -c "celery -A config.celery worker --loglevel=info --pool=solo"
     
 networks:
   gd:
