@@ -4,7 +4,7 @@ function Loading(){
   return (
     <Background>
       <LoadingText>LOADING</LoadingText>
-      <img src="images/DoubleRing.gif" alt="로딩중" width='6%' />
+      <img src="images/loading.gif" alt="로딩중" width='6%' />
     </Background>
   );
 };

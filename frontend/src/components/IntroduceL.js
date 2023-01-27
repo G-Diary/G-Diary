@@ -3,7 +3,7 @@ import styled from 'styled-components';
 function IntroduceL(){
   return( 
     <IntroduceContainer>
-      <LogoImg src="images/this.png" alt="logo" />
+      <LogoImg src="images/logo.png" alt="logo" />
       <Introducetitle>
        What about<span style={{color:'orange', fontWeight:'700'}}>&nbsp;G-Diary?</span>
       </Introducetitle>
