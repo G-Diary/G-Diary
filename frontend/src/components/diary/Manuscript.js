@@ -31,7 +31,7 @@ function Manuscript(props) {
     }
   }
   return (
-    <div style={{marginTop:'13px', marginLeft:'7px'}}>
+    <div style={{marginTop:'13px', marginLeft:'3px'}}>
       <PaperContainer>
         <GridContent spellCheck="false" id="word" type="text" value={word} onChange={wordInput}/>
         <label htmlFor='word'>

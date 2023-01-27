@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import './App.css'
 import { Route, Routes } from 'react-router-dom';
 import GrimList from './pages/GrimList';
@@ -19,6 +19,12 @@ const theme = createTheme({
 })
 
 function App() {
+  useEffect(() => {
+    if (!window.Kakao.isInitialized()) {
+      window.Kakao.init(process.env.REACT_APP_KAKAO_KEY);
+    }
+    console.log(window.Kakao.isInitialized());
+  }, []);
   return (
     <ThemeProvider theme={theme}>
       <Routes>
