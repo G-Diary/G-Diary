@@ -2,6 +2,7 @@ from django.urls import include, path
 from .views import *
 from rest_framework import routers
 from rest_framework_simplejwt.views import TokenRefreshView
+from . import views
 
 
 router = routers.DefaultRouter()
@@ -16,4 +17,6 @@ urlpatterns = [
     path('join', RegisterAPIView.as_view()), #회원가입
     path('auth/refresh', TokenRefreshView.as_view()), #토큰 재발급
     path('auth', AuthAPIView.as_view()), #로그인
+
+    path('api/v1/text', views.get_keyword)
 ]
