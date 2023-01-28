@@ -21,6 +21,7 @@ schema_view = get_schema_view(
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/v1/', include('gdiary.urls')),
+    path('api/v1/', include('text.urls')),
 ]
 
 if settings.DEBUG:

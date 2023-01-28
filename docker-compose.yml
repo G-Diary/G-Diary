@@ -103,7 +103,7 @@ services:
       - ./backend:/backend
     networks:
       - gd
-    command: sh -c "celery -A config.celery worker --loglevel=info --pool=solo"
+    command: "celery -A config.celery worker --loglevel=info --pool=solo"
     
 networks:
   gd:

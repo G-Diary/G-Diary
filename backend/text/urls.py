@@ -5,5 +5,5 @@ from . import views
 app_name='text'
 
 urlpatterns = [
-    path('api/v1/text', views.get_keyword)
+    path('text/', views.get_keyword)
 ]
