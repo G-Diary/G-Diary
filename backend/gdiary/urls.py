@@ -14,9 +14,7 @@ router.register(r'users', UserViewset)
 urlpatterns = [
     path('', include(router.urls)),
 
-    path('api/v1/join', RegisterAPIView.as_view()), #회원가입
-    path('api/v1/auth/refresh', TokenRefreshView.as_view()), #토큰 재발급
-    path('api/v1/auth', AuthAPIView.as_view()), #로그인
-
-    # path('api/v1/text', views.get_keyword)
+    path('join', RegisterAPIView.as_view()), #회원가입
+    path('auth/refresh', TokenRefreshView.as_view()), #토큰 재발급
+    path('auth', AuthAPIView.as_view()), #로그인
 ]
