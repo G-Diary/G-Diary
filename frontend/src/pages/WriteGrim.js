@@ -4,7 +4,7 @@ import GrimChoice from '../components/diary/GrimChoice';
 import BookShape2L from '../components/bookshape/BookShapeL';
 import styled from 'styled-components';
 import BookShape2R from '../components/bookshape/BookShapeR';
-import Bookmark from '../components/diary/Bookmark';
+import Bookmark from '../components/bookshape/Bookmark';
 import Loading from '../components/Loading';
 
 function WriteGrim(){

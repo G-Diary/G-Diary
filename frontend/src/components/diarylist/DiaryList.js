@@ -1,8 +1,8 @@
 import React from 'react';
 import ResultManuscript from './ResultManuscript';
 import { BsBrightnessHighFill, BsFillCloudFill ,BsFillCloudSnowFill, BsFillCloudRainFill } from 'react-icons/bs';
-import { Content, DateContainer, Dateline, Datetitle, DiviContainer, Weathercontainer, DateContent, TitleContainer, Title, Titlecontent, Canvas, Modebutton } from './DiaryContent';
-import { ChoiceButtonContainer } from './GrimChoice';
+import { Content, DateContainer, Dateline, Datetitle, DiviContainer, Weathercontainer, DateContent, TitleContainer, Title, Titlecontent, Canvas} from '../diary/DiaryContent';
+import { ChoiceButtonContainer } from '../diary/GrimChoice';
 
 
 function DiaryList({title, weather, draw, contents, date, emoji}){
