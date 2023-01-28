@@ -8,6 +8,7 @@ import Drawing from './Drawing';
 import { useStore } from '../../store/store';
 import api from '../../apis/axios';
 import { format } from 'date-fns';
+import { fi } from 'date-fns/locale';
 
 function DiaryContent({getLoading}) {
   const navigate = useNavigate();
