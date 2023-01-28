@@ -83,6 +83,7 @@ function Drawing({grim}){
   
   useEffect(() => {
     setGrimimage([...grimimage, choiceImg]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [choiceImg]);
   const handleMouseDown = (e) => {
     // debugger;

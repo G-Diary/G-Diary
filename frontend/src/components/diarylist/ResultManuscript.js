@@ -1,5 +1,5 @@
 import React from 'react';
-import { PaperContainer, TableTd } from './Manuscript';
+import { PaperContainer, TableTd } from '../diary/Manuscript';
 /* 리스트 원고지 틀 컴포넌트 */
 function ResultManuscript({content}) {
   const divi=content.split('');
