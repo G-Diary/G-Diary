@@ -16,7 +16,7 @@ function DiaryContent({getLoading}) {
   const [title, setTitle]=useState(''); //제목
   const [content, setContent]=useState(''); //일기 내용
   const [weather, setWeather]=useState(); //날씨 선택
-  const {updateCanvas}=useStore();
+  const {updateCanvas, setChoiceImg}=useStore();
   const Swal = require('sweetalert2');
   const date=location.state?.date;
   let year=date.getFullYear();  //연도 구하기
@@ -32,16 +32,7 @@ function DiaryContent({getLoading}) {
   console.log(updateCanvas)
 
   const user=sessionStorage.getItem('id');
-  console.log(sessionStorage);
-  const diaryData={
-    'user_id':user,
-    'title': title,
-    'weather': weather,
-    'contents':content,
-    'diary_date': format(date, 'yyyy-MM-dd')
-  }
-  console.log(diaryData);
- 
+
   //작성한 일기 보내기
   const grimDiary = async () => {
     let form = new FormData();
@@ -55,7 +46,8 @@ function DiaryContent({getLoading}) {
     await api.post('diaries/', form)
       .then(function (response){
         console.log(response, JSON.stringify(response,null,7));
-        navigate('/list')
+        setChoiceImg('');
+        navigate('/list');
       })
       .catch(function (error) {
         if (error.response.data.title) {
@@ -85,7 +77,6 @@ function DiaryContent({getLoading}) {
         }
       })
   }
-  console.log(updateCanvas);
   //제목 내용
   const onChange = (e) => {
     setTitle(e.target.value);

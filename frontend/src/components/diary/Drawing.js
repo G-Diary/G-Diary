@@ -11,7 +11,6 @@ const Rectangle = ({ image, shapeProps, isSelected, onSelect, onChange }) => {
   const [img] = useImage(image,'Anonymous');
   useEffect(() => {
     if (isSelected) {
-      // we need to attach transformer manually
       trRef.current.nodes([shapeRef.current]);
       trRef.current.getLayer().batchDraw();
     }
@@ -76,7 +75,6 @@ function Drawing({grim}){
   let stageRef=useRef(null);
   const isDrawing = useRef(false);
   const checkDeselect = (e) => {
-    // deselect when clicked on empty area
     const clickedOnEmpty = e.target === e.target.getStage();
     if (clickedOnEmpty) {
       selectShape(null);

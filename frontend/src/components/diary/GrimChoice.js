@@ -2,11 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 import { useStore } from '../../store/store';
 function GrimChoice(){
-  const {choiceImg, setChoiceImg}=useStore();
+  const {setChoiceImg}=useStore();
   const addImage = (srcImg) => {
     const newimage = new Image();
     newimage.src=srcImg.src;
-    console.log(newimage);
     newimage.crossOrigin = 'Anonymous';
     setChoiceImg( {
       id:srcImg.alt,

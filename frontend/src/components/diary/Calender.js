@@ -51,10 +51,16 @@ const RenderCells = ({currentMonth, today, list, exist, selectedDate, onDateClic
   const endDate=endOfWeek(monthEnd);
   const [add, setAdd]=useState(true);  //일기 추가 상태
   const [newDiary, setNewDiary]=useState(false);
+  const {setChoicedDate}=useStore();  //페이지 이동 시 선택 날짜 초기화
   const rows=[];
   let days=[];
   let day=startDate;
   let formattedDate = '';
+
+  const pageMove = () =>{
+    setNewDiary(true);
+    setChoicedDate('');
+  }
 
 
   while(day<=endDate){
@@ -87,7 +93,7 @@ const RenderCells = ({currentMonth, today, list, exist, selectedDate, onDateClic
           {exist.includes(format(cloneDay, 'yyyy-MM-dd'))?'':(<div> <Link to='/write' state={{date:day}}>
             <div onMouseEnter={()=>{setAdd(false)}}
               onMouseLeave={()=>{setAdd(true)}}
-              onClick={()=>setNewDiary(true)} 
+              onClick={pageMove} 
             ><BsPlusCircleFill style={{color:'#c04922'}} className={`hover-close ${add?'hide':''}`} />
             </div>
           </Link></div>)}
