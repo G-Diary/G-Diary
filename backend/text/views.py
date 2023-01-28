@@ -9,13 +9,18 @@ from rest_framework.response import Response
 from rest_framework import status
 from config.decode import decode
 import django
+from rest_framework.utils import json
+
 django.setup()
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings")
 
 kkma = Kkma()
 @api_view(['POST'])
 def get_keyword(request):
-    diary_keyword = decode.delay()
+    body =  json.loads(request.body.decode('utf-8'))
+    contents = body["contents"]
+    print("   contents >>> ", contents)
+    diary_keyword = decode.delay(contents)
 
     while True:
         if diary_keyword.ready() == False:
