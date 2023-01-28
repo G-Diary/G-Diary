@@ -14,7 +14,6 @@ import '../components/diary/Calender.css';
 import api from '../apis/axios';
 
 function GrimList(){
-  // const [list, setList]=useState([]);
   const [add, setAdd]=useState([]);
   const {choiceDate}=useStore();
   const exist=[];
