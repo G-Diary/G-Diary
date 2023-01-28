@@ -8,6 +8,7 @@ import Drawing from './Drawing';
 import { useStore } from '../../store/store';
 import api from '../../apis/axios';
 import { format } from 'date-fns';
+import { fi } from 'date-fns/locale';
 
 function DiaryContent({getLoading}) {
   const navigate = useNavigate();
@@ -23,26 +24,34 @@ function DiaryContent({getLoading}) {
   let todayMonth=date.getMonth()+1;  //월 구하기
   let todayDate=date.getDate();  //일 구하기
 
-  // let file=new Blob([new Uint8Array(updateCanvas)], {type: 'image/png'});
-  // const url=window.URL.createObjectURL(file);
+  /**
+   * 캔버스 이미지(base64)를 다시 png로 변환하기
+   */
   let myImg = updateCanvas.replace('data:image/png;base64,', '');
-  // console.log(file);  
-  // console.log(url);
-  console.log(myImg);
-  console.log(updateCanvas)
+  const byteString = atob(myImg);
+  const array=[];
+  for(let i=0;i<byteString.length;i++){
+    array.push(byteString.charCodeAt(i));
+  }
+  const u8arr=new Uint8Array(array);
+  const file=new Blob([u8arr],{type: 'image/png'});
+  let imageUrl=URL.createObjectURL(file);
 
-  const user=sessionStorage.getItem('id');
+  const user=sessionStorage.getItem('id');  //세션에 저장되어 있는 user id받아오기
 
   //작성한 일기 보내기
   const grimDiary = async () => {
     let form = new FormData();
-    form.append('user_id', user)
-    form.append('title', title);
-    form.append('weather', weather);
-    form.append('drawing_url', 'images/ateIcecream.png');
-    form.append('contents', content);
-    form.append('diary_date', format(date, 'yyyy-MM-dd'));
-    await api.post('diaries/', form)
+    form.append('user_id',user);
+    form.append('title',title);
+    form.append('weather',weather);
+    form.append('drawing_url',imageUrl);
+    form.append('contents',content);
+    form.append('diary_date',format(date, 'yyyy-MM-dd'));
+
+    await api.post('diaries/', form, {
+      headers: {'Content-Type': 'multipart/form-data',},
+    })
       .then(function (response){
         console.log(response, JSON.stringify(response,null,7));
         setChoiceImg('');
