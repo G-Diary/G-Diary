@@ -1,4 +1,3 @@
-from django.db.models import Q
 from rest_framework import viewsets, status, serializers
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -82,13 +81,11 @@ class RegisterAPIView(APIView):
 class UserViewset(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
     queryset = User.objects.all()
-    serializer_class = SignSerializer       
-
-    # 부분 수정 (단일 필드 수정)
-    def partial_update(self, request, *args, **kwargs):
+    serializer_class = SignSerializer   
+    
+    def update(self, request, *args, **kwargs):
         kwargs['partial'] = True
         return super().update(request, *args, **kwargs) 
-
 
 class AuthAPIView(APIView):
     # 유저 정보 확인
@@ -180,6 +177,7 @@ class DiaryViewset(viewsets.ModelViewSet):
     def list(self, request, *args, **kwargs):
         return super().list(request, *args, **kwargs)
 
+
     # api/v1/diaries/?date=2023-01-26
     def get_queryset(self):
         diaries = Diary.objects.filter(is_deleted = False)
@@ -217,20 +215,6 @@ class DrawingViewset(viewsets.ModelViewSet):
     queryset = Drawing.objects.all()
     serializer_class = DrawingSerializer
 
-    # #api/v1/drawings?keyword={}&keyword={}&...
-    # def get_queryset(self):
-    #     drawings = Drawing.objects.filter(is_deleted = False)
-
-    #     keyword = self.request.GET.getlist('keyword', None)
-
-    #     q=Q()
-
-    #     if keyword:
-    #         q &= Q(keyword__in = keyword)
-    #         drawings = drawings.filter(q)
-            
-    #     return drawings
-
 # @api_view(['POST'])
 # def insertkeyword(request):
 #     reqData = request.data
@@ -255,4 +239,5 @@ class DrawingViewset(viewsets.ModelViewSet):
 #         print(queryset)
 #         serializer = DrawingSerializer(queryset, many=True)
 #         return Response(serializer.data)
+
     
