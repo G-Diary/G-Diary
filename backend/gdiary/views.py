@@ -16,24 +16,38 @@ from rest_framework.permissions import IsAuthenticated
 import boto3
 import uuid
 from django.http import JsonResponse
+import json
+from rest_framework.parsers import JSONParser
 
 class ImageUploader(APIView) :
-    
     def post(self, request) :
         try :
-            files = request.FILES.getlist('files')
-            s3r = boto3.resource('s3', aws_access_key_id= AWS_ACCESS_KEY_ID, aws_secret_access_key= AWS_ACCESS_ACCESS_KEY)
 
-            for file in files :
-                file._set_name(str(uuid.uuid4()))
-                s3r.Bucket(AWS_STORAGE_BUCKET_NAME).put_object(Key='%s'%(file), Body=file, ContentType='jpg')
+            file = request.FILES.get('file')
+            diary_id = request.POST.get('id')
+
+            s3r = boto3.resource('s3', aws_access_key_id= AWS_ACCESS_KEY_ID, aws_secret_access_key= AWS_ACCESS_ACCESS_KEY) #s3 연결
+            
+            file._set_name(str(uuid.uuid4())) #파일 이름 설정
+            s3r.Bucket(AWS_STORAGE_BUCKET_NAME).put_object(Key='image/%s'%(file), Body=file, ContentType='jpg') #key=파일 경로
                 
-                image_url = AWS_S3_CUSTOM_DOMAIN+"/%s"%(file),
+            image_url = "https://"+AWS_S3_CUSTOM_DOMAIN+"/%s"%(file) #url 명
+
+            data = Diary.objects.get(id = diary_id)
+            data.drawing_url = image_url
+            data.save()
                 
-            return JsonResponse({"MESSGE" : "SUCCESS"}, status=200)
+            return JsonResponse({
+                "MESSGE" : "SUCCESS" ,
+                "image_url" : image_url,
+                "diary_id" : diary_id
+            }, status=200)
+
 
         except Exception as e :
-            return JsonResponse({"ERROR" : e.message})
+            return JsonResponse({"ERROR" : "FAIL"})
+
+            
             
 class RegisterAPIView(APIView):
     def post(self, request):
