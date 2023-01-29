@@ -1,3 +1,4 @@
+from django.db import models
 from django.contrib.auth.base_user import BaseUserManager, AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin
 
@@ -45,7 +46,7 @@ class User(AbstractBaseUser, PermissionsMixin, BaseModel):
     email = models.EmailField(default='', max_length=100, null=False, unique=True)
     nickname = models.CharField(max_length=10, null=False, unique=True)
 
-    cover_image_url=models.CharField(max_length=500, null= False)
+    cover_image_url=models.CharField(max_length=500, null= False, default="https://gdiary-s3-bucket.s3.ap-northeast-2.amazonaws.com/mainLogo.png")
 
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
@@ -75,6 +76,7 @@ class Diary(BaseModel):
     user_id = models.ForeignKey(User, on_delete=models.CASCADE, null=False) #fk
     title = models.CharField(max_length=50, null=False)
     weather = models.IntegerField(null=False)
+    emoji = models.CharField(max_length=500, null=False)
     drawing_url = models.CharField(max_length=500, null=True)
     contents = models.CharField(max_length=50, null=False)
     diary_date = models.DateField(null=False)
