@@ -8,7 +8,6 @@ import Drawing from './Drawing';
 import { useStore } from '../../store/store';
 import api from '../../apis/axios';
 import { format } from 'date-fns';
-import { fi } from 'date-fns/locale';
 
 function DiaryContent({getLoading}) {
   const navigate = useNavigate();
@@ -17,7 +16,7 @@ function DiaryContent({getLoading}) {
   const [title, setTitle]=useState(''); //제목
   const [content, setContent]=useState(''); //일기 내용
   const [weather, setWeather]=useState(); //날씨 선택
-  const {updateCanvas, setChoiceImg}=useStore();
+  const {updateCanvas, setChoiceImg, setGetGrimList}=useStore();
   const Swal = require('sweetalert2');
   const date=location.state?.date;
   let year=date.getFullYear();  //연도 구하기
@@ -36,6 +35,7 @@ function DiaryContent({getLoading}) {
   const u8arr=new Uint8Array(array);
   const file=new Blob([u8arr],{type: 'image/png'});
   let imageUrl=URL.createObjectURL(file);
+  URL.revokeObjectURL(imageUrl); //메모리 누수 방지
 
   const user=sessionStorage.getItem('id');  //세션에 저장되어 있는 user id받아오기
 
@@ -85,6 +85,16 @@ function DiaryContent({getLoading}) {
         }
       })
   }
+
+  const getGrim = () =>{
+    fetch('data/dummy.json',{
+      method: 'GET'
+    }).then(res=>res.json()).then(res=>{
+      console.log(1,res);
+      console.log(res);
+    })
+  }
+
   //제목 내용
   const onChange = (e) => {
     setTitle(e.target.value);
@@ -102,6 +112,13 @@ function DiaryContent({getLoading}) {
   //AI키워드 그림 가져오기 버튼
   const bringGrim = () => {
     getLoading(true);
+    fetch('data/dummy.json',{
+      method: 'GET'
+    }).then(res=>res.json()).then(res=>{
+      console.log(res);
+      setGetGrimList(res);
+      getLoading(false);
+    })
   }
     
   return (

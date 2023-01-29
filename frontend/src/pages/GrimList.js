@@ -36,17 +36,14 @@ function GrimList(){
     getAllList();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   },[]);
-  console.log(add);
 
   for(let i=0;i<add.length;i++){
     if(add[i].user_id===parseInt(user)){
       exist.push(add[i].diary_date);
-      list.push(add[i])
+      list.push(add[i]);
     }
   }
-  console.log(exist);
-  console.log(list);
-
+  
   return(
     <WriteContainer>
       <Book2Container> 
@@ -60,7 +57,7 @@ function GrimList(){
               return <DiaryList key={index} title={data.title} weather={data.weather} draw={data.drawing_url} contents={data.contents} date={data.diary_date} />})}
           {exist.includes(format(choiceDate, 'yyyy-MM-dd'))?'':(<DiviContainer>
             <div style={{fontSize:'2.5rem', fontFamily:'KyoboHand', textAlign:'center'}}>
-              <img src="images/list.jpg" style={{width: '250px'}} alt="list" />
+              <img src="images/list.jpg" style={{width: '30%'}} alt="list" />
               <div style={{display:'flex', flexDirection:'row', justifyContent:'center', marginBottom:'5px'}}><p style={{width:'17rem', margin:'0', color:'orange'}}>{choiceDate.getFullYear()}년 {format(choiceDate, 'M')}월 {choiceDate.getDate()}일</p>의</div>
                 하루를 기록해볼까요?
               <Link to='/write' state={{date:choiceDate}} className="listLink">

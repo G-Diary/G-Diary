@@ -37,11 +37,11 @@ const StyledNavLink=styled(NavLink)`
     }
 `
 function Bookmark(){
-  const {setChoiceImg}=useStore();
+  const {setChoiceImg,setGetGrimList}=useStore();
   return(
     <BookMark>
       <StyledNavLink to={IsLogin() ? '/main' : '/'} style={{background:'#80FF00'}}>홈</StyledNavLink> 
-      <StyledNavLink to={'/list'} style={{background:'#FFE600'}} onClick={()=>setChoiceImg('')}>일기쓰기</StyledNavLink> 
+      <StyledNavLink to={'/list'} style={{background:'#FFE600'}} onClick={()=>{setChoiceImg(''); setGetGrimList('');}}>일기쓰기</StyledNavLink> 
       <StyledNavLink to='/about' style={{ background: 'rgba(217, 132, 57)' }}>소개</StyledNavLink>
     </BookMark>)
 }
