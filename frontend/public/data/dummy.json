@@ -1,5 +1,6 @@
 { 
     "사과": [
+<<<<<<< refs/remotes/origin/develop
         "images/newyear.jpg",
         "https://img.lovepik.com/free-png/20220125/lovepik-apple-png-image_401710037_wh860.png",
         "https://i.pinimg.com/originals/f9/f4/2c/f9f42cc1853189038a8e219fdf47a644.png",
@@ -11,6 +12,10 @@
         "https://i.pinimg.com/originals/f9/f4/2c/f9f42cc1853189038a8e219fdf47a644.png",
         "https://i.pinimg.com/originals/f9/f4/2c/f9f42cc1853189038a8e219fdf47a644.png",
         "https://i.pinimg.com/originals/f9/f4/2c/f9f42cc1853189038a8e219fdf47a644.png",
+=======
+        "https://img.lovepik.com/free-png/20220125/lovepik-apple-png-image_401710037_wh860.png",
+        "https://i.pinimg.com/originals/f9/f4/2c/f9f42cc1853189038a8e219fdf47a644.png",
+>>>>>>> feat: AI그림들 책갈피 기능
         "https://ouch-cdn2.icons8.com/oUbkvWU1dRrcc4n9ca9ORTKBrthhdIVVq6lFKL9hLnU/rs:fit:256:282/czM6Ly9pY29uczgu/b3VjaC1wcm9kLmFz/c2V0cy9zdmcvODU2/LzVmZjk3YTAxLTJi/NDktNDk2Zi1iY2Ez/LTMwMzNlYTU0MjYw/ZC5zdmc.png"
     ],
     "사탕": [

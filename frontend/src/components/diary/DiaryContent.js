@@ -8,7 +8,6 @@ import Drawing from './Drawing';
 import { useStore } from '../../store/store';
 import api from '../../apis/axios';
 import { format } from 'date-fns';
-import { fi } from 'date-fns/locale';
 
 function DiaryContent({getLoading}) {
   const navigate = useNavigate();
@@ -86,6 +85,16 @@ function DiaryContent({getLoading}) {
         }
       })
   }
+
+  const getGrim = () =>{
+    fetch('data/dummy.json',{
+      method: 'GET'
+    }).then(res=>res.json()).then(res=>{
+      console.log(1,res);
+      console.log(res);
+    })
+  }
+
   //제목 내용
   const onChange = (e) => {
     setTitle(e.target.value);
