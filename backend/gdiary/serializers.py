@@ -35,12 +35,6 @@ class ResultSerializer(serializers.ModelSerializer):
         model = Result
         fields = '__all__'
 
-class ResponseSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Response
-        fields = '__all__'
-
-
 class KeywordSerializer(serializers.ModelSerializer):
     url = DrawingSerializer(many=True, read_only=True)
 

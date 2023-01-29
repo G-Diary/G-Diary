@@ -92,6 +92,7 @@ class Keyword(BaseModel):
 
 class Result(models.Model):
     id = models.AutoField(primary_key=True) #pk
+    diary_id = models.ForeignKey(Diary, on_delete=models.CASCADE, null=False)
     keyword = models.CharField(max_length=10, null=False)
 
     def __str__(self):
@@ -104,13 +105,4 @@ class Drawing(BaseModel):
 
     def __str__(self):
         return str(self.image_url)
-
-class Response(models.Model):
-    id = models.AutoField(primary_key=True) #pk
-    keyword = models.ForeignKey(Keyword, on_delete=models.CASCADE, null=False)
-    diary_id = models.ForeignKey(Diary, on_delete=models.CASCADE, null=False)
-    result_id = models.ForeignKey(Result, on_delete=models.CASCADE, null=False)
-
-    def __str__(self):
-        return self.id
 
