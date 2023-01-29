@@ -189,25 +189,25 @@ class DiaryViewset(viewsets.ModelViewSet):
             diaries = diaries.filter(diary_date=date)
         return diaries
 
-class ResultViewset(viewsets.ModelViewSet):
-    queryset = Result.objects.all()
-    serializer_class = ResultSerializer
+# class ResultViewset(viewsets.ModelViewSet):
+#     queryset = Result.objects.all()
+#     serializer_class = ResultSerializer
 
-    def get_queryset(self):
-        #key = Keyword.objects.all()
-        result = Result.objects.all()
+#     def get_queryset(self):
+#         #key = Keyword.objects.all()
+#         result = Result.objects.all()
 
-        did = self.request.query_params.get('did','')
-        if did:
-            result = result.filter(diary_id=did)
-          #  if (key.keyword == result.keyword):
-        return result
+#         did = self.request.query_params.get('did','')
+#         if did:
+#             result = result.filter(diary_id=did)
+#           #  if (key.keyword == result.keyword):
+#         return result
 
-        #kw1 = self.request.query_params.get('kw', '')
-        #kw2 = Keyword.objects.filter(keyword = kw1)
-        # if kw1:
-        #     result = result.filter(keyword=kw1)   
-        # return result
+#         #kw1 = self.request.query_params.get('kw', '')
+#         #kw2 = Keyword.objects.filter(keyword = kw1)
+#         # if kw1:
+#         #     result = result.filter(keyword=kw1)   
+#         # return result
 
 class KeywordViewset(viewsets.ModelViewSet):
     queryset = Keyword.objects.all()
