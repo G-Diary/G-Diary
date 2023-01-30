@@ -54,7 +54,7 @@ function GrimList(){
           {list.filter(x=>new Date(x.diary_date).toDateString()===choiceDate.toDateString())
             // eslint-disable-next-line no-loop-func
             .map((data,index)=>{
-              return <DiaryList key={index} title={data.title} weather={data.weather} draw={data.drawing_url} contents={data.contents} date={data.diary_date} />})}
+              return <DiaryList key={index} title={data.title} weather={data.weather} draw={data.drawing_url} contents={data.contents} date={data.diary_date} emoji={data.emoji} />})}
           {exist.includes(format(choiceDate, 'yyyy-MM-dd'))?'':(<DiviContainer>
             <div style={{fontSize:'2.5rem', fontFamily:'KyoboHand', textAlign:'center'}}>
               <img src="images/list.jpg" style={{width: '30%'}} alt="list" />

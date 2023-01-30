@@ -60,7 +60,6 @@ const RenderCells = ({currentMonth, today, list, exist, selectedDate, onDateClic
     setChoicedDate('');
   }
 
-
   while(day<=endDate){
     for (let i=0; i<7; i++){
       formattedDate=format(day, 'd');
@@ -82,13 +81,13 @@ const RenderCells = ({currentMonth, today, list, exist, selectedDate, onDateClic
         >
           <span>
             {formattedDate}
-          </span>
-          {list.filter(x=>new Date(x.diary_date).toDateString()===cloneDay.toDateString())
+            {list.filter(x=>new Date(x.diary_date).toDateString()===cloneDay.toDateString())
             // eslint-disable-next-line no-loop-func
-            .map(data=>{
-              return <div key={data}>
-              🙂</div>})
-          }
+              .map((data,index)=>{
+                return <span key={index} className="listemoji">{data.emoji}
+                </span>})
+            }
+          </span>
           {exist.includes(format(cloneDay, 'yyyy-MM-dd'))?'':(<div> <Link to='/write' state={{date:day}}>
             <div onMouseEnter={()=>{setAdd(false)}}
               onMouseLeave={()=>{setAdd(true)}}
