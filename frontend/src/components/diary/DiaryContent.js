@@ -16,46 +16,46 @@ function DiaryContent({getLoading}) {
   const [title, setTitle]=useState(''); //제목
   const [content, setContent]=useState(''); //일기 내용
   const [weather, setWeather]=useState(); //날씨 선택
-  const {updateCanvas}=useStore();
+  const {updateCanvas, setChoiceImg, setGetGrimList}=useStore();
   const Swal = require('sweetalert2');
   const date=location.state?.date;
   let year=date.getFullYear();  //연도 구하기
   let todayMonth=date.getMonth()+1;  //월 구하기
   let todayDate=date.getDate();  //일 구하기
 
-  // let file=new Blob([new Uint8Array(updateCanvas)], {type: 'image/png'});
-  // const url=window.URL.createObjectURL(file);
+  /**
+   * 캔버스 이미지(base64)를 다시 png로 변환하기
+   */
   let myImg = updateCanvas.replace('data:image/png;base64,', '');
-  // console.log(file);  
-  // console.log(url);
-  console.log(myImg);
-  console.log(updateCanvas)
-
-  const user=sessionStorage.getItem('id');
-  console.log(sessionStorage);
-  const diaryData={
-    'user_id':user,
-    'title': title,
-    'weather': weather,
-    'contents':content,
-    'diary_date': format(date, 'yyyy-MM-dd')
+  const byteString = atob(myImg);
+  const array=[];
+  for(let i=0;i<byteString.length;i++){
+    array.push(byteString.charCodeAt(i));
   }
-  console.log(diaryData);
- 
+  const u8arr=new Uint8Array(array);
+  const file=new Blob([u8arr],{type: 'image/png'});
+  let imageUrl=URL.createObjectURL(file);
+  URL.revokeObjectURL(imageUrl); //메모리 누수 방지
+
+  const user=sessionStorage.getItem('id');  //세션에 저장되어 있는 user id받아오기
+
   //작성한 일기 보내기
   const grimDiary = async () => {
     let form = new FormData();
     form.append('user_id',user);
     form.append('title',title);
     form.append('weather',weather);
-    form.append('drawing_url','images/22.png');
+    form.append('drawing_url',imageUrl);
     form.append('contents',content);
     form.append('diary_date',format(date, 'yyyy-MM-dd'));
 
-    await api.post('diaries/', form)
+    await api.post('diaries/', form, {
+      headers: {'Content-Type': 'multipart/form-data',},
+    })
       .then(function (response){
         console.log(response, JSON.stringify(response,null,7));
-        navigate('/list')
+        setChoiceImg('');
+        navigate('/list');
       })
       .catch(function (error) {
         if (error.response.data.title) {
@@ -85,7 +85,7 @@ function DiaryContent({getLoading}) {
         }
       })
   }
-  console.log(updateCanvas);
+  
   //제목 내용
   const onChange = (e) => {
     setTitle(e.target.value);
@@ -103,6 +103,13 @@ function DiaryContent({getLoading}) {
   //AI키워드 그림 가져오기 버튼
   const bringGrim = () => {
     getLoading(true);
+    fetch('data/dummy.json',{
+      method: 'GET'
+    }).then(res=>res.json()).then(res=>{
+      console.log(res);
+      setGetGrimList(res);
+      getLoading(false);
+    })
   }
     
   return (

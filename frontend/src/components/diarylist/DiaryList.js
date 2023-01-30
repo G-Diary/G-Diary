@@ -1,8 +1,8 @@
 import React from 'react';
 import ResultManuscript from './ResultManuscript';
 import { BsBrightnessHighFill, BsFillCloudFill ,BsFillCloudSnowFill, BsFillCloudRainFill } from 'react-icons/bs';
-import { Content, DateContainer, Dateline, Datetitle, DiviContainer, Weathercontainer, DateContent, TitleContainer, Title, Titlecontent, Canvas, Modebutton } from './DiaryContent';
-import { ChoiceButtonContainer } from './GrimChoice';
+import { Content, DateContainer, Dateline, Datetitle, DiviContainer, Weathercontainer, DateContent, TitleContainer, Title, Titlecontent, Canvas} from '../diary/DiaryContent';
+import { ChoiceButtonContainer } from '../diary/GrimChoice';
 
 
 function DiaryList({title, weather, draw, contents, date, emoji}){
@@ -11,6 +11,11 @@ function DiaryList({title, weather, draw, contents, date, emoji}){
   let year=fulldate[0];  //연도 구하기
   let todayMonth=fulldate[1];  //월 구하기
   let todayDate=fulldate[2];  //일 구하기
+
+  let blob=new Blob([new ArrayBuffer(draw)],{type:'image/png'});
+  const url=URL.createObjectURL(blob);
+  console.log(url);
+  URL.revokeObjectURL(url);
 
   return(
     <DiviContainer>
@@ -62,7 +67,7 @@ function DiaryList({title, weather, draw, contents, date, emoji}){
         {/* <img src={`${emoji}`} alt="emoji" style={{width:'1em', fontSize:'1.8em'}}/> */}
         <div style={{width:'1em', fontSize:'1.8em'}}>🙂</div>
       </TitleContainer>
-      <Canvas><img src={draw} alt="diarygrim" style={{width:'500px', height:'290px'}}/></Canvas>
+      <Canvas><img src={url} alt="diarygrim" style={{width:'500px', height:'290px'}}/></Canvas>
       <ChoiceButtonContainer style={{height: '25px' ,marginTop:'2%', marginLeft:'2.2%'}}>
         {/* <Modebutton style={{width: '130px', height:'30px'}}></Modebutton> */}
       </ChoiceButtonContainer>

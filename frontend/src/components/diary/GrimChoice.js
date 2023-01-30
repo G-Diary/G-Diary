@@ -1,12 +1,25 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components';
 import { useStore } from '../../store/store';
+
+
+// AI로부터 받아온 그림들 중 원하는 그림 선택
 function GrimChoice(){
-  const {choiceImg, setChoiceImg}=useStore();
+  const {setChoiceImg, getGrimList}=useStore();
+  const keyword = Object.keys(getGrimList);
+  const grim = Object.values(getGrimList);
+  const [grimlist, setGrimList] = useState(grim[0]);
+  const [btn, setBtn] = useState(keyword[0]);
+
+  //선택한 키워드에 맞는 그림 보여주기
+  const onSelect = (i)=>{
+    setGrimList(grim[i]);
+    setBtn(keyword[i]);  //선택한 키워드 색변경
+  }
+
   const addImage = (srcImg) => {
     const newimage = new Image();
     newimage.src=srcImg.src;
-    console.log(newimage);
     newimage.crossOrigin = 'Anonymous';
     setChoiceImg( {
       id:srcImg.alt,
@@ -22,15 +35,27 @@ function GrimChoice(){
     e.preventDefault();
     addImage(e.target);
   };
+
+
   
   return(
     <ChoiceContainer>
       <Choicetitle>
         GD가 분석해본 그림이에요!
       </Choicetitle>
+      <Keywords>
+        {keyword && keyword.map((x,index)=>(
+          <Keyword key={index} id={x} onClick={()=>onSelect(index)}>{btn===x?<div style={{color:'red'}}>{x}</div>:<div>{x}</div>}</Keyword>
+        ))}
+      </Keywords>
       <Choice>
-        <ChoiceGrim id="image" src="images/newyear.JPG"
-          alt="fish" onClick={onChange}/>
+        {
+          grimlist && grimlist.map((data,index)=>
+            (
+              <ChoiceGrim key={index} id="image" src={data}
+                alt="grim" onClick={onChange}/>
+            ))
+        }
       </Choice>
     </ChoiceContainer>)
 }
@@ -59,6 +84,22 @@ const Choicetitle =styled.div`
     font-family:KyoboHand;
     font-weight: bolder;
 `
+const Keywords = styled.div`
+  width: 80%;
+  display: flex;
+  flex-direction: row;
+`
+const Keyword = styled.div`
+  width: auto;
+  height: 2rem;
+  border: 2px double black;
+  background: ivory;
+  text-align: center;
+  font-size: 1.5rem;
+  line-height: 150%;
+  padding: 4px;
+  border-bottom-style: none;
+`
 
 const Choice = styled.div`
     width: 500px;   
@@ -66,11 +107,12 @@ const Choice = styled.div`
     background:white;
     border-radius: 10px;
     border: 2px dotted grey;
+    overflow: auto;
 `
 
 const ChoiceGrim = styled.img`
-    width: 100px;
-    height: 100px;
+    width: 95px;
+    height: 95px;
     object-fit:cover;
     margin: 2rem;
 `
