@@ -177,7 +177,6 @@ class DiaryViewset(viewsets.ModelViewSet):
     def list(self, request, *args, **kwargs):
         return super().list(request, *args, **kwargs)
 
-
     # api/v1/diaries/?date=2023-01-26
     def get_queryset(self):
         diaries = Diary.objects.filter(is_deleted = False)
@@ -187,25 +186,9 @@ class DiaryViewset(viewsets.ModelViewSet):
             diaries = diaries.filter(diary_date=date)
         return diaries
 
-# class ResultViewset(viewsets.ModelViewSet):
-#     queryset = Result.objects.all()
-#     serializer_class = ResultSerializer
-
-#     def get_queryset(self):
-#         #key = Keyword.objects.all()
-#         result = Result.objects.all()
-
-#         did = self.request.query_params.get('did','')
-#         if did:
-#             result = result.filter(diary_id=did)
-#           #  if (key.keyword == result.keyword):
-#         return result
-
-#         #kw1 = self.request.query_params.get('kw', '')
-#         #kw2 = Keyword.objects.filter(keyword = kw1)
-#         # if kw1:
-#         #     result = result.filter(keyword=kw1)   
-#         # return result
+class ResultViewset(viewsets.ModelViewSet):
+    queryset = Result.objects.all()
+    serializer_class = ResultSerializer
 
 class KeywordViewset(viewsets.ModelViewSet):
     queryset = Keyword.objects.all()
@@ -215,29 +198,5 @@ class DrawingViewset(viewsets.ModelViewSet):
     queryset = Drawing.objects.all()
     serializer_class = DrawingSerializer
 
-# @api_view(['POST'])
-# def insertkeyword(request):
-#     reqData = request.data
-#     serializer = KeywordSerializer(data=reqData)
-#     if serializer.is_valid():
-#         serializer.save()
-#         return Response(serializer.data, status=status.HTTP_201_CREATED)
-#     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-# @api_view(['POST'])
-# def inserturl(request):
-#     reqData = request.data
-#     serializer = DrawingSerializer(data=reqData)
-#     if serializer.is_valid():
-#         serializer.save()
-#         return Response(serializer.data, status=status.HTTP_201_CREATED)
-#     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-# class ProductListAPI(APIView):
-#     def get(self, request):
-#         queryset = Drawing.objects.all()
-#         print(queryset)
-#         serializer = DrawingSerializer(queryset, many=True)
-#         return Response(serializer.data)
 
     
