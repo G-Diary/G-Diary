@@ -23,7 +23,7 @@ class ImageUploader(APIView) :
         try :
 
             file = request.FILES.get('file')
-            date = request.POST.get('date')
+            diary_date = request.POST.get('diary_date')
 
             s3r = boto3.resource('s3', aws_access_key_id= AWS_ACCESS_KEY_ID, aws_secret_access_key= AWS_ACCESS_ACCESS_KEY) #s3 연결
             
@@ -32,14 +32,14 @@ class ImageUploader(APIView) :
                 
             image_url = "https://"+AWS_S3_CUSTOM_DOMAIN+"/image/%s"%(file) #url 명
 
-            data = Diary.objects.get(diary_date = date)
+            data = Diary.objects.get(diary_date = diary_date)
             data.drawing_url = image_url
             data.save()
                 
             return JsonResponse({
                 "MESSGE" : "SUCCESS" ,
                 "image_url" : image_url,
-                "diary_id" : date
+                "diary_id" : diary_date
             }, status=200)
 
 
