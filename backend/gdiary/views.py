@@ -177,7 +177,6 @@ class DiaryViewset(viewsets.ModelViewSet):
     def list(self, request, *args, **kwargs):
         return super().list(request, *args, **kwargs)
 
-
     # api/v1/diaries/?date=2023-01-26
     def get_queryset(self):
         diaries = Diary.objects.filter(is_deleted = False)
@@ -214,30 +213,5 @@ class KeywordViewset(viewsets.ModelViewSet):
 class DrawingViewset(viewsets.ModelViewSet):
     queryset = Drawing.objects.all()
     serializer_class = DrawingSerializer
-
-# @api_view(['POST'])
-# def insertkeyword(request):
-#     reqData = request.data
-#     serializer = KeywordSerializer(data=reqData)
-#     if serializer.is_valid():
-#         serializer.save()
-#         return Response(serializer.data, status=status.HTTP_201_CREATED)
-#     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-# @api_view(['POST'])
-# def inserturl(request):
-#     reqData = request.data
-#     serializer = DrawingSerializer(data=reqData)
-#     if serializer.is_valid():
-#         serializer.save()
-#         return Response(serializer.data, status=status.HTTP_201_CREATED)
-#     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-# class ProductListAPI(APIView):
-#     def get(self, request):
-#         queryset = Drawing.objects.all()
-#         print(queryset)
-#         serializer = DrawingSerializer(queryset, many=True)
-#         return Response(serializer.data)
 
     
