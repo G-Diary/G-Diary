@@ -12,8 +12,42 @@ from .models import *
 import jwt
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer, TokenRefreshSerializer
 from rest_framework.permissions import IsAuthenticated
+import boto3
+import uuid
+from django.http import JsonResponse
+import json
+from rest_framework.parsers import JSONParser
+
+class ImageUploader(APIView) :
+    def post(self, request) :
+        try :
+
+            file = request.FILES.get('file')
+            diary_id = request.POST.get('id')
+
+            s3r = boto3.resource('s3', aws_access_key_id= AWS_ACCESS_KEY_ID, aws_secret_access_key= AWS_ACCESS_ACCESS_KEY) #s3 연결
+            
+            file._set_name(str(uuid.uuid4())) #파일 이름 설정
+            s3r.Bucket(AWS_STORAGE_BUCKET_NAME).put_object(Key='image/%s'%(file), Body=file, ContentType='jpg') #key=파일 경로
+                
+            image_url = "https://"+AWS_S3_CUSTOM_DOMAIN+"/%s"%(file) #url 명
+
+            data = Diary.objects.get(id = diary_id)
+            data.drawing_url = image_url
+            data.save()
+                
+            return JsonResponse({
+                "MESSGE" : "SUCCESS" ,
+                "image_url" : image_url,
+                "diary_id" : diary_id
+            }, status=200)
 
 
+        except Exception as e :
+            return JsonResponse({"ERROR" : "FAIL"})
+
+            
+            
 class RegisterAPIView(APIView):
     def post(self, request):
         serializer = UserSerializer(data=request.data)
@@ -47,8 +81,8 @@ class RegisterAPIView(APIView):
 class UserViewset(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
     queryset = User.objects.all()
-    serializer_class = SignSerializer       
-
+    serializer_class = SignSerializer   
+    
     def update(self, request, *args, **kwargs):
         kwargs['partial'] = True
         return super().update(request, *args, **kwargs) 
@@ -143,7 +177,7 @@ class DiaryViewset(viewsets.ModelViewSet):
     def list(self, request, *args, **kwargs):
         return super().list(request, *args, **kwargs)
 
-   
+    # api/v1/diaries/?date=2023-01-26
     def get_queryset(self):
         diaries = Diary.objects.filter(is_deleted = False)
 
@@ -151,3 +185,16 @@ class DiaryViewset(viewsets.ModelViewSet):
         if date:
             diaries = diaries.filter(diary_date=date)
         return diaries
+
+class ResultViewset(viewsets.ModelViewSet):
+    queryset = Result.objects.all()
+    serializer_class = ResultSerializer
+
+class KeywordViewset(viewsets.ModelViewSet):
+    queryset = Keyword.objects.all()
+    serializer_class = KeywordSerializer
+
+class DrawingViewset(viewsets.ModelViewSet):
+    queryset = Drawing.objects.all()
+    serializer_class = DrawingSerializer
+
