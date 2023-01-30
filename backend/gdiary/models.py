@@ -88,7 +88,7 @@ class Keyword(BaseModel):
     keyword = models.CharField(primary_key=True, max_length=10, null=False) #pk
 
     def __str__(self):
-        return self.keyword
+        return str(self.keyword)
 
 class Result(models.Model):
     id = models.AutoField(primary_key=True) #pk
@@ -96,7 +96,7 @@ class Result(models.Model):
     keyword = models.CharField(max_length=10, null=False)
 
     def __str__(self):
-        return self.id
+        return str(self.id)
 
 class Drawing(BaseModel):
     id = models.AutoField(primary_key=True) #pk

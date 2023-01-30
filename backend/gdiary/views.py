@@ -18,6 +18,30 @@ from django.http import JsonResponse
 import json
 from rest_framework.parsers import JSONParser
 
+class ResultKeyword(APIView):
+    def post(self, request):
+        try:
+            did = request.POST.get("id")
+            resultkey = Result.objects.filter(diary_id=did).values_list("keyword",flat=True).order_by("keyword") #result 테이블 keyword, 리스트로 추출
+            keywordkey = Keyword.objects.all().values_list("keyword",flat=True).order_by("keyword") #키워드 테이블 keyword, 리스트로 추출
+            sibal = []
+
+            for i in resultkey:
+                if i in keywordkey:
+                    sibal.append(i)     # Keyword.keyword == Result.keyword 일치 값 sibal list에 넣음
+                    
+            drawingkey = []
+            for i in sibal:
+                drawingkey.append(Drawing.objects.filter(keyword=i))
+
+            # for i in len(drawingkey):
+            #     serializer = DrawingSerializer(drawingkey[i])
+
+            return JsonResponse(list(drawingkey))
+
+        except Exception as e :
+            return JsonResponse({"ERROR" : "FAIL"}) 
+
 class ImageUploader(APIView) :
     def post(self, request) :
         try :
@@ -44,9 +68,7 @@ class ImageUploader(APIView) :
 
 
         except Exception as e :
-            return JsonResponse({"ERROR" : "FAIL"})
-
-            
+            return JsonResponse({"ERROR" : "FAIL"})            
             
 class RegisterAPIView(APIView):
     def post(self, request):
@@ -186,25 +208,9 @@ class DiaryViewset(viewsets.ModelViewSet):
             diaries = diaries.filter(diary_date=date)
         return diaries
 
-# class ResultViewset(viewsets.ModelViewSet):
-#     queryset = Result.objects.all()
-#     serializer_class = ResultSerializer
-
-#     def get_queryset(self):
-#         #key = Keyword.objects.all()
-#         result = Result.objects.all()
-
-#         did = self.request.query_params.get('did','')
-#         if did:
-#             result = result.filter(diary_id=did)
-#           #  if (key.keyword == result.keyword):
-#         return result
-
-#         #kw1 = self.request.query_params.get('kw', '')
-#         #kw2 = Keyword.objects.filter(keyword = kw1)
-#         # if kw1:
-#         #     result = result.filter(keyword=kw1)   
-#         # return result
+class ResultViewset(viewsets.ModelViewSet):
+    queryset = Keyword.objects.all()
+    serializer_class = ResultSerializer
 
 class KeywordViewset(viewsets.ModelViewSet):
     queryset = Keyword.objects.all()
