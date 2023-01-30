@@ -39,7 +39,7 @@ function SignInForm() {
   const classes = useStyles();
   const [email, setEmail] = useState('');
   const [password,setPassword] = useState('');
-  const JWT_EXPIRY_TIME = 3600 * 1000 // 만료시간 1시간 (밀리초로 표현)
+  const JWT_EXPIRY_TIME = 1800 * 1000 // 만료시간 30분 (밀리초로 표현)
   const Swal = require('sweetalert2');
   let count = 0;
 
@@ -63,6 +63,9 @@ function SignInForm() {
   }
 
   function onLoginSuccess(res) {
+    const access = res.data.token.access;
+    const refresh = res.data.token.refresh;
+    api.defaults.headers.common['Authorization'] = `Bearer ${refresh}`
     if (count === 0) {  
       Swal.fire({
         position: 'center',
@@ -71,16 +74,14 @@ function SignInForm() {
         showConfirmButton: false,
         timer: 2000
       })
+      setTimeout(onSilentRefresh, JWT_EXPIRY_TIME - 60000);
+      api.defaults.headers.common['Authorization'] = `Bearer ${access}`
       count++;
     }
-    const access = res.data.token.access;
-    const refresh = res.data.token.refresh;
-    api.defaults.headers.common['Authorization'] = `Bearer ${access}`
     sessionStorage.setItem('token', access);
     sessionStorage.setItem('refresh', refresh);
     sessionStorage.setItem('nickname', `${res.data.user.nickname}`)
     sessionStorage.setItem('id', `${res.data.user.id}`)
-    setTimeout(onSilentRefresh, JWT_EXPIRY_TIME - 60000);
     navigate('/main')
     console.log(api.defaults.headers.common)
     console.log(access)
@@ -88,6 +89,7 @@ function SignInForm() {
   }
 
   function onLogin(e) {
+    
     api.post('auth', {
       email: `${email}`,
       password: `${password}`

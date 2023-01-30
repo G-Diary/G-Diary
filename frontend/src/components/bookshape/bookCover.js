@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Bookmark from '../diary/Bookmark';
 import LogoutBtn from '../access/Logout';
 import isLogin from '../access/IsLogin';
+import BookShape2R from './BookShapeR'
 
 const AllControl = styled.div`
   height: 100vh;
@@ -15,6 +16,7 @@ const Left = styled.div`
   float: left;
   width: 55px;
   height: 760px;
+  margin-left: 18px;
   border-top-left-radius: 20px;
   border-bottom-left-radius: 20px;
   box-shadow:16px 9px 10px 0 #676262;`
@@ -22,7 +24,7 @@ const Left = styled.div`
 const Right = styled.div`
   background-color: #FDF6EA;
   float: left;
-  width: 675px;
+  width: 610px;
   height: 760px;
   border-top-right-radius: 30px;
   border-bottom-right-radius: 30px;
@@ -40,15 +42,16 @@ function BookCover({children}) {
   let now = new Date();
   let year = now.getFullYear();
   return (
-    <AllControl>
+    <AllControl className='slide'>
       <Left/>
-      <Right>
+      <Right className='flip'>
         <Year>
           {year}
           {isLogin() ? <LogoutBtn/> : ''}
         </Year>
         {children}
       </Right>
+      <BookShape2R/>
       <Bookmark/>
     </AllControl>
   );

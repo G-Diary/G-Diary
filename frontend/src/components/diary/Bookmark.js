@@ -1,12 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import IsLogin from '../access/IsLogin'
 
 const BookMark = styled.div`
     width: 70px;
     height: 700px;
-    z-index:80;
+    z-index:1;
 `
 const StyledNavLink=styled(NavLink)`
     display: block;
@@ -18,11 +18,12 @@ const StyledNavLink=styled(NavLink)`
     border-radius: 0 5px 5px 0;
     text-align: center;
     line-height: 43px;
-    color: black;
+    color: white;
     border: 0.8px groove gray;
     border-left: none;
     font-weight: 400;
     opacity:0.9;
+    background-color: rgba(0, 0, 0, 0.8);
     &:link {
       transition : 0.5s;
       text-decoration: none;
@@ -31,17 +32,18 @@ const StyledNavLink=styled(NavLink)`
       color: gray;
     }
     &.active {
-      color: #d5260d;
+      background-color: #F0DB6D;
+      color: black;
       font-weight: 700;
     }
 `
-function Bookmark(){
-  return(
+
+function Bookmark() {
+  return (
     <BookMark>
-      <StyledNavLink to={IsLogin() ? '/main' : '/'} style={{background:'#80FF00'}}>홈</StyledNavLink> 
-      <StyledNavLink to={'/list'} style={{background:'#FFE600'}}>목록</StyledNavLink> 
-      <StyledNavLink to={'/write'} state={{date:new Date()}} style={{background:'#0085FF'}}>글 쓰기</StyledNavLink> 
-      <StyledNavLink to='/about' style={{ background: 'rgba(217, 132, 57)' }}>소개</StyledNavLink>
+      <StyledNavLink to={IsLogin() ? '/main' : '/'}>홈</StyledNavLink>
+      <StyledNavLink to='/list'>목록</StyledNavLink>
+      <StyledNavLink to='/about'>소개</StyledNavLink>
     </BookMark>)
 }
 

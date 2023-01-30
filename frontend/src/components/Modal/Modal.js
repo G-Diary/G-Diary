@@ -96,8 +96,19 @@ function Modals() {
   const [number, setNumber] = useState();
   const [modalIsOpen, setIsOpen] = useState(false);
   const nickname = sessionStorage.getItem('nickname');
-  const Swal = require('sweetalert2');
   let subtitle;
+  const Swal = require('sweetalert2');
+  const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener('mouseenter', Swal.stopTimer)
+      toast.addEventListener('mouseleave', Swal.resumeTimer)
+    }
+  })
 
   useEffect(() => {
     api.get(`/users/${sessionStorage.getItem('id')}`).then(function (res) {
@@ -131,7 +142,19 @@ function Modals() {
       cover_image_url: `${selected}`,
       nickname: `${sessionStorage.getItem('nickname')}`
     }).then(function (res) {
-      navigate('/list')
+      let flip = document.querySelector('.flip');
+      let slide = document.querySelector('.slide');
+      slide.classList.add('move')
+      setTimeout(() => {
+        flip.classList.add('open');
+        setTimeout(() => {
+          navigate('/list');
+        }, 1000)
+      }, 1000);
+      Toast.fire({
+        icon: 'success',
+        title: '표지 설정 완료!'
+      })
       console.log(res)
     }).catch(function (err) {
       console.log(err)
