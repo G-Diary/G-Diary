@@ -1,9 +1,10 @@
 import styled from 'styled-components';
 
 const Control = styled.div`
-  position: absolute;
-  top: 50%;
-  left: 50%;`
+  display: flex;
+  justify-content : center;
+  flex-direction : column;
+  align-items : center;`
 
 function CoverControl({children}) {
   return(

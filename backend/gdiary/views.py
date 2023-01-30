@@ -198,5 +198,3 @@ class DrawingViewset(viewsets.ModelViewSet):
     queryset = Drawing.objects.all()
     serializer_class = DrawingSerializer
 
-
-    

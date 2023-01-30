@@ -33,7 +33,8 @@ const Year = styled.div`
   justify-content:space-between;
   border-bottom: solid 2px black;
   font-size: 30px;
-  margin: 35px;`
+  margin: 35px;
+  margin-bottom: 0px`
 
 
 function BookCover({children}) {
