@@ -107,11 +107,12 @@ const Choice = styled.div`
     background:white;
     border-radius: 10px;
     border: 2px dotted grey;
+    overflow: auto;
 `
 
 const ChoiceGrim = styled.img`
-    width: 100px;
-    height: 100px;
+    width: 95px;
+    height: 95px;
     object-fit:cover;
     margin: 2rem;
 `

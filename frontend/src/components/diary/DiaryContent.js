@@ -85,16 +85,7 @@ function DiaryContent({getLoading}) {
         }
       })
   }
-
-  const getGrim = () =>{
-    fetch('data/dummy.json',{
-      method: 'GET'
-    }).then(res=>res.json()).then(res=>{
-      console.log(1,res);
-      console.log(res);
-    })
-  }
-
+  
   //제목 내용
   const onChange = (e) => {
     setTitle(e.target.value);
