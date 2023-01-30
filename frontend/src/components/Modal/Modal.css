@@ -9,7 +9,6 @@
 }
 
 .Img>img{
-  /* margin-top: 100px; */
   width: 450px;
   height: 420px;
   border-radius: 14px;
@@ -45,15 +44,15 @@
 }
 
 .item2{
-    background-size: cover;
-    margin-top: 10px;
-    margin-left: 20px;
-    margin-right: 20px;
-    margin-bottom: 10px;
-    width: 170px;
-    height: 170px;
-    border: 4px solid black;
-    object-fit: cover;
+  background-size: cover;
+  margin-top: 10px;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-bottom: 10px;
+  width: 170px;
+  height: 170px;
+  border: 4px solid black;
+  object-fit: cover;
 }
 
 div>h2{
@@ -61,4 +60,33 @@ div>h2{
   margin: 0 auto;
   padding: 0 auto;
   text-align: center;
+}
+
+/* 책 피는 효과 */
+.open {
+  transform: rotateY(-180deg);
+}
+
+.flip {
+  position: fixed;
+  transform-origin: left center;
+  transition-duration: 0.5s;
+  transition-timing-function: ease-in;
+}
+
+.move {
+  animation-duration: 1s;
+  animation-name: slide;
+  animation-iteration-count: initial;
+  animation-fill-mode: forwards;
+}
+
+@keyframes slide {
+  0% {
+    margin-left: 0%;
+  }
+
+  100% {
+    margin-left: 38.15em;
+  }
 }

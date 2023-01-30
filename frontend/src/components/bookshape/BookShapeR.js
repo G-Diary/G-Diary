@@ -2,10 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const BookShape2Right = styled.div`
-    /* display: block; */
-    /* margin: 0 auto; */
     display: flex;
-    /* position: relative; */
     width: 600px;
     height: 750px; 
     justify-content: center;
@@ -17,7 +14,6 @@ const BookShape2Right = styled.div`
     background-size:cover;
     /*css파일에서 image불러올 때 public폴더에 있는 이미지는 못 불러옴(정확한 경로 작성해야함)*/
     background-image: url("images/paper.jpeg");
-    z-index: 10;
     box-shadow: 7px 9px 10px 0px #676262;
 `
 const Line =styled.div`
@@ -31,11 +27,10 @@ const Line =styled.div`
 function BookShape2R({children}){
   return(   
     <>
-      <Line></Line>
+      <Line/>
       <BookShape2Right>
         {children}
       </BookShape2Right>
-      
     </>
   )
 }

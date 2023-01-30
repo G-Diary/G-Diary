@@ -139,8 +139,7 @@ function Modals() {
     api.defaults.headers.common['Authorization'] = `Bearer ${sessionStorage.getItem('token')}`
     console.log(sessionStorage.getItem('id'))
     api.patch(`users/${sessionStorage.getItem('id')}/`, {
-      cover_image_url: `${selected}`,
-      nickname: `${sessionStorage.getItem('nickname')}`
+      cover_image_url: selected
     }).then(function (res) {
       let flip = document.querySelector('.flip');
       let slide = document.querySelector('.slide');
