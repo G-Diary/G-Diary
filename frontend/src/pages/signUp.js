@@ -8,10 +8,17 @@ import styled from 'styled-components'
 
 const Icon = styled.div`
   position: relative;
-  bottom:135px;
   display: flex;
   align-items: center;
   justify-items: center;
+  @media screen and (min-width: 1401px), screen and (min-height: 701px) {
+    bottom:135px;
+  }
+  @media screen and (max-width: 1400px), screen and (max-height: 700px) {
+    bottom:108px;
+  }
+
+
 `
 
 function SignUp() {

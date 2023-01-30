@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Modal from 'react-modal';
 import './Modal.css';
 import api from '../../apis/axios'
-import { Button, makeStyles } from '@material-ui/core';
+import { Button, makeStyles, useMediaQuery } from '@material-ui/core';
 import styled from 'styled-components'
 
 Modal.setAppElement('#root');
@@ -14,8 +14,6 @@ const CustomStyles = {
     left: '50%',
     right: 'auto',
     bottom: 'auto',
-    width: '550px',
-    height: '500px',
     marginRight: '-50%',
     transform: 'translate(-50%, -50%)',
     background: 'rgb(253, 246, 234)',
@@ -25,13 +23,83 @@ const CustomStyles = {
     justifyContent: 'center',
     alignItems: 'center'
   },
+  '@media screen and (min-width: 1401px), screen and (min-height: 701px)' :{
+    content:{
+      width: '550px',
+      height: '500px'
+    }
+  },
+  '@media screen and (max-width: 1400px), screen and (max-height: 700px)' :{
+    content:{
+      width: '440px',
+      height: '400px',
+    }
+  }
 };
 
 const useStyles = makeStyles(theme => ({
-  customHoverFocus: {
-    '&:hover, &.Mui-focusVisible': { backgroundColor: 'rgb(255, 215, 17)' }
+  anotherBtnS:{
+    width: '88px',
+    height: '24px',
+    borderRadius: '25px',
+    fontSize: '12px',
+    fontWeight: 'bolder',
+    customHoverFocus: {
+      '&:hover, &.Mui-focusVisible': { backgroundColor: 'rgb(255, 215, 17)' }
+    },
+  },
+  anotherBtnL:{
+    width: '110px',
+    height: '30px',
+    borderRadius: '25px',
+    fontSize: '17px',
+    fontWeight: 'bolder',
+    customHoverFocus: {
+      '&:hover, &.Mui-focusVisible': { backgroundColor: 'rgb(255, 215, 17)' }
+    },
+  },
+  startBtnL:{
+    width: '100px',
+    height: '40px',
+    borderRadius: '25px',
+    fontSize: '25px',
+    fontWeight: 'bolder',
+    customHoverFocus: {
+      '&:hover, &.Mui-focusVisible': { backgroundColor: 'rgb(255, 215, 17)' }
+    },
+  },
+  startBtnS:{
+    width: '80px',
+    height: '32px',
+    borderRadius: '25px',
+    fontSize: '20px',
+    fontWeight: 'bolder',
+    customHoverFocus: {
+      '&:hover, &.Mui-focusVisible': { backgroundColor: 'rgb(255, 215, 17)' }
+    },
+  },
+  selectBtnL:{
+    width: '80px',
+    height: '32px',
+    borderRadius: '25px',
+    fontSize: '20px',
+    fontWeight: 'bolder',
+    customHoverFocus: {
+      '&:hover, &.Mui-focusVisible': { backgroundColor: 'rgb(255, 215, 17)' }
+    },
+  },
+  selectBtnS:{
+    width: '64px',
+    height: '25.6px',
+    borderRadius: '25px',
+    fontSize: '16px',
+    fontWeight: 'bolder',
+    customHoverFocus: {
+      '&:hover, &.Mui-focusVisible': { backgroundColor: 'rgb(255, 215, 17)' }
+    },
   }
 }));
+
 
 const Wrap = styled.div`
   width: 100%;
@@ -40,23 +108,46 @@ const Wrap = styled.div`
   justify-content: center;
   align-items: center;
   position: relative;
-  bottom: 20px;`
+
+  @media screen and (min-width: 1401px), screen and (min-height: 701px) {
+    bottom: 20px;
+  }
+  @media screen and (max-width: 1400px), screen and (max-height: 700px) {
+    bottom: 16px;
+  }
+  `
+  
 
 const Nickname = styled.h1`
   display: flex;
   justify-content: center;
   text-align: center;
   position: relative;
-  margin: 10px;
-  bottom: 22px;
-  font-size: 55px;`
+  @media screen and (min-width: 1401px), screen and (min-height: 701px) {
+    margin: 10px;
+    bottom: 22px;
+    font-size: 55px;
+  }
+  @media screen and (max-width: 1400px), screen and (max-height: 700px) {
+    margin: 8px;
+    bottom: 17.6px;
+    font-size: 44px;
+  }
+  `
 
 const SelectBtn = styled.div`
   background-color: rgb(0, 0, 0, 0);
   border-radius: 25px;
   position: relative;
-  left: 155px;
-  bottom: 45px;
+
+  @media screen and (min-width: 1401px), screen and (min-height: 701px) {
+    left: 155px;
+    bottom: 45px;
+  }
+  @media screen and (max-width: 1400px), screen and (max-height: 700px) {
+    left: 124px;
+    bottom: 36px;
+  }
   `
 
 const StartBtn = styled.div`
@@ -69,29 +160,45 @@ const ChoseBtn = styled.div`
 
 const InsideModal = styled.div`
   margin-top: 0;
-  width: 550px;
-  height: 420px;
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
   justify-content: space-evenly;
   align-items: center;
-  align-content: flex-start;`
+  align-content: flex-start;
+  @media screen and (min-width: 1401px), screen and (min-height: 701px) {
+    width: 550px;
+    height: 420px;
+  }
+  @media screen and (max-width: 1400px), screen and (max-height: 700px) {
+    width: 440px;
+    height: 336px;
+  }`
+
 
 const ItemBox = styled.div`
   padding: 0px;
   margin-top: 0;
-  width: 550px;
-  height: 400px;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
-  align-items: center;`
+  align-items: center;
+  @media screen and (min-width: 1401px), screen and (min-height: 701px) {
+    width: 550px;
+    height: 400px;
+  }
+  @media screen and (max-width: 1400px), screen and (max-height: 700px) {
+    width: 440px;
+    height: 320px;
+  }
+  `
+
 
 function Modals() {
   const navigate = useNavigate();
   const classes = useStyles();
+  const isSmall = useMediaQuery('(max-width: 1400px)');
   const [selected, setSelected] = useState('images/mainLogo.png');
   const [number, setNumber] = useState();
   const [modalIsOpen, setIsOpen] = useState(false);
@@ -149,6 +256,7 @@ function Modals() {
     )
   }
 
+
   return (
     <>
       <Nickname>{nickname}'s<br/>일기장</Nickname>
@@ -158,23 +266,11 @@ function Modals() {
         </div>
         <SelectBtn>
           <Button
-            variant='outlined' className={classes.customHoverFocus} type='button' onClick={Other} style={{
-              width: '110px',
-              height: '30px',
-              borderRadius: '25px',
-              fontSize: '17px',
-              fontWeight: 'bolder'
-            }}>+다른 이미지</Button>
+            variant='outlined' className={isSmall ? classes.anotherBtnS : classes.anotherBtnL} type='button' onClick={Other}>+다른 이미지</Button>
         </SelectBtn>
         <StartBtn>
           <Button
-            className={classes.customHoverFocus} type='button' onClick={onClick} style={{
-              width: '100px',
-              height: '40px',
-              borderRadius: '25px',
-              fontSize: '25px',
-              fontWeight: 'bolder'
-            }}>시작</Button>
+            className={isSmall ? classes.startBtnS : classes.startBtnL} type='button' onClick={onClick}>시작</Button>
         </StartBtn>
         <Modal
           isOpen={modalIsOpen}
@@ -194,13 +290,7 @@ function Modals() {
           </InsideModal>
           <ChoseBtn>
             <Button
-              className={classes.customHoverFocus} type='button' onClick={Chose} style={{
-                width: '80px',
-                height: '32px',
-                borderRadius: '25px',
-                fontSize: '20px',
-                fontWeight: 'bolder'
-              }}>선택</Button>
+              className={isSmall ? classes.selectBtnS : classes.selectBtnL} type='button' onClick={Chose}>선택</Button>
           </ChoseBtn>
         </Modal>
       </Wrap>
@@ -209,3 +299,20 @@ function Modals() {
 }
 
 export default Modals;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

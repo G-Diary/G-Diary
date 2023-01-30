@@ -62,7 +62,14 @@ function DiaryList({title, weather, draw, contents, date, emoji}){
         {/* <img src={`${emoji}`} alt="emoji" style={{width:'1em', fontSize:'1.8em'}}/> */}
         <div style={{width:'1em', fontSize:'1.8em'}}>🙂</div>
       </TitleContainer>
-      <Canvas><img src={draw} alt="diarygrim" style={{width:'500px', height:'290px'}}/></Canvas>
+      <Canvas><img src={draw} alt="diarygrim" style={{'@media screen and (min-width: 1401px), screen and (min-height: 701px)' :{
+        width:'500px',
+        height:'290px'
+      },
+      '@media screen and (max-width: 1400px), screen and (max-height: 700px)' :{
+        width:'400px',
+        height:'232px'
+      }}}/></Canvas>
       <ChoiceButtonContainer style={{height: '25px' ,marginTop:'2%', marginLeft:'2.2%'}}>
         {/* <Modebutton style={{width: '130px', height:'30px'}}></Modebutton> */}
       </ChoiceButtonContainer>

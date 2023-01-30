@@ -1,6 +1,16 @@
-.link {
-    width:30.5%;
-    font-size: 45px;
-    color: black;
-    text-decoration-line: none;
+@media screen and (min-width: 1401px), screen and (min-height: 701px) {
+    .link {
+        width:30.5%;
+        font-size: 45px;
+        color: black;
+        text-decoration-line: none;
+    }
+}
+@media screen and (max-width: 1400px), screen and (max-height: 700px) {
+    .link {
+        width:30.5%;
+        font-size: 36px;
+        color: black;
+        text-decoration-line: none;
+    }
 }

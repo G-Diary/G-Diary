@@ -9,20 +9,32 @@ import api from '../apis/axios'
 const LinkBox = styled.div`
   width: 110%;
   margin: auto;
-  padding-bottom : 10px;
   display: flex;
   text-align: center;
   position: relative;
-  left: 2.5px;
-  `
+  @media screen and (min-width: 1401px), screen and (min-height: 701px) {
+    padding-bottom : 10px;
+    left: 2.5px;
+  }
+  @media screen and (max-width: 1400px), screen and (max-height: 700px) {
+    padding-bottom : 8px;
+    left: 2px;
+  }
+`
 
 const ShowImage = styled.img`
   display: flex;
   justify-contents : center;
   align-items : center;
-  width: 420px;
-  heigth: 450px;
-  `
+  @media screen and (min-width: 1401px), screen and (min-height: 701px) {
+    width: 420px;
+    heigth: 450px;
+  }
+  @media screen and (max-width: 1400px), screen and (max-height: 700px) {
+    width: 336px;
+    heigth: 360px;
+  }
+`
 
 function Main() {
   console.log(api.defaults.headers.common)

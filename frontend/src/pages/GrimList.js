@@ -47,6 +47,14 @@ function GrimList(){
   console.log(exist);
   console.log(list);
 
+  const style ={
+    '@media screen and (min-width: 1401px), screen and (min-height: 701px)' :{
+      width: '30px'
+    },
+    '@media screen and (max-width: 1400px), screen and (max-height: 700px)' :{
+      width: '24px'
+    },
+  }
   return(
     <WriteContainer>
       <Book2Container> 
@@ -60,7 +68,13 @@ function GrimList(){
               return <DiaryList key={index} title={data.title} weather={data.weather} draw={data.drawing_url} contents={data.contents} date={data.diary_date} />})}
           {exist.includes(format(choiceDate, 'yyyy-MM-dd'))?'':(<DiviContainer>
             <div style={{fontSize:'2.5rem', fontFamily:'KyoboHand', textAlign:'center'}}>
-              <img src="images/list.jpg" style={{width: '250px'}}/>
+              <img src="" alt='' style={{
+                '@media screen and (min-width: 1401px), screen and (min-height: 701px)' :{
+                  width: '250px'
+                },
+                '@media screen and (max-width: 1400px), screen and (max-height: 700px)' :{
+                  width: '200px'
+                }}}/>
               <div style={{display:'flex', flexDirection:'row', justifyContent:'center', marginBottom:'5px'}}><p style={{width:'17rem', margin:'0', color:'orange'}}>{choiceDate.getFullYear()}년 {format(choiceDate, 'M')}월 {choiceDate.getDate()}일</p>의</div>
                 하루를 기록해볼까요?
               <Link to='/write' state={{date:choiceDate}} className="listLink">

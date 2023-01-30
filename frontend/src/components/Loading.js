@@ -26,8 +26,15 @@ const Background = styled.div`
 const LoadingText = styled.div`
   // font: 2rem "Noto Sans KR";
   font: "Noto Sans KR";
-  font-size: 40px;
   text-align: center;
-  font-weight: 700;
+  @media screen and (min-width: 1401px), screen and (min-height: 701px) {
+    font-size: 40px;
+    font-weight: 700;
+  }
+  @media screen and (max-width: 1400px), screen and (max-height: 700px) {
+    font-size: 32px;
+    font-weight: 560;
+  }
+
 `;
 export default Loading;

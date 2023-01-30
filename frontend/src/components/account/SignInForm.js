@@ -1,13 +1,13 @@
 import React,{ useState }  from 'react';
 import styled from 'styled-components';
-import {Button, Container, TextField, makeStyles} from '@material-ui/core';
+import {Button, Container, TextField, makeStyles, useMediaQuery} from '@material-ui/core';
 import { Link, useNavigate } from 'react-router-dom';
 import api from '../../apis/axios'
 
 const useStyles = makeStyles(theme => ({
   customHoverFocus: {
     '&:hover, &.Mui-focusVisible': { backgroundColor: 'rgb(255, 215, 17)' }
-  }
+  },
 }));
 
 const TypeSignIn = styled.div`
@@ -20,13 +20,27 @@ const SignInBtn = styled.div`
 background-color: rgb(240, 219, 109);
 border-radius: 30px;
 position: relative;
-top:365px;`
+top:365px;
+@media screen and (min-width: 1401px), screen and (min-height: 701px) {
+  top:365px;
+}
+@media screen and (max-width: 1400px), screen and (max-height: 700px) {
+  top:292px;
+}
+`
 
 const SignUpBtn = styled.div`
 position: relative;
-top: 8px;
-right: 25px;
-align-self:flex-end;`
+align-self:flex-end;
+@media screen and (min-width: 1401px), screen and (min-height: 701px) {
+  top: 8px;
+  right: 25px;
+}
+@media screen and (max-width: 1400px), screen and (max-height: 700px) {
+  top: 6.4px;
+  right: 20px;
+}
+`
 
 const Wrap = styled.div`
   display: flex;
@@ -34,9 +48,12 @@ const Wrap = styled.div`
   justify-content: center;
   align-items: center;`
 
+
+
 function SignInForm() {
   const navigate = useNavigate();
   const classes = useStyles();
+  const isSmall = useMediaQuery('(max-width: 1400px)');
   const [email, setEmail] = useState('');
   const [password,setPassword] = useState('');
   const JWT_EXPIRY_TIME = 1800 * 1000 // 만료시간 30분 (밀리초로 표현)
@@ -57,12 +74,15 @@ function SignInForm() {
   function onSilentRefresh() {
     api.post('auth/refresh', {
       refresh: sessionStorage.getItem('refresh')
-    }).then(onLoginSuccess, console.log('refresh 성공')).catch(function (err) {
+    }).then(onLogin).catch(function (err) {
       console.log(err)
     })
   }
 
   function onLoginSuccess(res) {
+    const access = res.data.token.access;
+    const refresh = res.data.token.refresh;
+    api.defaults.headers.common['Authorization'] = `Bearer ${refresh}`
     if (count === 0) {  
       Swal.fire({
         position: 'center',
@@ -71,23 +91,22 @@ function SignInForm() {
         showConfirmButton: false,
         timer: 2000
       })
+      setTimeout(onSilentRefresh, JWT_EXPIRY_TIME - 60000);
+      api.defaults.headers.common['Authorization'] = `Bearer ${access}`
       count++;
     }
-    const access = res.data.token.access;
-    const refresh = res.data.token.refresh;
-    api.defaults.headers.common['Authorization'] = `Bearer ${access}`
     sessionStorage.setItem('token', access);
     sessionStorage.setItem('refresh', refresh);
     sessionStorage.setItem('nickname', `${res.data.user.nickname}`)
     sessionStorage.setItem('id', `${res.data.user.id}`)
-    setTimeout(onSilentRefresh, JWT_EXPIRY_TIME - 60000);
     navigate('/main')
-    console.log(api.defaults)
-    console.log(sessionStorage)
+    console.log(api.defaults.headers.common)
+    console.log(access)
+    console.log(refresh)
   }
 
-  function onClick(e) {
-    e.preventDefault();
+  function onLogin(e) {
+    
     api.post('auth', {
       email: `${email}`,
       password: `${password}`
@@ -101,12 +120,38 @@ function SignInForm() {
       })
       console.log(res)
     })
-  }
-  return(
+  }return(
     <Wrap>
       <SignInBtn>
-        <Button className={classes.customHoverFocus} type='button' onClick={onClick} disabled={Valid()} 
-          style={Valid() ? {color: 'white', fontWeight: 'bolder', backgroundColor: '#F8EDB7',borderRadius: '30px', fontSize: '30px', width: '120px' } : { fontWeight: 'bolder', borderRadius: '30px', fontSize: '30px', width: '120px'}}>
+        <Button className={classes.customHoverFocus} type='button' onClick={onLogin} disabled={Valid()} 
+          style={isSmall ?
+            Valid() ? {
+              // small
+              color: 'white', 
+              fontWeight: 'bolder', 
+              backgroundColor: '#F8EDB7',
+              borderRadius: '30px', 
+              fontSize: '24px', 
+              width: '96px' 
+            } : { 
+              fontWeight: 'bolder', 
+              borderRadius: '30px', 
+              fontSize: '24px', 
+              width: '96px'
+            } : Valid() ? {
+              // tall
+              color: 'white', 
+              fontWeight: 'bolder', 
+              backgroundColor: '#F8EDB7',
+              borderRadius: '30px', 
+              fontSize: '30px', 
+              width: '120px' 
+            } : { 
+              fontWeight: 'bolder', 
+              borderRadius: '30px', 
+              fontSize: '30px', 
+              width: '120px'}}
+        >
         로그인</Button>
       </SignInBtn>
       <TypeSignIn>

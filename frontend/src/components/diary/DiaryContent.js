@@ -160,8 +160,18 @@ function DiaryContent({getLoading}) {
         <Drawing grim={grim} />
       </Canvas>
       <ButtonContainer>
-        <Modebutton style={{ width: '100px' }} onClick={bringGrim}>그림가져오기</Modebutton>
-        <Modebutton style={{ width: '80px' }} onClick={clickedGrim}>{grim ? '그림그리기' : '스탑'}</Modebutton>
+        <Modebutton style={{'@media screen and (min-width: 1401px), screen and (min-height: 701px)' :{
+          width: '100px',
+        },
+        '@media screen and (max-width: 1400px), screen and (max-height: 700px)' :{
+          width: '80px'
+        }  }} onClick={bringGrim}>그림가져오기</Modebutton>
+        <Modebutton style={{'@media screen and (min-width: 1401px), screen and (min-height: 701px)' :{
+          width: '80px' 
+        },
+        '@media screen and (max-width: 1400px), screen and (max-height: 700px)' :{
+          width: '64px' 
+        } }} onClick={clickedGrim}>{grim ? '그림그리기' : '스탑'}</Modebutton>
         <Savebutton onClick={grimDiary}>저장하기</Savebutton>
       </ButtonContainer>
       <Content><Manuscript setContent={setContent} /></Content>
@@ -175,45 +185,67 @@ export default DiaryContent;
 /*두쪽 페이지 틀에서 한쪽 영역 컨테이너*/
 export const DiviContainer = styled.div`
     position: absolute;  
-    width: 600px;
-    height: 750px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     z-index: 90;
+    @media screen and (min-width: 1401px), screen and (min-height: 701px) {
+      width: 600px;
+      height: 750px;
+    }
+    @media screen and (max-width: 1400px), screen and (max-height: 700px) {
+      width: 480px;
+      height: 600px;
+    }
 `
 /*날짜&날씨 container*/
 export const DateContainer=styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 500px;
-    height: 60px;
+    @media screen and (min-width: 1401px), screen and (min-height: 701px) {
+      width: 500px;
+      height: 60px;
+    }
+    @media screen and (max-width: 1400px), screen and (max-height: 700px) {
+      width: 400px;
+      height: 48px;
+    }
 `
 
 export const Dateline=styled.div`
-    width: 500px;
-    height: 40px;
     background-color:#BCBCBC;
     display: flex;
     align-items: center;
     border-radius: 3px;
+    @media screen and (min-width: 1401px), screen and (min-height: 701px) {
+      width: 500px;
+      height: 40px;
+    }
+    @media screen and (max-width: 1400px), screen and (max-height: 700px) {
+      width: 400px;
+      height: 32px;
+    }
 `
 
 export const Datetitle=styled.div`
     margin-left: 5%;
     width: 10%;
-    font-size: 25px;
     text-align: center;
     font-family:KyoboHand;
+    @media screen and (min-width: 1401px), screen and (min-height: 701px) {
+      font-size: 25px;
+    }
+    @media screen and (max-width: 1400px), screen and (max-height: 700px) {
+      font-size: 20px;
+    }
 `
 
 export const DateContent = styled.div`
     width: 25%;
-    font-size: 24px;
+
     border: 2px solid transparent;
-    border-radius: 30px;
     background: #D9D9D9;
     margin-left: 2%;
     text-align: center;
@@ -223,17 +255,31 @@ export const DateContent = styled.div`
     line-height: 100%;
     color: #4b4b4b;
     font-family:KyoboHand;
-    padding-top: 3px;
+    @media screen and (min-width: 1401px), screen and (min-height: 701px) {
+      font-size: 24px;
+      border-radius: 30px;
+      padding-top: 3px;
+    }
+    @media screen and (max-width: 1400px), screen and (max-height: 700px) {
+      font-size: 19.2px;
+      border-radius: 24px;
+      padding-top: 2.4px;
+    }
 `
 
 export const Weathercontainer = styled.div`
     width: 32%;
     text-align: right;
     margin-left: auto;
-    padding-right: 8px;
     display: flex;
     justify-content: space-around;
     align-items: flex-start;
+    @media screen and (min-width: 1401px), screen and (min-height: 701px) {
+      padding-right: 8px;
+    }
+    @media screen and (max-width: 1400px), screen and (max-height: 700px) {
+      padding-right: 6.4px;
+    }
 `
 
 export const WeatherRadioBtn = styled.input`
@@ -242,63 +288,98 @@ export const WeatherRadioBtn = styled.input`
 
 /*제목 container*/
 export const TitleContainer = styled.div`
-  width: 500px;
-  height: 40px;
   background: #C7C7C7;
   display: flex;
   align-items: center;
   border-top-left-radius: 3px;
   border-top=right-radius: 3px;
   font-family:KyoboHand;
+  @media screen and (min-width: 1401px), screen and (min-height: 701px) {
+    width: 500px;
+    height: 40px;
+  }
+  @media screen and (max-width: 1400px), screen and (max-height: 700px) {
+    width: 400px;
+    height: 32px;
+  }
 `
 
 export const Title =styled.div`
   margin-left: 5%;
   width: 10%;
   text-align: left;
-  font-size: 25px;
   font-family:KyoboHand;
+  @media screen and (min-width: 1401px), screen and (min-height: 701px) {
+    font-size: 25px;
+  }
+  @media screen and (max-width: 1400px), screen and (max-height: 700px) {
+    font-size: 20px;
+  }
 `
 
 export const Titlecontent = styled.div`
   width: 75%;
   margin-left: 2%;
-  >input{
-    width: 100%;
-    margin-bottom:0.5%;
-    font-size: 26px;
-    border: 0;
-    outline: none;
-    background: transparent;
-    padding-top:4px;
-    font-family:KyoboHand;
-    color:#4b4b4b;
-    caret-color: transparent;
+    @media screen and (min-width: 1401px), screen and (min-height: 701px) {
+      >input{
+        width: 100%;
+        margin-bottom:0.5%;
+        font-size: 26px;
+        border: 0;
+        outline: none;
+        background: transparent;
+        padding-top:4px;
+        font-family:KyoboHand;
+        color:#4b4b4b;
+        caret-color: transparent;
+    }
+    @media screen and (max-width: 1400px), screen and (max-height: 700px) {
+      >input{
+        width: 100%;
+        margin-bottom:0.5%;
+        font-size: 20.8px;
+        border: 0;
+        outline: none;
+        background: transparent;
+        padding-top:4px;
+        font-family:KyoboHand;
+        color:#4b4b4b;
+        caret-color: transparent;
+    }
   }
 `
 
 /*그림판 container*/
 export const Canvas = styled.div`
-  width: 500px;   
-  height: 290px;
   background: white;
   border-bottom-left-radius:10px;
   border-bottom-right-radius: 10px;
+  @media screen and (min-width: 1401px), screen and (min-height: 701px) {
+    width: 500px;   
+    height: 290px;
+  }
+  @media screen and (max-width: 1400px), screen and (max-height: 700px) {
+    width: 400px;   
+    height: 232px;
+  }
 `
 
 /*버튼 컨테이너(그림 편집)*/
 export const ButtonContainer = styled.div`
-  width: 500px;
-  height: 25px;
   display: flex;
   align-items: center;
-  margin-top: 2%;
+  @media screen and (min-width: 1401px), screen and (min-height: 701px) {
+    margin: 7px;
+    width: 500px;
+    height: 25px;
+  }
+  @media screen and (max-width: 1400px), screen and (max-height: 700px) {
+    margin: 4.8px;
+    width: 400px;
+    height: 20px;
+  }
 `
 export const Modebutton = styled.button`
-  width: 75px;
-  height: 30px;
-  border-radius: 20px;
-  font-size: 15px;
   text-align: center;
   background-color: transparent;
   margin-right: 1.5%;
@@ -306,37 +387,71 @@ export const Modebutton = styled.button`
   transition: box-shadow 250ms ease-in-out, color 200ms ease-in-out;
   font-family:KyoboHand;
   padding-bottom:0.5%;
-  padding-top:3px;
-  &:hover{
-    box-shadow: 0 0 40px 40px  #404040 inset;
-    color: white;
-    border:none;
+  @media screen and (min-width: 1401px), screen and (min-height: 701px) {
+    padding-top:3px;
+    width: 75px;
+    height: 27px;
+    border-radius: 20px;
+    font-size: 13px;
+    &:hover{
+      box-shadow: 0 0 40px 40px  #404040 inset;
+      color: white;
+      border:none;
+    }
+  }
+  @media screen and (max-width: 1400px), screen and (max-height: 700px) {
+    padding-top:2.4px;
+    width: 60px;
+    height: 21px;
+    border-radius: 16px;
+    font-size: 10px;
+    &:hover{
+      box-shadow: 0 0 32px 32px  #404040 inset;
+      color: white;
+      border:none;
+    }
   }
 `
 
 export const Savebutton = styled.button`
-  width: 110px;
-  height: 30px;
+
   background-color: black;
   color: white;
-  border-radius: 15px;
   text-align: center;
   border: none;
   margin-left: auto;
-  font-size: 15px;
   padding-bottom:0.5%;
   overflow: hidden;
   transition: box-shadow, color 300ms ease-in-out;
   font-family:KyoboHand;
-  padding-top:3px;
   &:hover{
     color: rgb(54, 54, 54);
     background-color: transparent;
     border: 3px solid rgb(54, 54, 54);
   }
+  @media screen and (min-width: 1401px), screen and (min-height: 701px) {
+    border-radius: 15px;
+    padding-top:3px;
+    font-size: 15px;
+    width: 100px;
+    height: 27px;
+  }
+  @media screen and (max-width: 1400px), screen and (max-height: 700px) {
+    border-radius: 12px;
+    padding-top:2.4px;
+    font-size: 12px;
+    width: 80px;
+    height: 21px;
+  }
 `
 /*내용 container*/
 export const Content = styled.div`
-  width: 520px;
-  height: 280px;
+  @media screen and (min-width: 1401px), screen and (min-height: 701px) {
+    width: 500px;
+    height: 280px;
+  }
+  @media screen and (max-width: 1400px), screen and (max-height: 700px) {
+    width: 400px;
+    height: 224px;
+  }
 `

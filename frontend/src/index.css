@@ -27,7 +27,7 @@ body{
     }
 }
 
-@media screen and (max-width: 1400px), screen and (max-height: 700px) {
+@media screen and (max-width: 1120px), screen and (max-height: 560px) {
     #root {
         display: none;
     }

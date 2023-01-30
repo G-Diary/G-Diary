@@ -4,6 +4,12 @@ import { useStore } from '../../store/store';
 import useImage from 'use-image';
 import {BsFillCircleFill, BsFillEraserFill } from 'react-icons/bs';
 import { FaUndoAlt } from 'react-icons/fa';
+import './Calender.css';
+// import { height } from '@mui/system';
+import { makeStyles, useMediaQuery } from '@material-ui/core';
+import { ClassSharp } from '@mui/icons-material';
+import { margin } from '@mui/system';
+import { Theme } from 'emoji-picker-react';
 
 const Rectangle = ({ image, shapeProps, isSelected, onSelect, onChange }) => {
   const shapeRef = useRef();
@@ -65,6 +71,7 @@ const Rectangle = ({ image, shapeProps, isSelected, onSelect, onChange }) => {
   );
 };
 
+
 function Drawing({grim}){
   const {choiceImg, setUpdateCanvas}=useStore();
   const [grimimage, setGrimimage] = useState([]);
@@ -73,6 +80,8 @@ function Drawing({grim}){
   const [currentColor,setColor]=useState('#000000');
   const listColors=['black','red','blue']
   const [lines, setLines] = useState([]);
+  // const classes = useStyles();
+  const isSmall = useMediaQuery('(max-width: 1400px)');
   let stageRef=useRef(null);
   const isDrawing = useRef(false);
   const checkDeselect = (e) => {
@@ -83,6 +92,8 @@ function Drawing({grim}){
     }
   };
   
+
+
   useEffect(() => {
     setGrimimage([...grimimage, choiceImg]);
   }, [choiceImg]);
@@ -121,13 +132,19 @@ function Drawing({grim}){
     });
     setUpdateCanvas(dataUrl);
   }
+
+
+
+
   return(
     <div>
       {grim?(
         <Stage
           ref={stageRef}
-          width={500}
-          height={290}
+          width={isSmall ? 400 : 500}
+          height={isSmall ? 232 : 290}
+          // style={{left:'20px'}}
+          
           onMouseDown={(e) => {      
             checkDeselect(e);
           }}
@@ -172,8 +189,9 @@ function Drawing({grim}){
         </Stage>
       ):( <Stage
         ref={stageRef}
-        width={500}
-        height={290}
+        width={isSmall ? 400 : 500}
+        height={isSmall ? 232 : 290}
+
         onMouseDown={(e) => {      
           handleMouseDown(e);
           checkDeselect(e);
@@ -230,16 +248,16 @@ function Drawing({grim}){
         <div style={{transform:'translate(68%,-100%)'}}>
           {listColors && listColors.map((map,index)=>{
             return(
-              <BsFillCircleFill key={index} color={map} size="23" style={{marginRight:'8px'}} onClick={()=>{
+              <BsFillCircleFill className={'circle'} key={index} color={map} size="23" onClick={()=>{
                 setTool('pen');
                 setColor(map);
               }} />
             )
           })}
-          <BsFillEraserFill size="26" style={{marginRight: '10px'}} onClick={()=>{
+          <BsFillEraserFill className={'eraser'} size="26" onClick={()=>{
             setTool('eraser');
           }} />
-          <FaUndoAlt size="22" style={{marginRight:'10px'}} onClick={handleUndo}/>
+          <FaUndoAlt className={'undo'} size="22" onClick={handleUndo}/>
         </div>):('')}
     
     </div>

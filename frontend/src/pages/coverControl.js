@@ -6,7 +6,13 @@ const Control = styled.div`
   flex-direction : column;
   align-items : center;
   position: relative;
-  top: 10px;`
+  @media screen and (min-width: 1401px), screen and (min-height: 701px) {
+    top: 8px;
+  }
+  @media screen and (max-width: 1400px), screen and (max-height: 700px) {
+    top: 6.4px;
+  }
+`
 
 function CoverControl({children}) {
   return(

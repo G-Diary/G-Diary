@@ -57,5 +57,10 @@ export const Book2Container = styled.div`
   left: -200%; 
   justify-content: center;
   align-items: center;
-  margin-left: 70px;
+  @media screen and (min-width: 1401px), screen and (min-height: 701px) {
+    margin-left: 70px;
+  }
+  @media screen and (max-width: 1400px), screen and (max-height: 700px) {
+    margin-left: 56px;
+  }
 `

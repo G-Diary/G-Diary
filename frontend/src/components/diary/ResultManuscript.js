@@ -14,7 +14,12 @@ function ResultManuscript({content}) {
   ));
 
   return (
-    <div style={{marginTop:'9px', marginLeft:'7px'}}>
+    <div style={{'@media screen and (min-width: 1401px), screen and (min-height: 701px)' :{
+      marginTop:'9px', marginLeft:'7px'
+    },
+    '@media screen and (max-width: 1400px), screen and (max-height: 700px)' :{
+      marginTop:'7.2px', marginLeft:'5.6px'
+    }}}>
       <PaperContainer>
         <label>
           {textlist}

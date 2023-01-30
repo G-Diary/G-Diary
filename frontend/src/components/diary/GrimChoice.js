@@ -39,13 +39,19 @@ export default GrimChoice;
 
 const ChoiceContainer = styled.div`
     position: absolute;  
-    width: 600px;
-    height: 750px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     z-index: 90;
+    @media screen and (min-width: 1401px), screen and (min-height: 701px) {
+      width: 600px;
+      height: 750px;
+    }
+    @media screen and (max-width: 1400px), screen and (max-height: 700px) {
+      width: 480px;
+      height: 600px;
+    }
 
 `
 
@@ -53,52 +59,92 @@ const Choicetitle =styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 500px;
-    height: 80px;
-    font-size: 40px;
+
     font-family:KyoboHand;
     font-weight: bolder;
+    @media screen and (min-width: 1401px), screen and (min-height: 701px) {
+      width: 500px;
+      height: 80px;
+      font-size: 40px;
+    }
+    @media screen and (max-width: 1400px), screen and (max-height: 700px) {
+      width: 400px;
+      height: 64px;
+      font-size: 32px;
+    }
 `
 
 const Choice = styled.div`
-    width: 500px;   
-    height: 520px;
     background:white;
-    border-radius: 10px;
     border: 2px dotted grey;
+    @media screen and (min-width: 1401px), screen and (min-height: 701px) {
+      width: 500px;   
+      height: 520px;
+      border-radius: 10px;
+    }
+    @media screen and (max-width: 1400px), screen and (max-height: 700px) {
+      width: 400px;   
+      height: 416px;
+      border-radius: 8px;
+    }
 `
 
 const ChoiceGrim = styled.img`
-    width: 100px;
-    height: 100px;
     object-fit:cover;
     margin: 2rem;
+    @media screen and (min-width: 1401px), screen and (min-height: 701px) {
+      width: 100px;
+      height: 100px;
+    }
+    @media screen and (max-width: 1400px), screen and (max-height: 700px) {
+      width: 80px;
+      height: 80px;
+    }
 `
 
 export const ChoiceButtonContainer = styled.div`
-    width: 500px;
-    height: 60px;
     display: flex;
     align-items: center;
     justify-content: end;
+    @media screen and (min-width: 1401px), screen and (min-height: 701px) {
+      width: 00px;
+      height: 60px;
+    }
+    @media screen and (max-width: 1400px), screen and (max-height: 700px) {
+      width: 400px;
+      height: 48px;
+    }
 `
 
 export const Choicebutton = styled.button`
-    width: 90px;
-    height: 35px;
     background-color: transparent;
     color: black;
     border: 2px solid black;
-    border-radius: 20px;
     text-align: center;
-    font-size: 17px;
     margin-left: 1.5%;
     transition: box-shadow 250ms ease-in-out, color 200ms ease-in-out;
     font-family:KyoboHand;
     font-weight: bolder;
-    &:hover{
+    @media screen and (min-width: 1401px), screen and (min-height: 701px) {
+      width: 90px;
+      height: 35px;
+      border-radius: 20px;
+      font-size: 17px;
+      &:hover{
         box-shadow: 0 0 40px 40px #404040 inset;
         color: white;
         border:none;
     }
+  }
+    @media screen and (max-width: 1400px), screen and (max-height: 700px) {
+      width: 72px;
+      height: 28px;
+      border-radius: 16px;
+      font-size: 13.6px;
+      &:hover{
+        box-shadow: 0 0 32px 32px #404040 inset;
+        color: white;
+        border:none;
+    }
+  }
 `

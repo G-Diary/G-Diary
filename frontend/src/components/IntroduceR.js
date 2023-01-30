@@ -20,16 +20,32 @@ const ServiceImg = styled.img`
   width: 90%;
   height: 45%;
   border: 3px dashed black;
-  border-radius: 8px;
+  @media screen and (min-width: 1401px), screen and (min-height: 701px) {
+    border-radius: 8px;
+
+  }
+  @media screen and (max-width: 1400px), screen and (max-height: 700px) {
+    border-radius: 6.4px;
+
+  }
 `
 
 const ServiceInfo=styled.div`
-  padding-top: 20px;
   text-align: start;
-  line-height: 50px;
   width: 90%;
   height: 40%;
-  font-size: 30px;
   font-family:KyoboHand;
   font-weight: bolder;
+  @media screen and (min-width: 1401px), screen and (min-height: 701px) {
+    padding-top: 20px;
+    line-height: 50px;
+    font-size: 30px;
+  }
+  @media screen and (max-width: 1400px), screen and (max-height: 700px) {
+    padding-top: 16px;
+    line-height: 40px;
+    font-size: 24px;
+  }
+
+
 `
