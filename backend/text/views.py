@@ -14,6 +14,8 @@ from rest_framework.utils import json
 
 from text.models import Result
 
+from text.serializers import ResultSerializer
+
 django.setup()
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings")
 
@@ -22,6 +24,8 @@ kkma = Kkma()
 def get_keyword(request):
     body =  json.loads(request.body.decode('utf-8'))
     contents = body["contents"]
+    id = body["id"]
+
     diary_keyword = decode.delay(contents)
 
     while True:
@@ -31,8 +35,11 @@ def get_keyword(request):
             continue
         else :
             for word in diary_keyword.get() :
-                keyword_model = Result(keyword=word)
+                # serializer = ResultSerializer(data={"diary_id" : diary_id, "keyword" : word})
+                # serializer.save()
+                keyword_model = Result(keyword = word, diary_id = id)
                 keyword_model.save()
+                print(word, id)
 
             return Response({
                 "result" :"성공"
