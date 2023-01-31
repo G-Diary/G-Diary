@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import { NavLink, useLocation, useNavigate } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import IsLogin from '../access/IsLogin';
+import { useStore } from '../../store/store';
 
 const BookMark = styled.div`
   width: 70px;
@@ -40,6 +41,7 @@ const StyledNavLink = styled(NavLink)`
 
 function Bookmark() {
   const location = useLocation();
+  const { setChoiceImg, setGetGrimList } = useStore();
   let loca = location.pathname;
 
   useEffect(() => {
@@ -51,6 +53,7 @@ function Bookmark() {
   }, []);
 
   function Valid() {
+    
     if (loca === '/' || loca === '/signin' || loca === '/signup' || (!IsLogin() && loca === '/about')) {
       return 'none';
     } else {
@@ -58,17 +61,22 @@ function Bookmark() {
     }
   }
 
+  function onClick() {
+    setChoiceImg('');
+    setGetGrimList('');
+  }
+
   return (
     <BookMark>
-      <StyledNavLink to={IsLogin() ? '/main' : '/'}>
+      <StyledNavLink to={IsLogin() ? '/main' : '/'} onClick={onClick}>
         <div id='home' style={{ borderRadius: '0 5px 5px 0' }}>
           홈
         </div>
       </StyledNavLink>
-      <StyledNavLink id='write' to='/list' style={{ pointerEvents: Valid() }}>
+      <StyledNavLink id='write' to='/list' style={{ pointerEvents: Valid() }} onClick={onClick}>
         일기 쓰기
       </StyledNavLink>
-      <StyledNavLink to={'/about'}>소개</StyledNavLink>
+      <StyledNavLink to='/about' onClick={onClick}>소개</StyledNavLink>
     </BookMark>
   );
 }

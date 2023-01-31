@@ -12,6 +12,17 @@ function DiaryList({title, weather, draw, contents, date, emoji}){
   let todayMonth=fulldate[1];  //월 구하기
   let todayDate=fulldate[2];  //일 구하기
 
+  function Weather() {
+    return(
+      <>
+        <BsBrightnessHighFill size="27" color={weather===1 ? 'red' : 'grey'} />
+        <BsFillCloudFill size="27" color={weather===2 ? '#4E5D79' : 'grey'} />
+        <BsFillCloudRainFill size="26" color={weather===3 ? '#5A5A5A' : 'grey'} style={{paddingTop: '1.5px'}} />
+        <BsFillCloudSnowFill size="25" color={weather===4 ? '#FFFAFA' : 'grey'} style={{paddingTop: '2px'}}/>
+      </>
+    )
+  }
+
   return(
     <DiviContainer>
       <DateContainer>
@@ -19,7 +30,8 @@ function DiaryList({title, weather, draw, contents, date, emoji}){
           <Datetitle>날짜</Datetitle>
           <DateContent style={{width: '9rem', fontSize:'1.5rem'}}>{year}.{todayMonth}.{todayDate}</DateContent>
           <Weathercontainer>
-            {weather===1?(
+            <Weather/>
+            {/* {weather===1?(
               <>
                 <BsBrightnessHighFill size="27" color='red' />
                 <BsFillCloudFill size="27" color="grey" />
@@ -52,7 +64,7 @@ function DiaryList({title, weather, draw, contents, date, emoji}){
               <BsFillCloudFill size="27" color="grey" />
               <BsFillCloudRainFill size="26" color="grey" style={{paddingTop: '1.5px'}} />
               <BsFillCloudSnowFill size="25" color='grey' style={{paddingTop: '2px'}}/>
-            </>)}          
+            </>)}           */}
           </Weathercontainer>
         </Dateline>
       </DateContainer>

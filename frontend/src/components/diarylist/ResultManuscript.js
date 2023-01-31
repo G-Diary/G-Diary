@@ -1,6 +1,6 @@
 import { Button, makeStyles } from '@material-ui/core';
 import React from 'react';
-import { PaperContainer, TableTd } from './Manuscript';
+import { PaperContainer, TableTd } from '../diary/Manuscript'
 import api from '../../apis/axios';
 
 const useStyles = makeStyles((theme) => ({

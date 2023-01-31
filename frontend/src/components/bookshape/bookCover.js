@@ -5,7 +5,7 @@ import LogoutBtn from '../access/Logout';
 import isLogin from '../access/IsLogin';
 import './Right.css'
 import { DiviContainer } from '../diary/DiaryContent';
-import DiaryList from '../diary/DiaryList';
+import DiaryList from '../diarylist/DiaryList';
 import { format } from 'date-fns';
 import { Link } from 'react-router-dom';
 import { BsArrowRight  } from 'react-icons/bs';

@@ -73,10 +73,10 @@ function SignInForm() {
         showConfirmButton: false,
         timer: 2000
       })
-      setTimeout(onSilentRefresh, JWT_EXPIRY_TIME - 60000);
       navigate('/main')
       count++;
     }
+    setTimeout(onSilentRefresh, JWT_EXPIRY_TIME - 60000);
     api.defaults.headers.common['Authorization'] = `Bearer ${access}`
     sessionStorage.setItem('token', access);
     sessionStorage.setItem('refresh', refresh);
@@ -106,7 +106,7 @@ function SignInForm() {
     <Wrap>
       <SignInBtn>
         <Button className={classes.customHoverFocus} type='button' onClick={onLogin} disabled={Valid()} 
-          style={Valid() ? {color: 'white', fontWeight: 'bolder', backgroundColor: '#F8EDB7',borderRadius: '30px', fontSize: '30px', width: '120px' } : { fontWeight: 'bolder', borderRadius: '30px', fontSize: '30px', width: '120px'}}>
+          style={Valid() ? { color: 'white', backgroundColor: '#F8EDB7', fontWeight: 'bolder', borderRadius: '30px', fontSize: '30px', width: '120px' } : { fontWeight: 'bolder', borderRadius: '30px', fontSize: '30px', width: '120px' }}>
         로그인</Button>
       </SignInBtn>
       <TypeSignIn>

@@ -52,14 +52,16 @@ function DiaryContent({getLoading}) {
     form.append('weather',weather);
     form.append('emoji',emoji);
     form.append('contents',content);
-    form.append('diary_date',format(date, 'yyyy-MM-dd'));
+    form.append('diary_date', format(date, 'yyyy-MM-dd'));
     await api.post('diaries/', form, {
       headers: {'Content-Type': 'multipart/form-data',},
     })
-      .then(async function (response){
-        console.log(response, JSON.stringify(response,null,8));
+      .then(async function (response) {
+        console.log(response, JSON.stringify(response,null,6));
       })
       .catch(function (error) {
+        console.log(error)
+        console.log('grimdiary 오류')
         if (error.response.data.title) {
           Swal.fire({
             position: 'center',
@@ -133,6 +135,17 @@ function DiaryContent({getLoading}) {
     setGrim((prev) => !prev);
   };
 
+  function WeatherBtn({mood, number}) {
+    return (
+      <WeatherRadioBtn
+        type='radio'
+        id={mood}
+        checked={weather === mood}
+        onChange={() => weatherChange(number)}
+      />
+    )
+  }
+
   return (
     <DiviContainer>
       <DateContainer>
@@ -140,39 +153,19 @@ function DiaryContent({getLoading}) {
           <Datetitle>날짜</Datetitle>
           <DateContent>{year}.{todayMonth}.{todayDate}</DateContent>
           <Weathercontainer style={{ marginTop: '5px' }}>
-            <WeatherRadioBtn
-              type='radio'
-              id="sunny"
-              checked={weather === 'sunny'}
-              onChange={() => weatherChange(1)}
-            />
+            <WeatherBtn mood={'sunny'} number={1} />
             <label htmlFor="sunny">
               {weather === 1 ? (<BsBrightnessHighFill size="29" color='red' />) : (<BsBrightnessHighFill size="27" color='#8e8d8d' />)}
             </label>
-            <WeatherRadioBtn
-              type='radio'
-              id="cloudy"
-              checked={weather === 'cloudy'}
-              onChange={() => weatherChange(2)}
-            />
+            <WeatherBtn mood={'cloudy'} number={2} />
             <label htmlFor="cloudy">
               {weather === 2 ? (<BsFillCloudFill size="29" color='rgb(36 75 147)' />) : (<BsFillCloudFill size="28" color='#8e8d8d' />)}
             </label>
-            <WeatherRadioBtn
-              type='radio'
-              id="rainy"
-              checked={weather === 'rainy'}
-              onChange={() => weatherChange(3)}
-            />
+            <WeatherBtn mood={'rainy'} number={3} />
             <label htmlFor="rainy">
               {weather === 3 ? (<BsFillCloudRainFill size="28" style={{ paddingTop: '1.5px' }} color='rgb(76 76 76)' />) : (<BsFillCloudRainFill size="26.5" style={{ paddingTop: '1.5px' }} color='#8e8d8d' />)}
             </label>
-            <WeatherRadioBtn
-              type='radio'
-              id="snow"
-              checked={weather === 'snow'}
-              onChange={() => weatherChange(4)}
-            />
+            <WeatherBtn mood={'snow'} number={4} />
             <label htmlFor="snow">
               {weather === 4 ? (<BsFillCloudSnowFill size="28" style={{ paddingTop: '2px' }} color='#FFFAFA' />) : (<BsFillCloudSnowFill size="26" style={{ paddingTop: '2px' }} color='#8e8d8d' />)}
             </label>
