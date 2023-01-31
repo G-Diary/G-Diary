@@ -30,7 +30,12 @@ services:
         DJANGO_CORS_ORIGIN_WHITELIST: "*"
     container_name: gd_backend
     # command : 컨테이너가 띄워질 때 실행하는 명령어 / 서버실행
-    command: sh -c "/wait & python -m conifg.decode & python manage.py makemigrations gdiary && python manage.py migrate gdiary && python manage.py runserver 0.0.0.0:8000"
+    command: sh -c "/wait & python -m conifg.decode 
+      & python manage.py makemigrations gdiary 
+      && python manage.py migrate gdiary 
+      & python manage.py makemigrations text 
+      && python manage.py migrate text 
+      && python manage.py runserver 0.0.0.0:8000"
     # restart : 실패하면 재시작
     restart: on-failure
     ports:
@@ -46,8 +51,8 @@ services:
       - gd
     depends_on:
       - gd_mysql
-      - gd_celery
-      - gd_rabbitmq
+#      - gd_celery
+#      - gd_rabbitmq
 
   gd_mysql:
     image: mysql
@@ -84,8 +89,8 @@ services:
         - ./backend:/backend
       networks:
         - gd
-#      depends_on:
-#        - gd_backend
+      depends_on:
+        - gd_backend
       expose:
         - "15672"
 
@@ -97,7 +102,7 @@ services:
 #    env_file:
 #      - ./.env
     depends_on:
-      - gd_mysql
+      - gd_backend
       - gd_rabbitmq
     volumes:
       - ./backend:/backend
