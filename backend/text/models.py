@@ -1,9 +1,17 @@
 from django.db import models
-class Diary(models.Model):
-    diary_id = models.IntegerField
-    title = models.CharField(max_length=50)
-    contents = models.TextField(max_length=50)
-    is_deleted = models.BooleanField
 
-    def __init__(self):
-        return self.diary_id
+from gdiary.models import Diary
+
+
+class Result(models.Model):
+    id = models.AutoField(primary_key=True) #pk
+    # diary_id = models.ForeignKey(Diary, on_delete=models.CASCADE, null=False) #fk
+    keyword = models.CharField(max_length=10, null=False)
+
+    def __str__(self, word):
+        self.keyword=word
+        return self.id
+#
+    # def __init__(self, keyword):
+    #     self.keyword=keyword
+    #     # return self.id
