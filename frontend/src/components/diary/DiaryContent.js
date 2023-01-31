@@ -16,46 +16,48 @@ function DiaryContent({getLoading}) {
   const [title, setTitle]=useState(''); //제목
   const [content, setContent]=useState(''); //일기 내용
   const [weather, setWeather]=useState(); //날씨 선택
-  const {updateCanvas}=useStore();
+  const {updateCanvas, setChoiceImg, setGetGrimList}=useStore();
+  const [emoji, setEmoji] = useState('');
   const Swal = require('sweetalert2');
   const date=location.state?.date;
   let year=date.getFullYear();  //연도 구하기
   let todayMonth=date.getMonth()+1;  //월 구하기
   let todayDate=date.getDate();  //일 구하기
 
-  // let file=new Blob([new Uint8Array(updateCanvas)], {type: 'image/png'});
-  // const url=window.URL.createObjectURL(file);
-  let myImg = updateCanvas.replace('data:image/png;base64,', '');
-  // console.log(file);  
-  // console.log(url);
-  console.log(myImg);
-  console.log(updateCanvas)
-
-  const user=sessionStorage.getItem('id');
-  console.log(sessionStorage);
-  const diaryData={
-    'user_id':user,
-    'title': title,
-    'weather': weather,
-    'contents':content,
-    'diary_date': format(date, 'yyyy-MM-dd')
+  //이모지 받아오기
+  const getEmoji = (x) => {
+    setEmoji(x);
   }
-  console.log(diaryData);
- 
+
+  /**
+   * 캔버스 이미지(base64)를 다시 png로 변환하기
+   */
+
+  let myImg = updateCanvas.replace('data:image/png;base64,', '');
+  const byteString = atob(myImg);
+  const array=[];
+  for(let i=0;i<byteString.length;i++){
+    array.push(byteString.charCodeAt(i));
+  }
+  const u8arr=new Uint8Array(array);
+  const file=new Blob([u8arr],{type: 'image/png'});
+
+  const user=sessionStorage.getItem('id');  //세션에 저장되어 있는 user id받아오기
+
   //작성한 일기 보내기
   const grimDiary = async () => {
     let form = new FormData();
     form.append('user_id',user);
     form.append('title',title);
     form.append('weather',weather);
-    form.append('drawing_url','images/22.png');
+    form.append('emoji',emoji);
     form.append('contents',content);
     form.append('diary_date',format(date, 'yyyy-MM-dd'));
-
-    await api.post('diaries/', form)
-      .then(function (response){
-        console.log(response, JSON.stringify(response,null,7));
-        navigate('/list')
+    await api.post('diaries/', form, {
+      headers: {'Content-Type': 'multipart/form-data',},
+    })
+      .then(async function (response){
+        console.log(response, JSON.stringify(response,null,8));
       })
       .catch(function (error) {
         if (error.response.data.title) {
@@ -85,7 +87,38 @@ function DiaryContent({getLoading}) {
         }
       })
   }
-  console.log(updateCanvas);
+
+  const drawingUrl = async () => {
+    let form = new FormData();
+    form.append('diary_date',format(date, 'yyyy-MM-dd'));
+    form.append('file',file);
+
+    await api.post('images/upload', form, {
+      headers: {'Content-Type': 'multipart/form-data',},
+    })
+      .then(function (response){
+        console.log(response, JSON.stringify(response,null,2));
+        setChoiceImg('');
+        navigate('/list');
+      })
+      .catch(function (error) {
+        console.log(error);
+      })
+  }
+  
+  //AI키워드 그림 가져오기 버튼
+  const bringGrim = () => {
+    getLoading(true);
+    fetch('data/dummy.json',{
+      method: 'GET'
+    }).then(res=>res.json())
+      .then(res=>{
+        console.log(res);
+        setGetGrimList(res);
+        getLoading(false);
+      })
+  }
+  
   //제목 내용
   const onChange = (e) => {
     setTitle(e.target.value);
@@ -100,11 +133,6 @@ function DiaryContent({getLoading}) {
     setGrim((prev) => !prev);
   };
 
-  //AI키워드 그림 가져오기 버튼
-  const bringGrim = () => {
-    getLoading(true);
-  }
-    
   return (
     <DiviContainer>
       <DateContainer>
@@ -153,8 +181,10 @@ function DiaryContent({getLoading}) {
       </DateContainer>
       <TitleContainer>
         <Title>제목: </Title>
-        <Titlecontent><input type="text" onChange={onChange} value={title} /></Titlecontent>
-        <Emoji />
+        <Titlecontent>
+          <input type="text" onChange={onChange} value={title} />
+        </Titlecontent>
+        <Emoji getEmoji={getEmoji} />
       </TitleContainer>
       <Canvas>
         <Drawing grim={grim} />
@@ -162,7 +192,7 @@ function DiaryContent({getLoading}) {
       <ButtonContainer>
         <Modebutton style={{ width: '100px' }} onClick={bringGrim}>그림가져오기</Modebutton>
         <Modebutton style={{ width: '80px' }} onClick={clickedGrim}>{grim ? '그림그리기' : '스탑'}</Modebutton>
-        <Savebutton onClick={grimDiary}>저장하기</Savebutton>
+        <Savebutton onClick={()=>{drawingUrl();grimDiary();}}>저장하기</Savebutton>
       </ButtonContainer>
       <Content><Manuscript setContent={setContent} /></Content>
     </DiviContainer>
@@ -258,13 +288,17 @@ export const Title =styled.div`
   text-align: left;
   font-size: 25px;
   font-family:KyoboHand;
+  z-index: 120;
+  position:absolute;
 `
 
 export const Titlecontent = styled.div`
-  width: 75%;
-  margin-left: 2%;
+  width: 60%;
+  margin-left: 13%;
+  z-index: 120;
+  position:absolute;
   >input{
-    width: 100%;
+    width: 90%;
     margin-bottom:0.5%;
     font-size: 26px;
     border: 0;
@@ -274,6 +308,7 @@ export const Titlecontent = styled.div`
     font-family:KyoboHand;
     color:#4b4b4b;
     caret-color: transparent;
+  
   }
 `
 

@@ -131,7 +131,7 @@
     opacity: 0.1;
 }
 .today{
-    color:rgb(159, 91, 13);
+    color:rgb(159, 91, 13); 
     background: #f3e3b7;
     font-weight: 600;
     border: transparent;
@@ -174,13 +174,12 @@
 }
 
 .listemoji{
-    /* align-items: center; */
-    width: 3rem;
-    padding-top: 15px;
+    align-items: center;
+    /* padding-top: 10px; */
     cursor: pointer;
-    /* display: flex;
-    justify-content: center; */
-    transform: translate(-18%,20%);
+    display: flex;
+    justify-content: center;
+    margin-left: 10px;
     z-index: 100;
     font-size: 2em;
 }

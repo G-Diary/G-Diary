@@ -28,9 +28,16 @@ class DiarySerializer(serializers.ModelSerializer):
 class DrawingSerializer(serializers.ModelSerializer):
     class Meta:
         model = Drawing
+        fields = ('keyword', "image_url")
+
+class ResultSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Result
         fields = '__all__'
 
 class KeywordSerializer(serializers.ModelSerializer):
+    url = DrawingSerializer(many=True, read_only=True)
+
     class Meta:
         model = Keyword
-        fields = '__all__'
+        fields = "__all__"

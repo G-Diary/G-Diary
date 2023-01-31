@@ -1,8 +1,8 @@
 import React from 'react';
 import ResultManuscript from './ResultManuscript';
 import { BsBrightnessHighFill, BsFillCloudFill ,BsFillCloudSnowFill, BsFillCloudRainFill } from 'react-icons/bs';
-import { Content, DateContainer, Dateline, Datetitle, DiviContainer, Weathercontainer, DateContent, TitleContainer, Title, Titlecontent, Canvas, Modebutton } from './DiaryContent';
-import { ChoiceButtonContainer } from './GrimChoice';
+import { Content, DateContainer, Dateline, Datetitle, DiviContainer, Weathercontainer, DateContent, TitleContainer, Title, Titlecontent, Canvas} from '../diary/DiaryContent';
+import { ChoiceButtonContainer } from '../diary/GrimChoice';
 
 
 function DiaryList({title, weather, draw, contents, date, emoji}){
@@ -59,12 +59,10 @@ function DiaryList({title, weather, draw, contents, date, emoji}){
       <TitleContainer>
         <Title>제목:</Title>
         <Titlecontent style={{fontSize: '1.5rem'}}>{title}</Titlecontent>
-        {/* <img src={`${emoji}`} alt="emoji" style={{width:'1em', fontSize:'1.8em'}}/> */}
-        <div style={{width:'1em', fontSize:'1.8em'}}>🙂</div>
+        <div style={{width:'1em', fontSize:'1.8em',marginLeft: '460px'}}>{emoji}</div>
       </TitleContainer>
       <Canvas><img src={draw} alt="diarygrim" style={{width:'500px', height:'290px'}}/></Canvas>
       <ChoiceButtonContainer style={{height: '25px' ,marginTop:'2%', marginLeft:'2.2%'}}>
-        {/* <Modebutton style={{width: '130px', height:'30px'}}></Modebutton> */}
       </ChoiceButtonContainer>
       <Content><ResultManuscript content={contents}/></Content>
     </DiviContainer>

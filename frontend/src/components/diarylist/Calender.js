@@ -50,12 +50,15 @@ const RenderCells = ({currentMonth, today, list, exist, selectedDate, onDateClic
   const startDate=startOfWeek(monthStart);
   const endDate=endOfWeek(monthEnd);
   const [add, setAdd]=useState(true);  //일기 추가 상태
-  const [newDiary, setNewDiary]=useState(false);
+  const {setChoicedDate}=useStore();  //페이지 이동 시 선택 날짜 초기화
   const rows=[];
   let days=[];
   let day=startDate;
   let formattedDate = '';
 
+  const pageMove = () =>{
+    setChoicedDate('');
+  }
 
   while(day<=endDate){
     for (let i=0; i<7; i++){
@@ -78,16 +81,17 @@ const RenderCells = ({currentMonth, today, list, exist, selectedDate, onDateClic
         >
           <span>
             {formattedDate}
-          </span>
-          {list.filter(x=>new Date(x.diary_date).toDateString()===cloneDay.toDateString())
+            {list.filter(x=>new Date(x.diary_date).toDateString()===cloneDay.toDateString())
             // eslint-disable-next-line no-loop-func
-            .map(data=>{
-              return <div key={data}><img src={data.drawing_url} alt="emoji" className='listemoji'/></div>})
-          }
+              .map((data,index)=>{
+                return <span key={index} className="listemoji">{data.emoji}
+                </span>})
+            }
+          </span>
           {exist.includes(format(cloneDay, 'yyyy-MM-dd'))?'':(<div> <Link to='/write' state={{date:day}}>
             <div onMouseEnter={()=>{setAdd(false)}}
               onMouseLeave={()=>{setAdd(true)}}
-              onClick={()=>setNewDiary(true)} 
+              onClick={pageMove} 
             ><BsPlusCircleFill style={{color:'#c04922'}} className={`hover-close ${add?'hide':''}`} />
             </div>
           </Link></div>)}
@@ -107,8 +111,8 @@ const RenderCells = ({currentMonth, today, list, exist, selectedDate, onDateClic
 
 function Calender({list, exist}){
   const [currentMonth, setCurrentMonth]=useState(new Date());
-  const [selectedDate, setSelectedDate]=useState(new Date());
-  const {setChoicedDate}=useStore();
+  const {choiceDate, setChoicedDate}=useStore();
+  const [selectedDate, setSelectedDate]=useState(choiceDate);
   const prevMonth = () =>{
     setCurrentMonth(subMonths(currentMonth, 1));
   };

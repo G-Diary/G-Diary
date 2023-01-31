@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import Bookmark from '../diary/Bookmark';
+import Bookmark from './Bookmark';
 import LogoutBtn from '../access/Logout';
 import isLogin from '../access/IsLogin';
 import './Right.css'
