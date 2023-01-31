@@ -22,9 +22,9 @@ class ResultKeyword(APIView):
     def post(self, request):
         try:
             did = request.POST.get("id")
-            resultkey = Result.objects.filter(diary_id=did).values_list("keyword",flat=True).order_by("keyword") #result 테이블 keyword, 리스트로 추출
-            keywordkey = Keyword.objects.all().values_list("keyword",flat=True).order_by("keyword") #키워드 테이블 keyword, 리스트로 추출
-            sibal = []
+            resultkey = Result.objects.filter(diary_id=did).values("keyword") #result 테이블 keyword, 리스트로 추출
+            keywordkey = Keyword.objects.all().values("keyword") #키워드 테이블 keyword, 리스트로 추출
+            sibal=[]
 
             for i in resultkey:
                 if i in keywordkey:
@@ -34,10 +34,7 @@ class ResultKeyword(APIView):
             for i in sibal:
                 drawingkey.append(Drawing.objects.filter(keyword=i))
 
-            # for i in len(drawingkey):
-            #     serializer = DrawingSerializer(drawingkey[i])
-
-            return JsonResponse(list(drawingkey))
+            return serializers.drawingkey
 
         except Exception as e :
             return JsonResponse({"ERROR" : "FAIL"}) 
