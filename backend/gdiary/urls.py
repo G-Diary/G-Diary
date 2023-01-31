@@ -21,4 +21,5 @@ urlpatterns = [
     path('auth/refresh', TokenRefreshView.as_view()), #토큰 재발급
     path('auth', AuthAPIView.as_view()), #로그인
     path('images/upload', ImageUploader.as_view()),
+    path('results', SelectImageAPIView.as_view()),
 ]

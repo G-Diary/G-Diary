@@ -44,7 +44,7 @@ INSTALLED_APPS = [
     'text',
     "drf_yasg", #swagger
     'rest_framework_simplejwt', #jwt
-    'corsheaders' # cors 오류 해결
+    'corsheaders', # cors 오류 해결
     'storages', #storages
 ]
 
