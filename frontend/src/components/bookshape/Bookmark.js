@@ -49,11 +49,14 @@ function Bookmark() {
       document.getElementById('home').style.backgroundColor = '#F0DB6D';
       document.getElementById('home').style.color = 'black';
       document.getElementById('home').style.fontWeight = '700';
+    } else if (loca === '/write') {
+      document.getElementById('write').style.backgroundColor = '#F0DB6D';
+      document.getElementById('write').style.color = 'black';
+      document.getElementById('write').style.fontWeight = '700';
     }
   }, []);
 
   function Valid() {
-    
     if (loca === '/' || loca === '/signin' || loca === '/signup' || (!IsLogin() && loca === '/about')) {
       return 'none';
     } else {
@@ -76,7 +79,9 @@ function Bookmark() {
       <StyledNavLink id='write' to='/list' style={{ pointerEvents: Valid() }} onClick={onClick}>
         일기 쓰기
       </StyledNavLink>
-      <StyledNavLink to='/about' onClick={onClick}>소개</StyledNavLink>
+      <StyledNavLink to='/about' onClick={onClick}>
+        소개
+      </StyledNavLink>
     </BookMark>
   );
 }

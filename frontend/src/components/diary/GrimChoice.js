@@ -8,20 +8,46 @@ function GrimChoice(){
   const {setChoiceImg, getGrimList}=useStore();
   const keyword = Object.keys(getGrimList);
   const grim = Object.values(getGrimList);
-  const [grimlist, setGrimList] = useState();
-  const [btn, setBtn] = useState();
- 
-  useEffect(()=>{
-    setBtn(keyword[0]);
-    setGrimList(grim[0]);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[getGrimList])
-
-  //선택한 키워드에 맞는 그림 보여주기
-  const onSelect = (i)=>{
-    setGrimList(grim[i]);
-    setBtn(keyword[i]);  //선택한 키워드 색변경
+  console.log(keyword)
+  console.log(grim[1][0])
+  const img = []
+  for (let i = 0; i < grim[1].length; i++) {
+    img.push(grim[1][i].image_url)
   }
+  console.log(img)
+  // const grim = Object.values(getGrimList);
+  // const [grimlist, setGrimList] = useState();
+  // const [btn, setBtn] = useState();
+  // console.log(Object.keys(getGrimList))
+  // const img = [];
+  // useEffect(() => {
+  //   // console.log(keyword)
+  //   console.log(typeof (Object.values(getGrimList)[1]))
+    
+  //   setKeyword(Object.values(getGrimList)[1])
+  //   const result = Object.values(keyword)
+  //   // console.log(result[0].image_url)
+    
+  //   result && result.map((i) => (
+  //     img.push(result[i].image_url)
+  //   ))
+  
+  //   // console.log(keyword)
+  // }, [getGrimList])
+  // console.log(img)
+  // console.log(Object.values(keyword[0])[0])
+  
+  // useEffect(()=>{
+  //   setBtn(keyword[0]);
+  //   setGrimList(grim[0]);
+  // // eslint-disable-next-line react-hooks/exhaustive-deps
+  // },[getGrimList])
+
+  // //선택한 키워드에 맞는 그림 보여주기
+  // const onSelect = (i)=>{
+  //   setGrimList(grim[i]);
+  //   setBtn(keyword[i]);  //선택한 키워드 색변경
+  // }
 
   const addImage = (srcImg) => {
     const newimage = new Image();
@@ -49,14 +75,14 @@ function GrimChoice(){
       <Choicetitle>
         GD가 분석해본 그림이에요!
       </Choicetitle>
-      <Keywords>
+      {/* <Keywords>
         {keyword && keyword.map((x,index)=>(
           <Keyword key={index} id={x} onClick={()=>onSelect(index)}>{btn===x?<div style={{color:'red'}}>{x}</div>:<div>{x}</div>}</Keyword>
         ))}
-      </Keywords>
+      </Keywords> */}
       <Choice>
         {
-          grimlist && grimlist.map((data,index)=>
+          img && img.map((data,index)=>
             (
               <ChoiceGrim key={index} id="image" src={data}
                 alt="grim" onClick={onChange}/>

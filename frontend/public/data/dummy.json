@@ -1,23 +1,21 @@
 { 
-    "사과": [
-        "images/newyear.jpg",
-        "https://img.lovepik.com/free-png/20220125/lovepik-apple-png-image_401710037_wh860.png",
-        "https://i.pinimg.com/originals/f9/f4/2c/f9f42cc1853189038a8e219fdf47a644.png",
-        "https://i.pinimg.com/originals/f9/f4/2c/f9f42cc1853189038a8e219fdf47a644.png",
-        "https://i.pinimg.com/originals/f9/f4/2c/f9f42cc1853189038a8e219fdf47a644.png",
-        "https://i.pinimg.com/originals/f9/f4/2c/f9f42cc1853189038a8e219fdf47a644.png",
-        "https://i.pinimg.com/originals/f9/f4/2c/f9f42cc1853189038a8e219fdf47a644.png",
-        "https://i.pinimg.com/originals/f9/f4/2c/f9f42cc1853189038a8e219fdf47a644.png",
-        "https://i.pinimg.com/originals/f9/f4/2c/f9f42cc1853189038a8e219fdf47a644.png",
-        "https://i.pinimg.com/originals/f9/f4/2c/f9f42cc1853189038a8e219fdf47a644.png",
-        "https://i.pinimg.com/originals/f9/f4/2c/f9f42cc1853189038a8e219fdf47a644.png",
-        "https://img.lovepik.com/free-png/20220125/lovepik-apple-png-image_401710037_wh860.png",
-        "https://i.pinimg.com/originals/f9/f4/2c/f9f42cc1853189038a8e219fdf47a644.png",
-        "https://ouch-cdn2.icons8.com/oUbkvWU1dRrcc4n9ca9ORTKBrthhdIVVq6lFKL9hLnU/rs:fit:256:282/czM6Ly9pY29uczgu/b3VjaC1wcm9kLmFz/c2V0cy9zdmcvODU2/LzVmZjk3YTAxLTJi/NDktNDk2Zi1iY2Ez/LTMwMzNlYTU0MjYw/ZC5zdmc.png"
-    ],
-    "사탕": [
-        "http://kuku-keke.com/wp-content/uploads/2020/04/2470_5.png",
-        "https://png.pngtree.com/element_our/20190603/ourmid/pngtree-children-s-day-lollipop-image_1440682.jpg",
-        "http://www.urbanbrush.net/web/wp-content/uploads/edd/2018/09/urbanbrush-20180918002417018176.png"
+    "message": "SUCESS",
+    "result":[
+        {
+            "keyword": "사과",
+            "image_url": "images/newyear.jpg"
+        },
+        {
+            "keyword":"사과",
+            "image_url": "https://i.pinimg.com/originals/f9/f4/2c/f9f42cc1853189038a8e219fdf47a644.png"
+        },
+        {
+            "keyword":"사탕",
+            "image_url":"http://kuku-keke.com/wp-content/uploads/2020/04/2470_5.png"
+        },
+        {
+            "keyword": "사탕",
+            "image_url":"https://png.pngtree.com/element_our/20190603/ourmid/pngtree-children-s-day-lollipop-image_1440682.jpg"
+        }
     ]
 }
