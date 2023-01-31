@@ -36,7 +36,7 @@ class ResultSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class KeywordSerializer(serializers.ModelSerializer):
-    url = DrawingSerializer(many=True, read_only=True)
+    # url = DrawingSerializer(many=True, read_only=True)
 
     class Meta:
         model = Keyword
