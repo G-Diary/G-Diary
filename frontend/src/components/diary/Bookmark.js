@@ -1,13 +1,13 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import { NavLink, useLocation, useNavigate } from 'react-router-dom';
-import IsLogin from '../access/IsLogin'
-
+import { NavLink } from 'react-router-dom';
+import IsLogin from '../access/IsLogin';
+import { useStore } from '../../store/store';
 
 const BookMark = styled.div`
     width: 70px;
     height: 700px;
-    z-index:1;
+    z-index:80;
 `
 const StyledNavLink=styled(NavLink)`
     display: block;
@@ -19,12 +19,11 @@ const StyledNavLink=styled(NavLink)`
     border-radius: 0 5px 5px 0;
     text-align: center;
     line-height: 43px;
-    color: white;
+    color: black;
     border: 0.8px groove gray;
     border-left: none;
     font-weight: 400;
     opacity:0.9;
-    background-color: rgba(0, 0, 0, 0.8);
     &:link {
       transition : 0.5s;
       text-decoration: none;
@@ -33,38 +32,17 @@ const StyledNavLink=styled(NavLink)`
       color: gray;
     }
     &.active {
-      background-color: #F0DB6D;
-      color: black;
+      color: #d5260d;
       font-weight: 700;
     }
 `
-
-function Bookmark() {
-  const location = useLocation();
-  const navigate = useNavigate();
-  let loca = location.pathname;
-  
-  useEffect(() => {
-    if (loca === '/signin' || loca === '/signup' || (IsLogin() && loca === '/')) {
-      document.getElementById('home').style.backgroundColor = '#F0DB6D'
-      document.getElementById('home').style.color = 'black'
-      document.getElementById('home').style.fontWeight = '700'
-    }
-  }, [])
-  
-  function Valid() {
-    if (loca === '/' || loca === '/signin' || loca === '/signup' || (!IsLogin() && loca === '/about')) {
-      return 'none'
-    } else {
-      return ''
-    }
-  }
-
-  return (
+function Bookmark(){
+  const {setChoiceImg,setGetGrimList}=useStore();
+  return(
     <BookMark>
-      <StyledNavLink to={IsLogin() ? '/main' : '/'}><div id='home' style={{borderRadius: '0 5px 5px 0'}}>홈</div></StyledNavLink>
-      <StyledNavLink id='write' to='/list' style={{pointerEvents : Valid()}}>일기 쓰기</StyledNavLink>
-      <StyledNavLink to={'/about'}>소개</StyledNavLink>
+      <StyledNavLink to={IsLogin() ? '/main' : '/'} style={{background:'#80FF00'}}>홈</StyledNavLink> 
+      <StyledNavLink to={'/list'} style={{background:'#FFE600'}} onClick={()=>{setChoiceImg(''); setGetGrimList(''); }}>일기쓰기</StyledNavLink> 
+      <StyledNavLink to='/about' style={{ background: 'rgba(217, 132, 57)' }}>소개</StyledNavLink>
     </BookMark>)
 }
 
