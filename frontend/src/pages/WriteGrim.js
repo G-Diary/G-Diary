@@ -1,24 +1,31 @@
-import React from 'react'
+import React, { useState } from 'react'
 import DiaryContent from '../components/diary/DiaryContent';
 import GrimChoice from '../components/diary/GrimChoice';
 import BookShape2L from '../components/bookshape/BookShapeL';
 import styled from 'styled-components';
 import BookShape2R from '../components/bookshape/BookShapeR';
-import Bookmark from '../components/diary/Bookmark';
+import Bookmark from '../components/bookshape/Bookmark';
+import Loading from '../components/Loading';
 
 function WriteGrim(){
+  const [loading, setLoading]=useState(false);
+  const getLoading = (load) =>{
+    setLoading(load);
+  }
   return(
     <WriteContainer>
+      {loading?<Loading />:''}
       <Book2Container> 
         <BookShape2L>
           <GrimChoice />
         </BookShape2L>
         <BookShape2R>
-          <DiaryContent />
+          <DiaryContent getLoading={getLoading}/>
         </BookShape2R>
         <Bookmark />
       </Book2Container>
-    </WriteContainer>)
+    </WriteContainer>
+  )
 }
 
 export default WriteGrim;

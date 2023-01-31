@@ -1,8 +1,14 @@
 import React,{ useState }  from 'react';
 import styled from 'styled-components';
-import {Button, Container, TextField} from '@material-ui/core';
+import {Button, Container, TextField, makeStyles} from '@material-ui/core';
 import { Link, useNavigate } from 'react-router-dom';
 import api from '../../apis/axios'
+
+const useStyles = makeStyles(theme => ({
+  customHoverFocus: {
+    '&:hover, &.Mui-focusVisible': { backgroundColor: 'rgb(255, 215, 17)' }
+  }
+}));
 
 const TypeSignIn = styled.div`
 display: flex;
@@ -11,8 +17,10 @@ align-items: center;
 `
 
 const SignInBtn = styled.div`
+background-color: rgb(240, 219, 109);
+border-radius: 30px;
 position: relative;
-top:360px;`
+top:365px;`
 
 const SignUpBtn = styled.div`
 position: relative;
@@ -28,9 +36,12 @@ const Wrap = styled.div`
 
 function SignInForm() {
   const navigate = useNavigate();
+  const classes = useStyles();
   const [email, setEmail] = useState('');
   const [password,setPassword] = useState('');
+  const JWT_EXPIRY_TIME = 1800 * 1000 // 만료시간 30분 (밀리초로 표현)
   const Swal = require('sweetalert2');
+  let count = 0;
 
   function emailValid() {
     var check = /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
@@ -43,40 +54,60 @@ function SignInForm() {
     } else return true;
   }
 
-  function onClick(e) {
-    e.preventDefault();
-    api.post('auth', {
-      email: `${email}`,
-      password: `${password}`
-    }).then(function(res) {
-      Swal.fire({
-        position: 'center',
-        icon: 'success',
-        title: 'Success SignIn',
-        showConfirmButton: false,
-        timer: 2000
-      })
-      const token = res.data.token
-      api.defaults.headers.common['Authorization'] = `Bearer ${token.access}`
-      sessionStorage.setItem('token', token.access);
-      sessionStorage.setItem('refresh', token.refresh);
-      sessionStorage.setItem('nickname', `${res.data.user.nickname}`)
-      sessionStorage.setItem('id', `${res.data.user.id}`)
-      navigate('/main')
-      console.log(res.data)
-      console.log(api.defaults.headers)
-      console.log(sessionStorage)
-    }).catch(function(res) {
-      console.log(res)
+  function onSilentRefresh() {
+    api.post('auth/refresh', {
+      refresh: sessionStorage.getItem('refresh')
+    }).then(onLogin).catch(function (err) {
+      console.log(err)
     })
   }
 
+  function onLoginSuccess(res) {
+    const access = res.data.token.access;
+    const refresh = res.data.token.refresh;
+    if (count === 0) {  
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: '로그인 성공!',
+        showConfirmButton: false,
+        timer: 2000
+      })
+      navigate('/main')
+      count++;
+    }
+    setTimeout(onSilentRefresh, JWT_EXPIRY_TIME - 60000);
+    api.defaults.headers.common['Authorization'] = `Bearer ${access}`
+    sessionStorage.setItem('token', access);
+    sessionStorage.setItem('refresh', refresh);
+    sessionStorage.setItem('nickname', `${res.data.user.nickname}`)
+    sessionStorage.setItem('id', `${res.data.user.id}`)
+    console.log(api.defaults.headers.common)
+    console.log(access)
+    console.log(refresh)
+  }
+
+  function onLogin(e) {
+    
+    api.post('auth', {
+      email: `${email}`,
+      password: `${password}`
+    }).then(onLoginSuccess).catch(function (res) {
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: '아이디 혹은 비밀번호를 다시 확인해주세요.',
+        showConfirmButton: false,
+        timer: 2000
+      })
+    })
+  }
   return(
     <Wrap>
       <SignInBtn>
-        <Button type='button' onClick={onClick} disabled={Valid()} 
-          style={ Valid() ? {color: 'white', fontWeight: 'bolder', backgroundColor: '#F8EDB7',borderRadius: '30px', fontSize: '30px'} : { fontWeight: 'bolder', backgroundColor: '#FFD711', borderRadius: '30px', fontSize: '30px'}}>
-        Sign In</Button>
+        <Button className={classes.customHoverFocus} type='button' onClick={onLogin} disabled={Valid()} 
+          style={Valid() ? { color: 'white', backgroundColor: '#F8EDB7', fontWeight: 'bolder', borderRadius: '30px', fontSize: '30px', width: '120px' } : { fontWeight: 'bolder', borderRadius: '30px', fontSize: '30px', width: '120px' }}>
+        로그인</Button>
       </SignInBtn>
       <TypeSignIn>
         <Container maxWidth='sm'>
@@ -85,7 +116,7 @@ function SignInForm() {
             fullWidth
             variant="filled"
             required
-            label="Email"
+            label="이메일"
             name="email"
             autoComplete="email"
             autoFocus
@@ -96,7 +127,7 @@ function SignInForm() {
             }}
             error={email ? !emailValid() : emailValid()}
             helperText={
-              email ? (!emailValid() ? 'Please enter it in e-mail format.' : '') : ''
+              email ? (!emailValid() ? '이메일 형식으로 입력해 주세요.' : '') : ''
             }
           />
           <TextField
@@ -105,7 +136,7 @@ function SignInForm() {
             variant="filled"
             required
             type="password"
-            label="Password"
+            label="비밀번호"
             name="Password"
             autoComplete="current-password"
             value={password}
@@ -119,12 +150,13 @@ function SignInForm() {
         <Button style={{
           border: 'solid 2px lightgray', 
           borderRadius: '30px', 
+          fontWeight: 'bolder',
           fontSize: '20px'
         }}>
           <Link to='/signup' style={{
             color: 'black', 
             textDecorationLine: 'none'
-          }}>Sign Up→</Link>
+          }}>회원가입→</Link>
         </Button>
       </SignUpBtn>
     </Wrap>

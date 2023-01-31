@@ -1,20 +1,30 @@
 import React, {useState} from 'react';
-import {useNavigate} from 'react-router-dom'
+import {useNavigate, Link} from 'react-router-dom'
 import styled from 'styled-components'
-import {Button, Container, TextField} from '@material-ui/core';
+import {Button, Container, TextField, makeStyles} from '@material-ui/core';
 import api from '../../apis/axios'
 
+const useStyles = makeStyles(theme => ({
+  customHoverFocus: {
+    '&:hover, &.Mui-focusVisible': { backgroundColor: 'rgb(255, 215, 17)' }
+  }
+}));
+
+const BackBtn = styled.div`
+  display:flex;
+  flex-direction: row-reverse;
+  position: relative;
+  top: 6px;`
+
 const TypeSignUp = styled.div`
-position: relative;
-bottom:60px;`
+  position: relative;
+  bottom:60px;`
 
 const CreateAccountBtn = styled.div`
-position: relative;
-top:360px;`
-
-const CheckDuplicate = styled.div`
-  float:right;
-  margin-top:8px;`
+  background-color: rgb(240, 219, 109);
+  border-radius: 30px;
+  position: relative;
+  top:365px;`
 
 const Wrap = styled.div`
   display: flex;
@@ -24,6 +34,7 @@ const Wrap = styled.div`
 
 function SignUpForm() {
   const navigate = useNavigate();
+  const classes = useStyles();
   const [nickname, setNickname] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -36,7 +47,7 @@ function SignUpForm() {
       Swal.fire({
         position: 'center',
         icon: 'error',
-        title: 'Please write in less than 10 letters.',
+        title: '10글자 이하로 작성해 주세요.',
         showConfirmButton: false,
         timer: 2000
       })
@@ -76,7 +87,7 @@ function SignUpForm() {
       Swal.fire({
         position: 'center',
         icon: 'success',
-        title: 'Success SignUp',
+        title: '회원가입 성공!',
         showConfirmButton: false,
         timer: 2000
       })
@@ -113,9 +124,9 @@ function SignUpForm() {
   return(
     <Wrap>
       <CreateAccountBtn>
-        <Button type='button' onClick={onClick} disabled={Valid()}
-          style={ !Valid() ? {fontWeight:'bolder', backgroundColor: '#FFD711', borderRadius: '30px', fontSize: '30px'} : { color:'white',fontWeight:'bolder',backgroundColor: '#F8EDB7',borderRadius: '30px', fontSize: '30px'}}>
-        Create Account</Button>
+        <Button className={classes.customHoverFocus} type='button' onClick={onClick} disabled={Valid()}
+          style={ !Valid() ? {fontWeight:'bolder', borderRadius: '30px', fontSize: '30px'} : { color:'white',fontWeight:'bolder',backgroundColor: '#F8EDB7',borderRadius: '30px', fontSize: '30px'}}>
+        계정 생성</Button>
       </CreateAccountBtn>
       <TypeSignUp>
         <Container maxWidth='sm'>
@@ -124,7 +135,7 @@ function SignUpForm() {
             fullWidth
             variant="filled"
             required
-            label="Nickname"
+            label="닉네임"
             name="Nickname"
             autoComplete="freeSolo"
             autoFocus
@@ -132,17 +143,15 @@ function SignUpForm() {
             onChange={nameInput}
             error={nicknameValid()}
             helperText={
-              nicknameValid() ? 'Special characters are not allowed.' : ''
+              nicknameValid() ? '특수문자 혹은 모음, 자음은 사용하실 수 없습니다.' : ''
             }
           />
-          <CheckDuplicate>
-          </CheckDuplicate>
           <TextField
             margin="dense"
             fullWidth
             variant="filled"
             required
-            label="Email"
+            label="이메일"
             name="email"
             autoComplete="email"
             type='text'
@@ -152,7 +161,7 @@ function SignUpForm() {
             }}
             error={email ? !emailValid() : emailValid()}
             helperText={
-              email ? (!emailValid() ? 'Enter it in e-mail format.' : '') : ''
+              email ? (!emailValid() ? '이메일 형식으로 입력해 주세요.' : '') : ''
             }
           />
           <TextField
@@ -161,7 +170,7 @@ function SignUpForm() {
             variant="filled"
             required
             type="password"
-            label="Password"
+            label="비밀번호"
             name="Password"
             autoComplete="new-password"
             value={password}
@@ -170,7 +179,7 @@ function SignUpForm() {
             }}
             error={password ? !passwordValid() : passwordValid()}
             helperText={
-              password ? (!passwordValid() ? 'Enter at least 8 digits, including numbers and special characters.' : '') : ''
+              password ? (!passwordValid() ? '숫자, 특수문자를 포함하여 8글자 이상 입력해 주세요.' : '') : ''
             }
           />    
           <TextField
@@ -179,7 +188,7 @@ function SignUpForm() {
             variant="filled"
             required
             type="password"
-            label="Confirm"
+            label="비밀번호 확인"
             name="Confirm"
             autoComplete="new-password"
             value={confirm}
@@ -188,9 +197,22 @@ function SignUpForm() {
             }}
             error={confirm ? (!confirm ? isSame() : !isSame()) : false}
             helperText={
-              confirm ? (!isSame() ? 'Check your password again.' : '') : ''
+              confirm ? (!isSame() ? '비밀번호를 다시 확인해 주세요.' : '') : ''
             }
           />
+          <BackBtn>
+            <Button style={{
+              border: 'solid 2px lightgray', 
+              borderRadius: '30px', 
+              fontWeight: 'bolder',
+              fontSize: '20px'
+            }}>
+              <Link to='/signin' style={{
+                color: 'black', 
+                textDecorationLine: 'none'
+              }}>돌아가기</Link>
+            </Button>
+          </BackBtn>
         </Container>
       </TypeSignUp>
     </Wrap>

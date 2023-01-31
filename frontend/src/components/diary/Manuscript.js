@@ -11,7 +11,7 @@ function Manuscript(props) {
   const textlist = tr.map((tr,index) => (
     <div style={{display: 'flex'}} key={index}>
       {td.map((td,index1) => (
-        <TableTd key={index1}>{word[index1 + 10 * index]}</TableTd>
+        <TableTd key={index1}><div style={{paddingTop:'5px'}}>{word[index1 + 10 * index]}</div></TableTd>
       ))}
     </div>
   ));
@@ -31,7 +31,7 @@ function Manuscript(props) {
     }
   }
   return (
-    <div style={{marginTop:'13px', marginLeft:'7px'}}>
+    <div style={{marginTop:'13px', marginLeft:'3px'}}>
       <PaperContainer>
         <GridContent spellCheck="false" id="word" type="text" value={word} onChange={wordInput}/>
         <label htmlFor='word'>
@@ -90,7 +90,7 @@ export const GridContent =styled.textarea`
   color: rgba(0, 0, 0, 0);
   text-decoration-line: none;
   z-index: -1;
-  top: -400px;
+  top: -800px;
 `
 
 export const TableTd =styled.div`
