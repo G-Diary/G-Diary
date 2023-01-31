@@ -91,13 +91,13 @@ class Keyword(BaseModel):
     def __str__(self):
         return self.keyword
 
-class Result(models.Model):
-    id = models.AutoField(primary_key=True) #pk
-    diary_id = models.ForeignKey(Diary, on_delete=models.CASCADE, null=False)
-    keyword = models.CharField(max_length=10, null=False)
+# class Result(models.Model):
+#     id = models.AutoField(primary_key=True) #pk
+#     diary_id = models.ForeignKey(Diary, on_delete=models.CASCADE, null=False)
+#     keyword = models.CharField(max_length=10, null=False)
 
-    def __str__(self):
-        return self.id
+#     def __str__(self):
+#         return self.id
 
 class Drawing(BaseModel):
     id = models.AutoField(primary_key=True) #pk

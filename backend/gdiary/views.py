@@ -1,3 +1,4 @@
+from text.models import Result
 from rest_framework import viewsets, status, serializers
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -208,9 +209,9 @@ class DiaryViewset(viewsets.ModelViewSet):
             diaries = diaries.filter(diary_date=date)
         return diaries
 
-class ResultViewset(viewsets.ModelViewSet):
-    queryset = Result.objects.all()
-    serializer_class = ResultSerializer
+# class ResultViewset(viewsets.ModelViewSet):
+#     queryset = Result.objects.all()
+#     serializer_class = ResultSerializer
 
 class KeywordViewset(viewsets.ModelViewSet):
     queryset = Keyword.objects.all()
