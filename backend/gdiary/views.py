@@ -21,7 +21,6 @@ from rest_framework.parsers import JSONParser
 class ImageUploader(APIView) :
     def post(self, request) :
         try :
-
             file = request.FILES.get('file')
             diary_date = request.POST.get('diary_date')
 
@@ -46,7 +45,29 @@ class ImageUploader(APIView) :
         except Exception as e :
             return JsonResponse({"ERROR" : "FAIL"})
 
-            
+# 결과 키워드별 이미지 url 조회 API 
+# api/v1/results?diary_id=?
+class SelectImageAPIView(APIView):
+    def get(self, request):
+        dId = request.query_params.get('diary_id', '')
+        results = Result.objects.filter(diary_id=dId) # 요청 받은 일기 id값과 result의 일기 id가 같은 result 테이블 값
+        if results:
+            data = []
+            for result in results:
+                drawings = Drawing.objects.filter(keyword=result.keyword) # 우리 db에 있는 결과 키워드에 대한 그림 테이블 값
+                for drawing in drawings:
+                    kw_images = DrawingSerializer(drawing) 
+                    data.append(kw_images.data)
+
+            return Response(
+                    {
+                        "message" : "SUCCESS",
+                        "result": data
+                    }, status=status.HTTP_200_OK
+                )
+        else:
+            return JsonResponse({"ERROR" : "FAIL"}, status=status.HTTP_400_BAD_REQUEST)
+        
             
 class RegisterAPIView(APIView):
     def post(self, request):
@@ -177,6 +198,7 @@ class DiaryViewset(viewsets.ModelViewSet):
     def list(self, request, *args, **kwargs):
         return super().list(request, *args, **kwargs)
 
+
     # api/v1/diaries/?date=2023-01-26
     def get_queryset(self):
         diaries = Diary.objects.filter(is_deleted = False)
@@ -198,3 +220,4 @@ class DrawingViewset(viewsets.ModelViewSet):
     queryset = Drawing.objects.all()
     serializer_class = DrawingSerializer
 
+    
