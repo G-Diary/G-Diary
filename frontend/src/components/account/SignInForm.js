@@ -57,12 +57,14 @@ function SignInForm() {
   function onSilentRefresh() {
     api.post('auth/refresh', {
       refresh: sessionStorage.getItem('refresh')
-    }).then(onLoginSuccess, console.log('refresh 성공')).catch(function (err) {
+    }).then(onLogin).catch(function (err) {
       console.log(err)
     })
   }
 
   function onLoginSuccess(res) {
+    const access = res.data.token.access;
+    const refresh = res.data.token.refresh;
     if (count === 0) {  
       Swal.fire({
         position: 'center',
@@ -71,23 +73,22 @@ function SignInForm() {
         showConfirmButton: false,
         timer: 2000
       })
+      setTimeout(onSilentRefresh, JWT_EXPIRY_TIME - 60000);
+      navigate('/main')
       count++;
     }
-    const access = res.data.token.access;
-    const refresh = res.data.token.refresh;
     api.defaults.headers.common['Authorization'] = `Bearer ${access}`
     sessionStorage.setItem('token', access);
     sessionStorage.setItem('refresh', refresh);
     sessionStorage.setItem('nickname', `${res.data.user.nickname}`)
     sessionStorage.setItem('id', `${res.data.user.id}`)
-    setTimeout(onSilentRefresh, JWT_EXPIRY_TIME - 60000);
-    navigate('/main')
-    console.log(api.defaults)
-    console.log(sessionStorage)
+    console.log(api.defaults.headers.common)
+    console.log(access)
+    console.log(refresh)
   }
 
-  function onClick(e) {
-    e.preventDefault();
+  function onLogin(e) {
+    
     api.post('auth', {
       email: `${email}`,
       password: `${password}`
@@ -104,7 +105,7 @@ function SignInForm() {
   return(
     <Wrap>
       <SignInBtn>
-        <Button className={classes.customHoverFocus} type='button' onClick={onClick} disabled={Valid()} 
+        <Button className={classes.customHoverFocus} type='button' onClick={onLogin} disabled={Valid()} 
           style={Valid() ? {color: 'white', fontWeight: 'bolder', backgroundColor: '#F8EDB7',borderRadius: '30px', fontSize: '30px', width: '120px' } : { fontWeight: 'bolder', borderRadius: '30px', fontSize: '30px', width: '120px'}}>
         로그인</Button>
       </SignInBtn>

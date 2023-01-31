@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {useNavigate} from 'react-router-dom'
+import {useNavigate, Link} from 'react-router-dom'
 import styled from 'styled-components'
 import {Button, Container, TextField, makeStyles} from '@material-ui/core';
 import api from '../../apis/axios'
@@ -9,6 +9,12 @@ const useStyles = makeStyles(theme => ({
     '&:hover, &.Mui-focusVisible': { backgroundColor: 'rgb(255, 215, 17)' }
   }
 }));
+
+const BackBtn = styled.div`
+  display:flex;
+  flex-direction: row-reverse;
+  position: relative;
+  top: 6px;`
 
 const TypeSignUp = styled.div`
   position: relative;
@@ -194,6 +200,19 @@ function SignUpForm() {
               confirm ? (!isSame() ? '비밀번호를 다시 확인해 주세요.' : '') : ''
             }
           />
+          <BackBtn>
+            <Button style={{
+              border: 'solid 2px lightgray', 
+              borderRadius: '30px', 
+              fontWeight: 'bolder',
+              fontSize: '20px'
+            }}>
+              <Link to='/signin' style={{
+                color: 'black', 
+                textDecorationLine: 'none'
+              }}>돌아가기</Link>
+            </Button>
+          </BackBtn>
         </Container>
       </TypeSignUp>
     </Wrap>
