@@ -30,7 +30,7 @@ services:
         DJANGO_CORS_ORIGIN_WHITELIST: "*"
     container_name: gd_backend
     # command : 컨테이너가 띄워질 때 실행하는 명령어 / 서버실행
-    command: sh -c "/wait & python manage.py makemigrations gdiary && python manage.py migrate gdiary && python manage.py runserver 0.0.0.0:8000"
+    command: sh -c "/wait & python -m conifg.decode & python manage.py makemigrations gdiary && python manage.py makemigrations text && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
     # restart : 실패하면 재시작
     restart: on-failure
     ports:
@@ -64,7 +64,45 @@ services:
     # 가상 네트워크 연결
     networks:
       - gd
+  gd_rabbitmq:
+    hostname: localhost
+    container_name: gd_rabbitmq
+    image: rabbitmq:3-management
+    command: rabbitmq-server
+    restart: unless-stopped
+    # env_file:
+    #   - ./.env
+    environment:
+      - RABBITMQ_USER=guest
+      - RABBITMQ_PASSWORD=guest
+    ports:
+      - 5672:5672 # Default Port
+      - 15672:15672 # For UI
+    volumes:
+      - ./backend:/backend
+    networks:
+      - gd
+    depends_on:
+      - gd_backend
+    expose:
+      - "15672"
 
+  gd_celery:
+    container_name: gd_celery
+    build:
+      context: ./backend
+    restart: unless-stopped
+#    env_file:
+#      - ./.env
+    depends_on:
+      - gd_backend
+      - gd_rabbitmq
+    volumes:
+      - ./backend:/backend
+    networks:
+      - gd
+    command: "celery -A config.celery worker --loglevel=info --pool=solo"
+    
 networks:
   gd:
     driver: bridge
