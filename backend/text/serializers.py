@@ -4,5 +4,4 @@ class ResultSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Result
-        #모두 직렬화하겠음
-        fields = '__all__'
+        fields = ['diary_id', 'keyword']
