@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Manuscript from './Manuscript';
 import Emoji from './Emoji';
@@ -12,7 +12,6 @@ import { format } from 'date-fns';
 function DiaryContent({ getLoading }) {
   const navigate = useNavigate();
   const location = useLocation();
-  const [diary_id, setDiary_id] = useState()
   const [grim, setGrim] = useState(true); //그리기모드 버튼 클릭 여부
   const [title, setTitle] = useState(''); //제목
   const [content, setContent] = useState(''); //일기 내용
@@ -60,17 +59,15 @@ function DiaryContent({ getLoading }) {
       .post('diaries/', form, {
         headers: { 'Content-Type': 'multipart/form-data', },
       })
-      .then(async function (response) {
+      .then(function (response) {
+        drawingUrl();
         console.log(response, JSON.stringify(response, null, 6));
         console.log(response);
-        console.log(response.data.id);
-        setDiary_id(response.data.id);
-        bringGrim();
       })
       .catch(function (error) {
         console.log(error);
         console.log('grimdiary 오류');
-        if (error.data.title) {
+        if (error.response.data.title) {
           Swal.fire({
             position: 'center',
             icon: 'error',
@@ -78,7 +75,7 @@ function DiaryContent({ getLoading }) {
             showConfirmButton: false,
             timer: 2000,
           });
-        } else if (error.data.contents) {
+        } else if (error.response.data.contents) {
           Swal.fire({
             position: 'center',
             icon: 'error',
@@ -86,7 +83,7 @@ function DiaryContent({ getLoading }) {
             showConfirmButton: false,
             timer: 2000,
           });
-        } else if (error.data.weather) {
+        } else if (error.response.data.weather) {
           Swal.fire({
             position: 'center',
             icon: 'error',
@@ -102,7 +99,6 @@ function DiaryContent({ getLoading }) {
     let form = new FormData();
     form.append('diary_date', format(date, 'yyyy-MM-dd'));
     form.append('file', file);
-
     await api
       .post('images/upload', form, {
         headers: { 'Content-Type': 'multipart/form-data' },
@@ -116,24 +112,48 @@ function DiaryContent({ getLoading }) {
         console.log(error);
       });
   };
-
+  
   //AI키워드 그림 가져오기 버튼
   const bringGrim = async () => {
     getLoading(true);
+    setGetGrimList([]);
     let form = new FormData();
-    form.append('diary_id', diary_id);
+    // console.log(diary_date)
+    form.append('diary_date', format(date, 'yyyy-MM-dd'));
     form.append('contents', content);
     await api.post('text/', form, {
       headers: { 'Content-Type': 'multipart/form-data' },
     })
       .then((res) => {
         console.log(res);
-        // setGetGrimList(res);
-        getLoading(false);
+        api.get(`results?diary_date=${format(date, 'yyyy-MM-dd')}`)
+          .then(function (res) {
+            setGetGrimList(res.data);
+            // console.log(res.data)
+            // console.log(res.data.result)
+            // console.log(res.data.result[0].image_url)
+            getLoading(false);
+            console.log(res)
+          }).catch(function (error) {
+            getLoading(false);
+            console.log(error.response.data)
+            if (error.response.data.ERROR === 'FAIL') {
+              Swal.fire({
+                position: 'center',
+                icon: 'error',
+                title: '키워드에 맞는 이미지가 없습니다.',
+                showConfirmButton: false,
+                timer: 2000
+              })
+            }
+            console.log('없음')
+            console.log(error)
+          })
       }).catch((error) => {
         console.log(error)
       });
   };
+  
 
   //제목 내용
   const onChange = (e) => {
@@ -198,14 +218,14 @@ function DiaryContent({ getLoading }) {
         <Drawing grim={grim} />
       </Canvas>
       <ButtonContainer>
-        <Modebutton style={{ width: '100px' }} onClick={grimDiary}>
+        <Modebutton style={{ width: '100px' }} onClick={bringGrim}>
           그림가져오기
         </Modebutton>
         <Modebutton style={{ width: '80px' }} onClick={clickedGrim}>
           {grim ? '그림그리기' : '스탑'}
         </Modebutton>
         <Savebutton
-          onClick={drawingUrl}>
+          onClick={grimDiary}>
           저장하기
         </Savebutton>
       </ButtonContainer>

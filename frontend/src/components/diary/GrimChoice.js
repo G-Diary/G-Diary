@@ -8,13 +8,35 @@ function GrimChoice(){
   const {setChoiceImg, getGrimList}=useStore();
   const keyword = Object.keys(getGrimList);
   const grim = Object.values(getGrimList);
-  console.log(keyword)
-  console.log(grim[1][0])
-  const img = []
-  for (let i = 0; i < grim[1].length; i++) {
-    img.push(grim[1][i].image_url)
+  console.log(getGrimList)
+  console.log(keyword);
+  console.log(grim)
+  const [grimlist, setGrimList]=useState();
+  const img=[];
+  useEffect(()=>{
+    console.log('메렁')
+    setGrimList(grim[1]);
+   
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[getGrimList])
+  // console.log(grimlist)
+
+  if(grimlist!=undefined){
+    console.log('있는디')
+    console.log(grimlist[0].image_url)
+    grimlist.map((i,index)=>(
+      img.push(grimlist[index].image_url)
+    ))
   }
+  console.log(getGrimList)
   console.log(img)
+  // console.log(keyword)
+  // console.log(grim[1][0])
+  // const img = []
+  // for (let i = 0; i < grim[1].length; i++) {
+  //   img.push(grim[1][i].image_url)
+  // }
+  // console.log(img)
   // const grim = Object.values(getGrimList);
   // const [grimlist, setGrimList] = useState();
   // const [btn, setBtn] = useState();

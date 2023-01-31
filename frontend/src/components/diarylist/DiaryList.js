@@ -1,9 +1,15 @@
 import React from 'react';
+import { Button, makeStyles } from '@material-ui/core';
 import ResultManuscript from './ResultManuscript';
 import { BsBrightnessHighFill, BsFillCloudFill ,BsFillCloudSnowFill, BsFillCloudRainFill } from 'react-icons/bs';
 import { Content, DateContainer, Dateline, Datetitle, DiviContainer, Weathercontainer, DateContent, TitleContainer, Title, Titlecontent, Canvas} from '../diary/DiaryContent';
 import { ChoiceButtonContainer } from '../diary/GrimChoice';
 
+const useStyles = makeStyles((theme) => ({
+  customHoverFocus: {
+    '&:hover, &.Mui-focusVisible': { backgroundColor: 'black', color: 'white' },
+  },
+}));
 
 function DiaryList({title, weather, draw, contents, date, emoji}){
 
@@ -12,6 +18,23 @@ function DiaryList({title, weather, draw, contents, date, emoji}){
   let todayMonth=fulldate[1];  //월 구하기
   let todayDate=fulldate[2];  //일 구하기
 
+  const classes = useStyles();
+  function shareMessage() {
+    window.Kakao.Share.sendDefault({
+      objectType: 'feed',
+      content: {
+        title: '내 일기 어때?',
+        description: '너도 쓰러 와!',
+        // 일기에서 그린 그림 url 주소 하고 싶어영
+        imageUrl: draw,
+        link: {
+        // 도메인 주소 정해지면 그거 넣으면 될 것 같아여
+          mobileWebUrl: 'http://localhost:3000/',
+          webUrl: 'http://localhost:3000/',
+        },
+      },
+    });
+  }
   function Weather() {
     return(
       <>
@@ -31,40 +54,6 @@ function DiaryList({title, weather, draw, contents, date, emoji}){
           <DateContent style={{width: '9rem', fontSize:'1.5rem'}}>{year}.{todayMonth}.{todayDate}</DateContent>
           <Weathercontainer>
             <Weather/>
-            {/* {weather===1?(
-              <>
-                <BsBrightnessHighFill size="27" color='red' />
-                <BsFillCloudFill size="27" color="grey" />
-                <BsFillCloudRainFill size="26" color="grey" style={{paddingTop: '1.5px'}} />
-                <BsFillCloudSnowFill size="25" color='grey' style={{paddingTop: '2px'}}/>
-              </>
-            ):weather===2?(
-              <>
-                <BsBrightnessHighFill size="27" color='grey' />
-                <BsFillCloudFill size="27" color="#4E5D79" />
-                <BsFillCloudRainFill size="26" color="grey" style={{paddingTop: '1.5px'}} />
-                <BsFillCloudSnowFill size="25" color='grey' style={{paddingTop: '2px'}}/>
-              </>
-            ):weather===3?(
-              <>
-                <BsBrightnessHighFill size="27" color='grey' />
-                <BsFillCloudFill size="27" color="grey" />
-                <BsFillCloudRainFill size="26" color="#5A5A5A" style={{paddingTop: '1.5px'}} />
-                <BsFillCloudSnowFill size="25" color='grey' style={{paddingTop: '2px'}}/>
-              </>
-            ):weather===4?(
-              <>
-                <BsBrightnessHighFill size="27" color='grey' />
-                <BsFillCloudFill size="27" color="grey" />
-                <BsFillCloudRainFill size="26" color="grey" style={{paddingTop: '1.5px'}} />
-                <BsFillCloudSnowFill size="25" color='#FFFAFA' style={{paddingTop: '2px'}}/>
-              </>
-            ):(<>
-              <BsBrightnessHighFill size="27" color='grey' />
-              <BsFillCloudFill size="27" color="grey" />
-              <BsFillCloudRainFill size="26" color="grey" style={{paddingTop: '1.5px'}} />
-              <BsFillCloudSnowFill size="25" color='grey' style={{paddingTop: '2px'}}/>
-            </>)}           */}
           </Weathercontainer>
         </Dateline>
       </DateContainer>
@@ -75,6 +64,22 @@ function DiaryList({title, weather, draw, contents, date, emoji}){
       </TitleContainer>
       <Canvas><img src={draw} alt="diarygrim" style={{width:'500px', height:'290px'}}/></Canvas>
       <ChoiceButtonContainer style={{height: '25px' ,marginTop:'2%', marginLeft:'2.2%'}}>
+        <Button
+          onClick={shareMessage}
+          className={classes.customHoverFocus}
+          type='button'
+          variant='outlined'
+          style={{
+            position: 'relative',
+            top:'4px',
+            right: '10px',
+            borderRadius: '30px',
+            border: '2px solid black',
+            fontWeight: 'bolder',
+          }}
+        >
+        카카오톡 공유하기
+        </Button>
       </ChoiceButtonContainer>
       <Content><ResultManuscript content={contents}/></Content>
     </DiviContainer>

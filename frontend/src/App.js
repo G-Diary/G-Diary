@@ -23,7 +23,6 @@ function App() {
     if (!window.Kakao.isInitialized()) {
       window.Kakao.init(process.env.REACT_APP_KAKAO_KEY);
     }
-    console.log(window.Kakao.isInitialized());
   }, []);
   return (
     <ThemeProvider theme={theme}>

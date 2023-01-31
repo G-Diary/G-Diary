@@ -66,7 +66,7 @@ function Bookmark() {
 
   function onClick() {
     setChoiceImg('');
-    setGetGrimList('');
+    setGetGrimList([]);
   }
 
   return (
