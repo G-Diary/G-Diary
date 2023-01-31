@@ -1,6 +1,7 @@
 import { Button, makeStyles } from '@material-ui/core';
 import React from 'react';
 import { PaperContainer, TableTd } from './Manuscript';
+import api from '../../apis/axios'
 
 const useStyles = makeStyles(theme => ({
   customHoverFocus: {
@@ -23,21 +24,24 @@ function ResultManuscript({ content }) {
   ));
   
   function shareMessage() {
-    
-    window.Kakao.Share.sendDefault({
-      objectType: 'feed',
-      content: {
-        title: '내 일기 어때?',
-        description: '너도 쓰러 와!',
-        // 일기에서 그린 그림 url 주소 하고 싶어영
-        imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJgXq4QvEz1T6igdSDG1wr0rIwv20Cuc-1JIb-9jbuWhiAAqR9nIHFAjxjFNSBRK1Hb7M&usqp=CAU',
-        link: {
+    api.get(`diaries/${sessionStorage.getItem('id')}`).then(function (res) {
+      console.log(res)
+      window.Kakao.Share.sendDefault({
+        objectType: 'feed',
+        content: {
+          title: '내 일기 어때?',
+          description: '너도 쓰러 와!',
+          // 일기에서 그린 그림 url 주소 하고 싶어영
+          imageUrl: res.data.drawing_url,
+          link: {
           // 도메인 주소 정해지면 그거 넣으면 될 것 같아여
-          mobileWebUrl: 'http://localhost:3000/',
-          webUrl: 'http://localhost:3000/',
+            mobileWebUrl: 'http://localhost:3000/',
+            webUrl: 'http://localhost:3000/',
+          },
         },
-      },
-    });
+      });
+    }).catch(function(res) {})
+    
   }
   return (
     <div style={{display:'flex', flexDirection:'column', justifyContent:'center', alignItems:'flex-end', position:'relative', bottom: '25.5px',marginLeft: '7px' }}>

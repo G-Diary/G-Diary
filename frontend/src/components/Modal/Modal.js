@@ -146,10 +146,11 @@ function Modals() {
       slide.classList.add('move')
       setTimeout(() => {
         flip.classList.add('open');
+        flip.classList.toggle('color')
         setTimeout(() => {
           navigate('/list');
-        }, 1000)
-      }, 1000);
+        }, 470)
+      }, 800);
       Toast.fire({
         icon: 'success',
         title: '표지 설정 완료!'

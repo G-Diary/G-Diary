@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import IsLogin from '../access/IsLogin'
+
 
 const BookMark = styled.div`
     width: 70px;
@@ -39,11 +40,31 @@ const StyledNavLink=styled(NavLink)`
 `
 
 function Bookmark() {
+  const location = useLocation();
+  const navigate = useNavigate();
+  let loca = location.pathname;
+  
+  useEffect(() => {
+    if (loca === '/signin' || loca === '/signup' || (IsLogin() && loca === '/')) {
+      document.getElementById('home').style.backgroundColor = '#F0DB6D'
+      document.getElementById('home').style.color = 'black'
+      document.getElementById('home').style.fontWeight = '700'
+    }
+  }, [])
+  
+  function Valid() {
+    if (loca === '/' || loca === '/signin' || loca === '/signup' || (!IsLogin() && loca === '/about')) {
+      return 'none'
+    } else {
+      return ''
+    }
+  }
+
   return (
     <BookMark>
-      <StyledNavLink to={IsLogin() ? '/main' : '/'}>홈</StyledNavLink>
-      <StyledNavLink to='/list'>목록</StyledNavLink>
-      <StyledNavLink to='/about'>소개</StyledNavLink>
+      <StyledNavLink to={IsLogin() ? '/main' : '/'}><div id='home' style={{borderRadius: '0 5px 5px 0'}}>홈</div></StyledNavLink>
+      <StyledNavLink id='write' to='/list' style={{pointerEvents : Valid()}}>일기 쓰기</StyledNavLink>
+      <StyledNavLink to={'/about'}>소개</StyledNavLink>
     </BookMark>)
 }
 

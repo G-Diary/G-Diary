@@ -75,7 +75,7 @@ div>h2{
 }
 
 .move {
-  animation-duration: 1s;
+  animation-duration: 0.8s;
   animation-name: slide;
   animation-iteration-count: initial;
   animation-fill-mode: forwards;
