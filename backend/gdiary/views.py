@@ -45,45 +45,29 @@ class ImageUploader(APIView) :
         except Exception as e :
             return JsonResponse({"ERROR" : "FAIL"})
 
+# 결과 키워드별 이미지 url 조회 API 
+# api/v1/results?diary_id=?
 class SelectImageAPIView(APIView):
     def get(self, request):
-        #results = Result.objects.all()
-        # drawings = Drawing.objects.filter(is_deleted = False)
-
-        # serializer = DrawingSerializer(drawings, many=True)
-
         dId = request.query_params.get('diary_id', '')
-        if dId:
-            results = Result.objects.filter(diary_id=dId) # 요청 받은 일기 id값과 result의 일기id가 같은 result 테이블 값
-            # result_serializer = ResultSerializer(results, many=True)
-            #return Response(result_serializer.data)
-            # kw = result_serializer.data(keyword)
-            kw_image = []
+        results = Result.objects.filter(diary_id=dId) # 요청 받은 일기 id값과 result의 일기 id가 같은 result 테이블 값
+        if results:
+            data = []
             for result in results:
-                kw_drawings = Drawing.objects.filter(keyword=result.keyword) # 우리 db에 있는 결과 키워드에 대한 그림 테이블 값
-                for kw_drawing in kw_drawings:
-                    # drawing_serializer = DrawingSerializer(kw_drawing)
-                    kw_image.append(
-                        {
-                            # "keyword": kw_drawing.keyword,
-                            "image_url" : kw_drawing.image_url,
-                        }
-                    )
-            return JsonResponse({'results':kw_image}, status=200)
-            # return Response(drawing_serializer.data)
+                drawings = Drawing.objects.filter(keyword=result.keyword) # 우리 db에 있는 결과 키워드에 대한 그림 테이블 값
+                for drawing in drawings:
+                    kw_images = DrawingSerializer(drawing) 
+                    data.append(kw_images.data)
 
-
-            # return JsonResponse({
-            #     "MESSGE" : "SUCCESS" 
-            #     # "keyword" : keyword,
-            #     # "image_url" : kw_image_url
-            # }, status=200)
+            return Response(
+                    {
+                        "message" : "SUCCESS",
+                        "result": data
+                    }, status=status.HTTP_200_OK
+                )
         else:
-            return JsonResponse({"ERROR" : "FAIL"})
-            
-
-
-
+            return JsonResponse({"ERROR" : "FAIL"}, status=status.HTTP_400_BAD_REQUEST)
+        
             
 class RegisterAPIView(APIView):
     def post(self, request):
@@ -228,16 +212,6 @@ class ResultViewset(viewsets.ModelViewSet):
     queryset = Result.objects.all()
     serializer_class = ResultSerializer
 
-    def get_queryset(self):
-        result = Result.objects.all()
-
-        did = self.request.query_params.get('did','')
-        if did:
-            result = result.filter(diary_id=did)
-          #  if (key.keyword == result.keyword):
-        return result
-
-
 class KeywordViewset(viewsets.ModelViewSet):
     queryset = Keyword.objects.all()
     serializer_class = KeywordSerializer
@@ -245,30 +219,5 @@ class KeywordViewset(viewsets.ModelViewSet):
 class DrawingViewset(viewsets.ModelViewSet):
     queryset = Drawing.objects.all()
     serializer_class = DrawingSerializer
-
-# @api_view(['POST'])
-# def insertkeyword(request):
-#     reqData = request.data
-#     serializer = KeywordSerializer(data=reqData)
-#     if serializer.is_valid():
-#         serializer.save()
-#         return Response(serializer.data, status=status.HTTP_201_CREATED)
-#     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-# @api_view(['POST'])
-# def inserturl(request):
-#     reqData = request.data
-#     serializer = DrawingSerializer(data=reqData)
-#     if serializer.is_valid():
-#         serializer.save()
-#         return Response(serializer.data, status=status.HTTP_201_CREATED)
-#     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-# class ProductListAPI(APIView):
-#     def get(self, request):
-#         queryset = Drawing.objects.all()
-#         print(queryset)
-#         serializer = DrawingSerializer(queryset, many=True)
-#         return Response(serializer.data)
 
     
