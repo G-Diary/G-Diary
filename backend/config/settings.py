@@ -44,8 +44,23 @@ INSTALLED_APPS = [
     'text',
     "drf_yasg", #swagger
     'rest_framework_simplejwt', #jwt
-    'corsheaders' # cors 오류 해결
+    'corsheaders', # cors 오류 해결
+    'storages', #storages
 ]
+
+#s3
+AWS_ACCESS_KEY_ID =MY_AWS_ACCESS_KEY_ID['AWS_ACCESS_KEY_ID']
+AWS_ACCESS_ACCESS_KEY =MY_AWS_ACCESS_ACCESS_KEY['AWS_SECRET_ACCESS_KEY']
+AWS_REGION = 'ap-northeast-2'
+
+AWS_STORAGE_BUCKET_NAME=MY_STORAGE_BUCKET_NAME['BUCKET_NAME'] #버킷 이름
+AWS_S3_CUSTOM_DOMAIN= '%s.s3.%s.amazonaws.com' % (AWS_STORAGE_BUCKET_NAME,AWS_REGION)
+AWS_S3_OBJECT_PARAMETERS = {
+   'CacheControl': 'max-age=86400',
+}
+
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage' #기본 저장 시스템 클래스
+MEDIA_ROOT = os.path.join(BASE_DIR, 'path/to/store/my/files/') 
 
 #jwtauthentication으로 인증할거임
 REST_FRAMEWORK = {

@@ -8,7 +8,7 @@ import styled from 'styled-components'
 
 const Icon = styled.div`
   position: relative;
-  bottom:130px;
+  bottom:135px;
   display: flex;
   align-items: center;
   justify-items: center;
@@ -18,7 +18,7 @@ function SignUp() {
   return(
     <BookCover>
       <CoverControled>
-        <Titles>Sign Up</Titles>
+        <Titles>회원가입</Titles>
         <Icon>
           <Person style={{
             fontSize:'50px', 

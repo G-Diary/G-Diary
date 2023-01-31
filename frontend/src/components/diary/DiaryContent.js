@@ -3,60 +3,131 @@ import styled from 'styled-components';
 import Manuscript from './Manuscript';
 import Emoji from './Emoji';
 import { BsBrightnessHighFill, BsFillCloudFill ,BsFillCloudSnowFill, BsFillCloudRainFill } from 'react-icons/bs';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Drawing from './Drawing';
 import { useStore } from '../../store/store';
 import api from '../../apis/axios';
 import { format } from 'date-fns';
 
-function DiaryContent(){
+function DiaryContent({getLoading}) {
+  const navigate = useNavigate();
   const location = useLocation();
   const [grim, setGrim] = useState(true);  //그리기모드 버튼 클릭 여부
   const [title, setTitle]=useState(''); //제목
   const [content, setContent]=useState(''); //일기 내용
   const [weather, setWeather]=useState(); //날씨 선택
-  const {updateCanvas}=useStore();
+  const {updateCanvas, setChoiceImg, setGetGrimList}=useStore();
+  const [emoji, setEmoji] = useState('');
+  const Swal = require('sweetalert2');
   const date=location.state?.date;
   let year=date.getFullYear();  //연도 구하기
   let todayMonth=date.getMonth()+1;  //월 구하기
   let todayDate=date.getDate();  //일 구하기
-  
-  const diaryData={
-    'title': title,
-    'weather': weather,
-    'drawing_url': 'images/ateIcecream.png',
-    'contents':content,
-    'diary_date': format(date, 'yyyy-MM-dd')
+
+  //이모지 받아오기
+  const getEmoji = (x) => {
+    setEmoji(x);
   }
-  console.log(diaryData);
-  const user=sessionStorage.getItem('id');
-  console.log(sessionStorage);
+
+  /**
+   * 캔버스 이미지(base64)를 다시 png로 변환하기
+   */
+
+  let myImg = updateCanvas.replace('data:image/png;base64,', '');
+  const byteString = atob(myImg);
+  const array=[];
+  for(let i=0;i<byteString.length;i++){
+    array.push(byteString.charCodeAt(i));
+  }
+  const u8arr=new Uint8Array(array);
+  const file=new Blob([u8arr],{type: 'image/png'});
+
+  const user=sessionStorage.getItem('id');  //세션에 저장되어 있는 user id받아오기
+
   //작성한 일기 보내기
-  const grimDiary = () => {
+  const grimDiary = async () => {
     let form = new FormData();
     form.append('user_id',user);
     form.append('title',title);
     form.append('weather',weather);
-    form.append('drawing_url','images/ateIcecream.png');
+    form.append('emoji',emoji);
     form.append('contents',content);
-    form.append('diary_date',format(date, 'yyyy-MM-dd'));
-
-    api.post('diaries/', form)
-      .then(function (response){
-        console.log(response, JSON.stringify(response,null,7));
+    form.append('diary_date', format(date, 'yyyy-MM-dd'));
+    await api.post('diaries/', form, {
+      headers: {'Content-Type': 'multipart/form-data',},
+    })
+      .then(async function (response) {
+        console.log(response, JSON.stringify(response,null,6));
       })
-      .catch(function (error){
-        console.log(error);
-      });
+      .catch(function (error) {
+        console.log(error)
+        console.log('grimdiary 오류')
+        if (error.response.data.title) {
+          Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: '제목을 입력해 주세요.',
+            showConfirmButton: false,
+            timer: 2000
+          })
+        } else if (error.response.data.contents) {
+          Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: '내용을 입력해 주세요.',
+            showConfirmButton: false,
+            timer: 2000
+          })
+        } else if (error.response.data.weather) {
+          Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: '날씨를 선택해 주세요.',
+            showConfirmButton: false,
+            timer: 2000
+          })
+        }
+      })
   }
 
+  const drawingUrl = async () => {
+    let form = new FormData();
+    form.append('diary_date',format(date, 'yyyy-MM-dd'));
+    form.append('file',file);
+
+    await api.post('images/upload', form, {
+      headers: {'Content-Type': 'multipart/form-data',},
+    })
+      .then(function (response){
+        console.log(response, JSON.stringify(response,null,2));
+        setChoiceImg('');
+        navigate('/list');
+      })
+      .catch(function (error) {
+        console.log(error);
+      })
+  }
+  
+  //AI키워드 그림 가져오기 버튼
+  const bringGrim = () => {
+    getLoading(true);
+    fetch('data/dummy.json',{
+      method: 'GET'
+    }).then(res=>res.json())
+      .then(res=>{
+        console.log(res);
+        setGetGrimList(res);
+        getLoading(false);
+      })
+  }
+  
   //제목 내용
-  const onChange = (e)=>{
+  const onChange = (e) => {
     setTitle(e.target.value);
   }
   
   //날씨 선택
-  const weatherChange = (weatherName)=>{
+  const weatherChange = (weatherName) => {
     setWeather(weatherName);
   }
   //그리기 모드 버튼
@@ -64,69 +135,61 @@ function DiaryContent(){
     setGrim((prev) => !prev);
   };
 
-    
-  return(
+  function WeatherBtn({mood, number}) {
+    return (
+      <WeatherRadioBtn
+        type='radio'
+        id={mood}
+        checked={weather === mood}
+        onChange={() => weatherChange(number)}
+      />
+    )
+  }
+
+  return (
     <DiviContainer>
       <DateContainer>
         <Dateline>
-          <Datetitle>DATE</Datetitle>
-          {/* <DateContent>{year}.{todayMonth}.{todayDate}</DateContent> */}
+          <Datetitle>날짜</Datetitle>
           <DateContent>{year}.{todayMonth}.{todayDate}</DateContent>
-          <Weathercontainer style={{marginTop: '5px'}}>
-            <WeatherRadioBtn 
-              type='radio' 
-              id="sunny"
-              checked={weather==='sunny'}
-              onChange={()=>weatherChange(1)}
-            />
+          <Weathercontainer style={{ marginTop: '5px' }}>
+            <WeatherBtn mood={'sunny'} number={1} />
             <label htmlFor="sunny">
-              {weather===1?(<BsBrightnessHighFill size="29" color='red' />):(<BsBrightnessHighFill size="27" color='#8e8d8d'/>)}
+              {weather === 1 ? (<BsBrightnessHighFill size="29" color='red' />) : (<BsBrightnessHighFill size="27" color='#8e8d8d' />)}
             </label>
-            <WeatherRadioBtn 
-              type='radio' 
-              id="cloudy"
-              checked={weather==='cloudy'}
-              onChange={()=>weatherChange(2)} 
-            />
+            <WeatherBtn mood={'cloudy'} number={2} />
             <label htmlFor="cloudy">
-              {weather===2?(  <BsFillCloudFill size="29" color='rgb(36 75 147)' />):(<BsFillCloudFill size="28" color='#8e8d8d' />)}
+              {weather === 2 ? (<BsFillCloudFill size="29" color='rgb(36 75 147)' />) : (<BsFillCloudFill size="28" color='#8e8d8d' />)}
             </label>
-            <WeatherRadioBtn 
-              type='radio' 
-              id="rainy"
-              checked={weather==='rainy'}
-              onChange={()=>weatherChange(3)}
-            />
+            <WeatherBtn mood={'rainy'} number={3} />
             <label htmlFor="rainy">
-              {weather===3?(<BsFillCloudRainFill size="28" style={{paddingTop: '1.5px'}} color='rgb(76 76 76)' />):(<BsFillCloudRainFill size="26.5" style={{paddingTop: '1.5px'}} color='#8e8d8d' />)}
+              {weather === 3 ? (<BsFillCloudRainFill size="28" style={{ paddingTop: '1.5px' }} color='rgb(76 76 76)' />) : (<BsFillCloudRainFill size="26.5" style={{ paddingTop: '1.5px' }} color='#8e8d8d' />)}
             </label>
-            <WeatherRadioBtn 
-              type='radio' 
-              id="snow"
-              checked={weather==='snow'}
-              onChange={()=>weatherChange(4)} 
-            />
+            <WeatherBtn mood={'snow'} number={4} />
             <label htmlFor="snow">
-              {weather===4?( <BsFillCloudSnowFill size="28" style={{paddingTop: '2px'}} color='#FFFAFA' />):( <BsFillCloudSnowFill size="26" style={{paddingTop: '2px'}} color='#8e8d8d' />)}
+              {weather === 4 ? (<BsFillCloudSnowFill size="28" style={{ paddingTop: '2px' }} color='#FFFAFA' />) : (<BsFillCloudSnowFill size="26" style={{ paddingTop: '2px' }} color='#8e8d8d' />)}
             </label>
           </Weathercontainer>
         </Dateline>
       </DateContainer>
       <TitleContainer>
-        <Title>Title: </Title>
-        <Titlecontent><input type="text" onChange={onChange} value={title} /></Titlecontent>
-        <Emoji />
+        <Title>제목: </Title>
+        <Titlecontent>
+          <input type="text" onChange={onChange} value={title} />
+        </Titlecontent>
+        <Emoji getEmoji={getEmoji} />
       </TitleContainer>
       <Canvas>
-        <Drawing grim={grim}/>
+        <Drawing grim={grim} />
       </Canvas>
       <ButtonContainer>
-        <Modebutton style={{width:'100px'}}>analyze</Modebutton>
-        <Modebutton style={{width:'80px'}} onClick={clickedGrim}>{grim?'Drawing':'Stop'}</Modebutton>
-        <Savebutton onClick={grimDiary}>Save</Savebutton>
+        <Modebutton style={{ width: '100px' }} onClick={bringGrim}>그림가져오기</Modebutton>
+        <Modebutton style={{ width: '80px' }} onClick={clickedGrim}>{grim ? '그림그리기' : '스탑'}</Modebutton>
+        <Savebutton onClick={()=>{drawingUrl();grimDiary();}}>저장하기</Savebutton>
       </ButtonContainer>
-      <Content><Manuscript setContent={setContent}/></Content>
+      <Content><Manuscript setContent={setContent} /></Content>
     </DiviContainer>
+    
   );
 }
 
@@ -166,23 +229,24 @@ export const Datetitle=styled.div`
     width: 10%;
     font-size: 25px;
     text-align: center;
-    font-family:Comic Sans MS;
+    font-family:KyoboHand;
 `
 
 export const DateContent = styled.div`
     width: 25%;
-    font-size: 23px;
+    font-size: 24px;
     border: 2px solid transparent;
     border-radius: 30px;
     background: #D9D9D9;
-    margin-left: 6%;
+    margin-left: 2%;
     text-align: center;
     display: flex;
     align-items: center;
     justify-content: center;
-    line-height: 90%;
+    line-height: 100%;
     color: #4b4b4b;
-    font-family:Comic Sans MS;
+    font-family:KyoboHand;
+    padding-top: 3px;
 `
 
 export const Weathercontainer = styled.div`
@@ -208,7 +272,7 @@ export const TitleContainer = styled.div`
   align-items: center;
   border-top-left-radius: 3px;
   border-top=right-radius: 3px;
-  font-family:Comic Sans MS;
+  font-family:KyoboHand;
 `
 
 export const Title =styled.div`
@@ -216,22 +280,28 @@ export const Title =styled.div`
   width: 10%;
   text-align: left;
   font-size: 25px;
-  font-family:Comic Sans MS;
+  font-family:KyoboHand;
+  z-index: 120;
+  position:absolute;
 `
 
 export const Titlecontent = styled.div`
-  width: 70%;
-  margin-left: 4%;
+  width: 60%;
+  margin-left: 13%;
+  z-index: 120;
+  position:absolute;
   >input{
-    width: 100%;
+    width: 90%;
     margin-bottom:0.5%;
-    font-size: 24px;
+    font-size: 26px;
     border: 0;
     outline: none;
     background: transparent;
-    font-family:Comic Sans MS;
+    padding-top:4px;
+    font-family:KyoboHand;
     color:#4b4b4b;
     caret-color: transparent;
+  
   }
 `
 
@@ -262,8 +332,9 @@ export const Modebutton = styled.button`
   margin-right: 1.5%;
   border: 2px solid black;
   transition: box-shadow 250ms ease-in-out, color 200ms ease-in-out;
-  font-family:Comic Sans MS;
+  font-family:KyoboHand;
   padding-bottom:0.5%;
+  padding-top:3px;
   &:hover{
     box-shadow: 0 0 40px 40px  #404040 inset;
     color: white;
@@ -284,7 +355,8 @@ export const Savebutton = styled.button`
   padding-bottom:0.5%;
   overflow: hidden;
   transition: box-shadow, color 300ms ease-in-out;
-  font-family:Comic Sans MS;
+  font-family:KyoboHand;
+  padding-top:3px;
   &:hover{
     color: rgb(54, 54, 54);
     background-color: transparent;

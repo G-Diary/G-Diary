@@ -1,15 +1,12 @@
-import { Backdrop } from '@material-ui/core';
-import { display } from '@mui/system';
-import React, { useState } from 'react';
-import ReactDOM from 'react-dom';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Modal from 'react-modal';
-import { Link } from 'react-router-dom';
-import './Modal.css'
-import DivBtn from './Button';
-import { useStore } from '../../store/store';
-import Titles from '../../pages/Title';
-import axios from 'axios';
+import './Modal.css';
+import api from '../../apis/axios'
+import { Button, makeStyles } from '@material-ui/core';
+import styled from 'styled-components'
 
+Modal.setAppElement('#root');
 
 const CustomStyles = {
   content: {
@@ -22,111 +19,216 @@ const CustomStyles = {
     marginRight: '-50%',
     transform: 'translate(-50%, -50%)',
     background: 'rgb(253, 246, 234)',
-    borderRadius:'25px'
-    // backgroundImage: 'url(../images/Afs2.png)',
-    // backgroundSize: 'cover',
-    // backgroundColor: 'rgb(240, 219, 109)',
-    // overlay: '#919191'
-    // overlay: {background: '#919191'}
-    // display: 'flex',
-
-    // align-items: 'center',
-    
+    borderRadius: '25px',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center'
   },
 };
 
-Modal.setAppElement('#root');
+const useStyles = makeStyles(theme => ({
+  customHoverFocus: {
+    '&:hover, &.Mui-focusVisible': { backgroundColor: 'rgb(255, 215, 17)' }
+  }
+}));
+
+const Wrap = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  bottom: 20px;`
+
+const Nickname = styled.h1`
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+  margin: 10px;
+  bottom: 22px;
+  font-size: 55px;`
+
+const SelectBtn = styled.div`
+  background-color: rgb(0, 0, 0, 0);
+  border-radius: 25px;
+  position: relative;
+  left: 155px;
+  bottom: 45px;
+  `
+
+const StartBtn = styled.div`
+  background-color: rgb(240, 219, 109);
+  border-radius: 25px;`
+  
+const ChoseBtn = styled.div`
+  background-color: rgb(240, 219, 109);
+  border-radius: 25px;`
+
+const InsideModal = styled.div`
+  margin-top: 0;
+  width: 550px;
+  height: 420px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-evenly;
+  align-items: center;
+  align-content: flex-start;`
+
+const ItemBox = styled.div`
+  padding: 0px;
+  margin-top: 0;
+  width: 550px;
+  height: 400px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;`
 
 function Modals() {
-  const [selected, setSelected] = useState('mainLogo')
-  const [img, setImg] = useState('');
+  const navigate = useNavigate();
+  const classes = useStyles();
+  const [selected, setSelected] = useState('images/mainLogo.png');
+  const [number, setNumber] = useState();
+  const [modalIsOpen, setIsOpen] = useState(false);
   const nickname = sessionStorage.getItem('nickname');
-
-  // axios.get('http://localhost:8000/api/v1/auth/').then(function(res){
-  //   console.log(res.data)
-    
-  // }).catch(function(res){
-  //   console.log(res)
-  // })
-
-  // const onClick = (img) => {
-  //   setImg(img)
-  // }
-
-
-
-
   let subtitle;
-  const [modalIsOpen, setIsOpen] = React.useState(false);
+  const Swal = require('sweetalert2');
+  const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener('mouseenter', Swal.stopTimer)
+      toast.addEventListener('mouseleave', Swal.resumeTimer)
+    }
+  })
+
+  useEffect(() => {
+    api.get(`/users/${sessionStorage.getItem('id')}`).then(function (res) {
+      setSelected(res.data.cover_image_url)
+    }).catch(function (err) {
+      console.log(err)
+    })
+  }, [])
+  
+  function afterOpenModal() {
+    subtitle.style.color = 'black';
+  }
 
   function selectedImg(checked){
     setSelected(checked)
   }
 
-  function openModal() {
+  function Other() {
     setIsOpen(true);
   }
 
-  function afterOpenModal() {
-    subtitle.style.color = 'black';
-  }
-
-  function closeModal() {
-    // axios.post()
+  function Chose() {
     setIsOpen(false);
   }
 
-  return (
-    <div className='container'>
-      <h1 className='nickname'>{nickname}'s</h1>
-      <h1 className='nameDiary'>Diary</h1>
-      <div className='imgDisplay'><img className='imgClass' src={`images/${selected}.png`}/></div>
-      <button className='openBtn' onClick={openModal}>+ Select</button>
-      <button className='startBtn'><Link to={'/list'} className='linkBtn'>Start</Link></button>
-      <Modal
-        isOpen={modalIsOpen}
-        onAfterOpen={afterOpenModal}
-        onRequestClose={closeModal}
-        // style={CustomStyles}
-        style={CustomStyles}
-        contentLabel="Example Modal"
-      >
-        <h2 ref={(_subtitle) => (subtitle = _subtitle)}>Profile</h2>
-        {/* <button onClick={closeModal}>close</button> */}
-        <div className='insideModal'>
-          <div className='itemBox'>
-            {/* <DivBtn order={'item'} image='images/C1.png' id='c1' />
-            <DivBtn order={'item'} image='images/C2.png' id='c2'/>
-            <DivBtn order={'item'} image='images/C3.png' id='c3'/>
-            <DivBtn order={'item'} image='images/C4.png' id='c4'/> */}
-            <>
-              <input name='c' type='radio' id='C1' checked={selected==='C1'} onChange={()=>selectedImg('C1')}/>
-              <label htmlFor='C1'>
-                {selected === 'C1' ? (<img src='images/C1.png' alt='image1' className='item2' />):(<img src='images/C1.png' alt='image1' className='item' />)} 
-              </label>
-              <input name='c' type='radio' id='C2' checked={selected==='C2'} onChange={()=>selectedImg('C2')}/>
-              <label htmlFor='C2'>
-                {selected ==='C2' ? (<img src='images/C2.png' alt='image1' className='item2' />):(<img src='images/C2.png' alt='image1' className='item' />)} 
-              </label>
-              <input name='c' type='radio' id='C3' checked={selected==='C3'} onChange={()=>selectedImg('C3')}/>
-              <label htmlFor='C3'>
-                {selected ==='C3' ? (<img src='images/C3.png' alt='image1' className='item2' />):(<img src='images/C3.png' alt='image1' className='item' />)} 
-              </label>
-              <input name='c' type='radio' id='C4'  checked={selected==='C4'} onChange={()=>selectedImg('C4')}/>
-              <label htmlFor='C4'>
-                {selected ==='C4' ? (<img src='images/C4.png' alt='image1' className='item2' />):(<img src='images/C4.png' alt='image1' className='item' />)} 
-              </label>
-            </>
-          </div>
-        </div>
+  function onClick(e) {
+    e.preventDefault();
+    api.defaults.headers.common['Authorization'] = `Bearer ${sessionStorage.getItem('token')}`
+    console.log(sessionStorage.getItem('id'))
+    api.patch(`users/${sessionStorage.getItem('id')}/`, {
+      cover_image_url: selected
+    }).then(function (res) {
+      let flip = document.querySelector('.flip');
+      let slide = document.querySelector('.slide');
+      slide.classList.add('move')
+      setTimeout(() => {
+        flip.classList.add('open');
+        flip.classList.toggle('color')
+        setTimeout(() => {
+          navigate('/list');
+        }, 470)
+      }, 800);
+      Toast.fire({
+        icon: 'success',
+        title: '표지 설정 완료!'
+      })
+      console.log(res)
+    }).catch(function (err) {
+      console.log(err)
+    })
+  }
 
-        <div className='Btnlocation'>
-          <button className='closeBtn' type='button' onClick={closeModal}>Select</button>
+  function Menu({num}) {
+    return (
+      <>
+        <input name='c' type='radio' id={`C${num}`} checked={number === num} onChange={function () { selectedImg(`images/C${num}.png`); setNumber(num)}}/>
+        <label htmlFor={`C${num}`}>
+          {number === num ? (<img src={`images/C${num}.png`} alt='image1' className='item2' />):(<img src={`images/C${num}.png`} alt='image1' className='item' />)} 
+        </label>
+      </>
+    )
+  }
+
+  return (
+    <>
+      <Nickname>{nickname}'s<br/>일기장</Nickname>
+      <Wrap>
+        <div className='Img'>
+          <img style={{objectFit:'cover'}} alt='star' src={!!selected ? `${selected}` : 'images/mainLogo.png'} />
         </div>
-      </Modal>
-    </div>
+        <SelectBtn>
+          <Button
+            variant='outlined' className={classes.customHoverFocus} type='button' onClick={Other} style={{
+              width: '110px',
+              height: '30px',
+              borderRadius: '25px',
+              fontSize: '17px',
+              fontWeight: 'bolder'
+            }}>+다른 이미지</Button>
+        </SelectBtn>
+        <StartBtn>
+          <Button
+            className={classes.customHoverFocus} type='button' onClick={onClick} style={{
+              width: '100px',
+              height: '40px',
+              borderRadius: '25px',
+              fontSize: '25px',
+              fontWeight: 'bolder'
+            }}>시작</Button>
+        </StartBtn>
+        <Modal
+          isOpen={modalIsOpen}
+          onAfterOpen={afterOpenModal}
+          onRequestClose={Chose}
+          style={CustomStyles}
+          contentLabel="Example Modal"
+        >
+          <h2 ref={(_subtitle) => (subtitle = _subtitle)}>이미지</h2>
+          <InsideModal>
+            <ItemBox>
+              <Menu num={1} />
+              <Menu num={2} />
+              <Menu num={3} />
+              <Menu num={4} />
+            </ItemBox>
+          </InsideModal>
+          <ChoseBtn>
+            <Button
+              className={classes.customHoverFocus} type='button' onClick={Chose} style={{
+                width: '80px',
+                height: '32px',
+                borderRadius: '25px',
+                fontSize: '20px',
+                fontWeight: 'bolder'
+              }}>선택</Button>
+          </ChoseBtn>
+        </Modal>
+      </Wrap>
+    </>
   );
 }
 
-// ReactDOM.render(<App />, appElement);
 export default Modals;

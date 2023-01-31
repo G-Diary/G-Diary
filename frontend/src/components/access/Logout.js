@@ -22,17 +22,18 @@ export default function LogoutBtn() {
           '',
           'success'
         )
-        api.defaults.headers.common['Authorization'] = `Bearer ${null}`
+        api.defaults.headers.common['Authorization'] = null;
         sessionStorage.removeItem('token');
         sessionStorage.removeItem('refresh');
+        sessionStorage.removeItem('nickname');
+        sessionStorage.removeItem('id');
         console.log(api.defaults.headers.common)
         console.log(sessionStorage)
         navigate('/')
       }
     })
   }
-
   return (
-    <Button type='button' onClick={onClick}>로그아웃</Button>
+    <Button type='button' onClick={onClick} style={{ fontWeight: 'bolder' }}>로그아웃</Button>
   )
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import BookCover from '../components/bookshape/BookCover';
-import CoverControled from './CoverControl';
+import CoverControl from './CoverControl';
 import SignInForm from '../components/account/SignInForm';
 import Titles from './Title';
 import { LockOutlined } from '@mui/icons-material';
@@ -8,7 +8,7 @@ import styled from 'styled-components';
 
 const Icon = styled.div`
   position: relative;
-  bottom:130px;
+  bottom:135px;
   display: flex;
   align-items: center;
   justify-items: center;
@@ -17,8 +17,8 @@ const Icon = styled.div`
 function SignIn() {
   return(
     <BookCover>
-      <CoverControled>
-        <Titles>Sign In</Titles>
+      <CoverControl>
+        <Titles>로그인</Titles>
         <Icon>
           <LockOutlined style={{
             fontSize:'50px', 
@@ -27,7 +27,7 @@ function SignIn() {
           }}/>
         </Icon>
         <SignInForm />
-      </CoverControled>
+      </CoverControl>
     </BookCover>
   );
 }

@@ -11,7 +11,6 @@ const Rectangle = ({ image, shapeProps, isSelected, onSelect, onChange }) => {
   const [img] = useImage(image,'Anonymous');
   useEffect(() => {
     if (isSelected) {
-      // we need to attach transformer manually
       trRef.current.nodes([shapeRef.current]);
       trRef.current.getLayer().batchDraw();
     }
@@ -67,7 +66,7 @@ const Rectangle = ({ image, shapeProps, isSelected, onSelect, onChange }) => {
 
 function Drawing({grim}){
   const {choiceImg, setUpdateCanvas}=useStore();
-  const [grimimage, setGrimimage] = useState(choiceImg);
+  const [grimimage, setGrimimage] = useState([]);
   const [selectedId, selectShape] = useState(null);
   const [tool, setTool] = useState('pen');
   const [currentColor,setColor]=useState('#000000');
@@ -76,7 +75,6 @@ function Drawing({grim}){
   let stageRef=useRef(null);
   const isDrawing = useRef(false);
   const checkDeselect = (e) => {
-    // deselect when clicked on empty area
     const clickedOnEmpty = e.target === e.target.getStage();
     if (clickedOnEmpty) {
       selectShape(null);
@@ -85,6 +83,7 @@ function Drawing({grim}){
   
   useEffect(() => {
     setGrimimage([...grimimage, choiceImg]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [choiceImg]);
   const handleMouseDown = (e) => {
     // debugger;
@@ -115,13 +114,12 @@ function Drawing({grim}){
   const handleExport = () =>{
     const dataUrl=stageRef.current.toDataURL({
       mimeType:'image/png',
-      quality:0,
-      pixelRatio:2,
+      // quality:1.0,
+      // pixelRatio:2,
       crossorigin:'anonymous'
-    });
+    },0.5);
     setUpdateCanvas(dataUrl);
   }
-
   return(
     <div>
       {grim?(
