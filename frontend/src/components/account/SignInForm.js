@@ -99,7 +99,6 @@ function SignInForm() {
         showConfirmButton: false,
         timer: 2000
       })
-      console.log(res)
     })
   }
   return(

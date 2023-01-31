@@ -1,8 +1,13 @@
+amqp==5.1.1
 asgiref==3.6.0
 #맥 
 backports.zoneinfo==0.2.1
 # 윈도우
 # backports.zoneinfo==0.2.1;python_version<"3.9"
+billiard==3.6.4.0
+boto3==1.26.57
+botocore==1.29.57
+celery==5.2.7
 certifi==2022.12.7
 cffi==1.15.1
 charset-normalizer==3.0.1
@@ -10,8 +15,10 @@ coreapi==2.3.3
 coreschema==0.0.4
 cryptography==39.0.0
 Django==4.1.5
+django-celery-results==2.4.0
 django-cors-headers==3.13.0
 django-environ==0.9.0
+django-storages==1.13.2
 djangorestframework==3.14.0
 djangorestframework-simplejwt==5.2.0
 drf-yasg==1.21.4
@@ -19,19 +26,30 @@ idna==3.4
 inflection==0.5.1
 itypes==1.2.0
 Jinja2==3.1.2
+jmespath==1.0.1
+JPype1==1.4.1
+kombu==5.2.4
+konlpy==0.6.0
+lxml==4.9.2
 MarkupSafe==2.1.2
 mysqlclient==2.1.1
 packaging==23.0
+prompt-toolkit==3.0.36
 pycparser==2.21
 PyJWT==2.6.0
 PyMySQL==1.0.2
+python-dateutil==2.8.2
 pytz==2022.7
 requests==2.28.2
 ruamel.yaml==0.17.21
 ruamel.yaml.clib==0.2.7
+s3transfer==0.6.0
+six==1.16.0
 #맥 
 sqlparse==0.4.3
 # 윈도우
 # sqlparse==0.2.4
+uritemplate==4.1.1
+urllib3==1.26.14
 uritemplate==4.1.1
 urllib3==1.26.14

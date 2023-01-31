@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import styled from 'styled-components';
 import { useStore } from '../../store/store';
 
@@ -8,8 +8,14 @@ function GrimChoice(){
   const {setChoiceImg, getGrimList}=useStore();
   const keyword = Object.keys(getGrimList);
   const grim = Object.values(getGrimList);
-  const [grimlist, setGrimList] = useState(grim[0]);
-  const [btn, setBtn] = useState(keyword[0]);
+  const [grimlist, setGrimList] = useState();
+  const [btn, setBtn] = useState();
+ 
+  useEffect(()=>{
+    setBtn(keyword[0]);
+    setGrimList(grim[0]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[getGrimList])
 
   //선택한 키워드에 맞는 그림 보여주기
   const onSelect = (i)=>{

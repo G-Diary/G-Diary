@@ -174,13 +174,12 @@
 }
 
 .listemoji{
-    /* align-items: center; */
-    width: 3rem;
-    padding-top: 15px;
+    align-items: center;
+    /* padding-top: 10px; */
     cursor: pointer;
-    /* display: flex;
-    justify-content: center; */
-    transform: translate(-18%,20%);
+    display: flex;
+    justify-content: center;
+    margin-left: 10px;
     z-index: 100;
     font-size: 2em;
 }
