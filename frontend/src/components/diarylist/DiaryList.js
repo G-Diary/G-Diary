@@ -12,11 +12,6 @@ function DiaryList({title, weather, draw, contents, date, emoji}){
   let todayMonth=fulldate[1];  //월 구하기
   let todayDate=fulldate[2];  //일 구하기
 
-  // let blob=new Blob([new ArrayBuffer(draw)],{type:'image/png'});
-  // const url=URL.createObjectURL(blob);
-  // console.log(url);
-  // URL.revokeObjectURL(url);
-
   return(
     <DiviContainer>
       <DateContainer>
@@ -64,12 +59,10 @@ function DiaryList({title, weather, draw, contents, date, emoji}){
       <TitleContainer>
         <Title>제목:</Title>
         <Titlecontent style={{fontSize: '1.5rem'}}>{title}</Titlecontent>
-        {/* <img src={`${emoji}`} alt="emoji" style={{width:'1em', fontSize:'1.8em'}}/> */}
-        <div style={{width:'1em', fontSize:'1.8em'}}>{emoji}</div>
+        <div style={{width:'1em', fontSize:'1.8em',marginLeft: '460px'}}>{emoji}</div>
       </TitleContainer>
       <Canvas><img src={draw} alt="diarygrim" style={{width:'500px', height:'290px'}}/></Canvas>
       <ChoiceButtonContainer style={{height: '25px' ,marginTop:'2%', marginLeft:'2.2%'}}>
-        {/* <Modebutton style={{width: '130px', height:'30px'}}></Modebutton> */}
       </ChoiceButtonContainer>
       <Content><ResultManuscript content={contents}/></Content>
     </DiviContainer>

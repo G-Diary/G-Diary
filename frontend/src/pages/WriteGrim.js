@@ -13,32 +13,18 @@ function WriteGrim(){
     setLoading(load);
   }
   return(
-    <>{loading?(
-      <>
-        <WriteContainer>
-          <Book2Container> 
-            <BookShape2L>
-              <GrimChoice />
-            </BookShape2L>
-            <BookShape2R>
-              <DiaryContent getLoading={getLoading}/>
-            </BookShape2R>
-            <Bookmark />
-          </Book2Container>
-          <Loading /> 
-        </WriteContainer>
-      </>):( 
-      <WriteContainer>
-        <Book2Container> 
-          <BookShape2L>
-            <GrimChoice />
-          </BookShape2L>
-          <BookShape2R>
-            <DiaryContent getLoading={getLoading}/>
-          </BookShape2R>
-          <Bookmark />
-        </Book2Container>
-      </WriteContainer>)}</>
+    <WriteContainer>
+      {loading?<Loading />:''}
+      <Book2Container> 
+        <BookShape2L>
+          <GrimChoice />
+        </BookShape2L>
+        <BookShape2R>
+          <DiaryContent getLoading={getLoading}/>
+        </BookShape2R>
+        <Bookmark />
+      </Book2Container>
+    </WriteContainer>
   )
 }
 
