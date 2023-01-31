@@ -8,7 +8,8 @@ class Result(models.Model):
     # diary_id = models.ForeignKey(Diary, on_delete=models.CASCADE, null=False) #fk
     keyword = models.CharField(max_length=10, null=False)
 
-    def __str__(self):
+    def __str__(self, word):
+        self.keyword=word
         return self.id
 #
     # def __init__(self, keyword):
