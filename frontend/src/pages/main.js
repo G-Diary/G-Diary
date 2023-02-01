@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import BookCover from '../components/bookshape/BookCover';
 import Titles from './Title';
 import CoverControl from './CoverControl'
-import api from '../apis/axios'
 
 const LinkBox = styled.div`
   width: 110%;
@@ -25,7 +24,6 @@ const ShowImage = styled.img`
   `
 
 function Main() {
-  console.log(api.defaults.headers.common)
   return(
     <BookCover>
       <CoverControl>
