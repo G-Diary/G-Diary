@@ -8,18 +8,35 @@
 
 ## [소개]
 <img width="147" alt="image" src="https://user-images.githubusercontent.com/65939213/216037279-a9dada49-4c2e-4ba7-bd53-cdd6964a272c.png">
-일기를 작성해 저장해보세요
-일기장에서 키워드를 추출해 그림일기에 사용할 그림을 제공합니다
-이 세상에 단 하나밖에 없는 그림 일기를 작성해보세요
+일기를 작성해 저장해보세요<br/>
+일기장에서 키워드를 추출해 그림일기에 사용할 그림을 제공합니다<br/>
+이 세상에 단 하나밖에 없는 그림 일기를 작성해보세요<br/><br/>
 <img width="917" alt="image" src="https://user-images.githubusercontent.com/65939213/216038172-f0a9a927-1d80-4511-b4e8-1cd78ce683d0.png">
 
 
 ## [소프트웨어 아키텍쳐]
 <img width="1212" alt="image" src="https://user-images.githubusercontent.com/65939213/216037078-cd61ca9e-01a5-4351-8099-92710f634924.png">
 
+## **:zap: Tech Stack**
+```
+- Frontend: React, Zustand
+- Backend : Django, Django-Rest-FrameWork
+- Web Server: Nginx, Celery, Rabbitmq
+- WSGI: Gunicorn
+- Database: MySQL
+- AI : pytorch, dlib, OpenCV
+- Deployment: Docker, AWS EC2, AWS S3
+- API Test : Postman
+- API Documentation : Swagger
+- monitoring : prometheus, grafana
+```
 
 
 ## [실행 방법]
+```
+git clone https://github.com/2023-SV-winter-bootcamp-G-Diary/G-Diary.git
+docker-compose up --build
+```
 
 ## [기능 및 소개]
 
