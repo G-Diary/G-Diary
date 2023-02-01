@@ -26,11 +26,11 @@ services:
         DJANGO_SECRET_KEY: "*"
         DJANGO_CORS_ORIGIN_WHITELIST: "*"
     container_name: gd_backend
-    command: sh -c "/wait & python -m conifg.decode 
-      & python manage.py makemigrations gdiary 
-      && python manage.py migrate gdiary 
-      && python manage.py makemigrations text 
-      && python manage.py migrate text 
+    command: sh -c "/wait & python -m conifg.decode
+      && python manage.py makemigrations gdiary
+      && python manage.py migrate gdiary
+      && python manage.py makemigrations text
+      && python manage.py migrate text
       && python manage.py runserver 0.0.0.0:8000"
     restart: on-failure
     ports:
@@ -44,7 +44,15 @@ services:
 
   gd_mysql:
     image: mysql
-    command: ['mysqld', '--lower_case_table_names=1','--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci', "--init-connect='SET NAMES utf8'",  '--skip-character-set-client-handshake']
+    command:
+      [
+        "mysqld",
+        "--lower_case_table_names=1",
+        "--character-set-server=utf8mb4",
+        "--collation-server=utf8mb4_unicode_ci",
+        "--init-connect='SET NAMES utf8'",
+        "--skip-character-set-client-handshake",
+      ]
     container_name: gd_mysql # 컨테이너 이름 설정
     ports:
       # 도커:로컬
@@ -53,7 +61,7 @@ services:
       - ./backend/.env
     networks:
       - gd
-      
+
   gd_rabbitmq:
     hostname: localhost
     container_name: gd_rabbitmq
@@ -88,7 +96,7 @@ services:
     networks:
       - gd
     command: "celery -A config.celery worker --loglevel=info --pool=solo"
-    
+
 networks:
   gd:
     driver: bridge

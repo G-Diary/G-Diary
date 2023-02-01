@@ -22,9 +22,6 @@ RUN apt-get update && apt-get install -y python3-pip libffi-dev python3-dev && a
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
-# wait-for 적용
-ADD https://github.com/ufoscout/docker-compose-wait/releases/download/2.9.0/wait /wait
-RUN chmod +x /wait
 
 WORKDIR /backend
 
