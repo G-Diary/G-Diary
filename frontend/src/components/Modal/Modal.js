@@ -148,7 +148,7 @@ function Modals() {
         flip.classList.toggle('color')
         setTimeout(() => {
           navigate('/list');
-        }, 470)
+        }, 400)
       }, 800);
       Toast.fire({
         icon: 'success',
