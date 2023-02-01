@@ -1,4 +1,4 @@
-<img width="80%" src="https://i.pinimg.com/564x/29/ca/08/29ca08da71ab8aa1b2958bfe5fa33918.jpg"/>
+<img width="100%" src="https://i.pinimg.com/564x/29/ca/08/29ca08da71ab8aa1b2958bfe5fa33918.jpg"/>
 
 # G-Diary
 ### 어른들의 동심을 찾아라!
