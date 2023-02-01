@@ -47,11 +47,11 @@ class ImageUploader(APIView) :
             return JsonResponse({"ERROR" : "FAIL"})
 
 # 결과 키워드별 이미지 url 조회 API 
-# api/v1/results?diary_id=?
+# api/v1/results?diary_date=?
 class SelectImageAPIView(APIView):
     def get(self, request):
-        dId = request.query_params.get('diary_id', '')
-        results = Result.objects.filter(diary_id=dId) # 요청 받은 일기 id값과 result의 일기 id가 같은 result 테이블 값
+        date = request.query_params.get('diary_date', '')
+        results = Result.objects.filter(diary_date=date) # 요청 받은 일기 id값과 result의 일기 id가 같은 result 테이블 값
         if results:
             data = []
             for result in results:
