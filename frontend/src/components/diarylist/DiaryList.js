@@ -23,8 +23,8 @@ function DiaryList({title, weather, draw, contents, date, emoji}){
     window.Kakao.Share.sendDefault({
       objectType: 'feed',
       content: {
-        title: '내 일기 어때?',
-        description: '너도 쓰러 와!',
+        title: title,
+        description: contents,
         // 일기에서 그린 그림 url 주소 하고 싶어영
         imageUrl: draw,
         link: {

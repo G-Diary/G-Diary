@@ -175,7 +175,6 @@
 
 .listemoji{
     align-items: center;
-    /* padding-top: 10px; */
     cursor: pointer;
     display: flex;
     justify-content: center;

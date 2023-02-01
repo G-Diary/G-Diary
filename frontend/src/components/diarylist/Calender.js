@@ -129,7 +129,7 @@ function Calender({list, exist}){
       <div className='listname'>일기 리스트</div>
       <div className='calender'>
         <RenderHeader currentMonth={currentMonth} prevMonth={prevMonth} nextMonth={nextMonth}></RenderHeader>
-        <RenderDays></RenderDays>
+        <RenderDays/>
         <RenderCells currentMonth={currentMonth} today={today} list={list} exist={exist} selectedDate={selectedDate} onDateClick={onDateClick}></RenderCells>
       </div>
     </div>

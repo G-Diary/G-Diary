@@ -6,75 +6,29 @@ import { useStore } from '../../store/store';
 // AI로부터 받아온 그림들 중 원하는 그림 선택
 function GrimChoice(){
   const {setChoiceImg, getGrimList}=useStore();
-  const keyword = Object.keys(getGrimList);
   const grim = Object.values(getGrimList);
-  console.log(getGrimList)
-  console.log(keyword);
-  console.log(grim)
   const [grimlist, setGrimList]=useState();
-  const img=[];
+  const img = [];
+  
   useEffect(()=>{
-    console.log('메렁')
     setGrimList(grim[1]);
-   
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[getGrimList])
-  // console.log(grimlist)
-
-  if(grimlist!=undefined){
-    console.log('있는디')
-    console.log(grimlist[0].image_url)
+  }, [getGrimList])
+  
+  if(grimlist!==undefined){
     grimlist.map((i,index)=>(
       img.push(grimlist[index].image_url)
     ))
   }
-  console.log(getGrimList)
-  console.log(img)
-  // console.log(keyword)
-  // console.log(grim[1][0])
-  // const img = []
-  // for (let i = 0; i < grim[1].length; i++) {
-  //   img.push(grim[1][i].image_url)
-  // }
-  // console.log(img)
-  // const grim = Object.values(getGrimList);
-  // const [grimlist, setGrimList] = useState();
-  // const [btn, setBtn] = useState();
-  // console.log(Object.keys(getGrimList))
-  // const img = [];
-  // useEffect(() => {
-  //   // console.log(keyword)
-  //   console.log(typeof (Object.values(getGrimList)[1]))
-    
-  //   setKeyword(Object.values(getGrimList)[1])
-  //   const result = Object.values(keyword)
-  //   // console.log(result[0].image_url)
-    
-  //   result && result.map((i) => (
-  //     img.push(result[i].image_url)
-  //   ))
-  
-  //   // console.log(keyword)
-  // }, [getGrimList])
-  // console.log(img)
-  // console.log(Object.values(keyword[0])[0])
-  
-  // useEffect(()=>{
-  //   setBtn(keyword[0]);
-  //   setGrimList(grim[0]);
-  // // eslint-disable-next-line react-hooks/exhaustive-deps
-  // },[getGrimList])
-
-  // //선택한 키워드에 맞는 그림 보여주기
-  // const onSelect = (i)=>{
-  //   setGrimList(grim[i]);
-  //   setBtn(keyword[i]);  //선택한 키워드 색변경
-  // }
 
   const addImage = (srcImg) => {
     const newimage = new Image();
-    newimage.src=srcImg.src;
+    const image=srcImg.src;
+    const timestamp = new Date().getTime();
+    const imageWithTimestamp=image.includes('?') ? `${image}&v=${timestamp}` : `${image}?v=${timestamp}`;
+    newimage.src=imageWithTimestamp;
     newimage.crossOrigin = 'Anonymous';
+
     setChoiceImg( {
       id:srcImg.alt,
       img: newimage.src,
@@ -85,29 +39,23 @@ function GrimChoice(){
     }
     )
   };
+  
   const onChange = (e) => {
     e.preventDefault();
     addImage(e.target);
   };
-
-
   
   return(
     <ChoiceContainer>
       <Choicetitle>
         GD가 분석해본 그림이에요!
       </Choicetitle>
-      {/* <Keywords>
-        {keyword && keyword.map((x,index)=>(
-          <Keyword key={index} id={x} onClick={()=>onSelect(index)}>{btn===x?<div style={{color:'red'}}>{x}</div>:<div>{x}</div>}</Keyword>
-        ))}
-      </Keywords> */}
       <Choice>
         {
           img && img.map((data,index)=>
             (
               <ChoiceGrim key={index} id="image" src={data}
-                alt="grim" onClick={onChange}/>
+                alt="grim" onClick={onChange} crossorigin="anonymous"/>
             ))
         }
       </Choice>
@@ -137,22 +85,6 @@ const Choicetitle =styled.div`
     font-size: 40px;
     font-family:KyoboHand;
     font-weight: bolder;
-`
-const Keywords = styled.div`
-  width: 80%;
-  display: flex;
-  flex-direction: row;
-`
-const Keyword = styled.div`
-  width: auto;
-  height: 2rem;
-  border: 2px double black;
-  background: ivory;
-  text-align: center;
-  font-size: 1.5rem;
-  line-height: 150%;
-  padding: 4px;
-  border-bottom-style: none;
 `
 
 const Choice = styled.div`

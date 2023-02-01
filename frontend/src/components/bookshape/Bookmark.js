@@ -57,7 +57,7 @@ function Bookmark() {
   }, []);
 
   function Valid() {
-    if (loca === '/' || loca === '/signin' || loca === '/signup' || (!IsLogin() && loca === '/about')) {
+    if (loca === '/' || loca === '/signin' || loca === '/signup' || (!IsLogin() && loca === '/about') || (IsLogin() && loca === '/main')) {
       return 'none';
     } else {
       return '';
@@ -66,7 +66,7 @@ function Bookmark() {
 
   function onClick() {
     setChoiceImg('');
-    setGetGrimList([]);
+    setGetGrimList('');
   }
 
   return (
@@ -79,7 +79,7 @@ function Bookmark() {
       <StyledNavLink id='write' to='/list' style={{ pointerEvents: Valid() }} onClick={onClick}>
         일기 쓰기
       </StyledNavLink>
-      <StyledNavLink to='/about' onClick={onClick}>
+      <StyledNavLink to='/about' style={{ pointerEvents: loca === '/main' ? 'none' : '' }} onClick={onClick}>
         소개
       </StyledNavLink>
     </BookMark>

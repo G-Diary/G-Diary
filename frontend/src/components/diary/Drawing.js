@@ -1,21 +1,25 @@
 import React, {useState, useEffect, useRef, Fragment} from 'react';
-import {Stage, Layer, Line, Image, Transformer} from 'react-konva';
+import {Stage, Layer, Line, Image, Transformer, Circle} from 'react-konva';
 import { useStore } from '../../store/store';
 import useImage from 'use-image';
 import {BsFillCircleFill, BsFillEraserFill } from 'react-icons/bs';
 import { FaUndoAlt } from 'react-icons/fa';
 
-const Rectangle = ({ image, shapeProps, isSelected, onSelect, onChange }) => {
+const Rectangle = ({ image, shapeProps,draggable, isSelected, unSelectShape, onSelect, onChange, onDelete}) => {
   const shapeRef = useRef();
   const trRef = useRef();
   const [img] = useImage(image,'Anonymous');
+  const deleteBtn=useRef();
   useEffect(() => {
     if (isSelected) {
       trRef.current.nodes([shapeRef.current]);
       trRef.current.getLayer().batchDraw();
     }
   }, [isSelected]);
-
+  const handleDelete = () =>{
+    unSelectShape(null);
+    onDelete(shapeRef.current);
+  }
   return (
     <Fragment>
       <Image
@@ -24,7 +28,7 @@ const Rectangle = ({ image, shapeProps, isSelected, onSelect, onChange }) => {
         onTap={onSelect}
         ref={shapeRef}
         {...shapeProps}
-        draggable
+        draggable={draggable}
         onDragEnd={(e) => {
           onChange({
             ...shapeProps,
@@ -58,7 +62,15 @@ const Rectangle = ({ image, shapeProps, isSelected, onSelect, onChange }) => {
             }
             return newBox;
           }}
-        />
+        >
+          <Circle
+            radius={8}
+            fill="red"
+            ref={deleteBtn}
+            onClick={handleDelete}
+            x={Math.max(shapeRef.current.width())*1}
+          ></Circle>
+        </Transformer>
       )}
     </Fragment>
   );
@@ -120,6 +132,15 @@ function Drawing({grim}){
     },0.5);
     setUpdateCanvas(dataUrl);
   }
+  const unSelectShape = (prop)=>{
+    selectShape(prop);
+  };
+  const onDeleteImage = (node)=>{
+    const newImage = [...grimimage];
+    newImage.splice(node.index,1);
+    setGrimimage(newImage);
+
+  }
   return(
     <div>
       {grim?(
@@ -143,6 +164,8 @@ function Drawing({grim}){
                   image={rect.img}
                   shapeProps={rect}
                   isSelected={rect.id === selectedId}
+                  unSelectShape={(e)=>{unSelectShape(e)}}
+                  draggable={true}
                   onSelect={() => {
                     selectShape(rect.id);
                   }}
@@ -151,6 +174,7 @@ function Drawing({grim}){
                     rects[i] = newAttrs;
                     setGrimimage(rects);
                   }}
+                  onDelete={onDeleteImage}
                 />
               );
             })}
@@ -199,6 +223,7 @@ function Drawing({grim}){
                 image={rect.img}
                 shapeProps={rect}
                 isSelected={rect.id === selectedId}
+                draggable={false}
                 onSelect={() => {
                   selectShape(rect.id);
                 }}

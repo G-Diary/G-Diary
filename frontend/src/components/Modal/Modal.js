@@ -137,7 +137,6 @@ function Modals() {
   function onClick(e) {
     e.preventDefault();
     api.defaults.headers.common['Authorization'] = `Bearer ${sessionStorage.getItem('token')}`
-    console.log(sessionStorage.getItem('id'))
     api.patch(`users/${sessionStorage.getItem('id')}/`, {
       cover_image_url: selected
     }).then(function (res) {
@@ -155,7 +154,6 @@ function Modals() {
         icon: 'success',
         title: '표지 설정 완료!'
       })
-      console.log(res)
     }).catch(function (err) {
       console.log(err)
     })

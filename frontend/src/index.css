@@ -21,6 +21,13 @@ body{
     background-size: cover;
 }
 
+.link {
+    width:30.5%;
+    font-size: 45px;
+    color: black;
+    text-decoration-line: none;
+}
+
 @media screen and (min-width: 1401px), screen and (min-height: 701px) {
     #help {
         color: rgba(0, 0, 0, 0);

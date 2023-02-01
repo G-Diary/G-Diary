@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import Manuscript from './Manuscript';
 import Emoji from './Emoji';
@@ -53,20 +53,14 @@ function DiaryContent({ getLoading }) {
     form.append('emoji', emoji);
     form.append('contents', content);
     form.append('diary_date', format(date, 'yyyy-MM-dd'));
-    console.log(form);
-    console.log(title, weather, emoji, content)
     await api
       .post('diaries/', form, {
         headers: { 'Content-Type': 'multipart/form-data', },
       })
       .then(function (response) {
         drawingUrl();
-        console.log(response, JSON.stringify(response, null, 6));
-        console.log(response);
       })
       .catch(function (error) {
-        console.log(error);
-        console.log('grimdiary 오류');
         if (error.response.data.title) {
           Swal.fire({
             position: 'center',
@@ -104,8 +98,8 @@ function DiaryContent({ getLoading }) {
         headers: { 'Content-Type': 'multipart/form-data' },
       })
       .then(function (response) {
-        console.log(response, JSON.stringify(response, null, 2));
         setChoiceImg('');
+        setGetGrimList('')
         navigate('/list');
       })
       .catch(function (error) {
@@ -116,38 +110,41 @@ function DiaryContent({ getLoading }) {
   //AI키워드 그림 가져오기 버튼
   const bringGrim = async () => {
     getLoading(true);
-    setGetGrimList([]);
+    setGetGrimList('');
     let form = new FormData();
-    // console.log(diary_date)
     form.append('diary_date', format(date, 'yyyy-MM-dd'));
     form.append('contents', content);
     await api.post('text/', form, {
-      headers: { 'Content-Type': 'multipart/form-data' },
+      headers: {
+        'Content-Type': 'multipart/form-data',},
     })
       .then((res) => {
-        console.log(res);
         api.get(`results?diary_date=${format(date, 'yyyy-MM-dd')}`)
           .then(function (res) {
-            setGetGrimList(res.data);
-            // console.log(res.data)
-            // console.log(res.data.result)
-            // console.log(res.data.result[0].image_url)
-            getLoading(false);
-            console.log(res)
+            if (res.data.result.length === 0) {
+              Swal.fire({
+                position: 'center',
+                icon: 'warning',
+                title: '키워드에 맞는 이미지가 없습니다.',
+                showConfirmButton: false,
+                timer: 2000
+              })
+              getLoading(false);
+            } else {
+              setGetGrimList(res.data);
+              getLoading(false);
+            }
           }).catch(function (error) {
             getLoading(false);
-            console.log(error.response.data)
             if (error.response.data.ERROR === 'FAIL') {
               Swal.fire({
                 position: 'center',
-                icon: 'error',
+                icon: 'warning',
                 title: '키워드에 맞는 이미지가 없습니다.',
                 showConfirmButton: false,
                 timer: 2000
               })
             }
-            console.log('없음')
-            console.log(error)
           })
       }).catch((error) => {
         console.log(error)

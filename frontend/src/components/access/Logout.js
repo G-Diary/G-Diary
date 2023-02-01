@@ -27,8 +27,6 @@ export default function LogoutBtn() {
         sessionStorage.removeItem('refresh');
         sessionStorage.removeItem('nickname');
         sessionStorage.removeItem('id');
-        console.log(api.defaults.headers.common)
-        console.log(sessionStorage)
         navigate('/')
       }
     })

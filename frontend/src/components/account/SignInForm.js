@@ -82,9 +82,6 @@ function SignInForm() {
     sessionStorage.setItem('refresh', refresh);
     sessionStorage.setItem('nickname', `${res.data.user.nickname}`)
     sessionStorage.setItem('id', `${res.data.user.id}`)
-    console.log(api.defaults.headers.common)
-    console.log(access)
-    console.log(refresh)
   }
 
   function onLogin(e) {
