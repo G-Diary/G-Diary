@@ -1,0 +1,14 @@
+#frontend
+FROM node:18.12.1-alpine
+
+USER root
+
+WORKDIR /frontend
+COPY . /frontend
+
+RUN yarn config set network-timeout 300000
+RUN yarn --ignore-platform
+
+COPY . ./
+
+RUN yarn run build
