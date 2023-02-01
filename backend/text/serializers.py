@@ -4,4 +4,4 @@ class ResultSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Result
-        fields = ['diary_id', 'keyword']
+        fields = ['diary_date', 'keyword']
