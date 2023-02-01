@@ -1,9 +1,9 @@
 version: "3"
 
-services: 
-
+services:
   frontend:
-    build: ./frontend
+    build:
+      context: ./frontend
     command: ["yarn", "start"]
     container_name: frontend
     ports:
@@ -13,10 +13,10 @@ services:
       - build_folder:/frontend/build
       - ./frontend/node_modules/:/frontend/node_modules
     # environment:
-      # - CI=true
-      # - CHOKIDAR_USEPOLLING=true    # HMR을 위해 필요한 설정
-      # - REACT_APP_BACKEND_URL=http://localhost:8000
-    stdin_open: true      # react-script 3.4.1 부터 필요
+    # - CI=true
+    # - CHOKIDAR_USEPOLLING=true    # HMR을 위해 필요한 설정
+    # - REACT_APP_BACKEND_URL=http://localhost:8000
+    stdin_open: true # react-script 3.4.1 부터 필요
     tty: true
     # 가상 네트워크 연결
     networks:
@@ -98,9 +98,10 @@ services:
       - gd
     command: "celery -A config.celery worker --loglevel=info --pool=solo"
 
-
   nginx:
-    build: ./nginx
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
     container_name: nginx
     ports:
       - 8000:80
