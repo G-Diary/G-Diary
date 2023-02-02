@@ -20,7 +20,7 @@ services:
     stdin_open: true # react-script 3.4.1 부터 필요
     tty: true
     env_file:
-      - ./frontend/.env
+      - ./frontend/.env.local
     # 가상 네트워크 연결
     # networks:
     #   - gd
