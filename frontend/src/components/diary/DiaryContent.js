@@ -58,6 +58,7 @@ function DiaryContent({ getLoading }) {
         headers: { 'Content-Type': 'multipart/form-data', },
       })
       .then(function (response) {
+        console.log(response.data)
         drawingUrl();
       })
       .catch(function (error) {
@@ -91,6 +92,7 @@ function DiaryContent({ getLoading }) {
 
   const drawingUrl = async () => {
     let form = new FormData();
+    form.append('user_id', user);
     form.append('diary_date', format(date, 'yyyy-MM-dd'));
     form.append('file', file);
     await api
@@ -98,6 +100,7 @@ function DiaryContent({ getLoading }) {
         headers: { 'Content-Type': 'multipart/form-data' },
       })
       .then(function (response) {
+        console.log(response.data)
         setChoiceImg('');
         setGetGrimList('')
         navigate('/list');
