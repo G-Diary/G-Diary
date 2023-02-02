@@ -53,7 +53,8 @@ class ImageUploader(APIView) :
 class SelectImageAPIView(APIView):
     def get(self, request):
         date = request.query_params.get('diary_date', '')
-        results = Result.objects.filter(diary_date=date) # 요청 받은 일기 id값과 result의 일기 id가 같은 result 테이블 값
+        user_id = request.query_params.get('user_id', '')
+        results = Result.objects.filter(diary_date=date, user_id=user_id) # 요청 받은 일기 id값과 result의 일기 id가 같은 result 테이블 값
         if results:
             data = []
             for result in results:
