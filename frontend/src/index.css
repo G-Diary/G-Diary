@@ -16,7 +16,7 @@ html, body{
 body{
     /* position: fixed; */
     overflow: hidden;
-    background-image: url("../public/images/grimback.PNG");
+    background-image: url("../public/images/background.PNG");
     background-repeat: no-repeat;
     background-size: cover;
 }
