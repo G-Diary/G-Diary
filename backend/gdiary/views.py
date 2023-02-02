@@ -24,6 +24,7 @@ class ImageUploader(APIView) :
         try :
             file = request.FILES.get('file')
             diary_date = request.POST.get('diary_date')
+            user_id = request.POST.get('user_id')
 
             s3r = boto3.resource('s3', aws_access_key_id= AWS_ACCESS_KEY_ID, aws_secret_access_key= AWS_ACCESS_ACCESS_KEY) #s3 연결
             
@@ -32,14 +33,15 @@ class ImageUploader(APIView) :
                 
             image_url = "https://"+AWS_S3_CUSTOM_DOMAIN+"/image/%s"%(file) #url 명
 
-            data = Diary.objects.get(diary_date = diary_date)
+            data = Diary.objects.get(diary_date = diary_date, user_id = user_id)
             data.drawing_url = image_url
             data.save()
                 
             return JsonResponse({
                 "MESSGE" : "SUCCESS" ,
                 "image_url" : image_url,
-                "diary_id" : diary_date
+                "diary_date" : diary_date,
+                "user_id" : user_id
             }, status=200)
 
 
@@ -51,7 +53,8 @@ class ImageUploader(APIView) :
 class SelectImageAPIView(APIView):
     def get(self, request):
         date = request.query_params.get('diary_date', '')
-        results = Result.objects.filter(diary_date=date) # 요청 받은 일기 id값과 result의 일기 id가 같은 result 테이블 값
+        user_id = request.query_params.get('user_id', '')
+        results = Result.objects.filter(diary_date=date, user_id=user_id) # 요청 받은 일기 id값과 result의 일기 id가 같은 result 테이블 값
         if results:
             data = []
             for result in results:

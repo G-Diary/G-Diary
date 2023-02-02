@@ -68,7 +68,7 @@ const Rectangle = ({ image, shapeProps,draggable, isSelected, unSelectShape, onS
             fill="red"
             ref={deleteBtn}
             onClick={handleDelete}
-            x={Math.max(shapeRef.current.width())*1}
+            x={shapeRef.current===undefined?0:Math.max(shapeRef.current.width())*1}
           ></Circle>
         </Transformer>
       )}

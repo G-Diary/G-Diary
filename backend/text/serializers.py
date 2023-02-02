@@ -4,4 +4,4 @@ class ResultSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Result
-        fields = ['diary_date', 'keyword']
+        fields = '__all__'

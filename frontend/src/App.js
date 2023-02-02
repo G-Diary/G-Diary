@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import GrimList from './pages/GrimList';
 import WriteGrim from './pages/WriteGrim';
@@ -18,8 +18,7 @@ const theme = createTheme({
 })
 
 function App() {
-  const KAKAO_SECRET_KEY = process.env.REACT_APP_KAKAO_KEY
-  window.Kakao.init(KAKAO_SECRET_KEY);
+  window.Kakao.init(process.env.REACT_APP_KAKAO_KEY);
   return (
     <ThemeProvider theme={theme}>
       <Routes>
