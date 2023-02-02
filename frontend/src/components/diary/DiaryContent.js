@@ -115,6 +115,7 @@ function DiaryContent({ getLoading }) {
     getLoading(true);
     setGetGrimList('');
     let form = new FormData();
+    form.append('user_id', user);
     form.append('diary_date', format(date, 'yyyy-MM-dd'));
     form.append('contents', content);
     await api.post('text/', form, {
@@ -122,7 +123,7 @@ function DiaryContent({ getLoading }) {
         'Content-Type': 'multipart/form-data',},
     })
       .then((res) => {
-        api.get(`results?diary_date=${format(date, 'yyyy-MM-dd')}`)
+        api.get(`results?diary_date=${format(date, 'yyyy-MM-dd')}&&user_id=${user}`)
           .then(function (res) {
             if (res.data.result.length === 0) {
               Swal.fire({
