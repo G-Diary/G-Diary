@@ -76,7 +76,7 @@ class Diary(BaseModel):
     user_id = models.ForeignKey(User, on_delete=models.CASCADE, null=False) #fk
     title = models.CharField(max_length=50, null=False)
     weather = models.IntegerField(null=False)
-    emoji = models.CharField(max_length=500, null=False)
+    emoji = models.CharField(max_length=500, null=False, default='')
     drawing_url = models.CharField(max_length=500, null=True)
     contents = models.CharField(max_length=50, null=False)
     diary_date = models.DateField(null=False)
