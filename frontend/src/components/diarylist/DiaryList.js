@@ -18,23 +18,23 @@ function DiaryList({title, weather, draw, contents, date, emoji}){
   let todayMonth=fulldate[1];  //월 구하기
   let todayDate=fulldate[2];  //일 구하기
 
-  // const classes = useStyles();
-  // function shareMessage() {
-  //   window.Kakao.Share.sendDefault({
-  //     objectType: 'feed',
-  //     content: {
-  //       title: title,
-  //       description: contents,
-  //       // 일기에서 그린 그림 url 주소 하고 싶어영
-  //       imageUrl: draw,
-  //       link: {
-  //       // 도메인 주소 정해지면 그거 넣으면 될 것 같아여
-  //         mobileWebUrl: 'http://localhost:3000/',
-  //         webUrl: 'http://localhost:3000/',
-  //       },
-  //     },
-  //   });
-  // }
+  const classes = useStyles();
+  function shareMessage() {
+    window.Kakao.Share.sendDefault({
+      objectType: 'feed',
+      content: {
+        title: title,
+        description: contents,
+        // 일기에서 그린 그림 url 주소 하고 싶어영
+        imageUrl: draw,
+        link: {
+        // 도메인 주소 정해지면 그거 넣으면 될 것 같아여
+          mobileWebUrl: 'http://localhost',
+          webUrl: 'http://localhost',
+        },
+      },
+    });
+  }
   function Weather() {
     return(
       <>
@@ -64,7 +64,7 @@ function DiaryList({title, weather, draw, contents, date, emoji}){
       </TitleContainer>
       <Canvas><img src={draw} alt="diarygrim" style={{width:'500px', height:'290px'}}/></Canvas>
       <ChoiceButtonContainer style={{height: '25px' ,marginTop:'2%', marginLeft:'2.2%'}}>
-        {/* <Button
+        <Button
           onClick={shareMessage}
           className={classes.customHoverFocus}
           type='button'
@@ -79,7 +79,7 @@ function DiaryList({title, weather, draw, contents, date, emoji}){
           }}
         >
         카카오톡 공유하기
-        </Button> */}
+        </Button>
       </ChoiceButtonContainer>
       <Content><ResultManuscript content={contents}/></Content>
     </DiviContainer>
