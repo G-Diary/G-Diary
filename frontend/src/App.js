@@ -18,11 +18,8 @@ const theme = createTheme({
 })
 
 function App() {
-  // useEffect(() => {
-  //   if (!window.Kakao.isInitialized()) {
-  //     window.Kakao.init(process.env.REACT_APP_KAKAO_KEY);
-  //   }
-  // }, []);
+  const KAKAO_SECRET_KEY = process.env.REACT_APP_KAKAO_KEY
+  window.Kakao.init(KAKAO_SECRET_KEY);
   return (
     <ThemeProvider theme={theme}>
       <Routes>
