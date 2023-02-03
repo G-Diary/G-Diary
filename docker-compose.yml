@@ -61,7 +61,7 @@ services:
       - ./backend/.env
     networks:
       - gd
-
+      
   gd_rabbitmq:
     hostname: localhost
     container_name: gd_rabbitmq
