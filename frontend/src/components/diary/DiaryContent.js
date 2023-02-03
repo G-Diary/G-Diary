@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
 import Manuscript from './Manuscript';
 import Emoji from './Emoji';
@@ -18,6 +18,9 @@ function DiaryContent({ getLoading }) {
   const [weather, setWeather] = useState(); //날씨 선택
   const { updateCanvas, setChoiceImg, setGetGrimList } = useStore();
   const [emoji, setEmoji] = useState('');
+  const variable = useRef({
+    isDoubleClick: false
+  });  //더블 클릭 방지 변수
   const Swal = require('sweetalert2');
   const date = location.state?.date;
   let year = date.getFullYear(); //연도 구하기
@@ -53,6 +56,12 @@ function DiaryContent({ getLoading }) {
     form.append('emoji', emoji);
     form.append('contents', content);
     form.append('diary_date', format(date, 'yyyy-MM-dd'));
+    
+    // 더블 클릭 방지 로직
+    if(variable.current.isDoubleClick){
+      return;
+    }
+    variable.current.isDoubleClick = true;
     await api
       .post('diaries/', form, {
         headers: { 'Content-Type': 'multipart/form-data', },
@@ -60,6 +69,7 @@ function DiaryContent({ getLoading }) {
       .then(function (response) {
         console.log(response.data)
         drawingUrl();
+        
       })
       .catch(function (error) {
         if (error.response.data.title) {
@@ -104,6 +114,7 @@ function DiaryContent({ getLoading }) {
         setChoiceImg('');
         setGetGrimList('')
         navigate('/list');
+        variable.current.isDoubleClick=false;
       })
       .catch(function (error) {
         console.log(error);
