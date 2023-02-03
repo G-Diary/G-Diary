@@ -1,0 +1,197 @@
+/*일기 리스트 컨테이너*/
+.listcontainer{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content:flex-start;
+    align-items:center;
+    margin-top: 12%;
+}
+/*일기 리스트 이름*/
+.listname{
+    font-size: 2.6em;
+    font-weight: 800;
+}
+
+.calender{
+    width: 85%;
+    height: 70%;
+}
+
+/*월*/
+.header{
+    width: 100%;
+    height: 10%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-left: 6px;
+}
+.headercol.col-start{
+    width: 80%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+.text{
+    font-size: 1.2em;
+}
+.text.month{
+    margin-right: 10px;
+    font-size: 1.8em;
+    font-weight: 800;
+}
+.headercol.col-end{
+    width: 20%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: baseline;
+}
+.icons{
+    width: 25%;
+    height: fit-content;
+    margin-left: 10%;
+    color: rgba(gray, 0.3);
+}
+.icons:hover{
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+    transform: scale(1.15);
+    color: #686868;
+}
+
+/*요일*/
+.days{
+    width: 100%;
+    height: 4.5%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 700;
+    font-size: 1em;
+    padding:3px;
+    color: #444343;
+    margin-left: 2px;
+}
+.dayscol{
+    width: 13%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-start;
+    padding-left: 1%;
+    background:#d0c7c4;
+    border-radius: 10px;
+    padding-bottom: 3px;
+}
+
+/*날짜(바디부분)*/
+.calenderbody{
+    width: 100%;
+    height: 89%;   
+    padding-left: 5px;
+    z-index: 40
+}
+
+.bodyrow{
+    width: 100%;
+    height: 20%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.bodycol{
+    width: 15%;
+    height: 90%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+    border: 0.5px solid gray;
+    border-radius: 3px;
+    font-size: 1.2em;
+    margin: 1px;
+}
+.bodycol>span{
+    margin: 2px 0 0 5px;
+}
+.not-valid{
+    color: #a5a5a5; 
+}
+.bodycol>img{
+    opacity: 0.1;
+}
+.today{
+    color:rgb(159, 91, 13); 
+    background: #f3e3b7;
+    font-weight: 600;
+    border: transparent;
+}
+.bodycol.cell.valid:hover{
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+    box-shadow: 1.5px 1.5px  0px 0px #c4c4c4;
+    transform: scale(1.01);
+    border: none;
+    background: #c4c4c4;
+}
+.bodycol.cell.selected{
+    box-shadow: 1.5px 1.5px 0px 0px #adacac;
+    transform: scale(1.02);
+    border: none;
+    background: #e4ce6b;
+    color: #e55218;
+    font-weight: 600;
+}
+
+
+.hover-close {
+    align-items: center;
+    background-color: #aab1bc;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    height: 25px;
+    justify-content: center;
+    position: absolute;
+    right: 3px;
+    top: 6%;
+    transition: 0.2;
+    width: 25px;
+    z-index: 100;
+}
+.hover-close.open.hide {
+    display: none;
+}
+
+.listemoji{
+    align-items: center;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    margin-left: 10px;
+    z-index: 100;
+    font-size: 2em;
+}
+
+.listLink{
+    text-decoration-line: none;
+    font-size: 1.8rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: translate(0%,25%);
+    color: #e83710;
+}
+.listLink:hover{
+    color:rgb(205, 111, 111);
+}

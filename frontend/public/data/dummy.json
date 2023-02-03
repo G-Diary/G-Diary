@@ -1,21 +1,21 @@
-[
-  {
-    "id":1,
-    "title":"travel",
-    "weather":4,
-    "drawing_url":"images/jeju.png",
-    "contents":"I went to Jeju Island with my friends.",
-    "date": "2023-01-22",
-    "emoji":"https://e.unicode-table.com/orig/66/402e690a1bd54de348fee6a291fcc5.png"
-  },
-  {
-    "id":2,
-    "title":"ice cream",
-    "weather":1,
-    "drawing_url":"images/ateIcecream.png",
-    "contents":"I went to the ice cream shop and ate ice cream.",
-    "date": "2023-01-18",
-    "emoji":"https://e.unicode-table.com/orig/80/4139df052e66413dcb2ef0b64d1bdd.png"
-  }
-  
-]
+{ 
+    "message": "SUCESS",
+    "result":[
+        {
+            "keyword": "사과",
+            "image_url": "images/newyear.jpg"
+        },
+        {
+            "keyword":"사과",
+            "image_url": "https://i.pinimg.com/originals/f9/f4/2c/f9f42cc1853189038a8e219fdf47a644.png"
+        },
+        {
+            "keyword":"사탕",
+            "image_url":"http://kuku-keke.com/wp-content/uploads/2020/04/2470_5.png"
+        },
+        {
+            "keyword": "사탕",
+            "image_url":"https://png.pngtree.com/element_our/20190603/ourmid/pngtree-children-s-day-lollipop-image_1440682.jpg"
+        }
+    ]
+}

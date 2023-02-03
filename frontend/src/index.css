@@ -1,18 +1,31 @@
+@font-face {
+    font-family: 'KyoboHand';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@1.0/KyoboHand.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
 /*화면 높이 100vh로 줄 때 생기는 스크롤 없애기*/
 html, body{
     margin: 0;
     height:100vh;
     width: 100vw;
     padding: 0;
-    font-family:Comic Sans MS;
+    font-family: 'KyoboHand';
 }
 
 body{
     /* position: fixed; */
     overflow: hidden;
-    background-image: url("../public/images/normal.gif");
+    background-image: url("../public/images/background.PNG");
     background-repeat: no-repeat;
     background-size: cover;
+}
+
+.link {
+    width:30.5%;
+    font-size: 45px;
+    color: black;
+    text-decoration-line: none;
 }
 
 @media screen and (min-width: 1401px), screen and (min-height: 701px) {

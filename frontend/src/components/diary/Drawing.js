@@ -1,22 +1,25 @@
 import React, {useState, useEffect, useRef, Fragment} from 'react';
-import {Stage, Layer, Line, Image, Transformer} from 'react-konva';
+import {Stage, Layer, Line, Image, Transformer, Circle} from 'react-konva';
 import { useStore } from '../../store/store';
 import useImage from 'use-image';
 import {BsFillCircleFill, BsFillEraserFill } from 'react-icons/bs';
 import { FaUndoAlt } from 'react-icons/fa';
 
-const Rectangle = ({ image, shapeProps, isSelected, onSelect, onChange }) => {
+const Rectangle = ({ image, shapeProps,draggable, isSelected, unSelectShape, onSelect, onChange, onDelete}) => {
   const shapeRef = useRef();
   const trRef = useRef();
   const [img] = useImage(image,'Anonymous');
+  const deleteBtn=useRef();
   useEffect(() => {
     if (isSelected) {
-      // we need to attach transformer manually
       trRef.current.nodes([shapeRef.current]);
       trRef.current.getLayer().batchDraw();
     }
   }, [isSelected]);
-
+  const handleDelete = () =>{
+    unSelectShape(null);
+    onDelete(shapeRef.current);
+  }
   return (
     <Fragment>
       <Image
@@ -25,7 +28,7 @@ const Rectangle = ({ image, shapeProps, isSelected, onSelect, onChange }) => {
         onTap={onSelect}
         ref={shapeRef}
         {...shapeProps}
-        draggable
+        draggable={draggable}
         onDragEnd={(e) => {
           onChange({
             ...shapeProps,
@@ -59,7 +62,15 @@ const Rectangle = ({ image, shapeProps, isSelected, onSelect, onChange }) => {
             }
             return newBox;
           }}
-        />
+        >
+          <Circle
+            radius={8}
+            fill="red"
+            ref={deleteBtn}
+            onClick={handleDelete}
+            x={img===undefined?0:Math.max(shapeRef.current.width())*1}
+          ></Circle>
+        </Transformer>
       )}
     </Fragment>
   );
@@ -67,7 +78,7 @@ const Rectangle = ({ image, shapeProps, isSelected, onSelect, onChange }) => {
 
 function Drawing({grim}){
   const {choiceImg, setUpdateCanvas}=useStore();
-  const [grimimage, setGrimimage] = useState(choiceImg);
+  const [grimimage, setGrimimage] = useState([]);
   const [selectedId, selectShape] = useState(null);
   const [tool, setTool] = useState('pen');
   const [currentColor,setColor]=useState('#000000');
@@ -76,7 +87,6 @@ function Drawing({grim}){
   let stageRef=useRef(null);
   const isDrawing = useRef(false);
   const checkDeselect = (e) => {
-    // deselect when clicked on empty area
     const clickedOnEmpty = e.target === e.target.getStage();
     if (clickedOnEmpty) {
       selectShape(null);
@@ -85,6 +95,7 @@ function Drawing({grim}){
   
   useEffect(() => {
     setGrimimage([...grimimage, choiceImg]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [choiceImg]);
   const handleMouseDown = (e) => {
     // debugger;
@@ -115,13 +126,25 @@ function Drawing({grim}){
   const handleExport = () =>{
     const dataUrl=stageRef.current.toDataURL({
       mimeType:'image/png',
-      quality:0,
-      pixelRatio:2,
+      // quality:1.0,
+      // pixelRatio:2,
       crossorigin:'anonymous'
-    });
+    },0.5);
     setUpdateCanvas(dataUrl);
   }
+  const handleRemove=(index)=>{
+    const newList=grimimage.filter((item)=> item.index !== index);
+    setGrimimage(newList);
+  }
+  const unSelectShape = (prop)=>{
+    selectShape(prop);
+  };
+  const onDeleteImage = (node)=>{
+    const newImage = [...grimimage];
+    newImage.splice(node.index,1);
+    setGrimimage(newImage);
 
+  }
   return(
     <div>
       {grim?(
@@ -139,20 +162,25 @@ function Drawing({grim}){
         >
           <Layer>
             {grimimage && grimimage.map((rect, i) => {
+              console.log(grimimage)
               return (
                 <Rectangle
                   key={i}
                   image={rect.img}
                   shapeProps={rect}
-                  isSelected={rect.id === selectedId}
+                  isSelected={rect === selectedId}
+                  unSelectShape={(e)=>{unSelectShape(e)}}
+                  draggable={true}
+                  onClick={handleRemove}
                   onSelect={() => {
-                    selectShape(rect.id);
+                    selectShape(rect);
                   }}
                   onChange={(newAttrs) => {
                     const rects = grimimage.slice();
                     rects[i] = newAttrs;
                     setGrimimage(rects);
                   }}
+                  onDelete={onDeleteImage}
                 />
               );
             })}
@@ -201,6 +229,7 @@ function Drawing({grim}){
                 image={rect.img}
                 shapeProps={rect}
                 isSelected={rect.id === selectedId}
+                draggable={false}
                 onSelect={() => {
                   selectShape(rect.id);
                 }}

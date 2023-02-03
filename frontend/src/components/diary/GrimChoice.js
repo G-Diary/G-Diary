@@ -1,23 +1,45 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import styled from 'styled-components';
 import { useStore } from '../../store/store';
+
+
+// AI로부터 받아온 그림들 중 원하는 그림 선택
 function GrimChoice(){
-  const {setChoiceImg}=useStore();
+  const {setChoiceImg, getGrimList}=useStore();
+  const grim = Object.values(getGrimList);
+  const [grimlist, setGrimList]=useState();
+  const img = [];
+  
+  useEffect(()=>{
+    setGrimList(grim[1]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [getGrimList])
+  
+  if(grimlist!==undefined){
+    grimlist.map((i,index)=>(
+      img.push(grimlist[index].image_url)
+    ))
+  }
+
   const addImage = (srcImg) => {
     const newimage = new Image();
-    newimage.src=srcImg.src;
-    console.log(newimage);
+    const image=srcImg.src;
+    const timestamp = new Date().getTime();
+    const imageWithTimestamp=image.includes('?') ? `${image}&v=${timestamp}` : `${image}?v=${timestamp}`;
+    newimage.src=imageWithTimestamp;
     newimage.crossOrigin = 'Anonymous';
-    setChoiceImg(
-      {
-        id:srcImg.alt,
-        img: newimage.src,
-        x:0,
-        y:0,
-        width: srcImg.width,
-        height: srcImg.height,
-      })
+
+    setChoiceImg( {
+      id:srcImg.alt,
+      img: newimage.src,
+      x:0,
+      y:0,
+      width: srcImg.width,
+      height: srcImg.height,
+    }
+    )
   };
+  
   const onChange = (e) => {
     e.preventDefault();
     addImage(e.target);
@@ -26,15 +48,17 @@ function GrimChoice(){
   return(
     <ChoiceContainer>
       <Choicetitle>
-        What would you draw?
+        GD가 분석해본 그림이에요!
       </Choicetitle>
       <Choice>
-        <ChoiceGrim id="image" src="images/car.JPG"
-          alt="fish" onClick={onChange}/>
+        {
+          img && img.map((data,index)=>
+            (
+              <ChoiceGrim key={index} id="image" src={data}
+                alt="grim" onClick={onChange} crossorigin="anonymous"/>
+            ))
+        }
       </Choice>
-      <ChoiceButtonContainer>
-        <Choicebutton>Photo</Choicebutton>
-      </ChoiceButtonContainer>
     </ChoiceContainer>)
 }
 
@@ -58,20 +82,23 @@ const Choicetitle =styled.div`
     justify-content: center;
     width: 500px;
     height: 80px;
-    font-size: 33px;
-    font-family:Comic Sans MS;
+    font-size: 40px;
+    font-family:KyoboHand;
+    font-weight: bolder;
 `
 
 const Choice = styled.div`
     width: 500px;   
     height: 520px;
-    background:#B5B5B5;
+    background:white;
     border-radius: 10px;
+    border: 2px dotted grey;
+    overflow: auto;
 `
 
 const ChoiceGrim = styled.img`
-    width: 100px;
-    height: 100px;
+    width: 95px;
+    height: 95px;
     object-fit:cover;
     margin: 2rem;
 `
@@ -95,7 +122,8 @@ export const Choicebutton = styled.button`
     font-size: 17px;
     margin-left: 1.5%;
     transition: box-shadow 250ms ease-in-out, color 200ms ease-in-out;
-    font-family:Comic Sans MS;
+    font-family:KyoboHand;
+    font-weight: bolder;
     &:hover{
         box-shadow: 0 0 40px 40px #404040 inset;
         color: white;
