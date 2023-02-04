@@ -68,7 +68,7 @@ const Rectangle = ({ image, shapeProps,draggable, isSelected, unSelectShape, onS
             fill="red"
             ref={deleteBtn}
             onClick={handleDelete}
-            x={shapeRef.current===undefined?0:Math.max(shapeRef.current.width())*1}
+            x={img===undefined?0:Math.max(shapeRef.current.width())*1}
           ></Circle>
         </Transformer>
       )}
@@ -132,6 +132,10 @@ function Drawing({grim}){
     },0.5);
     setUpdateCanvas(dataUrl);
   }
+  const handleRemove=(index)=>{
+    const newList=grimimage.filter((item)=> item.index !== index);
+    setGrimimage(newList);
+  }
   const unSelectShape = (prop)=>{
     selectShape(prop);
   };
@@ -158,16 +162,18 @@ function Drawing({grim}){
         >
           <Layer>
             {grimimage && grimimage.map((rect, i) => {
+              console.log(grimimage)
               return (
                 <Rectangle
                   key={i}
                   image={rect.img}
                   shapeProps={rect}
-                  isSelected={rect.id === selectedId}
+                  isSelected={rect === selectedId}
                   unSelectShape={(e)=>{unSelectShape(e)}}
                   draggable={true}
+                  onClick={handleRemove}
                   onSelect={() => {
-                    selectShape(rect.id);
+                    selectShape(rect);
                   }}
                   onChange={(newAttrs) => {
                     const rects = grimimage.slice();

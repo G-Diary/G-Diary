@@ -26,7 +26,7 @@ services:
         DJANGO_SECRET_KEY: "*"
         DJANGO_CORS_ORIGIN_WHITELIST: "*"
     container_name: gd_backend
-    command: sh -c "/wait & python -m conifg.decode
+    command: sh -c "/wait & python -m config.decode
       && python manage.py makemigrations gdiary
       && python manage.py migrate gdiary
       && python manage.py makemigrations text
