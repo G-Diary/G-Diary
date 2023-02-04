@@ -26,7 +26,7 @@
          <td width="600" align="center">
             <img width="600" alt="image" src="https://user-images.githubusercontent.com/101381901/216728674-4d8bab83-026a-4120-a471-0ea3367c04cc.png">
         </td>
-        <td width="100" align="center">
+        <td width="600" align="center">
             <div align="left">
 일기를 작성해 저장해보세요<br/>
 일기장에서 키워드를 추출해 그림일기에 사용할 그림을 제공합니다<br/>
