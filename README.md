@@ -33,8 +33,11 @@
 이 세상에 단 하나밖에 없는 그림 일기를 작성해보세요<br/><br/>
 
 <b>
-🔗 [www.gdiary.org]((http://www.gdiary.org))<br>
-📓 [medium]((https://medium.com/@dkfud2121/g-diary-3e90e87722a2))
+    
+🔗 [www.gdiary.org](http://www.gdiary.org) <br>
+    
+📓 [medium](https://medium.com/@dkfud2121/g-diary-3e90e87722a2)
+    
 </b>
 </div>
 </tr>
@@ -139,18 +142,22 @@ docker-compose up --build
 <img width="1200" alt="image" src="https://user-images.githubusercontent.com/101381901/216731251-d66ed03a-7ba0-48bc-b101-04b468f17c6c.gif">
 <br>
 <br>
+
 ### 커버사진 변경 및 시작 <br>
 <img width="1200" alt="image" src="https://user-images.githubusercontent.com/101381901/216731286-10efe23c-9591-40d6-affd-e3bee4c5547a.gif">
 <br>
 <br>
+
 ### ✍🏻 일기작성 <br>
 <img width="1200" alt="image" src="https://user-images.githubusercontent.com/101381901/216731234-23cc91b4-1400-487a-b76c-25806416bb57.gif">
 <br>
 <br>
+
 ### 캘린더로 일기 조회 <br>
 <img width="1200" alt="image" src="https://user-images.githubusercontent.com/101381901/216731257-23c1fe92-95cf-4a02-b727-f3914af8c9f5.gif">
 <br>
 <br>
+
 ### 작성방법 및 소개 <br>
 <img width="1200" alt="image" src="https://user-images.githubusercontent.com/101381901/216731261-319b0159-f066-4747-884b-b9168463055f.png">
 
