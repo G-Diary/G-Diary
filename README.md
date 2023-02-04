@@ -18,12 +18,12 @@
 ## 🧐 Introduce
 ---
 
-<table width="950px">
+<table width="1200">
     <thead>
     </thead>
     <tbody>
     <tr>
-         <td width="200" align="center">
+         <td width="300" align="center">
             <img width="600" alt="image" src="https://user-images.githubusercontent.com/101381901/216728674-4d8bab83-026a-4120-a471-0ea3367c04cc.png">
         </td>
         <td width="100" align="center">
@@ -135,8 +135,8 @@ docker-compose up --build
 ## 🌈 Feature
 ---
 - JWT를 이용한 회원가입, 로그인 <br>
-<img width="600" alt="image" src="https://user-images.githubusercontent.com/101381901/216731234-23cc91b4-1400-487a-b76c-25806416bb57.gif">
-<img width="600" alt="image" src="https://user-images.githubusercontent.com/101381901/216731251-d66ed03a-7ba0-48bc-b101-04b468f17c6c.gif">
+<img width="1200" alt="image" src="https://user-images.githubusercontent.com/101381901/216731234-23cc91b4-1400-487a-b76c-25806416bb57.gif">
+<img width="1200" alt="image" src="https://user-images.githubusercontent.com/101381901/216731251-d66ed03a-7ba0-48bc-b101-04b468f17c6c.gif">
 <br>
 <br>
 - 커버사진 변경 및 시작 <br>
@@ -159,8 +159,6 @@ docker-compose up --build
 <br>
 
 ## 📹 [Demo]((https://www.youtube.com/watch?v=RCUEUDk4sVw)) 
----
-<iframe width="560" height="315" src="https://www.youtube.com/watch?v=RCUEUDk4sVw" frameborder="0" allowfullscreen></iframe>
 
 <br>
 <br>
@@ -173,4 +171,4 @@ docker-compose up --build
 | <img width = "520" src="https://avatars.githubusercontent.com/u/101381901?v=4"> | <img width = "520" src ="https://avatars.githubusercontent.com/u/65939213?v=4"> | <img width = "520" src ="https://avatars.githubusercontent.com/u/102780846?v=4"> | <img width = "520" src ="https://avatars.githubusercontent.com/u/79428205?v=4"> | <img width = "520" src ="https://avatars.githubusercontent.com/u/114225974?v=4"> | <img width = "520" src ="https://avatars.githubusercontent.com/u/108129068?v=4"> |
 | Leader, Backend, DevOps | Backend, AI | Backend | Frontend, DevOps | Frontend | Frontend |                                      
 
-![Footer](https://capsule-render.vercel.app/api?type=waving&color=auto&height=200&section=footer)
+![Footer](https://capsule-render.vercel.app/api?type=waving&color=auto&height=200&width=1212&section=footer)
