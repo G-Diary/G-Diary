@@ -1,5 +1,5 @@
 import React from 'react';
-import BookCover from '../components/bookshape/BookCover';
+import BookCover from '../components/bookshape/bookCover';
 import CoverControl from './CoverControl';
 import SignInForm from '../components/account/SignInForm';
 import Titles from './Title';

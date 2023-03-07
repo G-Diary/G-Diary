@@ -1,5 +1,5 @@
 import React from 'react';
-import BookCover from '../bookshape/BookCover';
+import BookCover from '../bookshape/bookCover';
 import Modals from './Modal'
 
 function AfterLogin() {
