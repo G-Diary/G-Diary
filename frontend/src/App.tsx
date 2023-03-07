@@ -1,7 +1,7 @@
 import { createBrowserRouter, RouterProvider} from 'react-router-dom';
 import GrimList from './pages/GrimList';
 import WriteGrim from './pages/WriteGrim';
-import Main from './pages/main';
+import Main from './pages/Main';
 import AfterLogin from './components/Modal/AfterLogin';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';

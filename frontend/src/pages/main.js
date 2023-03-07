@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import BookCover from '../components/bookshape/bookCover';
+import BookCover from '../components/bookshape/BookCover';
 import Titles from './Title';
 import CoverControl from './CoverControl'
 
