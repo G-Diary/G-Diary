@@ -3,7 +3,7 @@ name: 퍼블리싱
 about: 페이지 퍼블리싱 및 css 수정 등 UI 변경
 title: "[design]"
 labels: "퍼블리싱"
-assignees: ''
+assignees: 'username'
 
 ---
 
