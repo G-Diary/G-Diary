@@ -9,7 +9,14 @@ import { useStore } from '../../store/store';
 
 //(date-fns 이용: 날짜 관련 함수 총 집합 라이브러리)
 //header 컴포넌트(월 이동)
-const RenderHeader = ({ currentMonth, prevMonth, nextMonth }) => {
+
+interface RenderHeaderProps{
+  currentMonth: Date;
+  prevMonth: () => void;
+  nextMonth: () => void;
+}
+
+const RenderHeader = ({ currentMonth, prevMonth, nextMonth }:RenderHeaderProps) => {
   return (
     <div className="header row">
       <div className="headercol col-start">
@@ -43,18 +50,27 @@ const RenderDays = () =>{
   return <div className='days row'>{days}</div>
 }
 
+interface RenderCellsProps {
+  currentMonth: any;
+  today: Date;
+  list: any[];
+  exist: any[];
+  selectedDate: Date;
+  onDateClick: (cloneDay:Date) => void;
+}
+
 //Body(Cells) 컴포넌트(날짜(일))
-const RenderCells = ({currentMonth, today, list, exist, selectedDate, onDateClick})=>{
+const RenderCells = ({currentMonth, today, list, exist, selectedDate, onDateClick}:RenderCellsProps)=>{
   const monthStart=startOfMonth(currentMonth);
   const monthEnd=endOfMonth(monthStart);
   const startDate=startOfWeek(monthStart);
   const endDate=endOfWeek(monthEnd);
-  const [add, setAdd]=useState(true);  //일기 추가 상태
+  const [add, setAdd]=useState<boolean>(true);  //일기 추가 상태
   const {setChoicedDate}=useStore();  //페이지 이동 시 선택 날짜 초기화
-  const rows=[];
-  let days=[];
-  let day=startDate;
-  let formattedDate = '';
+  const rows:any=[];
+  let days:any=[];
+  let day:any=startDate;
+  let formattedDate:string = '';
 
   const pageMove = () =>{
     setChoicedDate('');
@@ -63,7 +79,7 @@ const RenderCells = ({currentMonth, today, list, exist, selectedDate, onDateClic
   while(day<=endDate){
     for (let i=0; i<7; i++){
       formattedDate=format(day, 'd');
-      const cloneDay=day;
+      const cloneDay:Date=day;
       days.push(
         <div className={`bodycol cell ${
           !isSameMonth(day, monthStart)
@@ -109,10 +125,15 @@ const RenderCells = ({currentMonth, today, list, exist, selectedDate, onDateClic
   return <div className='calenderbody'>{rows}</div>
 }
 
-function Calender({list, exist}){
-  const [currentMonth, setCurrentMonth]=useState(new Date());
+interface CalenderProps{
+  list: any[];
+  exist: any[];
+}
+
+function Calender({list, exist}:CalenderProps){
+  const [currentMonth, setCurrentMonth]=useState<Date>(new Date());
   const {choiceDate, setChoicedDate}=useStore();
-  const [selectedDate, setSelectedDate]=useState(choiceDate);
+  const [selectedDate, setSelectedDate]=useState<Date>(choiceDate);
   const prevMonth = () =>{
     setCurrentMonth(subMonths(currentMonth, 1));
   };
@@ -120,7 +141,7 @@ function Calender({list, exist}){
   const nextMonth = () =>{
     setCurrentMonth(addMonths(currentMonth,1));
   }
-  const onDateClick = (day) =>{
+  const onDateClick = (day:any) =>{
     setSelectedDate(day);
     setChoicedDate(day)
   }

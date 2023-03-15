@@ -1,6 +1,23 @@
 import React from 'react';
 import styled from 'styled-components';
 
+type BookShape2RProps = {
+  children:React.ReactNode;
+}
+
+function BookShape2R({children}:BookShape2RProps){
+  return(   
+    <>
+      <Line/>
+      <BookShape2Right>
+        {children}
+      </BookShape2Right>
+    </>
+  )
+}
+
+export default BookShape2R;
+
 const BookShape2Right = styled.div`
     display: flex;
     width: 600px;
@@ -24,15 +41,3 @@ const Line =styled.div`
   height : 750px;
   box-shadow:12px 9px 10px 0 #676262;
 `
-function BookShape2R({children}){
-  return(   
-    <>
-      <Line/>
-      <BookShape2Right>
-        {children}
-      </BookShape2Right>
-    </>
-  )
-}
-
-export default BookShape2R;

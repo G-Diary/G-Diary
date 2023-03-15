@@ -1,6 +1,24 @@
 import React from 'react';
 import styled from 'styled-components';
  
+type BookShape2LProps = {
+  children:React.ReactNode;
+}
+
+function BookShape2L({ children }:BookShape2LProps) {
+  return( 
+    <>
+      <BookShape2Left>
+        {children}
+      </BookShape2Left>
+      <Line/>
+    </>
+
+  )
+}
+
+export default BookShape2L;
+
 const BookShape2Left = styled.div`
     display: flex;
     align-items: center;
@@ -23,17 +41,4 @@ const Line =styled.div`
   background: linear-gradient(-90deg, rgba(129, 121, 121, 1), rgba(244, 244, 244, 1));
   height : 750px;
   box-shadow:12px 9px 10px 0 #676262;
-`
-function BookShape2L({ children }) {
-  return( 
-    <>
-      <BookShape2Left>
-        {children}
-      </BookShape2Left>
-      <Line/>
-    </>
-
-  )
-}
-
-export default BookShape2L;
+  `
