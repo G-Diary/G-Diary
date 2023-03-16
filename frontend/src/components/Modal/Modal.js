@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Modal from 'react-modal';
 import './Modal.css';
@@ -95,6 +95,8 @@ function Modals() {
   const [selected, setSelected] = useState('images/mainLogo.png');
   const [number, setNumber] = useState();
   const [modalIsOpen, setIsOpen] = useState(false);
+  const [imgFile, setImgFile]=useState('');
+  const imgRef=useRef();
   const nickname = sessionStorage.getItem('nickname');
   let subtitle;
   const Swal = require('sweetalert2');
@@ -132,6 +134,18 @@ function Modals() {
 
   function Chose() {
     setIsOpen(false);
+  }
+
+  const addFile = ()=>{
+    const file=imgRef.current.files[0];
+    const reader=new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend=()=>{
+      setImgFile(reader.result);
+      setSelected(reader.result);
+
+    }
+    console.log(imgFile);
   }
 
   function onClick(e) {
@@ -213,16 +227,25 @@ function Modals() {
               <Menu num={4} />
             </ItemBox>
           </InsideModal>
-          <ChoseBtn>
-            <Button
-              className={classes.customHoverFocus} type='button' onClick={Chose} style={{
-                width: '80px',
-                height: '32px',
-                borderRadius: '25px',
-                fontSize: '20px',
-                fontWeight: 'bolder'
-              }}>선택</Button>
-          </ChoseBtn>
+          <div style={{width: '70%',display:'flex', justifyContent:'end', alignItems:'center'}}>
+            <ChoseBtn>
+              <Button
+                className={classes.customHoverFocus} type='button' onClick={Chose} style={{
+                  width: '80px',
+                  height: '32px',
+                  borderRadius: '25px',
+                  fontSize: '20px',
+                  fontWeight: 'bolder'
+                }}>선택</Button>
+          
+            </ChoseBtn>
+            <div style={{width: '22%',marginLeft: '4rem'}}>
+              <label style={{padding:'6px 25px', backgroundColor:'orange',borderRadius:'4px',color:'white',cursor:'pointer'}} htmlFor="input-file">
+                업로드
+              </label>
+              <input type="file" id="input-file" accept="image/png, image/jpeg" style={{display:'none'}} onChange={addFile} ref={imgRef} /> 
+            </div>
+          </div>
         </Modal>
       </Wrap>
     </>
