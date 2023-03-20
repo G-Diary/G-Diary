@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Modal from 'react-modal';
 import './Modal.css';
@@ -93,8 +93,10 @@ function Modals() {
   const navigate = useNavigate();
   const classes = useStyles();
   const [selected, setSelected] = useState('images/mainLogo.png');
-  const [number, setNumber] = useState();
+  const [number, setNumber] = useState(0);
   const [modalIsOpen, setIsOpen] = useState(false);
+  const [imgFile, setImgFile]=useState('');
+  const imgRef=useRef();
   const nickname = sessionStorage.getItem('nickname');
   let subtitle;
   const Swal = require('sweetalert2');
@@ -110,6 +112,8 @@ function Modals() {
     }
   })
 
+  console.log(selected);
+  console.log(number);
   useEffect(() => {
     api.get(`/users/${sessionStorage.getItem('id')}`).then(function (res) {
       setSelected(res.data.cover_image_url)
@@ -132,6 +136,18 @@ function Modals() {
 
   function Chose() {
     setIsOpen(false);
+  }
+
+  const addFile = ()=>{
+    const file=imgRef.current.files[0];
+    const reader=new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend=()=>{
+      setImgFile(reader.result);
+      setSelected(reader.result);
+      setNumber(5);
+    }
+    console.log(imgFile);
   }
 
   function onClick(e) {
@@ -213,16 +229,28 @@ function Modals() {
               <Menu num={4} />
             </ItemBox>
           </InsideModal>
-          <ChoseBtn>
-            <Button
-              className={classes.customHoverFocus} type='button' onClick={Chose} style={{
-                width: '80px',
-                height: '32px',
-                borderRadius: '25px',
-                fontSize: '20px',
-                fontWeight: 'bolder'
-              }}>선택</Button>
-          </ChoseBtn>
+          <div style={{width: '70%',display:'flex', justifyContent:'end', alignItems:'center'}}>
+            <ChoseBtn>
+              <Button
+                className={classes.customHoverFocus} type='button' onClick={Chose} style={{
+                  width: '80px',
+                  height: '32px',
+                  borderRadius: '25px',
+                  fontSize: '20px',
+                  fontWeight: 'bolder'
+                }}>선택</Button>
+          
+            </ChoseBtn>
+            <div style={{width: '25%',marginLeft: '4rem'}}>
+              <input name='c' type='radio' id="C5" checked={number === 5} />
+              <label htmlFor="C5">
+                <label style={number!==5 ? {padding:'6px 25px', backgroundColor:'orange', borderRadius:'4px',color:'white',cursor:'pointer'}:{padding:'6px 25px', backgroundColor:'orange', borderRadius:'4px',color:'white',cursor:'pointer', border: '3px solid black'}} htmlFor="input-file">
+                업로드
+                </label>
+                <input type="file" id="input-file" accept="image/png, image/jpeg" style={{display:'none'}} onChange={addFile} ref={imgRef} /> 
+              </label>
+            </div>
+          </div>
         </Modal>
       </Wrap>
     </>
