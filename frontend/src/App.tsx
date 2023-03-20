@@ -26,7 +26,7 @@ const router= createBrowserRouter([
     children: [
       {path:'/', element:<PublicPages Component={Main} restricted={undefined}/>},
       {path:'/signin', element:<PublicPages Component={SignIn} restricted/>},
-      {path:'/main', element:<PrivatePages Component={AfterLogin}/>},
+      {path:'/main', element:<AfterLogin />},
       {path:'/signup', element:<PublicPages Component={SignUp} restricted/>},
       {path:'/about', element:<PublicPages Component={Manual} restricted={undefined}/>},
       {path:'/write', element:<PrivatePages Component={WriteGrim}/>},
