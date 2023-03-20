@@ -64,6 +64,7 @@
     ]
   },
   "devDependencies": {
+    "@types/react-modal": "^3.13.1",
     "prettier-eslint": "^15.0.1"
   }
 }

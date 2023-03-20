@@ -41,7 +41,8 @@ function SignUpForm() {
   const [confirm, setConfirm] = useState('');
   const Swal = require('sweetalert2');
 
-  function nameInput(e) {
+  function nameInput(e : React.ChangeEvent<HTMLInputElement>) {
+    console.log(typeof e.target.value)
     setNickname(e.target.value)
     if(nickname.length > 10) {
       Swal.fire({
@@ -77,7 +78,7 @@ function SignUpForm() {
       return false;
   }
 
-  function onClick(e) {
+  function onClick(e : React.ChangeEvent<HTMLInputElement>) {
     e.preventDefault();
     api.post('join', {
       nickname: `${nickname}`,
@@ -114,16 +115,24 @@ function SignUpForm() {
   }
   
   function Valid() {
-    if((nickname ? true : false) & (nickname.length >= 2) & !nicknameValid() & emailValid() & passwordValid() & isSame()){
+    if((nickname ? true : false) && (nickname.length >= 2) && !nicknameValid() && emailValid() && passwordValid() && isSame()){
       return false;
     } else return true;
+  }
+
+  const btnStyle = {
+    fontWeight: 'bolder',
+    borderRadius: '30px',
+    fontSize: '30px',
+    color: !Valid() ? '' : 'white',
+    backgroundColor: !Valid() ? '' : '#F8EDB7' 
   }
 
   return(
     <Wrap>
       <CreateAccountBtn>
-        <Button className={classes.customHoverFocus} type='button' onClick={onClick} disabled={Valid()}
-          style={ !Valid() ? {fontWeight:'bolder', borderRadius: '30px', fontSize: '30px'} : { color:'white',fontWeight:'bolder',backgroundColor: '#F8EDB7',borderRadius: '30px', fontSize: '30px'}}>
+        <Button className={classes.customHoverFocus} type='button' onClick={()=>onClick} disabled={Valid()}
+          style={btnStyle}>
         계정 생성</Button>
       </CreateAccountBtn>
       <TypeSignUp>

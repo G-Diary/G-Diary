@@ -6,7 +6,7 @@ export default function LogoutBtn() {
   const navigate = useNavigate();
   const Swal = require('sweetalert2');
   
-  function onClick(e) {
+  function onClick(e : React.ChangeEvent) {
     Swal.fire({
       title: '로그아웃하시겠습니까?',
       icon: 'warning',
@@ -15,7 +15,7 @@ export default function LogoutBtn() {
       cancelButtonColor: '#d33',
       confirmButtonText: '네',
       cancelButtonText: '아니오'
-    }).then((result) => {
+    }).then((result : any) => {
       if (result.isConfirmed) {
         Swal.fire(
           '로그아웃 성공!',
@@ -32,6 +32,6 @@ export default function LogoutBtn() {
     })
   }
   return (
-    <Button type='button' onClick={onClick} style={{ fontWeight: 'bolder' }}>로그아웃</Button>
+    <Button type='button' onClick={()=>onClick} style={{ fontWeight: 'bolder' }}>로그아웃</Button>
   )
 }

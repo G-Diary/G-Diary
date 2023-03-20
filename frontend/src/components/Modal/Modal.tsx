@@ -8,7 +8,7 @@ import styled from 'styled-components'
 
 Modal.setAppElement('#root');
 
-const CustomStyles = {
+const CustomStyles : any= {
   content: {
     top: '50%',
     left: '50%',
@@ -96,7 +96,6 @@ function Modals() {
   const [number, setNumber] = useState();
   const [modalIsOpen, setIsOpen] = useState(false);
   const nickname = sessionStorage.getItem('nickname');
-  let subtitle;
   const Swal = require('sweetalert2');
   const Toast = Swal.mixin({
     toast: true,
@@ -104,7 +103,7 @@ function Modals() {
     showConfirmButton: false,
     timer: 3000,
     timerProgressBar: true,
-    didOpen: (toast) => {
+    didOpen: (toast : any) => {
       toast.addEventListener('mouseenter', Swal.stopTimer)
       toast.addEventListener('mouseleave', Swal.resumeTimer)
     }
@@ -117,12 +116,8 @@ function Modals() {
       console.log(err)
     })
   }, [])
-  
-  function afterOpenModal() {
-    subtitle.style.color = 'black';
-  }
 
-  function selectedImg(checked){
+  function selectedImg(checked : any){
     setSelected(checked)
   }
 
@@ -134,14 +129,14 @@ function Modals() {
     setIsOpen(false);
   }
 
-  function onClick(e) {
+  function onClick(e : React.ChangeEvent<HTMLInputElement> ) {
     e.preventDefault();
     api.defaults.headers.common['Authorization'] = `Bearer ${sessionStorage.getItem('token')}`
     api.patch(`users/${sessionStorage.getItem('id')}/`, {
       cover_image_url: selected
     }).then(function (res) {
-      let flip = document.querySelector('.flip');
-      let slide = document.querySelector('.slide');
+      let flip : any= document.querySelector('.flip');
+      let slide : any = document.querySelector('.slide');
       slide.classList.add('move')
       setTimeout(() => {
         flip.classList.add('open');
@@ -159,7 +154,7 @@ function Modals() {
     })
   }
 
-  function Menu({num}) {
+  function Menu({num} : any) {
     return (
       <>
         <input name='c' type='radio' id={`C${num}`} checked={number === num} onChange={function () { selectedImg(`images/C${num}.png`); setNumber(num)}}/>
@@ -189,7 +184,7 @@ function Modals() {
         </SelectBtn>
         <StartBtn>
           <Button
-            className={classes.customHoverFocus} type='button' onClick={onClick} style={{
+            className={classes.customHoverFocus} type='button' onClick={()=>onClick} style={{
               width: '100px',
               height: '40px',
               borderRadius: '25px',
@@ -199,12 +194,11 @@ function Modals() {
         </StartBtn>
         <Modal
           isOpen={modalIsOpen}
-          onAfterOpen={afterOpenModal}
           onRequestClose={Chose}
           style={CustomStyles}
           contentLabel="Example Modal"
         >
-          <h2 ref={(_subtitle) => (subtitle = _subtitle)}>이미지</h2>
+          <h2 style={{color: 'black'}}>이미지</h2>
           <InsideModal>
             <ItemBox>
               <Menu num={1} />

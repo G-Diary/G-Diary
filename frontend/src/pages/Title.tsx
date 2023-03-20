@@ -7,7 +7,7 @@ const Title = styled.div`
   align-items : center;
   font-size: 80px;`
 
-function Titles({children}) {
+function Titles({children} : any) {
   return(
     <Title>
       {children}

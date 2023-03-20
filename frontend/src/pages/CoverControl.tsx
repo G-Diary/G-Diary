@@ -8,7 +8,7 @@ const Control = styled.div`
   position: relative;
   top: 10px;`
 
-function CoverControl({children}) {
+function CoverControl({children} : any) {
   return(
     <Control>
       {children}         

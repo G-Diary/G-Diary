@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import {Button, Container, TextField, makeStyles} from '@material-ui/core';
 import { Link, useNavigate } from 'react-router-dom';
 import api from '../../apis/axios'
+import { AxiosResponse } from 'axios';
 
 const useStyles = makeStyles(theme => ({
   customHoverFocus: {
@@ -62,7 +63,7 @@ function SignInForm() {
     })
   }
 
-  function onLoginSuccess(res) {
+  function onLoginSuccess(res : AxiosResponse) {
     const access = res.data.token.access;
     const refresh = res.data.token.refresh;
     if (count === 0) {  
@@ -84,8 +85,7 @@ function SignInForm() {
     sessionStorage.setItem('id', `${res.data.user.id}`)
   }
 
-  function onLogin(e) {
-    
+  function onLogin() {
     api.post('auth', {
       email: `${email}`,
       password: `${password}`
@@ -99,6 +99,7 @@ function SignInForm() {
       })
     })
   }
+
   return(
     <Wrap>
       <SignInBtn>
