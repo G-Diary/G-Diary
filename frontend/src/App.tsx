@@ -30,8 +30,8 @@ const router= createBrowserRouter([
       {path:'/signup', element:<PublicPages Component={SignUp} restricted/>},
       {path:'/about', element:<PublicPages Component={Manual} restricted={undefined}/>},
       {path:'/write', element:<PrivatePages Component={WriteGrim}/>},
-      {path:'/list', element:<PrivatePages Component={GrimList}/>},
-
+      // {path:'/list', element:<PrivatePages Component={GrimList}/>},
+      {path:'/list', element:<GrimList />},
     ]
   }
 ])
