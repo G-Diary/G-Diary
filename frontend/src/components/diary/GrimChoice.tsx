@@ -1,14 +1,16 @@
-import React, {useEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
 import styled from 'styled-components';
 import { useStore } from '../../store/store';
 
-
+interface Grim{
+  image_url:string;
+}
 // AI로부터 받아온 그림들 중 원하는 그림 선택
 function GrimChoice(){
   const {setChoiceImg, getGrimList}=useStore();
-  const grim = Object.values(getGrimList);
-  const [grimlist, setGrimList]=useState();
-  const img = [];
+  const grim:any[] = Object.values(getGrimList);
+  const [grimlist, setGrimList]=useState<Grim[]>([]);
+  const img: string[] = [];
   
   useEffect(()=>{
     setGrimList(grim[1]);
@@ -16,12 +18,13 @@ function GrimChoice(){
   }, [getGrimList])
   
   if(grimlist!==undefined){
-    grimlist.map((i,index)=>(
-      img.push(grimlist[index].image_url)
+    grimlist && grimlist.map((grim: Grim,index:number)=>(
+      // img.push(grimlist[index].image_url)
+      img.push(grim.image_url)
     ))
   }
 
-  const addImage = (srcImg) => {
+  const addImage = (srcImg:any) => {
     const newimage = new Image();
     const image=srcImg.src;
     const timestamp = new Date().getTime();
@@ -29,18 +32,18 @@ function GrimChoice(){
     newimage.src=imageWithTimestamp;
     newimage.crossOrigin = 'Anonymous';
 
-    setChoiceImg( {
-      id:srcImg.alt,
+    setChoiceImg([{
+      id: srcImg.alt,
       img: newimage.src,
       x:0,
       y:0,
       width: srcImg.width,
       height: srcImg.height,
-    }
+    }]
     )
   };
   
-  const onChange = (e) => {
+  const onChange = (e:any) => {
     e.preventDefault();
     addImage(e.target);
   };
@@ -55,7 +58,7 @@ function GrimChoice(){
           img && img.map((data,index)=>
             (
               <ChoiceGrim key={index} id="image" src={data}
-                alt="grim" onClick={onChange} crossorigin="anonymous"/>
+                alt="grim" onClick={onChange} crossOrigin="anonymous"/>
             ))
         }
       </Choice>
