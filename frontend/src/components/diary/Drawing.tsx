@@ -4,12 +4,32 @@ import { useStore } from '../../store/store';
 import useImage from 'use-image';
 import {BsFillCircleFill, BsFillEraserFill } from 'react-icons/bs';
 import { FaUndoAlt } from 'react-icons/fa';
+import Konva from 'konva';
 
-const Rectangle = ({ image, shapeProps,draggable, isSelected, unSelectShape, onSelect, onChange, onDelete}) => {
-  const shapeRef = useRef();
-  const trRef = useRef();
-  const [img] = useImage(image,'Anonymous');
-  const deleteBtn=useRef();
+interface RectangleProps{
+  image: string;
+  shapeProps:{
+    x:number;
+    y:number;
+    width: number;
+    height: number;
+    fill: string;
+    id: string;
+  };
+  draggable: boolean;
+  isSelected: boolean;
+  unSelectShape?: any;
+  onSelect: any;
+  onChange?: any;
+  onDelete?: any;
+  onClick?: any;
+}
+
+const Rectangle = ({ image, shapeProps,draggable, isSelected, unSelectShape, onSelect, onChange, onDelete, onClick}:RectangleProps) => {
+  const shapeRef = useRef<any>();
+  const trRef = useRef<any>();
+  const [img] = useImage(image,'anonymous');
+  const deleteBtn=useRef<any>();
   useEffect(() => {
     if (isSelected) {
       trRef.current.nodes([shapeRef.current]);
@@ -76,34 +96,64 @@ const Rectangle = ({ image, shapeProps,draggable, isSelected, unSelectShape, onS
   );
 };
 
-function Drawing({grim}){
+interface DrawingProps{
+  grim: boolean;
+}
+
+interface LineProps{
+  tool: string;
+  points: [number, number][];
+  color: string;
+}
+
+interface GrimImageProps{
+  id: string;
+  img: string;
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+  fill: string;
+}
+
+function Drawing(props:DrawingProps){
   const {choiceImg, setUpdateCanvas}=useStore();
-  const [grimimage, setGrimimage] = useState([]);
+  const [grimimage, setGrimimage] = useState<GrimImageProps[]>([]);
   const [selectedId, selectShape] = useState(null);
-  const [tool, setTool] = useState('pen');
-  const [currentColor,setColor]=useState('#000000');
-  const listColors=['black','red','blue']
-  const [lines, setLines] = useState([]);
+  const [tool, setTool] = useState<string>('pen');
+  const [currentColor,setColor]=useState<string>('#000000');
+  const listColors:string[]=['black','red','blue']
+  const [lines, setLines] = useState<LineProps[]>([]);
   let stageRef=useRef(null);
-  const isDrawing = useRef(false);
-  const checkDeselect = (e) => {
+  const isDrawing = useRef<boolean>(false);
+  const checkDeselect = (e:any) => {
     const clickedOnEmpty = e.target === e.target.getStage();
     if (clickedOnEmpty) {
       selectShape(null);
     }
   };
+
   
   useEffect(() => {
-    setGrimimage([...grimimage, choiceImg]);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    setGrimimage([...grimimage, ...choiceImg.map(item=>{
+      return{
+        id:item.id,
+        img: item.img,
+        x:item.x,
+        y:item.y,
+        width:item.width,
+        height: item.height,
+        fill:''
+      }
+    })]);
   }, [choiceImg]);
-  const handleMouseDown = (e) => {
+  const handleMouseDown = (e:any) => {
     // debugger;
     isDrawing.current = true;
     const pos = e.target.getStage().getPointerPosition();
     setLines([...lines, { tool, points: [pos.x, pos.y],color:currentColor }]);
   };
-  const handleMouseMove = (e) => {
+  const handleMouseMove = (e:any) => {
     if (!isDrawing.current) {
       return;
     }
@@ -111,10 +161,10 @@ function Drawing({grim}){
     const point = stage.getPointerPosition();
     let lastLine = lines[lines.length - 1];
     // add point
-    lastLine.points = lastLine.points.concat([point.x, point.y]);
+    lastLine.points = [...lastLine.points, [point.x, point.y]];
     // replace last
     lines.splice(lines.length - 1, 1, lastLine);
-    setLines(lines.concat());
+    setLines([...lines]);
   };
   const handleMouseUp = () => {
     isDrawing.current = false;
@@ -123,23 +173,33 @@ function Drawing({grim}){
     setLines(lines.slice(0, -1));
   };
 
+  useEffect(()=>{
+    const stage = new Konva.Stage({
+      container:'canvas-container',
+      width: window.innerWidth,
+      height: window.innerHeight
+    });
+    stageRef.current=stage;
+  },[]);
+
   const handleExport = () =>{
-    const dataUrl=stageRef.current.toDataURL({
-      mimeType:'image/png',
-      // quality:1.0,
-      // pixelRatio:2,
-      crossorigin:'anonymous'
-    },0.5);
-    setUpdateCanvas(dataUrl);
+    const stage = stageRef.current;
+    if(stage){
+      const dataUrl=stage.toDataURL({
+        mimeType:'image/png',
+        crossorigin:'anonymous'
+      },0.5);
+      setUpdateCanvas(dataUrl);
+    }
   }
-  const handleRemove=(index)=>{
-    const newList=grimimage.filter((item)=> item.index !== index);
+  const handleRemove=(index:any)=>{
+    const newList=grimimage.filter((item)=> item.id !== index);
     setGrimimage(newList);
   }
-  const unSelectShape = (prop)=>{
+  const unSelectShape = (prop:any)=>{
     selectShape(prop);
   };
-  const onDeleteImage = (node)=>{
+  const onDeleteImage = (node:any)=>{
     const newImage = [...grimimage];
     newImage.splice(node.index,1);
     setGrimimage(newImage);
@@ -147,7 +207,7 @@ function Drawing({grim}){
   }
   return(
     <div>
-      {grim?(
+      {props.grim?(
         <Stage
           ref={stageRef}
           width={500}
@@ -168,14 +228,14 @@ function Drawing({grim}){
                   key={i}
                   image={rect.img}
                   shapeProps={rect}
-                  isSelected={rect === selectedId}
-                  unSelectShape={(e)=>{unSelectShape(e)}}
+                  isSelected={rect.id === selectedId}
+                  unSelectShape={(e:any)=>{unSelectShape(e)}}
                   draggable={true}
                   onClick={handleRemove}
                   onSelect={() => {
                     selectShape(rect);
                   }}
-                  onChange={(newAttrs) => {
+                  onChange={(newAttrs: GrimImageProps) => {
                     const rects = grimimage.slice();
                     rects[i] = newAttrs;
                     setGrimimage(rects);
@@ -216,8 +276,8 @@ function Drawing({grim}){
         onTouchMove={(e) => {
           handleMouseMove(e);
         }}
-        onTouchEnd={(e) => {
-          handleMouseUp(e);
+        onTouchEnd={() => {
+          handleMouseUp();
         }}
         onMouseLeave={handleExport}
       >
@@ -233,7 +293,7 @@ function Drawing({grim}){
                 onSelect={() => {
                   selectShape(rect.id);
                 }}
-                onChange={(newAttrs) => {
+                onChange={(newAttrs: any) => {
                   const rects = grimimage.slice();
                   rects[i] = newAttrs;
                   setGrimimage(rects);
@@ -256,7 +316,7 @@ function Drawing({grim}){
           ))}
         </Layer>
       </Stage>)}
-      {!grim?(
+      {!props.grim?(
         <div style={{transform:'translate(68%,-100%)'}}>
           {listColors && listColors.map((map,index)=>{
             return(

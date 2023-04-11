@@ -4,7 +4,7 @@ interface StoreState{
   currentCanvas: string;
   updateCanvas:string;
   getGrimList: string[];
-  choiceImg:{ id: any; img: string; x: number; y: number; width: any; height: any; }[];
+  choiceImg:{ id: any; img: string; x: number; y: number; width: any; height: any;  }[];
   choiceDate: Date;
 }
 
