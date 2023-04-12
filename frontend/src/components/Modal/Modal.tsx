@@ -1,8 +1,4 @@
-<<<<<<< HEAD:frontend/src/components/Modal/Modal.js
-import React, { useEffect, useState, useRef } from 'react';
-=======
 import React, { useEffect, useState, useRef, SetStateAction } from 'react';
->>>>>>> #104:frontend/src/components/Modal/Modal.tsx
 import { useNavigate } from 'react-router-dom';
 import Modal from 'react-modal';
 import './Modal.css';
@@ -96,18 +92,10 @@ const ItemBox = styled.div`
 function Modals() {
   const navigate = useNavigate();
   const classes = useStyles();
-<<<<<<< HEAD:frontend/src/components/Modal/Modal.js
-  const [selected, setSelected] = useState('images/mainLogo.png');
-  const [number, setNumber] = useState(0);
-  const [modalIsOpen, setIsOpen] = useState(false);
-  const [imgFile, setImgFile]=useState('');
-  const imgRef=useRef();
-=======
   const [selected, setSelected] = useState<string>('images/mainLogo.png');
   const [number, setNumber] = useState<number>();
   const [modalIsOpen, setIsOpen] = useState<boolean>(false);
   const [imgFile, setImgFile]=useState<string>('');
->>>>>>> #104:frontend/src/components/Modal/Modal.tsx
   const nickname = sessionStorage.getItem('nickname');
   const Swal = require('sweetalert2');
   const Toast = Swal.mixin({
@@ -121,13 +109,7 @@ function Modals() {
       toast.addEventListener('mouseleave', Swal.resumeTimer)
     }
   })
-<<<<<<< HEAD:frontend/src/components/Modal/Modal.js
-
-  console.log(selected);
-  console.log(number);
-=======
   
->>>>>>> #104:frontend/src/components/Modal/Modal.tsx
   useEffect(() => {
     api.get(`/users/${sessionStorage.getItem('id')}`).then(function (res) {
       setSelected(res.data.cover_image_url)
@@ -162,23 +144,7 @@ function Modals() {
     console.log(imgFile);
   }
 
-<<<<<<< HEAD:frontend/src/components/Modal/Modal.js
-  const addFile = ()=>{
-    const file=imgRef.current.files[0];
-    const reader=new FileReader();
-    reader.readAsDataURL(file);
-    reader.onloadend=()=>{
-      setImgFile(reader.result);
-      setSelected(reader.result);
-      setNumber(5);
-    }
-    console.log(imgFile);
-  }
-
-  function onClick(e) {
-=======
   function onClick(e : React.ChangeEvent<HTMLInputElement> ) {
->>>>>>> #104:frontend/src/components/Modal/Modal.tsx
     e.preventDefault();
     api.defaults.headers.common['Authorization'] = `Bearer ${sessionStorage.getItem('token')}`
     api.patch(`users/${sessionStorage.getItem('id')}/`, {
@@ -266,10 +232,6 @@ function Modals() {
                   fontSize: '20px',
                   fontWeight: 'bolder'
                 }}>선택</Button>
-<<<<<<< HEAD:frontend/src/components/Modal/Modal.js
-          
-=======
->>>>>>> #104:frontend/src/components/Modal/Modal.tsx
             </ChoseBtn>
             <div style={{width: '25%',marginLeft: '4rem'}}>
               <input name='c' type='radio' id="C5" checked={number === 5} />
