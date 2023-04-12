@@ -1,3 +1,4 @@
+import { PropsWithChildren } from 'react';
 import styled from 'styled-components';
 
 const Control = styled.div`
@@ -8,7 +9,7 @@ const Control = styled.div`
   position: relative;
   top: 10px;`
 
-function CoverControl({children} : any) {
+function CoverControl({children} : PropsWithChildren) {
   return(
     <Control>
       {children}         
