@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropsWithChildren } from 'react';
 import styled from 'styled-components';
  
 const BookShape2Left = styled.div`
@@ -24,7 +24,7 @@ const Line =styled.div`
   height : 750px;
   box-shadow:12px 9px 10px 0 #676262;
 `
-function BookShape2L({ children }) {
+function BookShape2L({ children } : PropsWithChildren) {
   return( 
     <>
       <BookShape2Left>
