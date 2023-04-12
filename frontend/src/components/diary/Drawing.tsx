@@ -4,7 +4,6 @@ import { useStore } from '../../store/store';
 import useImage from 'use-image';
 import {BsFillCircleFill, BsFillEraserFill } from 'react-icons/bs';
 import { FaUndoAlt } from 'react-icons/fa';
-import Konva from 'konva';
 
 interface RectangleProps{
   image: string;
@@ -100,12 +99,6 @@ interface DrawingProps{
   grim: boolean;
 }
 
-interface LineProps{
-  tool: string;
-  points: [number, number][];
-  color: string;
-}
-
 interface GrimImageProps{
   id: string;
   img: string;
@@ -123,7 +116,7 @@ function Drawing(props:DrawingProps){
   const [tool, setTool] = useState<string>('pen');
   const [currentColor,setColor]=useState<string>('#000000');
   const listColors:string[]=['black','red','blue']
-  const [lines, setLines] = useState<LineProps[]>([]);
+  const [lines, setLines] = useState([]);
   let stageRef=useRef(null);
   const isDrawing = useRef<boolean>(false);
   const checkDeselect = (e:any) => {
@@ -146,6 +139,7 @@ function Drawing(props:DrawingProps){
         fill:''
       }
     })]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [choiceImg]);
   const handleMouseDown = (e:any) => {
     // debugger;
@@ -160,11 +154,16 @@ function Drawing(props:DrawingProps){
     const stage = e.target.getStage();
     const point = stage.getPointerPosition();
     let lastLine = lines[lines.length - 1];
+    if (!lastLine || !lastLine.points) {
+      // create a new line if lines is empty or lastLine is undefined
+      lastLine = { points: [] };
+      setLines([...lines, lastLine]);
+    }
     // add point
-    lastLine.points = [...lastLine.points, [point.x, point.y]];
+    lastLine.points = lastLine.points.concat([point.x, point.y]);
     // replace last
-    lines.splice(lines.length - 1, 1, lastLine);
-    setLines([...lines]);
+    // lines.splice(lines.length - 1, 1, lastLine);
+    setLines([...lines.slice(0, -1),lastLine]);
   };
   const handleMouseUp = () => {
     isDrawing.current = false;
@@ -172,15 +171,6 @@ function Drawing(props:DrawingProps){
   const handleUndo = () => {
     setLines(lines.slice(0, -1));
   };
-
-  useEffect(()=>{
-    const stage = new Konva.Stage({
-      container:'canvas-container',
-      width: window.innerWidth,
-      height: window.innerHeight
-    });
-    stageRef.current=stage;
-  },[]);
 
   const handleExport = () =>{
     const stage = stageRef.current;
@@ -334,7 +324,5 @@ function Drawing(props:DrawingProps){
     
     </div>
   )
-
-
 }
 export default Drawing;

@@ -30,8 +30,8 @@ function Bookmark() {
   // }
 
   function onClick() {
-    setChoiceImg('');
-    setGetGrimList('');
+    setChoiceImg([]);
+    setGetGrimList([]);
   }
 
   return (

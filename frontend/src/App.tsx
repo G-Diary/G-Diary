@@ -29,8 +29,9 @@ const router= createBrowserRouter([
       {path:'/main', element:<PrivatePages Component={AfterLogin}/>},
       {path:'/signup', element:<PublicPages Component={SignUp} restricted/>},
       {path:'/about', element:<PublicPages Component={Manual} restricted={undefined}/>},
-      {path:'/write', element:<PrivatePages Component={WriteGrim}/>},
+      // {path:'/write', element:<PrivatePages Component={WriteGrim}/>},
       // {path:'/list', element:<PrivatePages Component={GrimList}/>},
+      {path:'/write', element:<WriteGrim />},
       {path:'/list', element:<GrimList />},
     ]
   }

@@ -73,7 +73,7 @@ const RenderCells = ({currentMonth, today, list, exist, selectedDate, onDateClic
   let formattedDate:string = '';
 
   const pageMove = () =>{
-    setChoicedDate('');
+    setChoicedDate(new Date());
   }
 
   while(day<=endDate){
