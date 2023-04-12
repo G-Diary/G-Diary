@@ -8,8 +8,8 @@ import Bookmark from '../components/bookshape/Bookmark';
 import Loading from '../components/Loading';
 
 function WriteGrim(){
-  const [loading, setLoading]=useState(false);
-  const getLoading = (load) =>{
+  const [loading, setLoading]=useState<boolean>(false);
+  const getLoading = (load:boolean) =>{
     setLoading(load);
   }
   return(

@@ -1,8 +1,13 @@
 import React from 'react';
 import { PaperContainer, TableTd } from '../diary/Manuscript'
 
+interface ResultManuscriptProps{
+  content: string;
+}
+
+
 /* 리스트 원고지 틀 컴포넌트 */
-function ResultManuscript({ content }) {
+function ResultManuscript({ content }:ResultManuscriptProps) {
   const divi = content.split('');
   let tr = Array.apply(null, new Array(5)).map(Number.prototype.valueOf, 0);
   let td = Array.apply(null, new Array(10)).map(Number.prototype.valueOf, 0);
