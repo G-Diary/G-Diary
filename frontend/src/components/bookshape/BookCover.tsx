@@ -34,10 +34,12 @@ const Year = styled.div`
   font-size: 30px;
   margin: 35px;`
 
-
-function BookCover({ children }) {
-  const list = [];
-  const exist=[];
+// {children} : React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> tsx로 변환시 사용
+function BookCover({ children } : any) {
+  // const list : Array<Object> = [];
+  // const exist : Array<Object> = [];
+  const list : any= [];
+  const exist : any=[];
   const { choiceDate } = useStore();
   
   let now = new Date();
@@ -53,9 +55,9 @@ function BookCover({ children }) {
         {children}
       </div>
       <div className='shapeR'>
-        {list.filter(x=>new Date(x.diary_date).toDateString()===choiceDate.toDateString())
+        {list.filter((x: { diary_date: string | number | Date; })=>new Date(x.diary_date).toDateString()===choiceDate.toDateString())
         // eslint-disable-next-line no-loop-func
-          .map((data,index)=>{
+          .map((data : any,index : any)=>{
             return <DiaryList key={index} title={data.title} weather={data.weather} draw={data.drawing_url} contents={data.contents} date={data.diary_date} />})}
         {exist.includes(format(choiceDate, 'yyyy-MM-dd'))?'':(<DiviContainer style={{zIndex: '-1'}}>
           <div style={{fontSize:'2.5rem', fontFamily:'KyoboHand', textAlign:'center'}}>

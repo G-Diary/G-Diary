@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import {Button, Container, TextField, makeStyles} from '@material-ui/core';
 import { Link, useNavigate } from 'react-router-dom';
 import api from '../../apis/axios'
+import { AxiosResponse } from 'axios';
 
 const useStyles = makeStyles(theme => ({
   customHoverFocus: {
@@ -37,11 +38,11 @@ const Wrap = styled.div`
 function SignInForm() {
   const navigate = useNavigate();
   const classes = useStyles();
-  const [email, setEmail] = useState('');
-  const [password,setPassword] = useState('');
+  const [email, setEmail] = useState<string>('');
+  const [password,setPassword] = useState<string>('');
   const JWT_EXPIRY_TIME = 1800 * 1000 // 만료시간 30분 (밀리초로 표현)
   const Swal = require('sweetalert2');
-  let count = 0;
+  let count : number = 0;
 
   function emailValid() {
     var check = /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
@@ -62,7 +63,7 @@ function SignInForm() {
     })
   }
 
-  function onLoginSuccess(res) {
+  function onLoginSuccess(res : AxiosResponse) {
     const access = res.data.token.access;
     const refresh = res.data.token.refresh;
     if (count === 0) {  
@@ -84,8 +85,7 @@ function SignInForm() {
     sessionStorage.setItem('id', `${res.data.user.id}`)
   }
 
-  function onLogin(e) {
-    
+  function onLogin() {
     api.post('auth', {
       email: `${email}`,
       password: `${password}`
@@ -99,6 +99,7 @@ function SignInForm() {
       })
     })
   }
+
   return(
     <Wrap>
       <SignInBtn>
