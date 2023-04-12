@@ -1,4 +1,3 @@
-import { ComponentProps } from 'react'
 import AfterLogin from '../Modal/AfterLogin'
 import IsLogin from './IsLogin'
 

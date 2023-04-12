@@ -35,10 +35,10 @@ const Wrap = styled.div`
 function SignUpForm() {
   const navigate = useNavigate();
   const classes = useStyles();
-  const [nickname, setNickname] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirm, setConfirm] = useState('');
+  const [nickname, setNickname] = useState<string>('');
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const [confirm, setConfirm] = useState<string>('');
   const Swal = require('sweetalert2');
 
   function nameInput(e : React.ChangeEvent<HTMLInputElement>) {

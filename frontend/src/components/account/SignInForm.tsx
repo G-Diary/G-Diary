@@ -38,11 +38,11 @@ const Wrap = styled.div`
 function SignInForm() {
   const navigate = useNavigate();
   const classes = useStyles();
-  const [email, setEmail] = useState('');
-  const [password,setPassword] = useState('');
+  const [email, setEmail] = useState<string>('');
+  const [password,setPassword] = useState<string>('');
   const JWT_EXPIRY_TIME = 1800 * 1000 // 만료시간 30분 (밀리초로 표현)
   const Swal = require('sweetalert2');
-  let count = 0;
+  let count : number = 0;
 
   function emailValid() {
     var check = /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;

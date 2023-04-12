@@ -94,7 +94,7 @@ function Modals() {
   const classes = useStyles();
   const [selected, setSelected] = useState('images/mainLogo.png');
   const [number, setNumber] = useState();
-  const [modalIsOpen, setIsOpen] = useState(false);
+  const [modalIsOpen, setIsOpen] = useState<boolean>(false);
   const nickname = sessionStorage.getItem('nickname');
   const Swal = require('sweetalert2');
   const Toast = Swal.mixin({
