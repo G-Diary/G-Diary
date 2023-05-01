@@ -8,7 +8,7 @@ import styled from 'styled-components'
 
 Modal.setAppElement('#root');
 
-const CustomStyles : any= {
+const CustomStyles : ReactModal.Styles= {
   content: {
     top: '50%',
     left: '50%',
@@ -103,11 +103,7 @@ function Modals() {
     position: 'top-end',
     showConfirmButton: false,
     timer: 3000,
-    timerProgressBar: true,
-    didOpen: (toast : any) => {
-      toast.addEventListener('mouseenter', Swal.stopTimer)
-      toast.addEventListener('mouseleave', Swal.resumeTimer)
-    }
+    timerProgressBar: true
   })
   
   useEffect(() => {
@@ -118,7 +114,7 @@ function Modals() {
     })
   }, [])
   
-  function selectedImg(checked : any){
+  function selectedImg(checked : string){
     setSelected(checked)
   }
   
@@ -144,14 +140,14 @@ function Modals() {
     console.log(imgFile);
   }
 
-  function onClick(e : React.ChangeEvent<HTMLInputElement> ) {
+  function onClick(e : React.MouseEvent ) {
     e.preventDefault();
     api.defaults.headers.common['Authorization'] = `Bearer ${sessionStorage.getItem('token')}`
     api.patch(`users/${sessionStorage.getItem('id')}/`, {
       cover_image_url: selected
     }).then(function (res) {
-      let flip : any= document.querySelector('.flip');
-      let slide : any = document.querySelector('.slide');
+      let flip : Element | null= document.querySelector('.flip');
+      let slide : Element | null = document.querySelector('.slide');
       slide.classList.add('move')
       setTimeout(() => {
         flip.classList.add('open');
@@ -160,6 +156,7 @@ function Modals() {
           navigate('/list');
         }, 400)
       }, 800);
+      console.log(Toast)
       Toast.fire({
         icon: 'success',
         title: '표지 설정 완료!'
@@ -169,7 +166,7 @@ function Modals() {
     })
   }
 
-  function Menu({num} : any) {
+  function Menu({num} : {num : number}) {
     return (
       <>
         <input name='c' type='radio' id={`C${num}`} checked={number === num} onChange={function () { selectedImg(`images/C${num}.png`); setNumber(num)}}/>
@@ -199,7 +196,7 @@ function Modals() {
         </SelectBtn>
         <StartBtn>
           <Button
-            className={classes.customHoverFocus} type='button' onClick={()=>onClick} style={{
+            className={classes.customHoverFocus} type='button' onClick={(e)=>onClick(e)} style={{
               width: '100px',
               height: '40px',
               borderRadius: '25px',

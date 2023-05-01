@@ -42,7 +42,7 @@ function SignUpForm() {
   const Swal = require('sweetalert2');
 
   function nameInput(e : React.ChangeEvent<HTMLInputElement>) {
-    console.log(typeof e.target.value)
+    console.log(e.target.value)
     setNickname(e.target.value)
     if(nickname.length > 10) {
       Swal.fire({
@@ -78,7 +78,7 @@ function SignUpForm() {
       return false;
   }
 
-  function onClick(e : React.ChangeEvent<HTMLInputElement>) {
+  function onClick(e : React.MouseEvent) {
     e.preventDefault();
     api.post('join', {
       nickname: `${nickname}`,
@@ -131,7 +131,7 @@ function SignUpForm() {
   return(
     <Wrap>
       <CreateAccountBtn>
-        <Button className={classes.customHoverFocus} type='button' onClick={()=>onClick} disabled={Valid()}
+        <Button className={classes.customHoverFocus} type='button' onClick={(e)=>onClick(e)} disabled={Valid()}
           style={btnStyle}>
         계정 생성</Button>
       </CreateAccountBtn>

@@ -11,6 +11,8 @@ import { Link } from 'react-router-dom';
 import { BsArrowRight  } from 'react-icons/bs';
 import { useStore } from '../../store/store';
 
+
+
 const AllControl = styled.div`
   height: 100vh;
   display: flex;
@@ -35,11 +37,11 @@ const Year = styled.div`
   margin: 35px;`
 
 // {children} : React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> tsx로 변환시 사용
-function BookCover({ children } : any) {
+function BookCover({ children } : React.PropsWithChildren) {
   // const list : Array<Object> = [];
   // const exist : Array<Object> = [];
-  const list : any= [];
-  const exist : any=[];
+  const list : any[]= [];
+  const exist : any[]=[];
   const { choiceDate } = useStore();
   
   let now = new Date();
@@ -50,14 +52,15 @@ function BookCover({ children } : any) {
       <div className  ='flip'>
         <Year>
           {year}
-          {isLogin() ? <LogoutBtn/> : ''}
+          {/* {isLogin() ? <LogoutBtn/> : ''} */}
+          <LogoutBtn/>
         </Year>
         {children}
       </div>
       <div className='shapeR'>
-        {list.filter((x: { diary_date: string | number | Date; })=>new Date(x.diary_date).toDateString()===choiceDate.toDateString())
+        {list.filter((x)=>new Date(x.diary_date).toDateString()===choiceDate.toDateString())
         // eslint-disable-next-line no-loop-func
-          .map((data : any,index : any)=>{
+          .map((data ,index )=>{
             return <DiaryList key={index} title={data.title} weather={data.weather} draw={data.drawing_url} contents={data.contents} date={data.diary_date} emoji={''} />})}
         {exist.includes(format(choiceDate, 'yyyy-MM-dd'))?'':(<DiviContainer style={{zIndex: '-1'}}>
           <div style={{fontSize:'2.5rem', fontFamily:'KyoboHand', textAlign:'center'}}>
