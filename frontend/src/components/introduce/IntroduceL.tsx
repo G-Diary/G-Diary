@@ -3,11 +3,13 @@ import styled from 'styled-components';
 function IntroduceL(){
   return( 
     <IntroduceContainer>
-      <LogoImg src="images/logo.png" alt="logo" />
+      <LogoImgConatiner>
+        <LogoImg src="images/logo.png" alt="logo" />
+      </LogoImgConatiner>
       <Introducetitle>
        What about<span style={{color:'orange', fontWeight:'700'}}>&nbsp;G-Diary?</span>
       </Introducetitle>
-      <div style={{fontSize:'23px', fontWeight: 'bolder',textAlign:'center', fontFamily:'KyoboHand', marginBottom:'8px', color:'#777777'}}>About Team..?</div>
+      <IntroduceDes>About Team..?</IntroduceDes>
       <IntroduceTeam>
         <Team><TeamImg src="images/park.JPG" alt="team" /><TeamGit href="https://github.com/gmlrude">HeeKyeong</TeamGit></Team>
         <Team><TeamImg src="images/jang.JPG" alt="team" /><TeamGit href="https://github.com/aristo0922">AhRyeong</TeamGit></Team>
@@ -21,9 +23,8 @@ function IntroduceL(){
 export default IntroduceL;
 
 export const IntroduceContainer = styled.div`
-    position: absolute;  
-    width: 600px;
-    height: 750px;
+    width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -32,46 +33,69 @@ export const IntroduceContainer = styled.div`
 `
 
 const Introducetitle =styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 500px;
-    height: 70px;
-    font-size: 35px;
+    width: 100%;
+    font-size: 2.5rem;
     font-family:KyoboHand;
     font-weight: bolder;
     font-style: italic;
+    text-align: center;
+    @media screen and (max-width: 1400px), screen (max-height: 500px){
+        font-size: 2rem;
+
+    }
+    @media screen and (max-width: 1200px), screen (max-height: 400px){
+        font-size: 1.5rem;
+    }
+`
+
+const IntroduceDes = styled.div`
+    width: 100%;
+    color: #777;
+    font-size: 1.7rem;
+    font-weight: 700;
+    text-align: center;
+    @media screen and (max-width: 1400px), screen (max-height: 500px){
+        font-size: 1.7rem;
+    }
+    @media screen and (max-width: 1200px), screen (max-height: 400px){
+        font-size: 1.2rem;
+    }
+`
+
+const LogoImgConatiner = styled.div`
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 5px;
+    box-sizing: border-box;
 `
 
 const LogoImg = styled.img`
-    width: 25%;
+    width: 10rem;
     border:none;
+    @media screen and (max-width: 1400px), screen (max-height: 500px){
+        width: 8rem;
+    }
+    @media screen and (max-width: 1200px), screen (max-height: 400px){
+        width: 6rem;
+    }
 `
 
 const IntroduceTeam = styled.div`
     width: 100%;
-    height: 60%;
-    // border: 3px solid black;
+    height: 70%;
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    margin-left: 60px;
+    box-sizing: border-box;
+    padding-left: 2rem;
 `
 
 const Team = styled.div`
-    width: 45%;
+    width: 50%;
     display: flex;
-    // justify-content: center;
     align-items:center;
     flex-direction: row;
-    margin-top: 10px;
-    margin-right: 8px;
-    &>p{
-        font-size: 1.2em;
-        margin-left: 10px;
-        font-family:KyoboHand;
-        font-weight: bolder;
-    }
 `
 
 const TeamImg = styled.img`
@@ -80,6 +104,14 @@ const TeamImg = styled.img`
     border: 2px dashed gray;
     border-radius: 10%;
     object-fit: cover;
+    @media screen and (max-width: 1400px), screen (max-height: 500px){
+        width: 115px;
+        height: 115px;
+    }
+    @media screen and (max-width: 1200px), screen (max-height: 400px){
+        width: 100px;
+        height: 100px;
+    }
 `
 
 const TeamGit = styled.a`
@@ -97,4 +129,10 @@ const TeamGit = styled.a`
         color: orange;
     }
     margin-left: 10px;
+    @media screen and (max-width: 1400px), screen (max-height: 500px){
+        font-size: 20px;
+    }
+    @media screen and (max-width: 1200px), screen (max-height: 400px){
+        font-size: 13px;
+    }
 `

@@ -56,17 +56,24 @@ function Bookmark() {
 export default Bookmark;
 
 const BookMark = styled.div`
-  width: 70px;
-  height: 700px;
+  width: 4.5rem;
+  height: 45rem;
   z-index: 1;
+  transition: height .1s;
+  @media screen and (max-width: 1400px), screen and (max-height: 500px){
+    height: 40rem;
+  }
+  @media screen and (max-width: 1200px), screen and (max-height: 400px){
+    height: 30rem;
+  }
 `;
 const StyledNavLink = styled(NavLink)`
   display: block;
-  width: 65px;
-  height: 43px;
+  width: 3.5rem;
+  height: 2.7rem;
   text-decoration: none;
   margin-bottom: 10px;
-  font-size: 18px;
+  font-size: 1rem;
   border-radius: 0 5px 5px 0;
   text-align: center;
   line-height: 43px;
