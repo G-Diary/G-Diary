@@ -10,7 +10,7 @@
 }
 /*일기 리스트 이름*/
 .listname{
-    font-size: 2.6em;
+    font-size: 2.6rem;
     font-weight: 800;
 }
 
@@ -156,7 +156,6 @@
 
 .hover-close {
     align-items: center;
-    background-color: #aab1bc;
     border-radius: 50%;
     cursor: pointer;
     display: flex;
@@ -191,7 +190,56 @@
     align-items: center;
     transform: translate(0%,25%);
     color: #e83710;
+
 }
 .listLink:hover{
     color:rgb(205, 111, 111);
+}
+
+@media screen and (max-width: 1400px), screen and (max-height: 500px){
+    .listname{
+        font-size: 2.3rem;
+    }
+    .listLink{
+        font-size: 1.5rem;
+    }
+    .text{
+        font-size: 1.3em;
+    }
+    .text.month{
+        font-size: 1.5em;
+    }
+    .days{
+        font-size: 0.9em;
+    }
+    .bodycol{
+        font-size: 1.1em;
+    }
+    .hover-close{
+        width: 23px;
+    }
+}
+@media screen and (max-width: 1200px), screen and (max-height: 400px){
+    .listname{
+        font-size: 2rem;
+    }
+    .listLink{
+        font-size: 1.3rem;
+    }
+    .text{
+        font-size: 1.2em;
+    }
+    .text.month{
+        font-size: 1.3em;
+    }
+    .days{
+        font-size: 0.7em;
+    }
+    .bodycol{
+        font-size: 0.9em;
+    }
+    .hover-close{
+        top: 1%;
+        width: 15px;
+    }
 }

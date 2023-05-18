@@ -11,6 +11,7 @@ import { Link } from 'react-router-dom';
 import { DiviContainer } from '../components/diary/DiaryContent';
 import { BsArrowRight  } from 'react-icons/bs';
 import '../components/diarylist/Calender.css';
+import styled from 'styled-components';
 import api from '../apis/axios';
 
 interface ListContent{
@@ -57,16 +58,18 @@ function GrimList(){
             // eslint-disable-next-line no-loop-func
             .map((data,index)=>{
               return <DiaryList key={index} title={data.title} weather={data.weather} draw={data.drawing_url} contents={data.contents} date={data.diary_date} emoji={data.emoji} />})}
-          {exist.includes(format(choiceDate, 'yyyy-MM-dd'))?'':(<DiviContainer>
-            <div style={{fontSize:'2.5rem', fontFamily:'KyoboHand', textAlign:'center'}}>
-              <img src="images/write.PNG" style={{width: '30%'}} alt="list" />
-              <div style={{display:'flex', flexDirection:'row', justifyContent:'center', marginBottom:'5px'}}><p style={{width:'17rem', margin:'0', color:'orange'}}>{choiceDate.getFullYear()}년 {format(choiceDate, 'M')}월 {choiceDate.getDate()}일</p>의</div>
+          {exist.includes(format(choiceDate, 'yyyy-MM-dd'))?'':(
+            <DiviContainer>
+              <NoItemWrapper>
+                <NoItemImg src="images/write.PNG" alt="list" />
+                <NoItemContent>
+                  <p>{choiceDate.getFullYear()}년 {format(choiceDate, 'M')}월 {choiceDate.getDate()}일</p>의</NoItemContent>
                 하루를 기록해볼까요?
-              <Link to='/write' state={{date:choiceDate}} className="listLink">
+                <Link to='/write' state={{date:choiceDate}} className="listLink">
                     일기 쓰러 가기<BsArrowRight size="2rem" />
-              </Link>
-            </div>
-          </DiviContainer>)}
+                </Link>
+              </NoItemWrapper>
+            </DiviContainer>)}
         </BookShape2R>
         <Bookmark />
       </Book2Container>
@@ -74,3 +77,35 @@ function GrimList(){
 }
 
 export default GrimList;
+
+const NoItemWrapper = styled.div`
+  font-size: 3rem;
+  fontFamily:'KyoboHand';
+  text-align:center;
+  @media screen and (max-width: 1400px), screen and (max-height: 500px){
+    font-size: 2.3rem;
+  }
+  @media screen and (max-width: 1200px), screen and (max-height: 400px){
+    font-size: 1.5rem;
+  }
+`
+const NoItemImg = styled.img`
+  width: 40%;
+`
+const NoItemContent = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-bottom:5px;
+  p{
+    width: 20rem;
+    margin: 0;
+    color: orange;
+    @media screen and (max-width: 1400px), screen and (max-height: 500px){
+      width: 15rem;
+    }
+    @media screen and (max-width: 1200px), screen and (max-height: 400px){
+      width: 10rem;
+    }
+  }
+`
