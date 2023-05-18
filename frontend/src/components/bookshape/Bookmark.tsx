@@ -56,20 +56,22 @@ function Bookmark() {
 export default Bookmark;
 
 const BookMark = styled.div`
-  width: 4.5rem;
+  width: 3.7rem;
   height: 45rem;
   z-index: 1;
   transition: height .1s;
   @media screen and (max-width: 1400px), screen and (max-height: 500px){
+    width: 3.3rem;
     height: 40rem;
   }
   @media screen and (max-width: 1200px), screen and (max-height: 400px){
+    width: 3rem;
     height: 30rem;
   }
 `;
 const StyledNavLink = styled(NavLink)`
   display: block;
-  width: 3.5rem;
+  width: 100%;
   height: 2.7rem;
   text-decoration: none;
   margin-bottom: 10px;
@@ -94,5 +96,15 @@ const StyledNavLink = styled(NavLink)`
     background-color: #f0db6d;
     color: black;
     font-weight: 700;
+  }
+  @media screen and (max-width: 1400px), screen and (max-height: 500px){
+    height: 2.5rem;
+    line-height: 40px;
+    font-size: 15px;
+  }
+  @media screen and (max-width: 1200px), screen and (max-height: 400px){
+    height: 2.3rem;
+    line-height: 35px;
+    font-size: 13px;
   }
 `;
