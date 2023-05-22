@@ -35,7 +35,7 @@ function Bookmark() {
   }
 
   return (
-    <BookMark>
+    <BookMark id='bookMark'>
       <StyledNavLink to={IsLogin() ? '/main' : '/'} onClick={onClick}>
         <div id='home' style={{ borderRadius: '0 5px 5px 0' }}>
           홈
@@ -56,9 +56,9 @@ function Bookmark() {
 export default Bookmark;
 
 const BookMark = styled.div`
-  width: 70px;
-  height: 700px;
-  z-index: 1;
+  width: 4.1rem;
+  height: 43.7rem;
+  z-index: 0;
 `;
 const StyledNavLink = styled(NavLink)`
   display: block;

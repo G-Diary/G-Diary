@@ -69,7 +69,7 @@ div>h2{
 .flip {
   position: fixed;
   transform-origin: left center;
-  transition-duration: 0.5s;
+  /* transition-duration: 0.5s; */
   transition-timing-function: ease-in;
 }
 
@@ -80,6 +80,10 @@ div>h2{
   animation-fill-mode: forwards;
 }
 
+.writeImg {
+  width: 11.25rem;
+}
+
 @keyframes slide {
   0% {
     margin-left: 0%;
@@ -88,4 +92,22 @@ div>h2{
   100% {
     margin-left: 38.6em;
   }
+}
+
+@media screen and (max-width: 1400px), screen and (max-height: 500px) {
+    .writeImg {
+      width: 10.18rem;
+    }
+    .writing {
+      font-size: 2.26rem;
+    }
+}
+
+@media screen and (max-width: 1200px), screen and (max-height: 400px) {
+    .writeImg {
+      width: 7.81rem;
+    }
+    .writing {
+      font-size: 1.73rem;
+    }
 }

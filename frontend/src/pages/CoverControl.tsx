@@ -3,18 +3,15 @@ import styled from 'styled-components';
 
 const Control = styled.div`
   display: flex;
-  justify-content : center;
-  flex-direction : column;
-  align-items : center;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
   position: relative;
-  top: 10px;`
+  top: 0.65rem;
+`;
 
-function CoverControl({children} : PropsWithChildren) {
-  return(
-    <Control>
-      {children}         
-    </Control>
-  )
+function CoverControl({ children }: PropsWithChildren) {
+  return <Control id='control'>{children}</Control>;
 }
 
 export default CoverControl;

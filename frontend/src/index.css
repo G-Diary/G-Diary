@@ -22,29 +22,74 @@ body{
 }
 
 .link {
-    width:30.5%;
-    font-size: 45px;
+    width:12.77rem;
+    font-size: 2.8rem;
     color: black;
     text-decoration-line: none;
 }
 
-@media screen and (min-width: 1401px), screen and (min-height: 701px) {
-    #help {
-        color: rgba(0, 0, 0, 0);
+#help {
+    color: rgba(0, 0, 0, 0);
+}
+
+.writeImg {
+  width: 11.25rem;
+}
+
+@media screen and (max-width: 1400px), screen and (max-height: 500px) {
+    #left {
+        height: 43rem;
+    }
+    #title {
+        font-size: 4.5rem;
+    }
+    #control {
+        top: 0.58rem;
+    }
+    #year {
+        font-size: 1.69rem;
+        margin: 1.99rem;
+    }
+    #logo {
+        width: 23.76rem;
+        height: 25.45rem;
+    }
+    #linkBox {
+        width: 37.92rem;
+        padding-bottom: 0.9rem;
+        left: 0.13rem;
+    }
+    .link {
+        width: 11.55rem;
+        font-size: 2.53rem;
     }
 }
 
-@media screen and (max-width: 1400px), screen and (max-height: 700px) {
-    #root {
-        display: none;
+@media screen and (max-width: 1200px), screen and (max-height: 400px) {
+    #left {
+        height: 33rem;
     }
-    #help {
-        color: black;
-        display: flex;
-        height: 100vh;
-        justify-content: center;
-        align-items: center;
-        font-size: 50px;
-        font-weight: bold;
+    #title {
+        font-size: 3.5rem;
+    }
+    #control {
+        top: 0.45rem;
+    }
+    #year {
+        font-size: 1.29rem;
+        margin: 1.45rem;
+    }
+    #logo {
+        width: 18.23rem;
+        height: 19.53rem;
+    }
+    #linkBox {
+        width: 29.1rem;
+        padding-bottom: 0.69rem;
+        left: 0.1rem;
+    }
+    .link {
+        width: 8.87rem;
+        font-size: 1.94rem;
     }
 }

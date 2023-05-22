@@ -64,7 +64,7 @@ function DiaryContent(props:DiaryContentProps) {
     form.append('emoji', emoji);
     form.append('contents', content);
     form.append('diary_date', format(date, 'yyyy-MM-dd'));
-    
+
     // 더블 클릭 방지 로직
     if(variable.current.isDoubleClick){
       return;
@@ -77,7 +77,7 @@ function DiaryContent(props:DiaryContentProps) {
       .then(function (response) {
         console.log(response.data)
         drawingUrl();
-        
+
       })
       .catch(function (error) {
         if (error.response.data.title) {
@@ -128,7 +128,7 @@ function DiaryContent(props:DiaryContentProps) {
         console.log(error);
       });
   };
-  
+
   //AI키워드 그림 가져오기 버튼
   const bringGrim = async () => {
     props.getLoading(true);
@@ -173,7 +173,6 @@ function DiaryContent(props:DiaryContentProps) {
         console.log(error)
       });
   };
-  
 
   //제목 내용
   const onChange = (e:any) => {
@@ -266,8 +265,6 @@ export default DiaryContent;
 /*두쪽 페이지 틀에서 한쪽 영역 컨테이너*/
 export const DiviContainer = styled.div`
   position: absolute;
-  width: 600px;
-  height: 750px;
   display: flex;
   flex-direction: column;
   justify-content: center;

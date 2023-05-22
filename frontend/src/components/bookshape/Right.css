@@ -1,8 +1,8 @@
 .flip {
   background-color: #FDF6EA;
   float: left;
-  width: 610px;
-  height: 760px;
+  width: 38.1rem;
+  height: 47.5rem;
   border-top-right-radius: 30px;
   border-bottom-right-radius: 30px;
   box-shadow:12px 9px 10px 0 #676262;
@@ -10,8 +10,8 @@
 
 .shapeR {
     display: flex;
-    width: 600px;
-    height: 750px; 
+    width: 37.5rem;
+    height: 46.9rem;
     justify-content: center;
     border-top-right-radius: 30px;
     border-bottom-right-radius: 30px;
@@ -23,4 +23,69 @@
     background-image: url("../../../public/images/paper.jpeg");
     box-shadow: 7px 9px 10px 0px #676262;
     z-index: -1;
+}
+
+.writing {
+  font-size:2.5rem;
+  font-family:'KyoboHand';
+  text-align:center;
+}
+
+.noContent {
+  width: 37.5rem;
+  height: 46.9rem;
+}
+
+.date {
+  width:17rem;
+  margin:0;
+  color:orange
+}
+
+@media screen and (max-width: 1400px), screen and (max-height: 500px) {
+    .flip {
+      width: 35rem;
+      height: 43rem;
+    }
+    .shapeR {
+      width: 34.4rem;
+      height: 42.4rem;
+    }
+    #bookMark {
+      height: 39.2rem;
+    }
+    .writing {
+      font-size: 2.26rem;
+    }
+    .noContent {
+      width: 34.4rem;
+      height: 42.4rem;
+    }
+    .date {
+      width: 15.38rem;
+    }
+}
+
+@media screen and (max-width: 1200px), screen and (max-height: 400px) {
+    .flip {
+      width: 26rem;
+      height: 33rem;
+    }
+    .shapeR {
+      width: 25.4rem;
+      height: 32.4rem;
+    }
+    #bookMark {
+      height: 30rem;
+    }
+    .writing {
+      font-size: 1.73rem;
+    }
+    .noContent {
+      width: 25.4rem;
+      height: 32.4rem;
+    }
+    .date {
+      width: 11.8rem;
+    }
 }
