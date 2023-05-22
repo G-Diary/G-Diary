@@ -58,7 +58,7 @@ export default Bookmark;
 const BookMark = styled.div`
   width: 70px;
   height: 700px;
-  z-index: 1;
+  z-index: 0;
 `;
 const StyledNavLink = styled(NavLink)`
   display: block;
