@@ -62,7 +62,7 @@ function BookCover({ children } : React.PropsWithChildren) {
         // eslint-disable-next-line no-loop-func
           .map((data ,index )=>{
             return <DiaryList key={index} title={data.title} weather={data.weather} draw={data.drawing_url} contents={data.contents} date={data.diary_date} emoji={''} />})}
-        {exist.includes(format(choiceDate, 'yyyy-MM-dd'))?'':(<DiviContainer style={{zIndex: '-1'}}>
+        {exist.includes(format(choiceDate, 'yyyy-MM-dd'))?'':(<DiviContainer style={{zIndex: '0'}}>
           <div style={{fontSize:'2.5rem', fontFamily:'KyoboHand', textAlign:'center'}}>
             <img src="images/write.PNG"  style={{width: '30%'}} alt="list"/>
             <div style={{display:'flex', flexDirection:'row', justifyContent:'center', marginBottom:'5px'}}><p style={{width:'17rem', margin:'0', color:'orange'}}>{choiceDate.getFullYear()}년 {format(choiceDate, 'M')}월 {choiceDate.getDate()}일</p>의</div>
