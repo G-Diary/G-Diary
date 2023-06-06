@@ -97,6 +97,12 @@ const Rectangle = ({ image, shapeProps,draggable, isSelected, unSelectShape, onS
 
 interface DrawingProps{
   grim: boolean;
+  x:number;
+  y:number;
+  xPercent:number;
+  yPercent: number;
+  icon: number;
+  stroke:number;
 }
 
 interface GrimImageProps{
@@ -107,6 +113,7 @@ interface GrimImageProps{
   width: number;
   height: number;
   fill: string;
+
 }
 
 function Drawing(props:DrawingProps){
@@ -119,6 +126,7 @@ function Drawing(props:DrawingProps){
   const [lines, setLines] = useState([]);
   let stageRef=useRef(null);
   const isDrawing = useRef<boolean>(false);
+
   const checkDeselect = (e:any) => {
     const clickedOnEmpty = e.target === e.target.getStage();
     if (clickedOnEmpty) {
@@ -200,8 +208,8 @@ function Drawing(props:DrawingProps){
       {props.grim?(
         <Stage
           ref={stageRef}
-          width={500}
-          height={290}
+          width={props.x}
+          height={props.y}
           onMouseDown={(e) => {      
             checkDeselect(e);
           }}
@@ -239,7 +247,7 @@ function Drawing(props:DrawingProps){
                 key={i}
                 points={line.points}
                 stroke={line.color}
-                strokeWidth={5}
+                strokeWidth={props.stroke}
                 tension={0.5}
                 lineCap="round"
                 globalCompositeOperation={
@@ -251,8 +259,8 @@ function Drawing(props:DrawingProps){
         </Stage>
       ):( <Stage
         ref={stageRef}
-        width={500}
-        height={290}
+        width={props.x}
+        height={props.y}
         onMouseDown={(e) => {      
           handleMouseDown(e);
           checkDeselect(e);
@@ -288,6 +296,7 @@ function Drawing(props:DrawingProps){
                   rects[i] = newAttrs;
                   setGrimimage(rects);
                 }}
+                
               />
             );
           })}
@@ -296,7 +305,7 @@ function Drawing(props:DrawingProps){
               key={i}
               points={line.points}
               stroke={line.color}
-              strokeWidth={5}
+              strokeWidth={props.stroke}
               tension={0.5}
               lineCap="round"
               globalCompositeOperation={
@@ -307,19 +316,19 @@ function Drawing(props:DrawingProps){
         </Layer>
       </Stage>)}
       {!props.grim?(
-        <div style={{transform:'translate(68%,-100%)'}}>
+        <div style={{transform:`translate(${props.xPercent}%,${props.yPercent}%)`}}>
           {listColors && listColors.map((map,index)=>{
             return(
-              <BsFillCircleFill key={index} color={map} size="23" style={{marginRight:'8px'}} onClick={()=>{
+              <BsFillCircleFill key={index} color={map} size={props.icon-3} style={{marginRight:'8px'}} onClick={()=>{
                 setTool('pen');
                 setColor(map);
               }} />
             )
           })}
-          <BsFillEraserFill size="26" style={{marginRight: '10px'}} onClick={()=>{
+          <BsFillEraserFill size={props.icon} style={{marginRight: '10px'}} onClick={()=>{
             setTool('eraser');
           }} />
-          <FaUndoAlt size="22" style={{marginRight:'10px'}} onClick={handleUndo}/>
+          <FaUndoAlt size={props.icon-4} style={{marginRight:'10px'}} onClick={handleUndo}/>
         </div>):('')}
     
     </div>

@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import Manuscript from './Manuscript';
 import Emoji from './Emoji';
@@ -8,6 +8,7 @@ import Drawing from './Drawing';
 import { useStore } from '../../store/store';
 import api from '../../apis/axios';
 import { format } from 'date-fns';
+import { debounce } from '@material-ui/core';
 
 type DiaryContentProps = {
   getLoading: (load: boolean) => void;
@@ -20,6 +21,10 @@ interface RefObject {
 function DiaryContent(props:DiaryContentProps) {
   const navigate = useNavigate();
   const location = useLocation();
+  const [windowSize, setWindowSize]=useState({
+    width: window.innerWidth,
+    height: window.innerHeight
+  })
   const [grim, setGrim] = useState<boolean>(true); //그리기모드 버튼 클릭 여부
   const [title, setTitle] = useState<string>(''); //제목
   const [content, setContent] = useState<string>(''); //일기 내용
@@ -34,6 +39,20 @@ function DiaryContent(props:DiaryContentProps) {
   let year = date.getFullYear(); //연도 구하기
   let todayMonth = date.getMonth() + 1; //월 구하기
   let todayDate = date.getDate(); //일 구하기
+
+  const handleResize = debounce(()=>{
+    setWindowSize({
+      width: window.innerWidth,
+      height: window.innerHeight
+    });
+  });
+
+  useEffect(()=>{
+    window.addEventListener('resize',handleResize);
+    return(()=>{
+      window.removeEventListener('resize',handleResize);
+    })
+  })
 
   //이모지 받아오기
   const getEmoji = (x:string) => {
@@ -206,27 +225,43 @@ function DiaryContent(props:DiaryContentProps) {
           <DateContent>
             {year}.{todayMonth}.{todayDate}
           </DateContent>
-          <Weathercontainer style={{ marginTop: '5px' }}>
+          <Weathercontainer>
             <WeatherBtn mood='sunny' num={1} />
-            <label htmlFor='sunny'>{weather === 1 ? <BsBrightnessHighFill size='29' color='red' /> : <BsBrightnessHighFill size='27' color='#8e8d8d' />}</label>
+            <label htmlFor='sunny'>{weather === 1 ? <BsBrightnessHighFill size={windowSize.width > 1400 && windowSize.height > 500 ? '29':
+              windowSize.width > 1200 && windowSize.height > 400 ? '26':'23'
+            } color='red' /> : <BsBrightnessHighFill size={windowSize.width > 1400 && windowSize.height > 500 ? '27':
+              windowSize.width > 1200 && windowSize.height > 400 ? '25':'21'
+            } color='#8e8d8d' />}</label>
             <WeatherBtn mood={'cloudy'} num={2} />
             <label htmlFor='cloudy'>
-              {weather === 2 ? <BsFillCloudFill size='29' color='rgb(36 75 147)' /> : <BsFillCloudFill size='28' color='#8e8d8d' />}
+              {weather === 2 ? <BsFillCloudFill size={windowSize.width > 1400 && windowSize.height > 500 ? '29':
+                windowSize.width > 1200 && windowSize.height > 400 ? '26':'23'
+              } color='rgb(36 75 147)' /> : <BsFillCloudFill size={windowSize.width > 1400 && windowSize.height > 500 ? '28':
+                windowSize.width > 1200 && windowSize.height > 400 ? '25':'21'
+              } color='#8e8d8d' />}
             </label>
             <WeatherBtn mood={'rainy'} num={3} />
             <label htmlFor='rainy'>
               {weather === 3 ? (
-                <BsFillCloudRainFill size='28' style={{ paddingTop: '1.5px' }} color='rgb(76 76 76)' />
+                <BsFillCloudRainFill size={windowSize.width > 1400 && windowSize.height > 500 ? '28':
+                  windowSize.width > 1200 && windowSize.height > 400 ? '26':'22'
+                } style={{ paddingTop: '1.5px' }} color='rgb(76 76 76)' />
               ) : (
-                <BsFillCloudRainFill size='26.5' style={{ paddingTop: '1.5px' }} color='#8e8d8d' />
+                <BsFillCloudRainFill size={windowSize.width > 1400 && windowSize.height > 500 ? '26.5':
+                  windowSize.width > 1200 && windowSize.height > 400 ? '24':'20'
+                } style={{ paddingTop: '1.5px' }} color='#8e8d8d' />
               )}
             </label>
             <WeatherBtn mood={'snow'} num={4} />
             <label htmlFor='snow'>
               {weather === 4 ? (
-                <BsFillCloudSnowFill size='28' style={{ paddingTop: '2px' }} color='#FFFAFA' />
+                <BsFillCloudSnowFill size={windowSize.width > 1400 && windowSize.height > 500 ? '28':
+                  windowSize.width > 1200 && windowSize.height > 400 ? '26':'22'
+                } style={{ paddingTop: '2px' }} color='#FFFAFA' />
               ) : (
-                <BsFillCloudSnowFill size='26' style={{ paddingTop: '2px' }} color='#8e8d8d' />
+                <BsFillCloudSnowFill size={windowSize.width > 1400 && windowSize.height > 500 ? '26':
+                  windowSize.width > 1200 && windowSize.height > 400 ? '24':'21'
+                } style={{ paddingTop: '2px' }} color='#8e8d8d' />
               )}
             </label>
           </Weathercontainer>
@@ -237,16 +272,35 @@ function DiaryContent(props:DiaryContentProps) {
         <Titlecontent>
           <input type='text' onChange={onChange} value={title} />
         </Titlecontent>
-        <Emoji getEmoji={getEmoji} />
+        {
+          (windowSize.width > 1400 && windowSize.height > 500) ? (
+            <Emoji getEmoji={getEmoji} marginL="150px" marginT="415px" icon="30px" />
+          ):
+            (windowSize.width > 1200 && windowSize.height > 400) ?(
+              <Emoji getEmoji={getEmoji} marginL="130px" marginT="415px" icon="25px" />
+            ) :(
+              <Emoji getEmoji={getEmoji} marginL="35px" marginT="415px" icon="20px" />
+            )
+        }
+       
       </TitleContainer>
       <Canvas>
-        <Drawing grim={grim} />
+        {
+          (windowSize.width > 1400 && windowSize.height > 500) ? (
+            <Drawing grim={grim} x={500} y={290} xPercent={68} yPercent={-100} icon={26} stroke={5}/>
+          ):
+            (windowSize.width > 1200 && windowSize.height > 400) ?(
+              <Drawing grim={grim} x={480} y={270} xPercent={67} yPercent={-120} icon={24} stroke={4} />
+            ) :(
+              <Drawing grim={grim} x={380} y={220} xPercent={63} yPercent={-100} icon={22} stroke={3} />
+            )
+        }
       </Canvas>
       <ButtonContainer>
-        <Modebutton style={{ width: '100px' }} onClick={bringGrim}>
+        <Modebutton style={{ width: '20%' }} onClick={bringGrim}>
           그림가져오기
         </Modebutton>
-        <Modebutton style={{ width: '80px' }} onClick={clickedGrim}>
+        <Modebutton style={{ width: '15%' }} onClick={clickedGrim}>
           {grim ? '그림그리기' : '스탑'}
         </Modebutton>
         <Savebutton
@@ -265,15 +319,15 @@ export default DiaryContent;
 
 /*두쪽 페이지 틀에서 한쪽 영역 컨테이너*/
 export const DiviContainer = styled.div`
-  position: absolute;
-  width: 600px;
-  height: 750px;
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   z-index: 90;
 `;
+  //  @media screen and (max-width: 1200px) and (max-height: 400px)
 /*날짜&날씨 container*/
 export const DateContainer = styled.div`
   display: flex;
@@ -281,6 +335,16 @@ export const DateContainer = styled.div`
   justify-content: center;
   width: 500px;
   height: 60px;
+  @media screen and (max-width: 1400px), screen and (max-height: 500px){
+    width: 480px;
+    height: 40px;
+    margin-top: 15px; 
+  }
+  @media screen and (max-width: 1200px), screen and (max-height: 400px){
+    width: 380px;
+    height: 30px; 
+    margin-top: 15px;
+  }
 `;
 
 export const Dateline = styled.div`
@@ -290,6 +354,15 @@ export const Dateline = styled.div`
   display: flex;
   align-items: center;
   border-radius: 3px;
+  @media screen and (max-width: 1400px), screen and (max-height: 500px){
+    width: 480px;
+    height: 40px; 
+    margin-bottom: 15px;
+  }
+  @media screen and (max-width: 1200px), screen and (max-height: 400px){
+    width: 380px;
+    height: 30px; 
+  }
 `;
 
 export const Datetitle = styled.div`
@@ -298,6 +371,13 @@ export const Datetitle = styled.div`
   font-size: 25px;
   text-align: center;
   font-family: KyoboHand;
+  @media screen and (max-width: 1400px), screen and (max-height: 500px){
+    font-size: 23px; 
+  }
+  @media screen and (max-width: 1200px), screen and (max-height: 400px){
+    font-size: 20px; 
+    margin-top:0;
+  }
 `;
 
 export const DateContent = styled.div`
@@ -315,6 +395,14 @@ export const DateContent = styled.div`
   color: #4b4b4b;
   font-family: KyoboHand;
   padding-top: 3px;
+  @media screen and (max-width: 1400px), screen and (max-height: 500px){
+    font-size: 20px;
+    line-height: 80%;
+  }
+  @media screen and (max-width: 1200px), screen and (max-height: 400px){
+    font-size: 18px;
+    line-height: 80%;
+  }
 `;
 
 export const Weathercontainer = styled.div`
@@ -325,6 +413,14 @@ export const Weathercontainer = styled.div`
   display: flex;
   justify-content: space-around;
   align-items: flex-start;
+  margin-top: 6px;
+  @media screen and (max-width: 1400px), screen and (max-height: 500px){
+    width: 30%;
+  }
+  @media screen and (max-width: 1200px), screen and (max-height: 400px){
+    width: 33%;
+    margin-bottom: 1px;
+  }
 `;
 
 export const WeatherRadioBtn = styled.input`
@@ -341,25 +437,41 @@ export const TitleContainer = styled.div`
   border-top-left-radius: 3px;
   border-top=right-radius: 3px;
   font-family: KyoboHand;
+  @media screen and (max-width: 1400px), screen and (max-height: 500px){
+    width: 480px;
+    height: 35px; 
+  }
+  @media screen and (max-width: 1200px), screen and (max-height: 400px){
+    width: 380px;
+    height: 30px; 
+  } 
 `;
 
 export const Title = styled.div`
-  margin-left: 5%;
-  width: 10%;
+  margin-left: 20px;
+  width: 60px;
   text-align: left;
   font-size: 25px;
   font-family: KyoboHand;
   z-index: 120;
   position: absolute;
+  @media screen and (max-width: 1400px), screen and (max-height: 500px){
+    width: 40px;
+    font-size: 22px;
+  }
+  @media screen and (max-width: 1200px), screen and (max-height: 400px){
+    width: 40px;
+    font-size: 20px;
+  } 
 `;
 
 export const Titlecontent = styled.div`
-  width: 60%;
-  margin-left: 13%;
-  z-index: 120;
+  width: 300px;
+  margin-left: 70px;
+  z-index: 130;
   position: absolute;
   > input {
-    width: 90%;
+    width: 300px;
     margin-bottom: 0.5%;
     font-size: 26px;
     border: 0;
@@ -370,6 +482,26 @@ export const Titlecontent = styled.div`
     color: #4b4b4b;
     caret-color: transparent;
   }
+  @media screen and (max-width: 1400px), screen and (max-height: 500px){
+    width: 300px;
+    margin-left: 65px;
+    height: 30px;
+    > input {
+      font-size: 22px;
+      width: 300px;
+      height: 25px;
+    }
+  }
+  @media screen and (max-width: 1200px), screen and (max-height: 400px){
+    width: 250px;
+    margin-left: 65px;
+    height: 25px;
+    > input {
+      font-size: 20px;
+      width: 250px;
+      height: 20px;
+    }
+  } 
 `;
 
 /*그림판 container*/
@@ -379,6 +511,14 @@ export const Canvas = styled.div`
   background: white;
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
+  @media screen and (max-width: 1400px), screen and (max-height: 500px){
+    width: 480px;
+    height: 270px; 
+  }
+  @media screen and (max-width: 1200px), screen and (max-height: 400px){
+    width: 380px;
+    height: 220px; 
+  }
 `;
 
 /*버튼 컨테이너(그림 편집)*/
@@ -387,7 +527,16 @@ export const ButtonContainer = styled.div`
   height: 25px;
   display: flex;
   align-items: center;
-  margin-top: 2%;
+  margin-top: 10px;
+  @media screen and (max-width: 1400px), screen and (max-height: 500px){
+    width: 480px;
+    height: 25px; 
+  }
+  @media screen and (max-width: 1200px), screen and (max-height: 400px){
+    width: 380px;
+    height: 20px; 
+    margin-top: 10px;
+  }
 `;
 export const Modebutton = styled.button`
   width: 75px;
@@ -400,12 +549,18 @@ export const Modebutton = styled.button`
   border: 2px solid black;
   transition: box-shadow 250ms ease-in-out, color 200ms ease-in-out;
   font-family: KyoboHand;
-  padding-bottom: 0.5%;
-  padding-top: 3px;
   &:hover {
     box-shadow: 0 0 40px 40px #404040 inset;
     color: white;
     border: none;
+  }
+  @media screen and (max-width: 1400px), screen and (max-height: 500px){
+    font-size: 13px;
+    height: 27px;
+  }
+  @media screen and (max-width: 1200px), screen and (max-height: 400px){
+    height: 23px;
+    font-size: 11px;
   }
 `;
 
@@ -429,9 +584,27 @@ export const Savebutton = styled.button`
     background-color: transparent;
     border: 3px solid rgb(54, 54, 54);
   }
+  @media screen and (max-width: 1400px), screen and (max-height: 500px){
+    width: 100px;
+    height: 27px;
+    font-size: 13px;
+  }
+  @media screen and (max-width: 1200px), screen and (max-height: 400px){
+    width: 70px;
+    height: 23px;
+    font-size: 11px;
+  }
 `;
 /*내용 container*/
 export const Content = styled.div`
   width: 520px;
   height: 280px;
+  @media screen and (max-width: 1400px), screen and (max-height: 500px){
+    width: 480px;
+    height: 260px; 
+  }
+  @media screen and (max-width: 1200px), screen and (max-height: 400px){
+    width: 380px;
+    height: 210px;
+  }
 `;

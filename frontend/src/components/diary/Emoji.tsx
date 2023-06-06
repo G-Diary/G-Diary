@@ -16,11 +16,11 @@ function Emoji(props:any){
 
   
   return(
-    <div className="picker-container" style={{zIndex:'100', marginLeft: '150px'}}>
-      <div className="emoji-icon" role="img" aria-label="smile" style={{width:'1em', fontSize:'1.8em',marginLeft: '308px' }} onClick={() => setShowPicker((val) => !val)}>{inputStr}</div>
+    <div className="picker-container" style={{zIndex:'100', marginLeft: `${props.marginL}`}}>
+      <div className="emoji-icon" role="img" aria-label="smile" style={{width:'1em', fontSize:`${props.icon}`,marginLeft: '308px' }} onClick={() => setShowPicker((val) => !val)}>{inputStr}</div>
       {showPicker && (
-        <div style={{marginTop: '415px', zIndex:'100', position:'relative'}}>
-          <div className="emoji-icon" role="img" aria-label="smile" style={{width:'1em', fontSize:'1.8em', marginLeft:'10.65em'}} onClick={() => setShowPicker((val) => !val)}>{inputStr}</div>
+        <div style={{marginTop: `${props.marginT}`, zIndex:'100', position:'relative'}}>
+          <div className="emoji-icon" role="img" aria-label="smile" style={{width:'1em', fontSize:`${props.icon}`, marginLeft:'10.65em'}} onClick={() => setShowPicker((val) => !val)}>{inputStr}</div>
           <EmojiPicker emojiStyle={EmojiStyle.APPLE} onEmojiClick={onEmojiClick} />
         </div>)}
     </div>

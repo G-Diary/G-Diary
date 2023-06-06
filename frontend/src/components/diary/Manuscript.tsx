@@ -31,7 +31,7 @@ function Manuscript(props:any) {
     }
   }
   return (
-    <div style={{marginTop:'13px', marginLeft:'3px'}}>
+    <div style={{marginTop:'6px', marginLeft:'3px'}}>
       <PaperContainer>
         <GridContent spellCheck="false" id="word" value={word} onChange={wordInput}/>
         <label htmlFor='word'>
@@ -70,6 +70,7 @@ export const PaperSpan = styled.div`
   border-left-width: 0px;
   margin-top: 20px;
   margin-left: 9px;
+ 
 `
 
 export const GridContent =styled.textarea`
@@ -102,4 +103,14 @@ export const TableTd =styled.div`
   z-index: 1;
   margin-bottom: 5px;
   margin:1px;
+  @media screen and (max-width: 1400px), screen and (max-height: 500px){
+    width: 43px;
+    height: 43px;
+    font-size: 28px;
+  }
+  @media screen and (max-width: 1200px), screen and (max-height: 400px){
+    width: 33px;
+    height: 33px;
+    font-size: 23px;
+  }
 `

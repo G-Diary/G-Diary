@@ -68,15 +68,13 @@ function GrimChoice(){
 export default GrimChoice;
 
 const ChoiceContainer = styled.div`
-    position: absolute;  
-    width: 600px;
-    height: 750px;
+    width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     z-index: 90;
-
 `
 
 const Choicetitle =styled.div`
@@ -84,19 +82,33 @@ const Choicetitle =styled.div`
     align-items: center;
     justify-content: center;
     width: 500px;
-    height: 80px;
+    height: 10%;
     font-size: 40px;
     font-family:KyoboHand;
     font-weight: bolder;
+    @media screen and (max-width: 1400px), screen and (max-height: 500px){
+      font-size: 35px;
+      width: 450px;
+    }
+    @media screen and (max-width: 1200px), screen and (max-height: 400px){
+      font-size: 25px;
+      width: 350px;
+    }
 `
 
 const Choice = styled.div`
     width: 500px;   
-    height: 520px;
+    height: 80%;
     background:white;
     border-radius: 10px;
     border: 2px dotted grey;
     overflow: auto;
+    @media screen and (max-width: 1400px), screen and (max-height: 500px){
+      width: 450px;
+    }
+    @media screen and (max-width: 1200px), screen and (max-height: 400px){
+      width: 350px;
+    }
 `
 
 const ChoiceGrim = styled.img`
@@ -104,6 +116,14 @@ const ChoiceGrim = styled.img`
     height: 95px;
     object-fit:cover;
     margin: 2rem;
+    @media screen and (max-width: 1400px), screen and (max-height: 500px){
+      width: 85px;
+      height: 85px;
+    }
+    @media screen and (max-width: 1200px), screen and (max-height: 400px){
+      width: 70px;
+      height: 70px;
+    }
 `
 
 export const ChoiceButtonContainer = styled.div`
