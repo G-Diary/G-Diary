@@ -6,6 +6,7 @@ import { startOfMonth, endOfMonth, startOfWeek, endOfWeek } from 'date-fns';
 import { isSameMonth, isSameDay, addDays} from 'date-fns';
 import { Link } from 'react-router-dom';
 import { useStore } from '../../store/store';
+import api from '../../apis/axios';
 
 //(date-fns 이용: 날짜 관련 함수 총 집합 라이브러리)
 //header 컴포넌트(월 이동)
@@ -128,9 +129,10 @@ const RenderCells = ({currentMonth, today, list, exist, selectedDate, onDateClic
 interface CalenderProps{
   list: any[];
   exist: any[];
+  getId: any;
 }
 
-function Calender({list, exist}:CalenderProps){
+function Calender({list, exist, getId}:CalenderProps){
   const [currentMonth, setCurrentMonth]=useState<Date>(new Date());
   const {choiceDate, setChoicedDate}=useStore();
   const [selectedDate, setSelectedDate]=useState<Date>(choiceDate);
@@ -143,7 +145,12 @@ function Calender({list, exist}:CalenderProps){
   }
   const onDateClick = (day:any) =>{
     setSelectedDate(day);
-    setChoicedDate(day)
+    setChoicedDate(day);
+    api.get('diaries/').then((res) => {
+      getId(res.data.filter((date:any) => date.diary_date === format(day, 'yyyy-MM-dd'))[0].id)
+    }).catch((err) => {
+      console.log(err)
+    })
   }
   return(
     <div className='listcontainer'>

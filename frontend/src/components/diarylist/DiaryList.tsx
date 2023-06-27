@@ -3,6 +3,10 @@ import ResultManuscript from './ResultManuscript';
 import { BsBrightnessHighFill, BsFillCloudFill ,BsFillCloudSnowFill, BsFillCloudRainFill } from 'react-icons/bs';
 import { Content, DateContainer, Dateline, Datetitle, DiviContainer, Weathercontainer, DateContent, TitleContainer, Title, Titlecontent, Canvas} from '../diary/DiaryContent';
 import { ChoiceButtonContainer } from '../diary/GrimChoice';
+import api from '../../apis/axios'
+import axios from '../../apis/axios';
+import format from 'date-fns/format';
+import { useEffect } from 'react';
 
 const useStyles = makeStyles(() => ({
   customHoverFocus: {
@@ -17,9 +21,17 @@ interface DiaryListProps{
   contents: string;
   date: string;
   emoji: string;
+  deleteId: any;
 }
 
-function DiaryList({title, weather, draw, contents, date, emoji}:DiaryListProps){
+type Props = {
+  dismiss: string,
+  isConfirmed: boolean,
+  isDenied: boolean,
+  isDismissed : boolean
+}
+
+function DiaryList({title, weather, draw, contents, date, emoji, deleteId}:DiaryListProps){
 
   let fulldate=date.split('-');
   let year=fulldate[0];  //연도 구하기
@@ -43,6 +55,33 @@ function DiaryList({title, weather, draw, contents, date, emoji}:DiaryListProps)
   //     },
   //   });
   // }
+  const DeleteDiary = async () => {
+    const Swal = require('sweetalert2');
+    Swal.fire({
+      title: '정말 삭제하시겠습니까?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: '네',
+      cancelButtonText: '아니오'
+    }).then(async (result: Props) => {
+      console.log(result)
+      if (result.isConfirmed) {
+        Swal.fire(
+          '삭제 성공!',
+          '',
+          'success'
+        )
+        await api.delete(`diaries/${deleteId}/`).then((res) => {
+          console.log(res)
+        }).catch((err) => {
+          console.log(err)
+        })
+      }
+    })
+    
+  }
   function Weather() {
     return(
       <>
@@ -70,25 +109,28 @@ function DiaryList({title, weather, draw, contents, date, emoji}:DiaryListProps)
         <Titlecontent style={{fontSize: '1.5rem'}}>{title}</Titlecontent>
         <div style={{width:'1em', fontSize:'1.8em',marginLeft: '460px'}}>{emoji}</div>
       </TitleContainer>
-      <Canvas><img src={draw} alt="diarygrim" style={{width:'500px', height:'290px'}}/></Canvas>
-      <ChoiceButtonContainer style={{height: '25px' ,marginTop:'2%', marginLeft:'2.2%'}}>
-        <Button
+      <Canvas><img src={draw} alt="diarygrim" style={{ width: '500px', height: '290px' }} /></Canvas>
+      <div>
+        <Button onClick={DeleteDiary}>삭제</Button>
+        <ChoiceButtonContainer style={{height: '25px' ,marginTop:'2%', marginLeft:'2.2%'}}>
+          <Button
           // onClick={shareMessage}
-          className={classes.customHoverFocus}
-          type='button'
-          variant='outlined'
-          style={{
-            position: 'relative',
-            top:'4px',
-            right: '10px',
-            borderRadius: '30px',
-            border: '2px solid black',
-            fontWeight: 'bolder',
-          }}
-        >
+            className={classes.customHoverFocus}
+            type='button'
+            variant='outlined'
+            style={{
+              position: 'relative',
+              top:'4px',
+              right: '10px',
+              borderRadius: '30px',
+              border: '2px solid black',
+              fontWeight: 'bolder',
+            }}
+          >
         카카오톡 공유하기
-        </Button>
-      </ChoiceButtonContainer>
+          </Button>
+        </ChoiceButtonContainer>
+      </div>
       <Content><ResultManuscript content={contents}/></Content>
     </DiviContainer>
   )

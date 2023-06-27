@@ -61,7 +61,7 @@ function BookCover({ children } : React.PropsWithChildren) {
         {list.filter((x)=>new Date(x.diary_date).toDateString()===choiceDate.toDateString())
         // eslint-disable-next-line no-loop-func
           .map((data ,index )=>{
-            return <DiaryList key={index} title={data.title} weather={data.weather} draw={data.drawing_url} contents={data.contents} date={data.diary_date} emoji={''} />})}
+            return <DiaryList key={index} title={data.title} weather={data.weather} draw={data.drawing_url} contents={data.contents} date={data.diary_date} emoji={''} deleteId={1} />})}
         {exist.includes(format(choiceDate, 'yyyy-MM-dd'))?'':(<DiviContainer style={{zIndex: '0'}}>
           <div style={{fontSize:'2.5rem', fontFamily:'KyoboHand', textAlign:'center'}}>
             <img src="images/write.PNG"  style={{width: '30%'}} alt="list"/>

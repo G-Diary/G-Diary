@@ -64,6 +64,7 @@ function DiaryContent(props:DiaryContentProps) {
     form.append('emoji', emoji);
     form.append('contents', content);
     form.append('diary_date', format(date, 'yyyy-MM-dd'));
+    console.log(format(date, 'yyyy-MM-dd'));
     
     // 더블 클릭 방지 로직
     if(variable.current.isDoubleClick){
