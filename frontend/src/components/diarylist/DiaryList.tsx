@@ -4,9 +4,6 @@ import { BsBrightnessHighFill, BsFillCloudFill ,BsFillCloudSnowFill, BsFillCloud
 import { Content, DateContainer, Dateline, Datetitle, DiviContainer, Weathercontainer, DateContent, TitleContainer, Title, Titlecontent, Canvas} from '../diary/DiaryContent';
 import { ChoiceButtonContainer } from '../diary/GrimChoice';
 import api from '../../apis/axios'
-import axios from '../../apis/axios';
-import format from 'date-fns/format';
-import { useEffect } from 'react';
 
 const useStyles = makeStyles(() => ({
   customHoverFocus: {
@@ -32,7 +29,6 @@ type Props = {
 }
 
 function DiaryList({title, weather, draw, contents, date, emoji, deleteId}:DiaryListProps){
-
   let fulldate=date.split('-');
   let year=fulldate[0];  //연도 구하기
   let todayMonth=fulldate[1];  //월 구하기
@@ -55,7 +51,7 @@ function DiaryList({title, weather, draw, contents, date, emoji, deleteId}:Diary
   //     },
   //   });
   // }
-  const DeleteDiary = async () => {
+  const DeleteDiary = () => {
     const Swal = require('sweetalert2');
     Swal.fire({
       title: '정말 삭제하시겠습니까?',
@@ -65,18 +61,22 @@ function DiaryList({title, weather, draw, contents, date, emoji, deleteId}:Diary
       cancelButtonColor: '#d33',
       confirmButtonText: '네',
       cancelButtonText: '아니오'
-    }).then(async (result: Props) => {
+    }).then((result: Props) => {
       console.log(result)
       if (result.isConfirmed) {
-        Swal.fire(
-          '삭제 성공!',
-          '',
-          'success'
-        )
-        await api.delete(`diaries/${deleteId}/`).then((res) => {
-          console.log(res)
-        }).catch((err) => {
-          console.log(err)
+        Swal.fire({
+          title: '삭제 성공!',
+          icon: 'success',
+          confirmButtonColor: '#3085d6',
+          confirmButtonText: 'OK',
+        }).then((result: Props) => {
+          if (result.isConfirmed) {
+            api.delete(`diaries/${deleteId}/`).then((res) => {
+              window.location.reload();
+            }).catch((err) => {
+              console.log(err)
+            })
+          }
         })
       }
     })
