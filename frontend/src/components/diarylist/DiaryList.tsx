@@ -12,13 +12,13 @@ const useStyles = makeStyles(() => ({
 }));
 
 interface DiaryListProps{
+  id: number;
   title: string;
   weather: number;
   draw: string;
   contents: string;
   date: string;
   emoji: string;
-  deleteId: any;
 }
 
 type Props = {
@@ -28,7 +28,7 @@ type Props = {
   isDismissed : boolean
 }
 
-function DiaryList({title, weather, draw, contents, date, emoji, deleteId}:DiaryListProps){
+function DiaryList({id, title, weather, draw, contents, date, emoji}:DiaryListProps){
   let fulldate=date.split('-');
   let year=fulldate[0];  //연도 구하기
   let todayMonth=fulldate[1];  //월 구하기
@@ -71,7 +71,7 @@ function DiaryList({title, weather, draw, contents, date, emoji, deleteId}:Diary
           confirmButtonText: 'OK',
         }).then((result: Props) => {
           if (result.isConfirmed) {
-            api.delete(`diaries/${deleteId}/`).then((res) => {
+            api.delete(`diaries/${id}/`).then((res) => {
               window.location.reload();
             }).catch((err) => {
               console.log(err)
@@ -85,10 +85,10 @@ function DiaryList({title, weather, draw, contents, date, emoji, deleteId}:Diary
   function Weather() {
     return(
       <>
-        <BsBrightnessHighFill size="27" color={weather===1 ? 'red' : 'grey'} />
-        <BsFillCloudFill size="27" color={weather===2 ? '#4E5D79' : 'grey'} />
-        <BsFillCloudRainFill size="26" color={weather===3 ? '#5A5A5A' : 'grey'} style={{paddingTop: '1.5px'}} />
-        <BsFillCloudSnowFill size="25" color={weather===4 ? '#FFFAFA' : 'grey'} style={{paddingTop: '2px'}}/>
+        <BsBrightnessHighFill size='27' color={weather===1 ? 'red' : 'grey'} />
+        <BsFillCloudFill size='27' color={weather===2 ? '#4E5D79' : 'grey'} />
+        <BsFillCloudRainFill size='26' color={weather===3 ? '#5A5A5A' : 'grey'} style={{paddingTop: '1.5px'}} />
+        <BsFillCloudSnowFill size='25' color={weather===4 ? '#FFFAFA' : 'grey'} style={{paddingTop: '2px'}}/>
       </>
     )
   }
@@ -109,7 +109,7 @@ function DiaryList({title, weather, draw, contents, date, emoji, deleteId}:Diary
         <Titlecontent style={{fontSize: '1.5rem'}}>{title}</Titlecontent>
         <div style={{width:'1em', fontSize:'1.8em',marginLeft: '460px'}}>{emoji}</div>
       </TitleContainer>
-      <Canvas><img src={draw} alt="diarygrim" style={{ width: '500px', height: '290px' }} /></Canvas>
+      <Canvas><img src={draw} alt='diarygrim' style={{ width: '500px', height: '290px' }} /></Canvas>
       <div>
         <Button onClick={DeleteDiary}>삭제</Button>
         <ChoiceButtonContainer style={{height: '25px' ,marginTop:'2%', marginLeft:'2.2%'}}>
