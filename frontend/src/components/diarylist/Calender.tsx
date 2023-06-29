@@ -143,7 +143,7 @@ function Calender({list, exist}:CalenderProps){
   }
   const onDateClick = (day:any) =>{
     setSelectedDate(day);
-    setChoicedDate(day)
+    setChoicedDate(day);
   }
   return(
     <div className='listcontainer'>
