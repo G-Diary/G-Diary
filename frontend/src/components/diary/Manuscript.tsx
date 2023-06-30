@@ -2,21 +2,21 @@ import React, {useState} from 'react';
 import styled from 'styled-components';
 
 /* 원고지 틀 컴포넌트 */
-function Manuscript(props) {
-  const [word, setWord] = useState('');
+function Manuscript(props:any) {
+  const [word, setWord] = useState<string>('');
   const Swal = require('sweetalert2');
-  let tr = Array.apply(null, new Array(5)).map(Number.prototype.valueOf, 0);
-  let td = Array.apply(null, new Array(10)).map(Number.prototype.valueOf, 0);
+  let tr:number[] = Array.apply(null, new Array(5)).map(Number.prototype.valueOf, 0);
+  let td:number[] = Array.apply(null, new Array(10)).map(Number.prototype.valueOf, 0);
 
-  const textlist = tr.map((tr,index) => (
+  const textlist = tr.map((tr,index:number) => (
     <div style={{display: 'flex'}} key={index}>
-      {td.map((td,index1) => (
+      {td.map((td,index1:number) => (
         <TableTd key={index1}><div style={{paddingTop:'5px'}}>{word[index1 + 10 * index]}</div></TableTd>
       ))}
     </div>
   ));
 
-  function wordInput(e) {
+  function wordInput(e:any) {
     setWord(e.target.value)
     props.setContent(e.target.value);
     if(word.length > 50) {
@@ -33,7 +33,7 @@ function Manuscript(props) {
   return (
     <div style={{marginTop:'13px', marginLeft:'3px'}}>
       <PaperContainer>
-        <GridContent spellCheck="false" id="word" type="text" value={word} onChange={wordInput}/>
+        <GridContent spellCheck="false" id="word" value={word} onChange={wordInput}/>
         <label htmlFor='word'>
           {textlist}  
         </label>

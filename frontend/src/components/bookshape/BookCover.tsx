@@ -11,6 +11,8 @@ import { Link } from 'react-router-dom';
 import { BsArrowRight  } from 'react-icons/bs';
 import { useStore } from '../../store/store';
 
+
+
 const AllControl = styled.div`
   height: 100vh;
   display: flex;
@@ -34,10 +36,12 @@ const Year = styled.div`
   font-size: 30px;
   margin: 35px;`
 
-
-function BookCover({ children }) {
-  const list = [];
-  const exist=[];
+// {children} : React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> tsx로 변환시 사용
+function BookCover({ children } : React.PropsWithChildren) {
+  // const list : Array<Object> = [];
+  // const exist : Array<Object> = [];
+  const list : any[]= [];
+  const exist : any[]=[];
   const { choiceDate } = useStore();
   
   let now = new Date();
@@ -48,16 +52,17 @@ function BookCover({ children }) {
       <div className  ='flip'>
         <Year>
           {year}
-          {isLogin() ? <LogoutBtn/> : ''}
+          {/* {isLogin() ? <LogoutBtn/> : ''} */}
+          <LogoutBtn/>
         </Year>
         {children}
       </div>
       <div className='shapeR'>
-        {list.filter(x=>new Date(x.diary_date).toDateString()===choiceDate.toDateString())
+        {list.filter((x)=>new Date(x.diary_date).toDateString()===choiceDate.toDateString())
         // eslint-disable-next-line no-loop-func
-          .map((data,index)=>{
-            return <DiaryList key={index} title={data.title} weather={data.weather} draw={data.drawing_url} contents={data.contents} date={data.diary_date} />})}
-        {exist.includes(format(choiceDate, 'yyyy-MM-dd'))?'':(<DiviContainer style={{zIndex: '-1'}}>
+          .map((data ,index )=>{
+            return <DiaryList key={index} id={data.id} title={data.title} weather={data.weather} draw={data.drawing_url} contents={data.contents} date={data.diary_date} emoji={''} />})}
+        {exist.includes(format(choiceDate, 'yyyy-MM-dd'))?'':(<DiviContainer style={{zIndex: '0'}}>
           <div style={{fontSize:'2.5rem', fontFamily:'KyoboHand', textAlign:'center'}}>
             <img src="images/write.PNG"  style={{width: '30%'}} alt="list"/>
             <div style={{display:'flex', flexDirection:'row', justifyContent:'center', marginBottom:'5px'}}><p style={{width:'17rem', margin:'0', color:'orange'}}>{choiceDate.getFullYear()}년 {format(choiceDate, 'M')}월 {choiceDate.getDate()}일</p>의</div>

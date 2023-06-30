@@ -9,16 +9,24 @@ import { useStore } from '../../store/store';
 import api from '../../apis/axios';
 import { format } from 'date-fns';
 
-function DiaryContent({ getLoading }) {
+type DiaryContentProps = {
+  getLoading: (load: boolean) => void;
+};
+
+interface RefObject {
+  isDoubleClick: boolean;
+}
+
+function DiaryContent(props:DiaryContentProps) {
   const navigate = useNavigate();
   const location = useLocation();
-  const [grim, setGrim] = useState(true); //그리기모드 버튼 클릭 여부
-  const [title, setTitle] = useState(''); //제목
-  const [content, setContent] = useState(''); //일기 내용
-  const [weather, setWeather] = useState(); //날씨 선택
+  const [grim, setGrim] = useState<boolean>(true); //그리기모드 버튼 클릭 여부
+  const [title, setTitle] = useState<string>(''); //제목
+  const [content, setContent] = useState<string>(''); //일기 내용
+  const [weather, setWeather] = useState<number>(); //날씨 선택
   const { updateCanvas, setChoiceImg, setGetGrimList } = useStore();
-  const [emoji, setEmoji] = useState('');
-  const variable = useRef({
+  const [emoji, setEmoji] = useState<string>('');
+  const variable = useRef<RefObject>({
     isDoubleClick: false
   });  //더블 클릭 방지 변수
   const Swal = require('sweetalert2');
@@ -28,7 +36,7 @@ function DiaryContent({ getLoading }) {
   let todayDate = date.getDate(); //일 구하기
 
   //이모지 받아오기
-  const getEmoji = (x) => {
+  const getEmoji = (x:string) => {
     setEmoji(x);
   };
 
@@ -52,10 +60,11 @@ function DiaryContent({ getLoading }) {
     let form = new FormData();
     form.append('user_id', user);
     form.append('title', title);
-    form.append('weather', weather);
+    form.append('weather', String(weather));
     form.append('emoji', emoji);
     form.append('contents', content);
     form.append('diary_date', format(date, 'yyyy-MM-dd'));
+    console.log(format(date, 'yyyy-MM-dd'));
     
     // 더블 클릭 방지 로직
     if(variable.current.isDoubleClick){
@@ -111,8 +120,8 @@ function DiaryContent({ getLoading }) {
       })
       .then(function (response) {
         console.log(response.data)
-        setChoiceImg('');
-        setGetGrimList('')
+        setChoiceImg([]);
+        setGetGrimList([])
         navigate('/list');
         variable.current.isDoubleClick=false;
       })
@@ -123,8 +132,8 @@ function DiaryContent({ getLoading }) {
   
   //AI키워드 그림 가져오기 버튼
   const bringGrim = async () => {
-    getLoading(true);
-    setGetGrimList('');
+    props.getLoading(true);
+    setGetGrimList([]);
     let form = new FormData();
     form.append('user_id', user);
     form.append('diary_date', format(date, 'yyyy-MM-dd'));
@@ -144,13 +153,13 @@ function DiaryContent({ getLoading }) {
                 showConfirmButton: false,
                 timer: 2000
               })
-              getLoading(false);
+              props.getLoading(false);
             } else {
               setGetGrimList(res.data);
-              getLoading(false);
+              props.getLoading(false);
             }
           }).catch(function (error) {
-            getLoading(false);
+            props.getLoading(false);
             if (error.response.data.ERROR === 'FAIL') {
               Swal.fire({
                 position: 'center',
@@ -168,12 +177,12 @@ function DiaryContent({ getLoading }) {
   
 
   //제목 내용
-  const onChange = (e) => {
+  const onChange = (e:any) => {
     setTitle(e.target.value);
   };
 
   //날씨 선택
-  const weatherChange = (weatherName) => {
+  const weatherChange = (weatherName:number) => {
     setWeather(weatherName);
   };
   //그리기 모드 버튼
@@ -181,8 +190,13 @@ function DiaryContent({ getLoading }) {
     setGrim((prev) => !prev);
   };
 
-  function WeatherBtn({ mood, number }) {
-    return <WeatherRadioBtn type='radio' id={mood} checked={weather === mood} onChange={() => weatherChange(number)} />;
+  interface WeatherBtnProps{
+    mood: string;
+    num: number;
+  }
+
+  function WeatherBtn({mood, num }:WeatherBtnProps) {
+    return <WeatherRadioBtn type='radio' id={mood} checked={weather === num} onChange={() => weatherChange(num)} />;
   }
 
   return (
@@ -194,13 +208,13 @@ function DiaryContent({ getLoading }) {
             {year}.{todayMonth}.{todayDate}
           </DateContent>
           <Weathercontainer style={{ marginTop: '5px' }}>
-            <WeatherBtn mood={'sunny'} number={1} />
+            <WeatherBtn mood='sunny' num={1} />
             <label htmlFor='sunny'>{weather === 1 ? <BsBrightnessHighFill size='29' color='red' /> : <BsBrightnessHighFill size='27' color='#8e8d8d' />}</label>
-            <WeatherBtn mood={'cloudy'} number={2} />
+            <WeatherBtn mood={'cloudy'} num={2} />
             <label htmlFor='cloudy'>
               {weather === 2 ? <BsFillCloudFill size='29' color='rgb(36 75 147)' /> : <BsFillCloudFill size='28' color='#8e8d8d' />}
             </label>
-            <WeatherBtn mood={'rainy'} number={3} />
+            <WeatherBtn mood={'rainy'} num={3} />
             <label htmlFor='rainy'>
               {weather === 3 ? (
                 <BsFillCloudRainFill size='28' style={{ paddingTop: '1.5px' }} color='rgb(76 76 76)' />
@@ -208,7 +222,7 @@ function DiaryContent({ getLoading }) {
                 <BsFillCloudRainFill size='26.5' style={{ paddingTop: '1.5px' }} color='#8e8d8d' />
               )}
             </label>
-            <WeatherBtn mood={'snow'} number={4} />
+            <WeatherBtn mood={'snow'} num={4} />
             <label htmlFor='snow'>
               {weather === 4 ? (
                 <BsFillCloudSnowFill size='28' style={{ paddingTop: '2px' }} color='#FFFAFA' />

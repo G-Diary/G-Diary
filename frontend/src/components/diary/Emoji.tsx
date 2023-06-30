@@ -1,15 +1,15 @@
-import React, {useEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
 import EmojiPicker, {EmojiStyle} from 'emoji-picker-react';
 
-function Emoji(props){
-  const [inputStr, setInputStr]=useState('🙂');
-  const [showPicker, setShowPicker]=useState(false);
+function Emoji(props:any){
+  const [inputStr, setInputStr]=useState<string>('🙂');
+  const [showPicker, setShowPicker]=useState<boolean>(false);
 
   useEffect(()=>{
     props.getEmoji(inputStr);
   },[inputStr, props])
 
-  const onEmojiClick=(emojiObject)=>{
+  const onEmojiClick=(emojiObject:any)=>{
     setInputStr(emojiObject.emoji);
     setShowPicker(false);
   }

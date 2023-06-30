@@ -35,7 +35,7 @@
 <b>
     
 🔗 [www.gdiary.org](http://www.gdiary.org)<br>
-    
+
 📓 [medium](https://medium.com/@dkfud2121/g-diary-3e90e87722a2)
     
 </b>
