@@ -2,6 +2,8 @@
 # Edit at https://www.toptal.com/developers/gitignore?templates=macos,windows
 node_modules/
 package-lock.json
+prometheus/data
+grafana/data
 ### macOS ###
 # General
 .DS_Store
